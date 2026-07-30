@@ -1,0 +1,3 @@
+632a1e082c4dd5a3284cf1ffcdba2fdaa06f435762c58c2f34aff0f3bd6c0249  /home/asus/work/hunyuanocr/models/HunyuanOCR-1.5/model.safetensors
+cc34ab90d0b873a1832c06e0f3fe127b47d7f390e8fda19445e4144068ed2af9  /home/asus/work/hunyuanocr/models/HunyuanOCR-1.5/config.json
+3e2ab46bcc5ed8bce013b245c6daecf19fa1d2a18f48a9c88a1f571dcbf7dfd3  /home/asus/work/hunyuanocr/models/HunyuanOCR-1.5/tokenizer.json

@@ -1,0 +1,19 @@
+{
+  "model_dir": "/home/asus/work/hunyuanocr/models/HunyuanOCR-1.5",
+  "model_class": "HunYuanVLForConditionalGeneration",
+  "processor_class": "HunYuanVLProcessor",
+  "model_type": "hunyuan_vl",
+  "parameter_count": 996208112,
+  "trainable_parameter_count": 996208112,
+  "parameter_dtype": "torch.float32",
+  "parameter_device": "cpu",
+  "processor_load_seconds": 0.5129045160010719,
+  "model_load_seconds": 0.9569366359992273,
+  "peak_rss_gib": 6.732524871826172,
+  "python_version": "3.12.3",
+  "torch_version": "2.12.1+cpu",
+  "torchvision_version": "0.27.1+cpu",
+  "transformers_version": "5.13.0",
+  "cuda_available": false,
+  "torch_threads": 9
+}

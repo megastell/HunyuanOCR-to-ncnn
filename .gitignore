@@ -44,3 +44,10 @@ Thumbs.db
 # Keep the tiny smoke-test models
 !tests/toolchain-smoke/model/tiny.ncnn.bin
 !tests/toolchain-smoke/model/tiny.pnnx.bin
+
+# Keep reference scripts under tools/
+!tools/reference/
+!tools/reference/**
+
+# Keep selected verification logs
+!docs/model_load_cpu_fp32.log

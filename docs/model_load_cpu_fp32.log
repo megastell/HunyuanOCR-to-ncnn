@@ -1,0 +1,54 @@
+===== Environment =====
+Python      : 3.12.3
+PyTorch     : 2.12.1+cpu
+torchvision : 0.27.1+cpu
+transformers: 5.13.0
+CUDA        : False
+Threads     : 9
+Model dir   : /home/asus/work/hunyuanocr/models/HunyuanOCR-1.5
+Initial peak RSS: 0.328 GiB
+
+===== Load processor =====
+[transformers] The `use_fast` parameter is deprecated and will be removed in a future version. Use `backend="torchvision"` instead of `use_fast=True`, or `backend="pil"` instead of `use_fast=False`.
+Processor class: HunYuanVLProcessor
+Processor load time: 0.513 s
+Peak RSS after processor: 0.480 GiB
+
+===== Load model =====
+Loading as CPU FP32 + eager attention...
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:   0%|          | 2/714 [00:00<00:38, 18.62it/s]Loading weights:  26%|██▌       | 187/714 [00:00<00:00, 1043.90it/s]Loading weights:  41%|████      | 294/714 [00:00<00:00, 1041.59it/s]Loading weights:  65%|██████▌   | 465/714 [00:00<00:00, 1298.27it/s]Loading weights:  90%|█████████ | 644/714 [00:00<00:00, 1445.66it/s]Loading weights: 100%|██████████| 714/714 [00:00<00:00, 1265.97it/s]
+Model loaded successfully.
+Model class: HunYuanVLForConditionalGeneration
+Config model_type: hunyuan_vl
+Parameter dtype: torch.float32
+Parameter device: cpu
+Parameter count: 996,208,112
+Trainable count: 996,208,112
+Model load time: 0.957 s
+Peak RSS after model: 6.733 GiB
+
+Report saved to: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/model_load_cpu_fp32.json
+✅ HunyuanOCR CPU FP32 模型加载成功。
+	Command being timed: "python tools/reference/test_model_load.py"
+	User time (seconds): 7.39
+	System time (seconds): 7.12
+	Percent of CPU this job got: 258%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.62
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7059564
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1361
+	Minor (reclaiming a frame) page faults: 1251626
+	Voluntary context switches: 21092
+	Involuntary context switches: 257
+	Swaps: 0
+	File system inputs: 445544
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
