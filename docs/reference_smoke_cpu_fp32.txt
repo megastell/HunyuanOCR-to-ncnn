@@ -1,0 +1,76 @@
+===== Configuration =====
+Model: /home/asus/work/hunyuanocr/models/HunyuanOCR-1.5
+Image: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/tests/assets/ocr_smoke_en.png
+Prompt: 请逐行识别图片中的所有文字。只输出图片中的文字本身，保留换行，不要解释。
+Threads: 9
+Max new tokens: 32
+Initial peak RSS: 0.329 GiB
+
+===== Load processor =====
+Processor: HunYuanVLProcessor
+
+===== Load model =====
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:   8%|▊         | 59/714 [00:00<00:01, 570.52it/s]Loading weights:  21%|██        | 148/714 [00:00<00:00, 754.32it/s]Loading weights:  33%|███▎      | 235/714 [00:00<00:00, 791.90it/s]Loading weights:  47%|████▋     | 338/714 [00:00<00:00, 871.97it/s]Loading weights:  66%|██████▌   | 468/714 [00:00<00:00, 1021.11it/s]Loading weights:  83%|████████▎ | 594/714 [00:00<00:00, 1085.15it/s]Loading weights: 100%|█████████▉| 712/714 [00:00<00:00, 1097.46it/s]Loading weights: 100%|██████████| 714/714 [00:00<00:00, 988.35it/s] 
+Model: HunYuanVLForConditionalGeneration
+Model load time: 1.037 s
+Peak RSS after model: 6.733 GiB
+
+===== Preprocess =====
+input_ids: shape=(1, 313), dtype=torch.int64
+attention_mask: shape=(1, 313), dtype=torch.int64
+mm_token_type_ids: shape=(1, 313), dtype=torch.int64
+pixel_values: shape=(1100, 768), dtype=torch.float32
+image_grid_thw: shape=(1, 3), dtype=torch.int64
+Preprocess time: 0.031 s
+Input token length: 313
+
+===== Deterministic generation =====
+Run 1: 4.155 s, 11 new tokens
+Token IDs: [93892, 5112, 206, 1717, 21, 185, 18009, 15613, 16678, 21836, 120007]
+Output:
+HELLO 2026
+NCNN CPU TEST
+
+Run 2: 4.270 s, 11 new tokens
+Token IDs: [93892, 5112, 206, 1717, 21, 185, 18009, 15613, 16678, 21836, 120007]
+Output:
+HELLO 2026
+NCNN CPU TEST
+
+Run 3: 3.784 s, 11 new tokens
+Token IDs: [93892, 5112, 206, 1717, 21, 185, 18009, 15613, 16678, 21836, 120007]
+Output:
+HELLO 2026
+NCNN CPU TEST
+
+===== Result =====
+Tokens identical across 3 runs: True
+Texts identical across 3 runs: True
+Exact expected-text match: True
+Peak RSS: 6.733 GiB
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/reference_smoke_cpu_fp32.json
+Reference tensors: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32
+✅ 确定性 CPU OCR 参考基准生成成功。
+	Command being timed: "python tools/reference/run_reference_smoke.py"
+	User time (seconds): 108.57
+	System time (seconds): 15.76
+	Percent of CPU this job got: 723%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7059724
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 14734
+	Minor (reclaiming a frame) page faults: 6373474
+	Voluntary context switches: 29611
+	Involuntary context switches: 724
+	Swaps: 0
+	File system inputs: 4871928
+	File system outputs: 6672
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

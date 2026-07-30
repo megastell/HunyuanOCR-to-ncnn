@@ -1,0 +1,9 @@
+{
+  "image_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/tests/assets/ocr_smoke_en.png",
+  "width": 768,
+  "height": 320,
+  "mode": "RGB",
+  "font_path": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+  "expected_text": "HELLO 2026\nNCNN CPU TEST",
+  "sha256": "6dfb4ee4e85fe56a06bae1c5669c0eaac8745baf39999d3cd0ec1f6b1ada4266"
+}

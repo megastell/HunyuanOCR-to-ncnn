@@ -1,0 +1,94 @@
+{
+  "model_dir": "/home/asus/work/hunyuanocr/models/HunyuanOCR-1.5",
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "image_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/tests/assets/ocr_smoke_en.png",
+  "image_sha256": "6dfb4ee4e85fe56a06bae1c5669c0eaac8745baf39999d3cd0ec1f6b1ada4266",
+  "prompt": "请逐行识别图片中的所有文字。只输出图片中的文字本身，保留换行，不要解释。",
+  "expected_text": "HELLO 2026\nNCNN CPU TEST",
+  "generated_text": "HELLO 2026\nNCNN CPU TEST",
+  "exact_expected_match": true,
+  "run_count": 3,
+  "tokens_identical_across_runs": true,
+  "texts_identical_across_runs": true,
+  "generated_token_ids": [
+    93892,
+    5112,
+    206,
+    1717,
+    21,
+    185,
+    18009,
+    15613,
+    16678,
+    21836,
+    120007
+  ],
+  "input_length": 313,
+  "new_token_count": 11,
+  "max_new_tokens": 32,
+  "do_sample": false,
+  "use_cache": true,
+  "repetition_penalty": 1.0,
+  "torch_threads": 9,
+  "model_load_seconds": 1.0368922289999318,
+  "preprocess_seconds": 0.030665360000057262,
+  "generation_seconds": [
+    4.154665156998817,
+    4.269607705000453,
+    3.783881031000419
+  ],
+  "peak_rss_gib": 6.732677459716797,
+  "input_tensors": {
+    "input_ids": {
+      "shape": [
+        1,
+        313
+      ],
+      "dtype": "torch.int64",
+      "device": "cpu",
+      "numel": 313
+    },
+    "attention_mask": {
+      "shape": [
+        1,
+        313
+      ],
+      "dtype": "torch.int64",
+      "device": "cpu",
+      "numel": 313
+    },
+    "mm_token_type_ids": {
+      "shape": [
+        1,
+        313
+      ],
+      "dtype": "torch.int64",
+      "device": "cpu",
+      "numel": 313
+    },
+    "pixel_values": {
+      "shape": [
+        1100,
+        768
+      ],
+      "dtype": "torch.float32",
+      "device": "cpu",
+      "numel": 844800
+    },
+    "image_grid_thw": {
+      "shape": [
+        1,
+        3
+      ],
+      "dtype": "torch.int64",
+      "device": "cpu",
+      "numel": 3
+    }
+  },
+  "python_version": "3.12.3",
+  "torch_version": "2.12.1+cpu",
+  "transformers_version": "5.13.0",
+  "device": "cpu",
+  "model_dtype": "float32",
+  "attention_implementation": "eager"
+}
