@@ -1,0 +1,522 @@
+{
+  "model_dir": "/home/asus/work/hunyuanocr/models/HunyuanOCR-1.5",
+  "model_class": "HunYuanVLForConditionalGeneration",
+  "model_forward_signature": "(input_ids: torch.LongTensor | None = None, attention_mask: torch.Tensor | None = None, position_ids: torch.LongTensor | None = None, past_key_values: transformers.cache_utils.Cache | None = None, inputs_embeds: torch.FloatTensor | None = None, labels: torch.LongTensor | None = None, use_cache: bool | None = None, logits_to_keep: int | torch.Tensor = 0, pixel_values: torch.FloatTensor | None = None, image_grid_thw: torch.LongTensor | None = None, mm_token_type_ids: torch.IntTensor | None = None, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> transformers.modeling_outputs.CausalLMOutputWithPast",
+  "total_parameters": 996208112,
+  "input_embedding_path": "model.language_model.embed_tokens",
+  "input_embedding_class": "Embedding",
+  "output_embedding_path": "lm_head",
+  "output_embedding_class": "Linear",
+  "top_level_children": [
+    {
+      "path": "model",
+      "class": "HunYuanVLModel",
+      "own_parameters": 0,
+      "recursive_parameters": 996208112,
+      "forward_signature": "(input_ids: torch.LongTensor | None = None, attention_mask: torch.Tensor | None = None, position_ids: torch.LongTensor | None = None, past_key_values: transformers.cache_utils.Cache | None = None, inputs_embeds: torch.FloatTensor | None = None, use_cache: bool | None = None, pixel_values: torch.FloatTensor | None = None, image_grid_thw: torch.LongTensor | None = None, mm_token_type_ids: torch.IntTensor | None = None, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> transformers.models.hunyuan_vl.modeling_hunyuan_vl.HunYuanVLModelOutputWithPast"
+    },
+    {
+      "path": "lm_head",
+      "class": "Linear",
+      "own_parameters": 123717632,
+      "recursive_parameters": 123717632,
+      "forward_signature": "(input: torch.Tensor) -> torch.Tensor"
+    }
+  ],
+  "module_lists": [
+    {
+      "path": "model.language_model.layers",
+      "class": "ModuleList",
+      "length": 24,
+      "parameters": 415291392
+    },
+    {
+      "path": "model.vision_tower.layers",
+      "class": "ModuleList",
+      "length": 27,
+      "parameters": 411466608
+    }
+  ],
+  "vision_candidates": [
+    {
+      "path": "model.vision_tower",
+      "class": "HunYuanVLVisionTransformer",
+      "parameters": 457198064,
+      "forward_signature": "(pixel_values: torch.Tensor, grid_thw: torch.LongTensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> transformers.modeling_outputs.BaseModelOutputWithPooling"
+    },
+    {
+      "path": "model.vision_tower.embeddings",
+      "class": "HunYuanVLVisionPatchEmbed",
+      "parameters": 19761408,
+      "forward_signature": "(pixel_values: torch.Tensor, grid_thw: list[list[int]]) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.embeddings.patch_embedding",
+      "class": "Conv2d",
+      "parameters": 885888,
+      "forward_signature": "(input: torch.Tensor) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.embeddings.position_embedding",
+      "class": "Embedding",
+      "parameters": 18875520,
+      "forward_signature": "(input: torch.Tensor) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.layers",
+      "class": "ModuleList",
+      "parameters": 411466608,
+      "forward_signature": "(*input: Any) -> None"
+    },
+    {
+      "path": "model.vision_tower.layers.0",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.1",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.2",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.3",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.4",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.5",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.6",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.7",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.8",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.9",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.10",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.11",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.12",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.13",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.14",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.15",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.16",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.17",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.18",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.19",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.20",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.21",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.22",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.23",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.24",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.25",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.layers.26",
+      "class": "HunYuanVLVisionBlock",
+      "parameters": 15239504,
+      "forward_signature": "(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor"
+    },
+    {
+      "path": "model.vision_tower.patch_merger",
+      "class": "HunYuanVLVisionPatchMerger",
+      "parameters": 25970048,
+      "forward_signature": "(hidden_states: torch.Tensor, size: tuple[int, int]) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.patch_merger.proj_conv",
+      "class": "Conv2d",
+      "parameters": 10619136,
+      "forward_signature": "(input: torch.Tensor) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.patch_merger.proj_act",
+      "class": "GELUActivation",
+      "parameters": 0,
+      "forward_signature": "(input: torch.Tensor) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.patch_merger.proj_out",
+      "class": "Conv2d",
+      "parameters": 10621440,
+      "forward_signature": "(input: torch.Tensor) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.patch_merger.mlp",
+      "class": "Linear",
+      "parameters": 4719616,
+      "forward_signature": "(input: torch.Tensor) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.patch_merger.before_rms",
+      "class": "HunYuanVLRMSNorm",
+      "parameters": 1152,
+      "forward_signature": "(hidden_states: torch.Tensor) -> torch.Tensor"
+    },
+    {
+      "path": "model.vision_tower.patch_merger.after_rms",
+      "class": "HunYuanVLRMSNorm",
+      "parameters": 1024,
+      "forward_signature": "(hidden_states: torch.Tensor) -> torch.Tensor"
+    }
+  ],
+  "embedding_candidates": [
+    {
+      "path": "model.language_model.embed_tokens",
+      "class": "Embedding",
+      "parameters": 123717632
+    },
+    {
+      "path": "model.vision_tower.embeddings.position_embedding",
+      "class": "Embedding",
+      "parameters": 18875520
+    }
+  ],
+  "head_candidates": [
+    {
+      "path": "lm_head",
+      "class": "Linear",
+      "parameters": 123717632,
+      "forward_signature": "(input: torch.Tensor) -> torch.Tensor"
+    }
+  ],
+  "tree_depth_3": [
+    {
+      "path": "model",
+      "class": "HunYuanVLModel",
+      "depth": 1,
+      "own_parameters": 0,
+      "recursive_parameters": 996208112
+    },
+    {
+      "path": "model.language_model",
+      "class": "HunYuanVLTextModel",
+      "depth": 2,
+      "own_parameters": 0,
+      "recursive_parameters": 539010048
+    },
+    {
+      "path": "model.language_model.embed_tokens",
+      "class": "Embedding",
+      "depth": 3,
+      "own_parameters": 123717632,
+      "recursive_parameters": 123717632
+    },
+    {
+      "path": "model.language_model.layers",
+      "class": "ModuleList",
+      "depth": 3,
+      "own_parameters": 0,
+      "recursive_parameters": 415291392
+    },
+    {
+      "path": "model.language_model.norm",
+      "class": "HunYuanVLRMSNorm",
+      "depth": 3,
+      "own_parameters": 1024,
+      "recursive_parameters": 1024
+    },
+    {
+      "path": "model.language_model.rotary_emb",
+      "class": "HunYuanVLRotaryEmbedding",
+      "depth": 3,
+      "own_parameters": 0,
+      "recursive_parameters": 0
+    },
+    {
+      "path": "model.vision_tower",
+      "class": "HunYuanVLVisionTransformer",
+      "depth": 2,
+      "own_parameters": 0,
+      "recursive_parameters": 457198064
+    },
+    {
+      "path": "model.vision_tower.embeddings",
+      "class": "HunYuanVLVisionPatchEmbed",
+      "depth": 3,
+      "own_parameters": 0,
+      "recursive_parameters": 19761408
+    },
+    {
+      "path": "model.vision_tower.layers",
+      "class": "ModuleList",
+      "depth": 3,
+      "own_parameters": 0,
+      "recursive_parameters": 411466608
+    },
+    {
+      "path": "model.vision_tower.patch_merger",
+      "class": "HunYuanVLVisionPatchMerger",
+      "depth": 3,
+      "own_parameters": 7680,
+      "recursive_parameters": 25970048
+    },
+    {
+      "path": "lm_head",
+      "class": "Linear",
+      "depth": 1,
+      "own_parameters": 123717632,
+      "recursive_parameters": 123717632
+    }
+  ],
+  "parameter_prefix_counts": {
+    "1": [
+      {
+        "prefix": "model",
+        "parameters": 996208112
+      }
+    ],
+    "2": [
+      {
+        "prefix": "model.language_model",
+        "parameters": 539010048
+      },
+      {
+        "prefix": "model.vision_tower",
+        "parameters": 457198064
+      }
+    ],
+    "3": [
+      {
+        "prefix": "model.language_model.layers",
+        "parameters": 415291392
+      },
+      {
+        "prefix": "model.vision_tower.layers",
+        "parameters": 411466608
+      },
+      {
+        "prefix": "model.language_model.embed_tokens",
+        "parameters": 123717632
+      },
+      {
+        "prefix": "model.vision_tower.patch_merger",
+        "parameters": 25970048
+      },
+      {
+        "prefix": "model.vision_tower.embeddings",
+        "parameters": 19761408
+      },
+      {
+        "prefix": "model.language_model.norm",
+        "parameters": 1024
+      }
+    ]
+  },
+  "parameter_name_count": 713,
+  "first_100_parameter_names": [
+    "model.language_model.embed_tokens.weight",
+    "model.language_model.layers.0.self_attn.q_proj.weight",
+    "model.language_model.layers.0.self_attn.k_proj.weight",
+    "model.language_model.layers.0.self_attn.v_proj.weight",
+    "model.language_model.layers.0.self_attn.o_proj.weight",
+    "model.language_model.layers.0.self_attn.query_layernorm.weight",
+    "model.language_model.layers.0.self_attn.key_layernorm.weight",
+    "model.language_model.layers.0.mlp.gate_proj.weight",
+    "model.language_model.layers.0.mlp.up_proj.weight",
+    "model.language_model.layers.0.mlp.down_proj.weight",
+    "model.language_model.layers.0.input_layernorm.weight",
+    "model.language_model.layers.0.post_attention_layernorm.weight",
+    "model.language_model.layers.1.self_attn.q_proj.weight",
+    "model.language_model.layers.1.self_attn.k_proj.weight",
+    "model.language_model.layers.1.self_attn.v_proj.weight",
+    "model.language_model.layers.1.self_attn.o_proj.weight",
+    "model.language_model.layers.1.self_attn.query_layernorm.weight",
+    "model.language_model.layers.1.self_attn.key_layernorm.weight",
+    "model.language_model.layers.1.mlp.gate_proj.weight",
+    "model.language_model.layers.1.mlp.up_proj.weight",
+    "model.language_model.layers.1.mlp.down_proj.weight",
+    "model.language_model.layers.1.input_layernorm.weight",
+    "model.language_model.layers.1.post_attention_layernorm.weight",
+    "model.language_model.layers.2.self_attn.q_proj.weight",
+    "model.language_model.layers.2.self_attn.k_proj.weight",
+    "model.language_model.layers.2.self_attn.v_proj.weight",
+    "model.language_model.layers.2.self_attn.o_proj.weight",
+    "model.language_model.layers.2.self_attn.query_layernorm.weight",
+    "model.language_model.layers.2.self_attn.key_layernorm.weight",
+    "model.language_model.layers.2.mlp.gate_proj.weight",
+    "model.language_model.layers.2.mlp.up_proj.weight",
+    "model.language_model.layers.2.mlp.down_proj.weight",
+    "model.language_model.layers.2.input_layernorm.weight",
+    "model.language_model.layers.2.post_attention_layernorm.weight",
+    "model.language_model.layers.3.self_attn.q_proj.weight",
+    "model.language_model.layers.3.self_attn.k_proj.weight",
+    "model.language_model.layers.3.self_attn.v_proj.weight",
+    "model.language_model.layers.3.self_attn.o_proj.weight",
+    "model.language_model.layers.3.self_attn.query_layernorm.weight",
+    "model.language_model.layers.3.self_attn.key_layernorm.weight",
+    "model.language_model.layers.3.mlp.gate_proj.weight",
+    "model.language_model.layers.3.mlp.up_proj.weight",
+    "model.language_model.layers.3.mlp.down_proj.weight",
+    "model.language_model.layers.3.input_layernorm.weight",
+    "model.language_model.layers.3.post_attention_layernorm.weight",
+    "model.language_model.layers.4.self_attn.q_proj.weight",
+    "model.language_model.layers.4.self_attn.k_proj.weight",
+    "model.language_model.layers.4.self_attn.v_proj.weight",
+    "model.language_model.layers.4.self_attn.o_proj.weight",
+    "model.language_model.layers.4.self_attn.query_layernorm.weight",
+    "model.language_model.layers.4.self_attn.key_layernorm.weight",
+    "model.language_model.layers.4.mlp.gate_proj.weight",
+    "model.language_model.layers.4.mlp.up_proj.weight",
+    "model.language_model.layers.4.mlp.down_proj.weight",
+    "model.language_model.layers.4.input_layernorm.weight",
+    "model.language_model.layers.4.post_attention_layernorm.weight",
+    "model.language_model.layers.5.self_attn.q_proj.weight",
+    "model.language_model.layers.5.self_attn.k_proj.weight",
+    "model.language_model.layers.5.self_attn.v_proj.weight",
+    "model.language_model.layers.5.self_attn.o_proj.weight",
+    "model.language_model.layers.5.self_attn.query_layernorm.weight",
+    "model.language_model.layers.5.self_attn.key_layernorm.weight",
+    "model.language_model.layers.5.mlp.gate_proj.weight",
+    "model.language_model.layers.5.mlp.up_proj.weight",
+    "model.language_model.layers.5.mlp.down_proj.weight",
+    "model.language_model.layers.5.input_layernorm.weight",
+    "model.language_model.layers.5.post_attention_layernorm.weight",
+    "model.language_model.layers.6.self_attn.q_proj.weight",
+    "model.language_model.layers.6.self_attn.k_proj.weight",
+    "model.language_model.layers.6.self_attn.v_proj.weight",
+    "model.language_model.layers.6.self_attn.o_proj.weight",
+    "model.language_model.layers.6.self_attn.query_layernorm.weight",
+    "model.language_model.layers.6.self_attn.key_layernorm.weight",
+    "model.language_model.layers.6.mlp.gate_proj.weight",
+    "model.language_model.layers.6.mlp.up_proj.weight",
+    "model.language_model.layers.6.mlp.down_proj.weight",
+    "model.language_model.layers.6.input_layernorm.weight",
+    "model.language_model.layers.6.post_attention_layernorm.weight",
+    "model.language_model.layers.7.self_attn.q_proj.weight",
+    "model.language_model.layers.7.self_attn.k_proj.weight",
+    "model.language_model.layers.7.self_attn.v_proj.weight",
+    "model.language_model.layers.7.self_attn.o_proj.weight",
+    "model.language_model.layers.7.self_attn.query_layernorm.weight",
+    "model.language_model.layers.7.self_attn.key_layernorm.weight",
+    "model.language_model.layers.7.mlp.gate_proj.weight",
+    "model.language_model.layers.7.mlp.up_proj.weight",
+    "model.language_model.layers.7.mlp.down_proj.weight",
+    "model.language_model.layers.7.input_layernorm.weight",
+    "model.language_model.layers.7.post_attention_layernorm.weight",
+    "model.language_model.layers.8.self_attn.q_proj.weight",
+    "model.language_model.layers.8.self_attn.k_proj.weight",
+    "model.language_model.layers.8.self_attn.v_proj.weight",
+    "model.language_model.layers.8.self_attn.o_proj.weight",
+    "model.language_model.layers.8.self_attn.query_layernorm.weight",
+    "model.language_model.layers.8.self_attn.key_layernorm.weight",
+    "model.language_model.layers.8.mlp.gate_proj.weight",
+    "model.language_model.layers.8.mlp.up_proj.weight",
+    "model.language_model.layers.8.mlp.down_proj.weight",
+    "model.language_model.layers.8.input_layernorm.weight",
+    "model.language_model.layers.8.post_attention_layernorm.weight"
+  ]
+}

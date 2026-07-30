@@ -1,0 +1,119 @@
+===== MODEL =====
+class: HunYuanVLForConditionalGeneration
+total parameters: 996,208,112
+forward: (input_ids: torch.LongTensor | None = None, attention_mask: torch.Tensor | None = None, position_ids: torch.LongTensor | None = None, past_key_values: transformers.cache_utils.Cache | None = None, inputs_embeds: torch.FloatTensor | None = None, labels: torch.LongTensor | None = None, use_cache: bool | None = None, logits_to_keep: int | torch.Tensor = 0, pixel_values: torch.FloatTensor | None = None, image_grid_thw: torch.LongTensor | None = None, mm_token_type_ids: torch.IntTensor | None = None, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> transformers.modeling_outputs.CausalLMOutputWithPast
+
+===== INPUT / OUTPUT EMBEDDINGS =====
+input embedding: model.language_model.embed_tokens (Embedding)
+output embedding: lm_head (Linear)
+
+===== TOP-LEVEL CHILDREN =====
+model | HunYuanVLModel | params=996,208,112
+  forward(input_ids: torch.LongTensor | None = None, attention_mask: torch.Tensor | None = None, position_ids: torch.LongTensor | None = None, past_key_values: transformers.cache_utils.Cache | None = None, inputs_embeds: torch.FloatTensor | None = None, use_cache: bool | None = None, pixel_values: torch.FloatTensor | None = None, image_grid_thw: torch.LongTensor | None = None, mm_token_type_ids: torch.IntTensor | None = None, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> transformers.models.hunyuan_vl.modeling_hunyuan_vl.HunYuanVLModelOutputWithPast
+lm_head | Linear | params=123,717,632
+  forward(input: torch.Tensor) -> torch.Tensor
+
+===== MODULELIST CANDIDATES =====
+model.language_model.layers | ModuleList | length=24 | params=415,291,392
+model.vision_tower.layers | ModuleList | length=27 | params=411,466,608
+
+===== VISION CANDIDATES =====
+model.vision_tower | HunYuanVLVisionTransformer | params=457,198,064
+  forward(pixel_values: torch.Tensor, grid_thw: torch.LongTensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> transformers.modeling_outputs.BaseModelOutputWithPooling
+model.vision_tower.embeddings | HunYuanVLVisionPatchEmbed | params=19,761,408
+  forward(pixel_values: torch.Tensor, grid_thw: list[list[int]]) -> torch.Tensor
+model.vision_tower.embeddings.patch_embedding | Conv2d | params=885,888
+  forward(input: torch.Tensor) -> torch.Tensor
+model.vision_tower.embeddings.position_embedding | Embedding | params=18,875,520
+  forward(input: torch.Tensor) -> torch.Tensor
+model.vision_tower.layers | ModuleList | params=411,466,608
+  forward(*input: Any) -> None
+model.vision_tower.layers.0 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.1 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.2 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.3 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.4 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.5 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.6 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.7 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.8 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.9 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.10 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.11 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.12 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.13 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.14 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.15 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.16 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.17 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.18 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.19 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.20 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.21 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.22 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.23 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.24 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.25 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.layers.26 | HunYuanVLVisionBlock | params=15,239,504
+  forward(hidden_states: torch.Tensor, attention_mask: torch.Tensor, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.FloatTensor
+model.vision_tower.patch_merger | HunYuanVLVisionPatchMerger | params=25,970,048
+  forward(hidden_states: torch.Tensor, size: tuple[int, int]) -> torch.Tensor
+model.vision_tower.patch_merger.proj_conv | Conv2d | params=10,619,136
+  forward(input: torch.Tensor) -> torch.Tensor
+model.vision_tower.patch_merger.proj_act | GELUActivation | params=0
+  forward(input: torch.Tensor) -> torch.Tensor
+model.vision_tower.patch_merger.proj_out | Conv2d | params=10,621,440
+  forward(input: torch.Tensor) -> torch.Tensor
+model.vision_tower.patch_merger.mlp | Linear | params=4,719,616
+  forward(input: torch.Tensor) -> torch.Tensor
+model.vision_tower.patch_merger.before_rms | HunYuanVLRMSNorm | params=1,152
+  forward(hidden_states: torch.Tensor) -> torch.Tensor
+model.vision_tower.patch_merger.after_rms | HunYuanVLRMSNorm | params=1,024
+  forward(hidden_states: torch.Tensor) -> torch.Tensor
+
+===== EMBEDDING CANDIDATES =====
+model.language_model.embed_tokens | Embedding | params=123,717,632
+model.vision_tower.embeddings.position_embedding | Embedding | params=18,875,520
+
+===== HEAD CANDIDATES =====
+lm_head | Linear | params=123,717,632
+  forward(input: torch.Tensor) -> torch.Tensor
+
+===== MODULE TREE, DEPTH <= 3 =====
+model | HunYuanVLModel | own=0 | recursive=996,208,112
+  model.language_model | HunYuanVLTextModel | own=0 | recursive=539,010,048
+    model.language_model.embed_tokens | Embedding | own=123,717,632 | recursive=123,717,632
+    model.language_model.layers | ModuleList | own=0 | recursive=415,291,392
+    model.language_model.norm | HunYuanVLRMSNorm | own=1,024 | recursive=1,024
+    model.language_model.rotary_emb | HunYuanVLRotaryEmbedding | own=0 | recursive=0
+  model.vision_tower | HunYuanVLVisionTransformer | own=0 | recursive=457,198,064
+    model.vision_tower.embeddings | HunYuanVLVisionPatchEmbed | own=0 | recursive=19,761,408
+    model.vision_tower.layers | ModuleList | own=0 | recursive=411,466,608
+    model.vision_tower.patch_merger | HunYuanVLVisionPatchMerger | own=7,680 | recursive=25,970,048
+lm_head | Linear | own=123,717,632 | recursive=123,717,632
