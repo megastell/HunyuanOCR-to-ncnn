@@ -1,0 +1,46 @@
+# Build directories
+build/
+build-*/
+out/
+.vs/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.venv-*/
+*.egg-info/
+
+# Large model files
+models/
+checkpoints/
+hf-cache/
+*.safetensors
+*.pth
+*.ckpt
+*.gguf
+
+# Large converted weights
+artifacts/
+*.pnnx.bin
+*.ncnn.bin
+
+# Reference tensor dumps
+reference/
+tensor_dumps/
+*.npy
+*.npz
+
+# Logs and temporary files
+logs/
+*.log
+*.tmp
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Keep the tiny smoke-test models
+!tests/toolchain-smoke/model/tiny.ncnn.bin
+!tests/toolchain-smoke/model/tiny.pnnx.bin

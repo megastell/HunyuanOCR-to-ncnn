@@ -1,0 +1,37 @@
+Generated: 2026-07-30T18:49:57+08:00
+
+OS:
+PRETTY_NAME="Ubuntu 24.04.4 LTS"
+
+Kernel:
+Linux DESKTOP-7DJURK3 6.6.114.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Mon Dec  1 20:46:23 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+
+CPU:
+CPU(s):                                  18
+On-line CPU(s) list:                     0-17
+Model name:                              Intel(R) Core(TM) i5-14600K
+Thread(s) per core:                      2
+Core(s) per socket:                      9
+NUMA node0 CPU(s):                       0-17
+
+Memory:
+               total        used        free      shared  buff/cache   available
+Mem:            23Gi       681Mi        22Gi       3.5Mi       281Mi        22Gi
+Swap:           32Gi          0B        32Gi
+
+Compiler:
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+
+CMake:
+cmake version 3.28.3
+
+Python:
+Python 3.12.3
+
+PyTorch / pnnx:
+torch = 2.12.1+cpu
+pnnx = 20260704
+cuda_available = False
+
+ncnn commit:
+a4d2ea1d4422c9e849f166fd7a4aefb52f942f6a
