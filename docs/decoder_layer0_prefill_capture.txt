@@ -1,0 +1,60 @@
+===== Load model =====
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:   0%|          | 1/714 [00:00<02:15,  5.25it/s]Loading weights:  18%|█▊        | 125/714 [00:00<00:01, 533.62it/s]Loading weights:  29%|██▉       | 208/714 [00:00<00:00, 632.17it/s]Loading weights:  40%|███▉      | 284/714 [00:00<00:00, 671.79it/s]Loading weights:  56%|█████▋    | 402/714 [00:00<00:00, 820.84it/s]Loading weights:  72%|███████▏  | 516/714 [00:00<00:00, 918.89it/s]Loading weights:  89%|████████▊ | 632/714 [00:00<00:00, 993.45it/s]Loading weights: 100%|██████████| 714/714 [00:00<00:00, 805.40it/s]
+Layer class: HunYuanVLDenseV1DecoderLayer
+Load time: 1.166 s
+
+===== Full-model prefill capture =====
+Full forward time: 3.722 s
+
+===== Independent Layer 0 call =====
+Independent time: 0.028 s
+Independent max abs error: 0.0
+Independent mean abs error: 0.0
+
+===== Captured tensors =====
+attention_mask                   shape=(1, 1, 313, 313)         dtype=torch.float32
+attention_output                 shape=(1, 313, 1024)           dtype=torch.float32
+independent_layer_output         shape=(1, 313, 1024)           dtype=torch.float32
+input_layernorm_output           shape=(1, 313, 1024)           dtype=torch.float32
+k_projection_output              shape=(1, 313, 1024)           dtype=torch.float32
+key_layernorm_output             shape=(1, 8, 313, 128)         dtype=torch.float32
+layer_input                      shape=(1, 313, 1024)           dtype=torch.float32
+layer_output                     shape=(1, 313, 1024)           dtype=torch.float32
+mlp_down_output                  shape=(1, 313, 1024)           dtype=torch.float32
+mlp_gate_output                  shape=(1, 313, 3584)           dtype=torch.float32
+mlp_output                       shape=(1, 313, 1024)           dtype=torch.float32
+mlp_up_output                    shape=(1, 313, 3584)           dtype=torch.float32
+o_projection_output              shape=(1, 313, 1024)           dtype=torch.float32
+post_attention_layernorm_output  shape=(1, 313, 1024)           dtype=torch.float32
+q_projection_output              shape=(1, 313, 2048)           dtype=torch.float32
+query_layernorm_output           shape=(1, 16, 313, 128)        dtype=torch.float32
+rope_cos                         shape=(4, 1, 313, 128)         dtype=torch.float32
+rope_sin                         shape=(4, 1, 313, 128)         dtype=torch.float32
+v_projection_output              shape=(1, 313, 1024)           dtype=torch.float32
+
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decoder_layer0_prefill_contract.json
+Tensor directory: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill
+✅ Decoder Layer 0 Prefill契约捕获成功。
+	Command being timed: "python tools/reference/capture_decoder_layer0_prefill.py"
+	User time (seconds): 36.55
+	System time (seconds): 7.96
+	Percent of CPU this job got: 507%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.76
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6922044
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 15467
+	Minor (reclaiming a frame) page faults: 2944942
+	Voluntary context switches: 34130
+	Involuntary context switches: 149
+	Swaps: 0
+	File system inputs: 4854928
+	File system outputs: 61024
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

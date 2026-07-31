@@ -1,0 +1,338 @@
+{
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "module_path": "model.language_model.layers.0",
+  "module_class": "HunYuanVLDenseV1DecoderLayer",
+  "sequence_length": 313,
+  "hidden_size": 1024,
+  "device": "cpu",
+  "dtype": "float32",
+  "torch_threads": 9,
+  "model_load_seconds": 1.166348550003022,
+  "full_forward_seconds": 3.7222271640057443,
+  "independent_layer_seconds": 0.02778850200411398,
+  "independent_max_abs_error": 0.0,
+  "independent_mean_abs_error": 0.0,
+  "call_metadata": {
+    "past_key_values_is_none": true,
+    "use_cache": false,
+    "call_keyword_names": [
+      "attention_mask",
+      "hidden_states",
+      "past_key_values",
+      "position_embeddings",
+      "position_ids",
+      "use_cache"
+    ]
+  },
+  "captured_tensors": {
+    "attention_mask": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/attention_mask.npy",
+      "shape": [
+        1,
+        1,
+        313,
+        313
+      ],
+      "dtype": "torch.float32",
+      "numel": 97969,
+      "sha256": "83fd54743bc2d354a2abe42a039c3b7175eef5f23499dabcb0e32113d2868f5e",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -3.4028234663852886e+38,
+      "finite_max": 0.0,
+      "finite_mean": -Infinity
+    },
+    "attention_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/attention_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "0395f6ca242182e582239721685d8f787f394b1566f6abaa6c4707aaeec8bd66",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -2.4914605617523193,
+      "finite_max": 9.426610946655273,
+      "finite_mean": 0.004827909171581268
+    },
+    "independent_layer_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/independent_layer_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "499f6f070f789fcd91fc32bde4aba8323dbfe10e505377382c5d60d6fa85d18b",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -16.43325424194336,
+      "finite_max": 110.1541748046875,
+      "finite_mean": -0.008692948147654533
+    },
+    "input_layernorm_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/input_layernorm_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "bb6e56333cd390cdd59e14a8abef9198ed1481f4624f4074ba9b822e803cb8b7",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -0.6795071959495544,
+      "finite_max": 0.4279487431049347,
+      "finite_mean": -0.00034949410473927855
+    },
+    "k_projection_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/k_projection_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "429aa64b27d3a60aba055078694a0bb9733d6cd3652edc38d37a6ebba6f9aac9",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -0.3600083887577057,
+      "finite_max": 0.28158557415008545,
+      "finite_mean": 8.607305062469095e-05
+    },
+    "key_layernorm_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/key_layernorm_output.npy",
+      "shape": [
+        1,
+        8,
+        313,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "deabf30ee5c4c028f4a6238269cce9567a6b41e018610a089f5a77cd5b1eb029",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -9.10250186920166,
+      "finite_max": 11.014780044555664,
+      "finite_mean": 0.003628822974860668
+    },
+    "layer_input": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/layer_input.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "6495537725e2ca1101f2e4f92874f5e2cab96bf1834f991c4d76d1000a71ed11",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -19.66667938232422,
+      "finite_max": 7.11028528213501,
+      "finite_mean": -0.014032484032213688
+    },
+    "layer_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/layer_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "499f6f070f789fcd91fc32bde4aba8323dbfe10e505377382c5d60d6fa85d18b",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -16.43325424194336,
+      "finite_max": 110.1541748046875,
+      "finite_mean": -0.008692948147654533
+    },
+    "mlp_down_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/mlp_down_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "f5b450ef26fd7ca8805332b0c147c3756d3f4978f270c2de464deb971863dc1f",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -1.0484000444412231,
+      "finite_max": 110.09324645996094,
+      "finite_mean": 0.0005116282845847309
+    },
+    "mlp_gate_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/mlp_gate_output.npy",
+      "shape": [
+        1,
+        313,
+        3584
+      ],
+      "dtype": "torch.float32",
+      "numel": 1121792,
+      "sha256": "66736bbc75dabc517f78079765e45a67a3a504a57563e91d614b5a83c95d2da8",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -2.2428841590881348,
+      "finite_max": 11.388059616088867,
+      "finite_mean": 0.007384475786238909
+    },
+    "mlp_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/mlp_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "f5b450ef26fd7ca8805332b0c147c3756d3f4978f270c2de464deb971863dc1f",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -1.0484000444412231,
+      "finite_max": 110.09324645996094,
+      "finite_mean": 0.0005116282845847309
+    },
+    "mlp_up_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/mlp_up_output.npy",
+      "shape": [
+        1,
+        313,
+        3584
+      ],
+      "dtype": "torch.float32",
+      "numel": 1121792,
+      "sha256": "98e31d93cbf92cd335443e80e46e8b38380d63dd732096503e82e2eddeb5d8d4",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -1.2761757373809814,
+      "finite_max": 7.409704208374023,
+      "finite_mean": -0.0016946957912296057
+    },
+    "o_projection_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/o_projection_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "0395f6ca242182e582239721685d8f787f394b1566f6abaa6c4707aaeec8bd66",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -2.4914605617523193,
+      "finite_max": 9.426610946655273,
+      "finite_mean": 0.004827909171581268
+    },
+    "post_attention_layernorm_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/post_attention_layernorm_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "8f03f9a0af5b731c0851118252adfe9da6ae2d47299ba1313b4e67237d98723d",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -6.207374095916748,
+      "finite_max": 2.1730291843414307,
+      "finite_mean": -0.0022305219899863005
+    },
+    "q_projection_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/q_projection_output.npy",
+      "shape": [
+        1,
+        313,
+        2048
+      ],
+      "dtype": "torch.float32",
+      "numel": 641024,
+      "sha256": "71bcdae0354b130b2af084b767c290a9136ae8a1fd35f9a65441729fa4f0a9e1",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -0.3416954278945923,
+      "finite_max": 0.3636797368526459,
+      "finite_mean": 0.00017958565149456263
+    },
+    "query_layernorm_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/query_layernorm_output.npy",
+      "shape": [
+        1,
+        16,
+        313,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 641024,
+      "sha256": "e270be40363d5fa2f411417041df7b062c97787c0277aed74170fb881cebe61f",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -6.549309253692627,
+      "finite_max": 5.799322605133057,
+      "finite_mean": 0.015596316196024418
+    },
+    "rope_cos": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/rope_cos.npy",
+      "shape": [
+        4,
+        1,
+        313,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 160256,
+      "sha256": "369549978c7646860aec5c1238df2bf32bd6e2ecfcf81d2aa421d607958cc8da",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -0.9999999403953552,
+      "finite_max": 1.0,
+      "finite_mean": 0.826760470867157
+    },
+    "rope_sin": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/rope_sin.npy",
+      "shape": [
+        4,
+        1,
+        313,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 160256,
+      "sha256": "59ee42e61def72c83e3ec132094ee746c80043f4e7424088002c1f9a49df64fd",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -1.0,
+      "finite_max": 1.0,
+      "finite_mean": 0.07023238390684128
+    },
+    "v_projection_output": {
+      "file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/decoder_layer0_prefill/v_projection_output.npy",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "sha256": "cfac937ccd51409da54f5b0edb4d8df25a245b54790474dd8a1865e0353d6f30",
+      "has_nan": false,
+      "has_inf": false,
+      "finite_min": -0.47120440006256104,
+      "finite_max": 0.566735565662384,
+      "finite_mean": -0.00028785798349417746
+    }
+  }
+}
