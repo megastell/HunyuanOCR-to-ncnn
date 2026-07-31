@@ -1,0 +1,101 @@
+===== Load model =====
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:   0%|          | 1/714 [00:00<02:10,  5.48it/s]Loading weights:  18%|█▊        | 126/714 [00:00<00:01, 539.39it/s]Loading weights:  29%|██▉       | 208/714 [00:00<00:00, 644.55it/s]Loading weights:  41%|████      | 292/714 [00:00<00:00, 699.82it/s]Loading weights:  58%|█████▊    | 412/714 [00:00<00:00, 862.36it/s]Loading weights:  74%|███████▍  | 529/714 [00:00<00:00, 956.34it/s]Loading weights:  89%|████████▉ | 636/714 [00:00<00:00, 981.32it/s]Loading weights: 100%|██████████| 714/714 [00:00<00:00, 810.54it/s]
+
+===== Language model =====
+class: HunYuanVLTextModel
+forward: (input_ids: torch.LongTensor | None = None, attention_mask: torch.Tensor | None = None, position_ids: torch.LongTensor | None = None, past_key_values: transformers.cache_utils.Cache | None = None, inputs_embeds: torch.FloatTensor | None = None, use_cache: bool | None = None, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> transformers.modeling_outputs.BaseModelOutputWithPast
+decoder layer count: 24
+
+===== Decoder Layer 0 =====
+class: HunYuanVLDenseV1DecoderLayer
+parameters: 17,303,808
+forward: (hidden_states: torch.Tensor, attention_mask: torch.Tensor | None = None, position_ids: torch.LongTensor | None = None, past_key_values: transformers.cache_utils.Cache | None = None, use_cache: bool | None = False, position_embeddings: tuple[torch.Tensor, torch.Tensor] | None = None, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> torch.Tensor
+
+===== Direct children =====
+self_attn                    | HunYuanVLDenseV1Attention            | params=6,291,712
+                               forward(hidden_states: torch.Tensor, position_embeddings: tuple[torch.Tensor, torch.Tensor], attention_mask: torch.Tensor | None, past_key_values: transformers.cache_utils.Cache | None = None, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> tuple[torch.Tensor, torch.Tensor]
+mlp                          | HunYuanVLMLP                         | params=11,010,048
+                               forward(x)
+input_layernorm              | HunYuanVLRMSNorm                     | params=1,024
+                               forward(hidden_states: torch.Tensor) -> torch.Tensor
+post_attention_layernorm     | HunYuanVLRMSNorm                     | params=1,024
+                               forward(hidden_states: torch.Tensor) -> torch.Tensor
+
+===== Module tree, depth <= 2 =====
+self_attn                                | HunYuanVLDenseV1Attention            | params=6,291,712
+                                           forward(hidden_states: torch.Tensor, position_embeddings: tuple[torch.Tensor, torch.Tensor], attention_mask: torch.Tensor | None, past_key_values: transformers.cache_utils.Cache | None = None, **kwargs: Unpack[transformers.utils.generic.TransformersKwargs]) -> tuple[torch.Tensor, torch.Tensor]
+self_attn.q_proj                         | Linear                               | params=2,097,152
+self_attn.k_proj                         | Linear                               | params=1,048,576
+self_attn.v_proj                         | Linear                               | params=1,048,576
+self_attn.o_proj                         | Linear                               | params=2,097,152
+self_attn.query_layernorm                | HunYuanVLRMSNorm                     | params=128
+                                           forward(hidden_states: torch.Tensor) -> torch.Tensor
+self_attn.key_layernorm                  | HunYuanVLRMSNorm                     | params=128
+                                           forward(hidden_states: torch.Tensor) -> torch.Tensor
+mlp                                      | HunYuanVLMLP                         | params=11,010,048
+                                           forward(x)
+mlp.gate_proj                            | Linear                               | params=3,670,016
+mlp.up_proj                              | Linear                               | params=3,670,016
+mlp.down_proj                            | Linear                               | params=3,670,016
+mlp.act_fn                               | SiLUActivation                       | params=0
+                                           forward(input: torch.Tensor) -> torch.Tensor
+input_layernorm                          | HunYuanVLRMSNorm                     | params=1,024
+                                           forward(hidden_states: torch.Tensor) -> torch.Tensor
+post_attention_layernorm                 | HunYuanVLRMSNorm                     | params=1,024
+                                           forward(hidden_states: torch.Tensor) -> torch.Tensor
+
+===== Parameter shapes =====
+self_attn.q_proj.weight                              shape=(2048, 1024)             dtype=torch.float32
+self_attn.k_proj.weight                              shape=(1024, 1024)             dtype=torch.float32
+self_attn.v_proj.weight                              shape=(1024, 1024)             dtype=torch.float32
+self_attn.o_proj.weight                              shape=(1024, 2048)             dtype=torch.float32
+self_attn.query_layernorm.weight                     shape=(128,)                   dtype=torch.float32
+self_attn.key_layernorm.weight                       shape=(128,)                   dtype=torch.float32
+mlp.gate_proj.weight                                 shape=(3584, 1024)             dtype=torch.float32
+mlp.up_proj.weight                                   shape=(3584, 1024)             dtype=torch.float32
+mlp.down_proj.weight                                 shape=(1024, 3584)             dtype=torch.float32
+input_layernorm.weight                               shape=(1024,)                  dtype=torch.float32
+post_attention_layernorm.weight                      shape=(1024,)                  dtype=torch.float32
+
+===== Rotary embedding =====
+class: HunYuanVLRotaryEmbedding
+forward: (x, position_ids)
+
+===== Text config =====
+hidden_size                 : 1024
+intermediate_size           : 3584
+num_hidden_layers           : 24
+num_attention_heads         : 16
+num_key_value_heads         : 8
+head_dim                    : 128
+rms_norm_eps                : 1e-05
+rope_theta                  : None
+rope_scaling                : {'alpha': 1000.0, 'beta_fast': 32, 'beta_slow': 1, 'factor': 1.0, 'mscale': 1.0, 'mscale_all_dim': 1.0, 'type': 'dynamic', 'rope_theta': 10000.0, 'rope_type': 'dynamic', 'mrope_section': [16, 16, 16, 16]}
+attention_bias              : False
+attention_dropout           : 0.0
+hidden_act                  : silu
+
+✅ Decoder Layer 0结构检查完成。
+	Command being timed: "python tools/inspect/inspect_decoder_layer0.py"
+	User time (seconds): 5.06
+	System time (seconds): 6.77
+	Percent of CPU this job got: 240%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.92
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6917728
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 14946
+	Minor (reclaiming a frame) page faults: 1201612
+	Voluntary context switches: 32756
+	Involuntary context switches: 112
+	Swaps: 0
+	File system inputs: 4805080
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
