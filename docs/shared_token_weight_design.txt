@@ -1,0 +1,24 @@
+HunyuanOCR Token Weight Sharing
+================================
+
+PyTorch modules:
+- model.language_model.embed_tokens
+- lm_head
+
+Weight shape:
+- [120818, 1024]
+- FP32 element count: 123717632
+
+The two PyTorch modules share the same underlying weight storage.
+
+ncnn verification:
+- text_embedding.ncnn.bin and lm_head.ncnn.bin are byte-identical.
+- text_embedding.ncnn.param can load lm_head.ncnn.bin successfully.
+- Embedding output matches the PyTorch FP32 reference exactly.
+
+Deployment design:
+- Store only one shared token-weight binary.
+- Use it with text_embedding.ncnn.param for token lookup.
+- Use it with lm_head.ncnn.param for vocabulary projection.
+
+This avoids duplicating approximately 472 MiB of FP32 weights.

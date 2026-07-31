@@ -1,0 +1,2 @@
+ddfe020dcafa57b5374992f39399ce3f2cc76497f80f92f9c33724e7c39389e1  artifacts/text_embedding/text_embedding.ncnn.bin
+ddfe020dcafa57b5374992f39399ce3f2cc76497f80f92f9c33724e7c39389e1  artifacts/lm_head/lm_head.ncnn.bin

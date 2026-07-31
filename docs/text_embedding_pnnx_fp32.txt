@@ -1,0 +1,55 @@
+pnnxparam = ./text_embedding.pnnx.param
+pnnxbin = ./text_embedding.pnnx.bin
+pnnxpy = ./text_embedding_pnnx.py
+pnnxonnx = ./text_embedding.pnnx.onnx
+ncnnparam = ./text_embedding.ncnn.param
+ncnnbin = ./text_embedding.ncnn.bin
+ncnnpy = ./text_embedding_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [313]i64
+inputshape2 = 
+input = 
+input2 = 
+customop = 
+moduleop = 
+get inputshape from traced inputs
+inputshape = [313]i64
+############# pass_level0
+
+----------------
+
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+replace ncnn input torch.long type with torch.int
+model inputshape = [313]i64
+FLOPS = 0
+memory OPS = 641.337K
+	Command being timed: "pnnx ./text_embedding.pt inputshape=[313]i64 fp16=0 optlevel=2 device=cpu"
+	User time (seconds): 4.88
+	System time (seconds): 2.04
+	Percent of CPU this job got: 123%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.62
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2005564
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 53
+	Minor (reclaiming a frame) page faults: 1139782
+	Voluntary context switches: 141
+	Involuntary context switches: 36
+	Swaps: 0
+	File system inputs: 974064
+	File system outputs: 2899696
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

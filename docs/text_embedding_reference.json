@@ -1,0 +1,39 @@
+{
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "source_ids": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/input_ids.npy",
+  "source_ids_sha256": "1426682144e5c8d13ef014822067f6f6d60eaeffb84cf46e9f9b4f8fbdf2e8fd",
+  "captured_output": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/split_contract/text_embedding_output.npy",
+  "captured_output_sha256": "995619fac2c0f1d4e891b629f176bad8308968661d9962f341491f23df3a5cc2",
+  "input_shape": [
+    313
+  ],
+  "pytorch_input_dtype": "torch.int64",
+  "ncnn_input_dtype": "int32",
+  "output_shape": [
+    313,
+    1024
+  ],
+  "output_dtype": "torch.float32",
+  "sequence_length": 313,
+  "hidden_size": 1024,
+  "vocab_size": 120818,
+  "minimum_token_id": 270,
+  "maximum_token_id": 120120,
+  "captured_max_abs_error": 0.0,
+  "captured_mean_abs_error": 0.0,
+  "torchscript_max_abs_error": 0.0,
+  "model_load_seconds": 1.1013486820011167,
+  "pytorch_inference_seconds": 0.0019992559973616153,
+  "torchscript_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/text_embedding/text_embedding.pt",
+  "torchscript_sha256": "691908a0cb46ec08fd4abb1f4df1c02f392ed178cef3f3155139585e87ebda62",
+  "input_raw_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/text_embedding/input_ids_i32.bin",
+  "input_raw_sha256": "cf0f6529418d30f50775b5f99f5d131183d5d58e5ec5f439d95a0e9a2064a766",
+  "output_raw_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/text_embedding/text_embedding_output_f32.bin",
+  "output_raw_sha256": "6c6542184fe0589ad2c039f133fb7e372167b6608b9e4287b729b8a1d6479e4f",
+  "python_version": "3.12.3",
+  "torch_version": "2.12.1+cpu",
+  "transformers_version": "5.13.0",
+  "device": "cpu",
+  "dtype": "float32",
+  "torch_threads": 9
+}
