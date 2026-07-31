@@ -1,0 +1,114 @@
+===== Load processor =====
+Processor: HunYuanVLProcessor
+
+===== Load model =====
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:   0%|          | 1/714 [00:00<02:56,  4.05it/s]Loading weights:  15%|█▍        | 104/714 [00:00<00:01, 375.69it/s]Loading weights:  24%|██▎       | 169/714 [00:00<00:01, 462.13it/s]Loading weights:  33%|███▎      | 237/714 [00:00<00:00, 524.57it/s]Loading weights:  43%|████▎     | 308/714 [00:00<00:00, 582.38it/s]Loading weights:  57%|█████▋    | 404/714 [00:00<00:00, 693.17it/s]Loading weights:  70%|██████▉   | 498/714 [00:00<00:00, 766.95it/s]Loading weights:  83%|████████▎ | 594/714 [00:00<00:00, 800.00it/s]Loading weights:  97%|█████████▋| 690/714 [00:01<00:00, 846.57it/s]Loading weights: 100%|██████████| 714/714 [00:01<00:00, 646.70it/s]
+Model: HunYuanVLForConditionalGeneration
+Load time: 1.370 s
+
+===== Text configuration =====
+vocab_size                  : 120818
+hidden_size                 : 1024
+intermediate_size           : 3584
+num_hidden_layers           : 24
+num_attention_heads         : 16
+num_key_value_heads         : 8
+head_dim                    : 128
+max_position_embeddings     : 131072
+rms_norm_eps                : 1e-05
+rope_theta                  : None
+
+===== Vision configuration =====
+hidden_size                 : 1152
+intermediate_size           : 4304
+num_hidden_layers           : 27
+num_attention_heads         : 16
+depth                       : None
+num_heads                   : None
+patch_size                  : 16
+spatial_merge_size          : 2
+temporal_patch_size         : 1
+out_hidden_size             : 1024
+num_position_embeddings     : None
+
+===== Weight sharing =====
+Embedding weight shape: (120818, 1024)
+LM head weight shape: (120818, 1024)
+Same Python object: True
+Same storage: True
+Decoder layer count: 24
+
+===== Prefill forward =====
+Forward time: 3.253 s
+Peak RSS: 6.734 GiB
+
+===== Captured tensors =====
+final_norm_output                shape=(1, 313, 1024)         dtype=torch.float32  
+forward_logits                   shape=(1, 1, 120818)         dtype=torch.float32  
+lm_head_input                    shape=(1, 1, 1024)           dtype=torch.float32  
+lm_head_output                   shape=(1, 1, 120818)         dtype=torch.float32  
+model_last_hidden_state          shape=(1, 313, 1024)         dtype=torch.float32  
+text_embedding_output            shape=(1, 313, 1024)         dtype=torch.float32  
+vision_last_hidden_state         shape=(1, 1100, 1152)        dtype=torch.float32  
+vision_pooler_output             shape=(1, 288, 1024)         dtype=torch.float32  
+
+===== First-token validation =====
+Expected first token: 93892
+Actual first token: 93892
+First token matches: True
+
+===== KV cache =====
+Cache class: DynamicCache
+Cache sequence length: 313
+Cache layer count: 24
+Layer 00: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 01: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 02: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 03: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 04: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 05: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 06: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 07: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 08: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 09: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 10: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 11: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 12: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 13: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 14: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 15: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 16: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 17: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 18: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 19: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 20: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 21: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 22: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+Layer 23: {'keys': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}, 'values': {'shape': [1, 8, 313, 128], 'dtype': 'torch.float32', 'numel': 320512}}
+
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/split_contract_cpu_fp32.json
+Tensor directory: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/reference/smoke_en_cpu_fp32/split_contract
+✅ HunyuanOCR模型拆分契约捕获成功。
+	Command being timed: "python tools/reference/capture_split_contract.py"
+	User time (seconds): 32.34
+	System time (seconds): 16.13
+	Percent of CPU this job got: 539%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.98
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7061120
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 15048
+	Minor (reclaiming a frame) page faults: 2976950
+	Voluntary context switches: 28801
+	Involuntary context switches: 792
+	Swaps: 0
+	File system inputs: 4874752
+	File system outputs: 21720
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
