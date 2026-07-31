@@ -1,0 +1,55 @@
+原始输入 shape: (1, 1, 1024)
+原始输入 dtype: float32
+
+===== 加载模型 =====
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:   0%|          | 1/714 [00:00<01:28,  8.01it/s]Loading weights:  15%|█▍        | 104/714 [00:00<00:01, 548.61it/s]Loading weights:  25%|██▌       | 182/714 [00:00<00:00, 641.29it/s]Loading weights:  38%|███▊      | 270/714 [00:00<00:00, 657.67it/s]Loading weights:  55%|█████▌    | 396/714 [00:00<00:00, 854.24it/s]Loading weights:  71%|███████▏  | 510/714 [00:00<00:00, 944.58it/s]Loading weights:  88%|████████▊ | 626/714 [00:00<00:00, 998.30it/s]Loading weights: 100%|██████████| 714/714 [00:00<00:00, 850.30it/s]
+LM Head weight shape: (120818, 1024)
+
+===== PyTorch 参考推理 =====
+输出 shape: (1, 120818)
+Argmax token: 93892
+Expected token: 93892
+Top 10:
+  token= 93892 logit=25.282356262
+  token=  6008 logit=16.414197922
+  token= 85121 logit=13.672132492
+  token=     2 logit=13.341882706
+  token= 12858 logit=12.990192413
+  token= 16883 logit=12.689013481
+  token=    39 logit=12.681509018
+  token= 81833 logit=12.494141579
+  token=  6717 logit=12.101062775
+  token=  1219 logit=11.996913910
+
+===== 导出 TorchScript =====
+TorchScript token: 93892
+TorchScript max abs error: 0.0
+
+TorchScript: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/lm_head/lm_head.pt
+Raw input: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/lm_head/lm_head_input_f32.bin
+Raw logits: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/lm_head/lm_head_logits_f32.bin
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/lm_head_reference.json
+✅ LM Head PyTorch/TorchScript 参考结果生成成功。
+	Command being timed: "python tools/export/export_lm_head.py"
+	User time (seconds): 6.17
+	System time (seconds): 5.85
+	Percent of CPU this job got: 208%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.77
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6919468
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 15186
+	Minor (reclaiming a frame) page faults: 1326651
+	Voluntary context switches: 34066
+	Involuntary context switches: 86
+	Swaps: 0
+	File system inputs: 4827056
+	File system outputs: 967520
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

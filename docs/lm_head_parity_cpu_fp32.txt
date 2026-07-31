@@ -1,0 +1,7 @@
+ncnn output shape: dims=1, w=120818, h=1, d=1, c=1, elempack=1, logical_count=120818, storage_total=120820
+Expected argmax token: 93892
+ncnn argmax token    : 93892
+Maximum abs error    : 0.0000009537
+Mean abs error       : 0.0000000825
+Cosine similarity    : 1.0000000000
+✅ LM Head PyTorch → pnnx → ncnn C++ CPU 严格对齐成功。
