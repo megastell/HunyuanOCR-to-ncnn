@@ -1,0 +1,29 @@
+{
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "module_path": "model.language_model.norm",
+  "module_class": "HunYuanVLRMSNorm",
+  "sequence_length": 313,
+  "hidden_size": 1024,
+  "epsilon": 1e-05,
+  "input_shape": [
+    313,
+    1024
+  ],
+  "output_shape": [
+    313,
+    1024
+  ],
+  "dtype": "float32",
+  "previous_capture_max_abs_error": 0.0,
+  "direct_max_abs_error": 0.0,
+  "direct_mean_abs_error": 0.0,
+  "torchscript_max_abs_error": 0.0,
+  "model_load_seconds": 1.3714001609987463,
+  "full_forward_seconds": 3.1680962210011785,
+  "torchscript_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/final_norm/final_norm.pt",
+  "torchscript_sha256": "fa938e436263a9837dc414e3a6a41edf39ab7d7c64eb8042e7b936383a4422a2",
+  "input_raw_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/final_norm/final_norm_input_f32.bin",
+  "input_raw_sha256": "423b8673345c649a176e1100501de648847927fb174622a5153287ea5f088774",
+  "output_raw_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/final_norm/final_norm_output_f32.bin",
+  "output_raw_sha256": "e686eb52119c16e94edb393baa67fa85c0a694ae3fe193a2384661c3c83a7810"
+}

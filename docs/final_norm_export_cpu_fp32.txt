@@ -1,0 +1,48 @@
+===== 加载完整模型 =====
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:   0%|          | 1/714 [00:00<03:00,  3.94it/s]Loading weights:  16%|█▋        | 117/714 [00:00<00:01, 420.32it/s]Loading weights:  26%|██▌       | 186/714 [00:00<00:01, 493.54it/s]Loading weights:  35%|███▌      | 252/714 [00:00<00:00, 546.12it/s]Loading weights:  46%|████▌     | 330/714 [00:00<00:00, 618.09it/s]Loading weights:  60%|██████    | 431/714 [00:00<00:00, 738.70it/s]Loading weights:  74%|███████▍  | 530/714 [00:00<00:00, 801.04it/s]Loading weights:  88%|████████▊ | 626/714 [00:00<00:00, 832.04it/s]Loading weights: 100%|█████████▉| 713/714 [00:01<00:00, 843.13it/s]Loading weights: 100%|██████████| 714/714 [00:01<00:00, 660.25it/s]
+Norm class: HunYuanVLRMSNorm
+Weight shape: (1024,)
+Configured epsilon: 1e-05
+
+===== 捕获完整模型中的Final RMSNorm =====
+Captured input: (313, 1024)
+Captured output: (313, 1024)
+与上一阶段捕获结果最大误差: 0.0
+
+===== 独立PyTorch Final RMSNorm =====
+Direct output: (313, 1024)
+独立模块最大误差: 0.0
+独立模块平均误差: 0.0
+
+===== 导出TorchScript =====
+TorchScript输出: (313, 1024)
+TorchScript最大误差: 0.0
+
+TorchScript: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/final_norm/final_norm.pt
+Input: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/final_norm/final_norm_input_f32.bin
+Output: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/final_norm/final_norm_output_f32.bin
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/final_norm_reference.json
+✅ Final RMSNorm PyTorch参考导出成功。
+	Command being timed: "python tools/export/export_final_norm.py"
+	User time (seconds): 31.46
+	System time (seconds): 16.65
+	Percent of CPU this job got: 565%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6921544
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 15166
+	Minor (reclaiming a frame) page faults: 2926108
+	Voluntary context switches: 29932
+	Involuntary context switches: 681
+	Swaps: 0
+	File system inputs: 4867656
+	File system outputs: 5048
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,5 @@
+ncnn output shape: dims=2, w=1024, h=313, d=1, c=1, elempack=1, logical_count=320512
+Maximum abs error : 0.0000038147
+Mean abs error    : 0.0000001424
+Cosine similarity : 1.0000000000
+✅ Final RMSNorm PyTorch → pnnx → ncnn C++严格对齐成功。
