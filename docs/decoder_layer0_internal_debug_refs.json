@@ -1,0 +1,125 @@
+{
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "module_path": "model.language_model.layers.0",
+  "device": "cpu",
+  "dtype": "float32",
+  "torch_threads": 9,
+  "model_load_seconds": 0.8564302129962016,
+  "full_forward_seconds": 3.018960680012242,
+  "captures": {
+    "query_layernorm_input": {
+      "shape": [
+        1,
+        16,
+        313,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 641024,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill/query_layernorm_input.npy",
+      "npy_sha256": "77aea7dc4dc9129bc226d567cfbde5ade018b66ea2dd4acad0fc32f01a942725",
+      "raw_path": "artifacts/decoder_layer0_prefill/debug_refs/query_layernorm_input_f32.bin",
+      "raw_bytes": 2564096,
+      "raw_sha256": "9e674ef6fb3eb7c5ebcc282fa9a63c040d85446ec189013f426577d72918ae0a",
+      "minimum": -0.34167903661727905,
+      "maximum": 0.36368465423583984,
+      "mean": 0.00017688164371065795,
+      "has_nan": false,
+      "has_inf": false
+    },
+    "key_layernorm_input": {
+      "shape": [
+        1,
+        8,
+        313,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 320512,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill/key_layernorm_input.npy",
+      "npy_sha256": "6c3b92d2c5e7a4ede1e4e8a45b1f8da02eac0a02860eb5d0231f1a0c093a08f3",
+      "raw_path": "artifacts/decoder_layer0_prefill/debug_refs/key_layernorm_input_f32.bin",
+      "raw_bytes": 1282048,
+      "raw_sha256": "cd815213c7d9ee4a2c31da952ad129f4b680a20110b412aed1ba5b77e66325a8",
+      "minimum": -0.36000826954841614,
+      "maximum": 0.28158560395240784,
+      "mean": 0.0002898843085858971,
+      "has_nan": false,
+      "has_inf": false
+    },
+    "o_projection_input": {
+      "shape": [
+        1,
+        313,
+        2048
+      ],
+      "dtype": "float32",
+      "numel": 641024,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill/o_projection_input.npy",
+      "npy_sha256": "1654141dcb98b5f4b7240b9ed583ab3be549829a45b367c0bf0d87509b144fb8",
+      "raw_path": "artifacts/decoder_layer0_prefill/debug_refs/o_projection_input_f32.bin",
+      "raw_bytes": 2564096,
+      "raw_sha256": "f7a0bd51f5cf2c9d98e96feac3813a40eed0c743648614facaac38cd712a848c",
+      "minimum": -0.47117915749549866,
+      "maximum": 0.5667043328285217,
+      "mean": 0.0012715811608359218,
+      "has_nan": false,
+      "has_inf": false
+    },
+    "post_attention_layernorm_input": {
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "float32",
+      "numel": 320512,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill/post_attention_layernorm_input.npy",
+      "npy_sha256": "11cf4c36a2a3e4dd42e51a2554e91335c67f97a43128fd20e5d118d4c4f18850",
+      "raw_path": "artifacts/decoder_layer0_prefill/debug_refs/post_attention_layernorm_input_f32.bin",
+      "raw_bytes": 1282048,
+      "raw_sha256": "21e93ffdf4e250bb0164356519e2af8b8239e1e7fa73f1194595819741f3fb87",
+      "minimum": -16.417695999145508,
+      "maximum": 7.40573263168335,
+      "mean": -0.009204575791954994,
+      "has_nan": false,
+      "has_inf": false
+    },
+    "mlp_down_input": {
+      "shape": [
+        1,
+        313,
+        3584
+      ],
+      "dtype": "float32",
+      "numel": 1121792,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill/mlp_down_input.npy",
+      "npy_sha256": "7056068f1444fb7f9960f9cba57a3b9dfa9114bfe7973e1d607b3ba7ada144fd",
+      "raw_path": "artifacts/decoder_layer0_prefill/debug_refs/mlp_down_input_f32.bin",
+      "raw_bytes": 4487168,
+      "raw_sha256": "477b3e803ffca68d6fe79119fe611a3d70eb0d4ef68a4568738052abe9f105f6",
+      "minimum": -0.9074087738990784,
+      "maximum": 84.3812026977539,
+      "mean": -5.516343208000762e-06,
+      "has_nan": false,
+      "has_inf": false
+    }
+  },
+  "derived_checks": {
+    "attention_residual": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0
+    },
+    "swiglu_product": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0
+    }
+  },
+  "ncnn_blob_mapping": {
+    "query_layernorm_input": "51",
+    "key_layernorm_input": "53",
+    "o_projection_input": "63",
+    "post_attention_layernorm_input": "65",
+    "mlp_down_input": "74"
+  }
+}

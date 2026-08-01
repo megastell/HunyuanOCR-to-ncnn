@@ -1,0 +1,56 @@
+===== Inputs =====
+hidden_states: (1, 313, 1024)
+attention_mask: (1, 1, 313, 313)
+rope_cos: (4, 1, 313, 128)
+rope_sin: (4, 1, 313, 128)
+expected_output: (1, 313, 1024)
+
+===== Load model =====
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:   0%|          | 1/714 [00:00<01:54,  6.22it/s]Loading weights:  15%|█▌        | 109/714 [00:00<00:01, 494.48it/s]Loading weights:  24%|██▍       | 173/714 [00:00<00:00, 550.10it/s]Loading weights:  34%|███▍      | 242/714 [00:00<00:00, 592.85it/s]Loading weights:  45%|████▍     | 319/714 [00:00<00:00, 651.58it/s]Loading weights:  58%|█████▊    | 412/714 [00:00<00:00, 736.17it/s]Loading weights:  72%|███████▏  | 511/714 [00:00<00:00, 814.96it/s]Loading weights:  85%|████████▍ | 606/714 [00:00<00:00, 853.04it/s]Loading weights:  99%|█████████▉| 710/714 [00:00<00:00, 893.15it/s]Loading weights: 100%|██████████| 714/714 [00:00<00:00, 722.06it/s]
+Layer class: HunYuanVLDenseV1DecoderLayer
+Parameter count: 17,303,808
+Load time: 1.369 s
+
+===== Independent PyTorch wrapper =====
+PyTorch output: (1, 313, 1024)
+PyTorch max abs error: 0.0
+PyTorch mean abs error: 0.0
+PyTorch inference time: 0.051831 s
+
+===== Export TorchScript =====
+/home/asus/work/hunyuanocr/.venv-reference/lib/python3.12/site-packages/transformers/models/hunyuan_vl/modeling_hunyuan_vl.py:489: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if sum(mrope_section) != cos.shape[-1]:
+TorchScript graph inputs: 5
+TorchScript output: (1, 313, 1024)
+TorchScript max abs error: 0.0
+TorchScript mean abs error: 0.0
+Trace time: 0.283 s
+TorchScript inference time: 0.038936 s
+
+TorchScript: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer0_prefill/decoder_layer0_prefill.pt
+TorchScript size: 66.04 MiB
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decoder_layer0_prefill_reference.json
+✅ Decoder Layer 0 Prefill PyTorch/TorchScript导出成功。
+	Command being timed: "python tools/export/export_decoder_layer0_prefill.py"
+	User time (seconds): 8.03
+	System time (seconds): 14.06
+	Percent of CPU this job got: 396%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.56
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6923432
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 14733
+	Minor (reclaiming a frame) page faults: 1270231
+	Voluntary context switches: 30100
+	Involuntary context switches: 678
+	Swaps: 0
+	File system inputs: 4839704
+	File system outputs: 143560
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

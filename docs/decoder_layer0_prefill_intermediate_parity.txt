@@ -1,0 +1,43 @@
+===== Decoder Layer 0 intermediate parity =====
+input RMSNorm                      blob=6     dims=2,w=1024,h=313,d=1,c=1,pack=1  max=2.980232e-07  mean=9.678176e-10  rmse=3.027570e-09  cos=1.0000000000  max_index=56786
+Q projection                       blob=10    dims=2,w=2048,h=313,d=1,c=1,pack=1  max=3.427267e-07  mean=9.085754e-09  rmse=1.439178e-08  cos=1.0000000000  max_index=84453
+K projection                       blob=13    dims=2,w=1024,h=313,d=1,c=1,pack=1  max=3.129244e-07  mean=7.644535e-09  rmse=1.336416e-08  cos=1.0000000000  max_index=102581
+V projection                       blob=16    dims=2,w=1024,h=313,d=1,c=1,pack=1  max=5.364418e-07  mean=4.572885e-09  rmse=7.546051e-09  cos=1.0000000000  max_index=3016
+Q after RoPE                       blob=51    dims=3,w=128,h=313,d=1,c=16,pack=1  max=2.399411e-01  mean=2.824410e-03  rmse=9.688559e-03  cos=0.9245364737  max_index=534464
+>>> 第一个明显偏差阶段：Q after RoPE，blob=51
+Q head RMSNorm                     blob=52    dims=3,w=128,h=313,d=1,c=16,pack=1  max=8.524982e+00  mean=1.741138e-01  rmse=5.511430e-01  cos=0.9027284266  max_index=170565
+K after RoPE                       blob=53    dims=3,w=128,h=313,d=1,c=8,pack=1  max=3.215269e-01  mean=2.763133e-03  rmse=1.135495e-02  cos=0.8861773229  max_index=50368
+K head RMSNorm                     blob=54    dims=3,w=128,h=313,d=1,c=8,pack=1  max=1.280360e+01  mean=1.814738e-01  rmse=6.387349e-01  cos=0.8403258143  max_index=268352
+SDPA / O projection input          blob=63    dims=2,w=2048,h=313,d=1,c=1,pack=1  max=1.808367e-01  mean=1.006124e-03  rmse=2.816267e-03  cos=0.9986481713  max_index=577328
+O projection                       blob=64    dims=2,w=1024,h=313,d=1,c=1,pack=1  max=8.626652e-01  mean=1.841388e-03  rmse=6.463865e-03  cos=0.9997347778  max_index=271826
+attention residual                 blob=65    dims=2,w=1024,h=313,d=1,c=1,pack=1  max=8.626652e-01  mean=1.841388e-03  rmse=6.463866e-03  cos=0.9998904492  max_index=271826
+post-attention RMSNorm             blob=68    dims=2,w=1024,h=313,d=1,c=1,pack=1  max=7.574403e-02  mean=1.168953e-03  rmse=1.912580e-03  cos=0.9999071448  max_index=67026
+MLP gate projection                blob=71    dims=2,w=3584,h=313,d=1,c=1,pack=1  max=6.461915e-02  mean=1.061407e-03  rmse=1.727020e-03  cos=0.9998899942  max_index=950614
+MLP up projection                  blob=73    dims=2,w=3584,h=313,d=1,c=1,pack=1  max=9.897809e-02  mean=1.003000e-03  rmse=1.685257e-03  cos=0.9999002535  max_index=1045043
+SwiGLU product                     blob=74    dims=2,w=3584,h=313,d=1,c=1,pack=1  max=2.583763e-02  mean=6.668225e-05  rmse=1.599721e-04  cos=0.9999980144  max_index=1045043
+MLP down projection                blob=75    dims=2,w=1024,h=313,d=1,c=1,pack=1  max=1.315868e-02  mean=1.357984e-04  rmse=2.656158e-04  cos=0.9999990848  max_index=274898
+Layer output                       blob=out0  dims=2,w=1024,h=313,d=1,c=1,pack=1  max=8.529558e-01  mean=1.795142e-03  rmse=6.342713e-03  cos=0.9999084455  max_index=271826
+✅ 所有中间blob均已完成比较。
+	Command being timed: "./build-decoder-layer0-prefill-probe/decoder_layer0_prefill_probe artifacts/decoder_layer0_prefill/decoder_layer0_prefill.ncnn.param artifacts/decoder_layer0_prefill/decoder_layer0_prefill.ncnn.bin artifacts/decoder_layer0_prefill/hidden_states_f32.bin artifacts/decoder_layer0_prefill/attention_mask_f32.bin artifacts/decoder_layer0_prefill/rope_cos_f32.bin artifacts/decoder_layer0_prefill/rope_sin_f32.bin artifacts/decoder_layer0_prefill/debug_refs"
+	User time (seconds): 0.11
+	System time (seconds): 0.09
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.21
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 150600
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 41916
+	Voluntary context switches: 1
+	Involuntary context switches: 2
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

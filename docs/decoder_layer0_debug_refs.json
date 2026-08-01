@@ -1,0 +1,158 @@
+{
+  "input_layernorm_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/input_layernorm_output_f32.bin"
+  },
+  "q_projection_output": {
+    "shape": [
+      1,
+      313,
+      2048
+    ],
+    "dtype": "float32",
+    "numel": 641024,
+    "bytes": 2564096,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/q_projection_output_f32.bin"
+  },
+  "k_projection_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/k_projection_output_f32.bin"
+  },
+  "v_projection_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/v_projection_output_f32.bin"
+  },
+  "query_layernorm_output": {
+    "shape": [
+      1,
+      16,
+      313,
+      128
+    ],
+    "dtype": "float32",
+    "numel": 641024,
+    "bytes": 2564096,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/query_layernorm_output_f32.bin"
+  },
+  "key_layernorm_output": {
+    "shape": [
+      1,
+      8,
+      313,
+      128
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/key_layernorm_output_f32.bin"
+  },
+  "attention_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/attention_output_f32.bin"
+  },
+  "o_projection_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/o_projection_output_f32.bin"
+  },
+  "post_attention_layernorm_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/post_attention_layernorm_output_f32.bin"
+  },
+  "mlp_gate_output": {
+    "shape": [
+      1,
+      313,
+      3584
+    ],
+    "dtype": "float32",
+    "numel": 1121792,
+    "bytes": 4487168,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/mlp_gate_output_f32.bin"
+  },
+  "mlp_up_output": {
+    "shape": [
+      1,
+      313,
+      3584
+    ],
+    "dtype": "float32",
+    "numel": 1121792,
+    "bytes": 4487168,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/mlp_up_output_f32.bin"
+  },
+  "mlp_down_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/mlp_down_output_f32.bin"
+  },
+  "mlp_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/mlp_output_f32.bin"
+  },
+  "layer_output": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "float32",
+    "numel": 320512,
+    "bytes": 1282048,
+    "path": "artifacts/decoder_layer0_prefill/debug_refs/layer_output_f32.bin"
+  }
+}

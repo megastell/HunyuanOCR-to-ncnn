@@ -1,0 +1,44 @@
+===== Load model =====
+Loading weights:   0%|          | 0/714 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 114/714 [00:00<00:00, 1126.26it/s]Loading weights:  32%|███▏      | 227/714 [00:00<00:00, 1021.57it/s]Loading weights:  52%|█████▏    | 370/714 [00:00<00:00, 1195.77it/s]Loading weights:  75%|███████▌  | 537/714 [00:00<00:00, 1373.36it/s]Loading weights:  97%|█████████▋| 690/714 [00:00<00:00, 1425.69it/s]Loading weights: 100%|██████████| 714/714 [00:00<00:00, 1324.53it/s]
+===== Full-model capture =====
+
+===== Captured tensors =====
+query_layernorm_input                    shape=(1, 16, 313, 128)        min=-0.3416790 max= 0.3636847
+key_layernorm_input                      shape=(1, 8, 313, 128)         min=-0.3600083 max= 0.2815856
+o_projection_input                       shape=(1, 313, 2048)           min=-0.4711792 max= 0.5667043
+post_attention_layernorm_input           shape=(1, 313, 1024)           min=-16.4176960 max= 7.4057326
+mlp_down_input                           shape=(1, 313, 3584)           min=-0.9074088 max= 84.3812027
+
+===== Derived relationship checks =====
+Attention residual max error: 0.0
+Attention residual mean error: 0.0
+SwiGLU product max error: 0.0
+SwiGLU product mean error: 0.0
+
+Model load: 0.856s
+Full forward: 3.019s
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decoder_layer0_internal_debug_refs.json
+✅ Decoder Layer 0内部诊断参考捕获成功。
+	Command being timed: "python tools/reference/capture_decoder_layer0_internal_debug.py"
+	User time (seconds): 31.35
+	System time (seconds): 8.83
+	Percent of CPU this job got: 617%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.51
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6923540
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 10
+	Minor (reclaiming a frame) page faults: 2934289
+	Voluntary context switches: 16233
+	Involuntary context switches: 510
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 47640
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

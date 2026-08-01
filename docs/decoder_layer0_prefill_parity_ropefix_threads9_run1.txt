@@ -1,0 +1,19 @@
+===== Input shapes =====
+in0 hidden_states: dims=2, w=1024, h=313, d=1, c=1, elempack=1, logical_count=320512
+in1 attention_mask: dims=3, w=313, h=313, d=1, c=1, elempack=1, logical_count=97969
+in2 rope_cos: dims=3, w=128, h=313, d=1, c=4, elempack=1, logical_count=160256
+in3 rope_sin: dims=3, w=128, h=313, d=1, c=4, elempack=1, logical_count=160256
+
+===== Output shape =====
+out0: dims=2, w=1024, h=313, d=1, c=1, elempack=1, logical_count=320512
+
+===== Numerical parity =====
+Maximum abs error : 0.0010623932
+Mean abs error    : 0.0000022596
+RMSE              : 0.0000082428
+Cosine similarity : 0.9999999998
+Max error token   : 230
+Max error hidden  : 466
+Actual at max     : -11.3741588593
+Expected at max   : -11.3730964661
+✅ Decoder Layer 0 Prefill PyTorch → pnnx → ncnn C++ 数值对齐成功。

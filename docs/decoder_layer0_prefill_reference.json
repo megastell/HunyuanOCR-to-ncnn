@@ -1,0 +1,170 @@
+{
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "module_path": "model.language_model.layers.0",
+  "module_class": "HunYuanVLDenseV1DecoderLayer",
+  "wrapper_class": "DecoderLayer0PrefillWrapper",
+  "parameter_count": 17303808,
+  "sequence_length": 313,
+  "hidden_size": 1024,
+  "attention_heads": 16,
+  "kv_heads": 8,
+  "head_dim": 128,
+  "rope_components": 4,
+  "device": "cpu",
+  "dtype": "float32",
+  "torch_threads": 9,
+  "model_load_seconds": 1.368812129003345,
+  "pytorch_inference_seconds": 0.051831021992256865,
+  "trace_seconds": 0.28273252000508364,
+  "torchscript_inference_seconds": 0.038936398006626405,
+  "pytorch_max_abs_error": 0.0,
+  "pytorch_mean_abs_error": 0.0,
+  "torchscript_max_abs_error": 0.0,
+  "torchscript_mean_abs_error": 0.0,
+  "input_statistics": {
+    "hidden_states": {
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 320512,
+      "minimum": -19.66667938232422,
+      "maximum": 7.11028528213501,
+      "mean": -0.014032484032213688,
+      "has_nan": false,
+      "has_inf": false
+    },
+    "attention_mask": {
+      "shape": [
+        1,
+        1,
+        313,
+        313
+      ],
+      "dtype": "torch.float32",
+      "numel": 97969,
+      "minimum": -3.4028234663852886e+38,
+      "maximum": 0.0,
+      "mean": -Infinity,
+      "has_nan": false,
+      "has_inf": false
+    },
+    "rope_cos": {
+      "shape": [
+        4,
+        1,
+        313,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 160256,
+      "minimum": -0.9999999403953552,
+      "maximum": 1.0,
+      "mean": 0.826760470867157,
+      "has_nan": false,
+      "has_inf": false
+    },
+    "rope_sin": {
+      "shape": [
+        4,
+        1,
+        313,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 160256,
+      "minimum": -1.0,
+      "maximum": 1.0,
+      "mean": 0.07023238390684128,
+      "has_nan": false,
+      "has_inf": false
+    }
+  },
+  "output_statistics": {
+    "shape": [
+      1,
+      313,
+      1024
+    ],
+    "dtype": "torch.float32",
+    "numel": 320512,
+    "minimum": -16.43325424194336,
+    "maximum": 110.1541748046875,
+    "mean": -0.008692948147654533,
+    "has_nan": false,
+    "has_inf": false
+  },
+  "raw_files": {
+    "hidden_states": {
+      "path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer0_prefill/hidden_states_f32.bin",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "float32",
+      "numel": 320512,
+      "bytes": 1282048,
+      "sha256": "3fb6f96872998e9083b093036f0ee867d48368e619a4bebcfb3b72d5d2e37e40"
+    },
+    "attention_mask": {
+      "path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer0_prefill/attention_mask_f32.bin",
+      "shape": [
+        1,
+        1,
+        313,
+        313
+      ],
+      "dtype": "float32",
+      "numel": 97969,
+      "bytes": 391876,
+      "sha256": "71bf02de34c71909366e3d449844206c16927fc459a9cb7bec79643531bac28e"
+    },
+    "rope_cos": {
+      "path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer0_prefill/rope_cos_f32.bin",
+      "shape": [
+        4,
+        1,
+        313,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 160256,
+      "bytes": 641024,
+      "sha256": "12b9c82010fb74855cbcc0725e0ec579dd2c633279bb9b4a27593c17e8c5e1cb"
+    },
+    "rope_sin": {
+      "path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer0_prefill/rope_sin_f32.bin",
+      "shape": [
+        4,
+        1,
+        313,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 160256,
+      "bytes": 641024,
+      "sha256": "0ad33b5300b5113439d903aa01b008ebb03164d23366a8c6d5380712edeaed26"
+    },
+    "expected_output": {
+      "path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer0_prefill/expected_output_f32.bin",
+      "shape": [
+        1,
+        313,
+        1024
+      ],
+      "dtype": "float32",
+      "numel": 320512,
+      "bytes": 1282048,
+      "sha256": "58587ada7ce86fcc9d9baaab9a7b010bc04dbf9c6bb834f4d68546ddfe3f87df"
+    }
+  },
+  "torchscript_path": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer0_prefill/decoder_layer0_prefill.pt",
+  "torchscript_bytes": 69246490,
+  "torchscript_sha256": "6104947a7aefda5919598b65bf67f30d0cf37f7e89f9879d3388f131386cac6e",
+  "python_version": "3.12.3",
+  "torch_version": "2.12.1+cpu",
+  "transformers_version": "5.13.0"
+}

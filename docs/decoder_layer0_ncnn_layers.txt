@@ -1,0 +1,67 @@
+magic: 7767517
+header: 64 77
+
+00 Input              in0                      bottoms=-                tops=in0              params=
+01 Split              splitncnn_0              bottoms=in0              tops=1,2              params=
+02 Input              in1                      bottoms=-                tops=in1              params=
+03 Input              in2                      bottoms=-                tops=in2              params=
+04 Input              in3                      bottoms=-                tops=in3              params=
+05 RMSNorm            rmsn_8                   bottoms=2                tops=6                params=0=1024 1=1.000000e-5 2=1
+06 Split              splitncnn_1              bottoms=6                tops=7,8,9            params=
+07 Gemm               gemm_0                   bottoms=9                tops=10               params=10=-1 2=0 3=1 4=0 5=1 6=1 7=313 8=2048 9=1024
+08 Reshape            reshape_14               bottoms=10               tops=11               params=0=128 1=16 11=313 12=0 13=0 2=1
+09 Permute            transpose_28             bottoms=11               tops=12               params=0=2
+10 Gemm               gemm_1                   bottoms=8                tops=13               params=10=-1 2=0 3=1 4=0 5=1 6=1 7=313 8=1024 9=1024
+11 Reshape            reshape_15               bottoms=13               tops=14               params=0=128 1=8 11=313 12=0 13=0 2=1
+12 Permute            transpose_29             bottoms=14               tops=15               params=0=2
+13 Gemm               gemm_2                   bottoms=7                tops=16               params=10=-1 2=0 3=1 4=0 5=1 6=1 7=313 8=1024 9=1024
+14 Reshape            reshape_16               bottoms=16               tops=17               params=0=128 1=8 11=313 12=0 13=0 2=1
+15 Permute            transpose_30             bottoms=17               tops=18               params=0=2
+16 Slice              split_0                  bottoms=in2              tops=19,20,21,22      params=-23300=4,32,32,32,32 1=2
+17 Crop               select_0                 bottoms=19               tops=23               params=-23310=1,1 -23311=1,0 -23309=1,0
+18 Squeeze            squeeze_20               bottoms=23               tops=24               params=-23303=1,0
+19 Crop               select_1                 bottoms=20               tops=25               params=-23310=1,2 -23311=1,0 -23309=1,1
+20 Squeeze            squeeze_21               bottoms=25               tops=26               params=-23303=1,0
+21 Crop               select_2                 bottoms=21               tops=27               params=-23310=1,3 -23311=1,0 -23309=1,2
+22 Squeeze            squeeze_22               bottoms=27               tops=28               params=-23303=1,0
+23 Crop               select_3                 bottoms=22               tops=29               params=-23310=1,4 -23311=1,0 -23309=1,3
+24 Squeeze            squeeze_23               bottoms=29               tops=30               params=-23303=1,0
+25 Concat             cat_0                    bottoms=24,26,28,30      tops=31               params=0=1
+26 Slice              split_1                  bottoms=in3              tops=32,33,34,35      params=-23300=4,32,32,32,32 1=2
+27 Crop               select_4                 bottoms=32               tops=36               params=-23310=1,1 -23311=1,0 -23309=1,0
+28 Squeeze            squeeze_24               bottoms=36               tops=37               params=-23303=1,0
+29 Crop               select_5                 bottoms=33               tops=38               params=-23310=1,2 -23311=1,0 -23309=1,1
+30 Squeeze            squeeze_25               bottoms=38               tops=39               params=-23303=1,0
+31 Crop               select_6                 bottoms=34               tops=40               params=-23310=1,3 -23311=1,0 -23309=1,2
+32 Squeeze            squeeze_26               bottoms=40               tops=41               params=-23303=1,0
+33 Crop               select_7                 bottoms=35               tops=42               params=-23310=1,4 -23311=1,0 -23309=1,3
+34 Squeeze            squeeze_27               bottoms=42               tops=43               params=-23303=1,0
+35 Concat             cat_1                    bottoms=37,39,41,43      tops=44               params=0=1
+36 ExpandDims         unsqueeze_32             bottoms=31               tops=45               params=-23303=1,0
+37 Split              splitncnn_2              bottoms=45               tops=46,47            params=
+38 ExpandDims         unsqueeze_33             bottoms=44               tops=48               params=-23303=1,0
+39 Split              splitncnn_3              bottoms=48               tops=49,50            params=
+40 RotaryEmbed        rope_0                   bottoms=12,47,50         tops=51               params=0=0
+41 RMSNorm            rmsn_9                   bottoms=51               tops=52               params=0=128 1=1.000000e-5 2=1
+42 RotaryEmbed        rope_1                   bottoms=15,46,49         tops=53               params=0=0
+43 RMSNorm            rmsn_10                  bottoms=53               tops=54               params=0=128 1=1.000000e-5 2=1
+44 ExpandDims         unsqueeze_34             bottoms=54               tops=55               params=-23303=1,1
+45 Tile               expand_12                bottoms=55               tops=56               params=-23302=4,1,2,1,1
+46 Reshape            reshape_17               bottoms=56               tops=57               params=0=128 1=313 11=16 12=0 13=0 2=1
+47 ExpandDims         unsqueeze_35             bottoms=18               tops=58               params=-23303=1,1
+48 Tile               expand_13                bottoms=58               tops=59               params=-23302=4,1,2,1,1
+49 Reshape            reshape_18               bottoms=59               tops=60               params=0=128 1=313 11=16 12=0 13=0 2=1
+50 SDPA               sdpa_36                  bottoms=52,57,60,in1     tops=61               params=5=1
+51 Permute            transpose_31             bottoms=61               tops=62               params=0=2
+52 Reshape            reshape_19               bottoms=62               tops=63               params=0=2048 1=313 12=0 13=0 2=1
+53 Gemm               gemm_3                   bottoms=63               tops=64               params=10=-1 2=0 3=1 4=0 5=1 6=1 7=313 8=1024 9=2048
+54 BinaryOp           add_0                    bottoms=1,64             tops=65               params=0=0
+55 Split              splitncnn_4              bottoms=65               tops=66,67            params=
+56 RMSNorm            rmsn_11                  bottoms=67               tops=68               params=0=1024 1=1.000000e-5 2=1
+57 Split              splitncnn_5              bottoms=68               tops=69,70            params=
+58 Gemm               gemm_4                   bottoms=70               tops=71               params=10=-1 2=0 3=1 4=0 5=1 6=1 7=313 8=3584 9=1024
+59 Swish              silu_7                   bottoms=71               tops=72               params=
+60 Gemm               gemm_5                   bottoms=69               tops=73               params=10=-1 2=0 3=1 4=0 5=1 6=1 7=313 8=3584 9=1024
+61 BinaryOp           mul_1                    bottoms=72,73            tops=74               params=0=2
+62 Gemm               gemm_6                   bottoms=74               tops=75               params=10=-1 2=0 3=1 4=0 5=1 6=1 7=313 8=1024 9=3584
+63 BinaryOp           add_2                    bottoms=66,75            tops=out0             params=0=0
