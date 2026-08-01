@@ -8,12 +8,12 @@ ncnnpy = ./decoder_layer0_prefill_ncnn.py
 fp16 = 0
 optlevel = 2
 device = cpu
-inputshape = 
-inputshape2 = 
-input = 
-input2 = 
-customop = 
-moduleop = 
+inputshape =
+inputshape2 =
+input =
+input2 =
+customop =
+moduleop =
 get inputshape from traced inputs
 inputshape = [1,313,1024]f32,[1,1,313,313]f32,[4,1,313,128]f32,[4,1,313,128]f32
 ############# pass_level0

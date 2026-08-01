@@ -17,7 +17,7 @@ SwiGLU product mean error: 0.0
 
 Model load: 0.856s
 Full forward: 3.019s
-Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decoder_layer0_internal_debug_refs.json
+Report: ./docs/decoder_layer0_internal_debug_refs.json
 ✅ Decoder Layer 0内部诊断参考捕获成功。
 	Command being timed: "python tools/reference/capture_decoder_layer0_internal_debug.py"
 	User time (seconds): 31.35
