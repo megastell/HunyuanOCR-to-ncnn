@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import inspect
 import json
 import time
@@ -32,6 +33,24 @@ REPORT_PATH = (
 )
 
 TORCH_THREADS = 9
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Inspect the single-token decode contract "
+            "for a selected decoder layer."
+        )
+    )
+
+    parser.add_argument(
+        "--layer-index",
+        type=int,
+        default=0,
+        help="Decoder layer index. Default: 0.",
+    )
+
+    return parser.parse_args()
 
 
 def load_tensor(name: str) -> torch.Tensor:
@@ -169,6 +188,25 @@ def describe_mapping(
 
 
 def main() -> None:
+    args = parse_args()
+    layer_index = args.layer_index
+
+    if layer_index < 0:
+        raise ValueError(
+            f"layer_index不能为负数：{layer_index}"
+        )
+
+    global REPORT_PATH
+
+    REPORT_PATH = (
+        PROJECT_DIR
+        / "docs"
+        / (
+            f"decoder_layer{layer_index}_"
+            "decode_contract_probe.json"
+        )
+    )
+
     torch.set_grad_enabled(False)
     torch.manual_seed(0)
     torch.set_num_threads(TORCH_THREADS)
@@ -257,14 +295,20 @@ def main() -> None:
             f"实际={len(prefill_legacy)}，预期=24"
         )
 
+    if layer_index >= len(prefill_legacy):
+        raise ValueError(
+            f"layer_index={layer_index}越界，"
+            f"模型缓存共有{len(prefill_legacy)}层。"
+        )
+
     prefill_key0 = (
-        prefill_legacy[0][0]
+        prefill_legacy[layer_index][0]
         .detach()
         .clone()
     )
 
     prefill_value0 = (
-        prefill_legacy[0][1]
+        prefill_legacy[layer_index][1]
         .detach()
         .clone()
     )
@@ -288,12 +332,12 @@ def main() -> None:
     )
 
     print(
-        "layer0 key:",
+        f"layer{layer_index} key:",
         tuple(prefill_key0.shape),
     )
 
     print(
-        "layer0 value:",
+        f"layer{layer_index} value:",
         tuple(prefill_value0.shape),
     )
 
@@ -408,14 +452,20 @@ def main() -> None:
         decode_cache
     )
 
+    if layer_index >= len(decode_legacy):
+        raise ValueError(
+            f"layer_index={layer_index}越界，"
+            f"Decode缓存共有{len(decode_legacy)}层。"
+        )
+
     decode_key0 = (
-        decode_legacy[0][0]
+        decode_legacy[layer_index][0]
         .detach()
         .clone()
     )
 
     decode_value0 = (
-        decode_legacy[0][1]
+        decode_legacy[layer_index][1]
         .detach()
         .clone()
     )
@@ -426,12 +476,12 @@ def main() -> None:
     )
 
     print(
-        "present layer0 key:",
+        f"present layer{layer_index} key:",
         tuple(decode_key0.shape),
     )
 
     print(
-        "present layer0 value:",
+        f"present layer{layer_index} value:",
         tuple(decode_value0.shape),
     )
 
@@ -513,6 +563,7 @@ def main() -> None:
         ).strip(),
         "torch_version": torch.__version__,
         "torch_threads": TORCH_THREADS,
+        "layer_index": layer_index,
         "model_load_seconds": load_seconds,
         "prefill_seconds": prefill_seconds,
         "decode_seconds": decode_seconds,
@@ -529,9 +580,9 @@ def main() -> None:
             tensor_info(
                 prefill_output.logits
             ),
-        "prefill_layer0_key":
+        f"prefill_layer{layer_index}_key":
             tensor_info(prefill_key0),
-        "prefill_layer0_value":
+        f"prefill_layer{layer_index}_value":
             tensor_info(prefill_value0),
         "full_input_ids":
             tensor_info(full_input_ids),
@@ -549,9 +600,9 @@ def main() -> None:
             tensor_info(
                 decode_output.logits
             ),
-        "present_layer0_key":
+        f"present_layer{layer_index}_key":
             tensor_info(decode_key0),
-        "present_layer0_value":
+        f"present_layer{layer_index}_value":
             tensor_info(decode_value0),
         "cache_checks": {
             "key_prefix_max_abs_error":
@@ -577,7 +628,10 @@ def main() -> None:
     print()
     print("Report:", REPORT_PATH)
     print(
-        "✅ Decoder单Token与KV Cache契约确认成功。"
+        (
+            f"✅ Decoder Layer {layer_index} "
+            "单Token与KV Cache契约确认成功。"
+        )
     )
 
 

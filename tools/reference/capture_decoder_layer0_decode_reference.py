@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import importlib.util
 import inspect
 import json
@@ -46,6 +47,24 @@ REPORT_PATH = (
 )
 
 TORCH_THREADS = 9
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Capture the single-token decode reference "
+            "for a selected decoder layer."
+        )
+    )
+
+    parser.add_argument(
+        "--layer-index",
+        type=int,
+        default=0,
+        help="Decoder layer index. Default: 0.",
+    )
+
+    return parser.parse_args()
 
 
 def load_contract_module():
@@ -268,6 +287,40 @@ def describe_non_tensor_arguments(
 
 
 def main() -> None:
+    args = parse_args()
+    layer_index = args.layer_index
+
+    if layer_index < 0:
+        raise ValueError(
+            f"layer_index不能为负数：{layer_index}"
+        )
+
+    layer_prefix = f"layer{layer_index}"
+    decode_name = f"decoder_layer{layer_index}_decode"
+
+    global REFERENCE_DIR
+    global RAW_DIR
+    global REPORT_PATH
+
+    REFERENCE_DIR = (
+        PROJECT_DIR
+        / "reference/smoke_en_cpu_fp32"
+        / decode_name
+    )
+
+    RAW_DIR = (
+        PROJECT_DIR
+        / "artifacts"
+        / decode_name
+        / "reference"
+    )
+
+    REPORT_PATH = (
+        PROJECT_DIR
+        / "docs"
+        / f"{decode_name}_reference.json"
+    )
+
     torch.set_grad_enabled(False)
     torch.manual_seed(0)
     torch.set_num_threads(TORCH_THREADS)
@@ -329,14 +382,14 @@ def main() -> None:
     )
 
     prefill_key0 = (
-        prefill_legacy[0][0]
+        prefill_legacy[layer_index][0]
         .detach()
         .cpu()
         .clone()
     )
 
     prefill_value0 = (
-        prefill_legacy[0][1]
+        prefill_legacy[layer_index][1]
         .detach()
         .cpu()
         .clone()
@@ -410,13 +463,13 @@ def main() -> None:
             f"{tuple(prepared_inputs['input_ids'].shape)}"
         )
 
-    layer0 = (
+    decoder_layer = (
         model.model
         .language_model
-        .layers[0]
+        .layers[layer_index]
     )
 
-    self_attention = layer0.self_attn
+    self_attention = decoder_layer.self_attn
 
     captures: dict[str, torch.Tensor] = {}
 
@@ -434,14 +487,14 @@ def main() -> None:
         )
 
         argument_structure[
-            "layer0_forward_non_tensor"
+            f"{layer_prefix}_forward_non_tensor"
         ] = describe_non_tensor_arguments(
             arguments
         )
 
         for name, value in arguments.items():
             clone_nested_tensors(
-                f"layer0_{name}",
+                f"{layer_prefix}_{name}",
                 value,
                 captures,
             )
@@ -481,13 +534,13 @@ def main() -> None:
         del kwargs
 
         clone_nested_tensors(
-            "layer0_output",
+            f"{layer_prefix}_output",
             output,
             captures,
         )
 
     handles = [
-        layer0.register_forward_pre_hook(
+        decoder_layer.register_forward_pre_hook(
             layer_pre_hook,
             with_kwargs=True,
         ),
@@ -497,7 +550,7 @@ def main() -> None:
             with_kwargs=True,
         ),
 
-        layer0.register_forward_hook(
+        decoder_layer.register_forward_hook(
             layer_post_hook,
             with_kwargs=True,
         ),
@@ -536,14 +589,14 @@ def main() -> None:
     )
 
     present_key0 = (
-        decode_legacy[0][0]
+        decode_legacy[layer_index][0]
         .detach()
         .cpu()
         .clone()
     )
 
     present_value0 = (
-        decode_legacy[0][1]
+        decode_legacy[layer_index][1]
         .detach()
         .cpu()
         .clone()
@@ -652,6 +705,8 @@ def main() -> None:
         )
 
     report = {
+        "layer_index": layer_index,
+
         "model_revision": (
             PROJECT_DIR
             / "configs/model_revision.txt"
@@ -740,7 +795,7 @@ def main() -> None:
     print("Report:", REPORT_PATH)
 
     print(
-        "✅ Decoder Layer 0 Decode参考捕获成功。"
+        f"✅ Decoder Layer {layer_index} Decode参考捕获成功。"
     )
 
 
