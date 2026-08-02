@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import gc
 import json
 import math
@@ -24,26 +25,10 @@ MODEL_DIR = (
     / "work/hunyuanocr/models/HunyuanOCR-1.5"
 )
 
-REFERENCE_DIR = (
-    PROJECT_DIR
-    / "reference/smoke_en_cpu_fp32"
-    / "decoder_layer0_decode"
-)
-
-OUTPUT_DIR = (
-    PROJECT_DIR
-    / "artifacts/decoder_layer0_decode"
-)
-
-REPORT_PATH = (
-    PROJECT_DIR
-    / "docs/decoder_layer0_decode_export.json"
-)
-
-LOG_PATH = (
-    PROJECT_DIR
-    / "docs/decoder_layer0_decode_export.txt"
-)
+REFERENCE_DIR: Path
+OUTPUT_DIR: Path
+REPORT_PATH: Path
+LOG_PATH: Path
 
 TORCH_THREADS = 9
 
@@ -62,6 +47,24 @@ HEAD_DIM = 128
 
 ROPE_COMPONENTS = 4
 ROPE_SECTION_SIZE = 32
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Export the single-token decode graph "
+            "for a selected decoder layer."
+        )
+    )
+
+    parser.add_argument(
+        "--layer-index",
+        type=int,
+        default=0,
+        help="Decoder layer index. Default: 0.",
+    )
+
+    return parser.parse_args()
 
 
 def load_reference(
@@ -210,7 +213,7 @@ def print_metrics(
     )
 
 
-class DecoderLayer0DecodeWrapper(nn.Module):
+class DecoderLayerDecodeWrapper(nn.Module):
     def __init__(
         self,
         layer: nn.Module,
@@ -640,6 +643,48 @@ def validate_metrics(
 
 
 def main() -> None:
+    args = parse_args()
+    layer_index = args.layer_index
+
+    if layer_index < 0:
+        raise ValueError(
+            f"layer_index不能为负数：{layer_index}"
+        )
+
+    layer_prefix = f"layer{layer_index}"
+    decode_name = (
+        f"decoder_layer{layer_index}_decode"
+    )
+
+    global REFERENCE_DIR
+    global OUTPUT_DIR
+    global REPORT_PATH
+    global LOG_PATH
+
+    REFERENCE_DIR = (
+        PROJECT_DIR
+        / "reference/smoke_en_cpu_fp32"
+        / decode_name
+    )
+
+    OUTPUT_DIR = (
+        PROJECT_DIR
+        / "artifacts"
+        / decode_name
+    )
+
+    REPORT_PATH = (
+        PROJECT_DIR
+        / "docs"
+        / f"{decode_name}_export.json"
+    )
+
+    LOG_PATH = (
+        PROJECT_DIR
+        / "docs"
+        / f"{decode_name}_export.txt"
+    )
+
     torch.set_grad_enabled(False)
     torch.manual_seed(0)
     torch.set_num_threads(TORCH_THREADS)
@@ -655,19 +700,19 @@ def main() -> None:
     )
 
     hidden_states = load_reference(
-        "layer0_hidden_states"
+        f"{layer_prefix}_hidden_states"
     ).float()
 
     attention_mask = load_reference(
-        "layer0_attention_mask"
+        f"{layer_prefix}_attention_mask"
     ).float()
 
     rope_cos = load_reference(
-        "layer0_position_embeddings_0"
+        f"{layer_prefix}_position_embeddings_0"
     ).float()
 
     rope_sin = load_reference(
-        "layer0_position_embeddings_1"
+        f"{layer_prefix}_position_embeddings_1"
     ).float()
 
     past_key = load_reference(
@@ -680,7 +725,7 @@ def main() -> None:
 
     expected_layer_output = (
         load_reference(
-            "layer0_output"
+            f"{layer_prefix}_output"
         ).float()
     )
 
@@ -737,22 +782,32 @@ def main() -> None:
         - load_start
     )
 
-    layer0 = (
+    decoder_layers = (
         model.model
         .language_model
-        .layers[0]
+        .layers
+    )
+
+    if layer_index >= len(decoder_layers):
+        raise ValueError(
+            f"layer_index={layer_index}越界，"
+            f"模型共有{len(decoder_layers)}层。"
+        )
+
+    decoder_layer = (
+        decoder_layers[layer_index]
     )
 
     wrapper = (
-        DecoderLayer0DecodeWrapper(
-            layer0
+        DecoderLayerDecodeWrapper(
+            decoder_layer
         )
         .eval()
     )
 
-    # wrapper已经持有Layer 0需要的子模块，
+    # wrapper已经持有所选Decoder层需要的子模块，
     # 可以释放完整模型其余部分。
-    del layer0
+    del decoder_layer
     del model
 
     gc.collect()
@@ -837,7 +892,7 @@ def main() -> None:
 
     script_path = (
         OUTPUT_DIR
-        / "decoder_layer0_decode.pt"
+        / f"{decode_name}.pt"
     )
 
     traced.save(str(script_path))
@@ -919,6 +974,8 @@ def main() -> None:
         )
 
     report = {
+        "layer_index": layer_index,
+        "decode_name": decode_name,
         "model_revision": (
             PROJECT_DIR
             / "configs/model_revision.txt"
@@ -1034,7 +1091,7 @@ def main() -> None:
     print("Report:", REPORT_PATH)
 
     print(
-        "✅ Decoder Layer 0 Decode "
+        f"✅ Decoder Layer {layer_index} Decode "
         "Eager与TorchScript对齐成功。"
     )
 
