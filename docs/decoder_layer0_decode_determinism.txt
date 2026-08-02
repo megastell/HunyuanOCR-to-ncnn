@@ -1,0 +1,25 @@
+Decoder Layer 0 Decode FP32 Determinism
+
+Configuration:
+- CPU FP32
+- 9 threads
+- use_packing_layout=true
+- precise packed x86 RMSNorm runtime
+
+Runs:
+- repetition count: 9
+- successful runs: 9
+- failed runs: 0
+- identical logs: yes
+
+Common SHA-256:
+6675acb09f9061c0549a13cd739b8cdea9f0c931dda52aff530987312b9f122c
+
+Maximum absolute errors in every run:
+- layer_output: 6.7055225372e-08
+- present_key: 2.3841857910e-06
+- present_value: 2.9802322388e-08
+
+Cache checks:
+- key history prefix maximum error: 0
+- value history prefix maximum error: 0
