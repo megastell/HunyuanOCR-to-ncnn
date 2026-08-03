@@ -1,0 +1,35 @@
+{
+  "source_layer23_output": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer23_decode/reference/layer23_output_f32.bin",
+  "source_expected_logits": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer23_decode/reference/decode_logits_f32.bin",
+  "final_norm_module": "model.language_model.norm",
+  "final_norm_class": "HunYuanVLRMSNorm",
+  "hidden_size": 1024,
+  "vocab_size": 120818,
+  "epsilon": 1e-05,
+  "input_shape": [
+    1,
+    1,
+    1024
+  ],
+  "norm_output_shape": [
+    1,
+    1,
+    1024
+  ],
+  "logits_shape": [
+    1,
+    1,
+    120818
+  ],
+  "expected_decode_token": 5112,
+  "actual_decode_token": 5112,
+  "logits_metrics": {
+    "maximum_abs_error": 0.0,
+    "mean_abs_error": 0.0,
+    "rmse": 0.0,
+    "cosine_similarity": 1.0
+  },
+  "final_norm_input": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decode_tail/reference/final_norm_input_f32.bin",
+  "final_norm_output": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decode_tail/reference/final_norm_output_f32.bin",
+  "decode_logits": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decode_tail/reference/decode_logits_f32.bin"
+}

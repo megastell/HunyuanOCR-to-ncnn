@@ -1,0 +1,53 @@
+===== Decode-tail runtime options =====
+project root        : /home/asus/work/hunyuanocr/HunyuanOCR-ncnn
+threads             : 9
+packing layout      : true
+intermediate reload : disabled
+handoff 1           : Layer23 output -> Final RMSNorm in0
+handoff 2           : Final RMSNorm out0.clone() -> LM Head in0
+
+===== Static boundary check =====
+
+Layer23 output vs Final RMSNorm reference input
+  Maximum abs error : 0.0000000000e+00
+  Mean abs error    : 0.0000000000e+00
+  RMSE              : 0.0000000000e+00
+  Cosine similarity : 1.000000000000
+  Max error index   : 0
+  Actual at max     : 0.0000000000
+  Expected at max   : 0.0000000000
+
+===== Final RMSNorm input =====
+final_norm_input: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+
+===== Final RMSNorm output =====
+final_norm_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+
+===== Final RMSNorm parity =====
+
+Final RMSNorm output
+  Maximum abs error : 1.9073486328e-06
+  Mean abs error    : 3.0571140996e-07
+  RMSE              : 4.1563692362e-07
+  Cosine similarity : 1.000000000000
+  Max error index   : 334
+  Actual at max     : 9.3415594101
+  Expected at max   : 9.3415613174
+
+===== LM Head output =====
+decode_logits: dims=2, w=120818, h=1, d=1, c=1, elempack=1, logical_count=120818
+
+===== Decode logits parity =====
+
+Final RMSNorm -> LM Head logits
+  Maximum abs error : 4.7683715820e-06
+  Mean abs error    : 5.7507581807e-07
+  RMSE              : 7.4756836746e-07
+  Cosine similarity : 1.000000000000
+  Max error index   : 95470
+  Actual at max     : -10.1719169617
+  Expected at max   : -10.1719217300
+Expected decode token : 5112
+Actual decode token   : 5112
+
+✅ Layer23 reference output → Final RMSNorm → LM Head → decode logits ncnn直接串联验证成功。
