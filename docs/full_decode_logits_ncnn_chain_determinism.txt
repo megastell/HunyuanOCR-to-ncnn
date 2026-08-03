@@ -1,0 +1,23 @@
+HunyuanOCR-1.5 full single-token decode logits chain determinism
+Runs: 9
+Threads: 9
+Precision: FP32
+Packing layout: true
+Vulkan: disabled
+Decoder layers: 0 through 23
+Intermediate hidden reload: disabled
+Decoder handoff: previous out0.clone() -> next in0
+Tail: Final RMSNorm -> LM Head -> logits
+Expected token: 5112
+
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run1.summary.txt
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run2.summary.txt
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run3.summary.txt
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run4.summary.txt
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run5.summary.txt
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run6.summary.txt
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run7.summary.txt
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run8.summary.txt
+3123f874bcf7a6e9bab2ad9bbcee70c51fadc9f401d7b27dd2f23e3183348c63  run9.summary.txt
+
+All nine summaries compared identical with cmp.

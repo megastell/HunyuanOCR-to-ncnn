@@ -51,3 +51,9 @@ Thumbs.db
 
 # Keep selected verification logs
 !docs/model_load_cpu_fp32.log
+
+# Ignore Python caches inside explicitly re-included reference tools
+tools/reference/__pycache__/
+tools/reference/**/__pycache__/
+tools/reference/*.py[cod]
+tools/reference/**/*.py[cod]
