@@ -1,0 +1,28 @@
+Decoder Layer 0-23 ncnn graph audit
+
+Layer  0: magic=7767517 graph=72 87
+Layer  1: magic=7767517 graph=72 87
+Layer  2: magic=7767517 graph=72 87
+Layer  3: magic=7767517 graph=72 87
+Layer  4: magic=7767517 graph=72 87
+Layer  5: magic=7767517 graph=72 87
+Layer  6: magic=7767517 graph=72 87
+Layer  7: magic=7767517 graph=72 87
+Layer  8: magic=7767517 graph=72 87
+Layer  9: magic=7767517 graph=72 87
+Layer 10: magic=7767517 graph=72 87
+Layer 11: magic=7767517 graph=72 87
+Layer 12: magic=7767517 graph=72 87
+Layer 13: magic=7767517 graph=72 87
+Layer 14: magic=7767517 graph=72 87
+Layer 15: magic=7767517 graph=72 87
+Layer 16: magic=7767517 graph=72 87
+Layer 17: magic=7767517 graph=72 87
+Layer 18: magic=7767517 graph=72 87
+Layer 19: magic=7767517 graph=72 87
+Layer 20: magic=7767517 graph=72 87
+Layer 21: magic=7767517 graph=72 87
+Layer 22: magic=7767517 graph=72 87
+Layer 23: magic=7767517 graph=72 87
+
+✅ Decoder Layer 0–23 ncnn图结构全部一致
