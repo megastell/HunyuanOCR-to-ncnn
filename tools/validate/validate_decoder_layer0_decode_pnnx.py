@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import argparse
+
 import importlib.util
 import json
 import os
@@ -12,24 +14,29 @@ import torch
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 
-PNNX_SCRIPT = (
-    PROJECT_DIR
-    / "artifacts/decoder_layer0_decode"
-    / "decoder_layer0_decode_pnnx.py"
-)
-
-REFERENCE_DIR = (
-    PROJECT_DIR
-    / "reference/smoke_en_cpu_fp32"
-    / "decoder_layer0_decode"
-)
-
-REPORT_PATH = (
-    PROJECT_DIR
-    / "docs/decoder_layer0_decode_pnnx_parity.json"
-)
+PNNX_SCRIPT: Path
+REFERENCE_DIR: Path
+REPORT_PATH: Path
 
 TORCH_THREADS = 9
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Validate PNNX decode outputs "
+            "for a selected decoder layer."
+        )
+    )
+
+    parser.add_argument(
+        "--layer-index",
+        type=int,
+        default=0,
+        help="Decoder layer index. Default: 0.",
+    )
+
+    return parser.parse_args()
 
 
 def load_tensor(name: str) -> torch.Tensor:
@@ -53,7 +60,7 @@ def load_generated_module() -> Any:
 
     specification = (
         importlib.util.spec_from_file_location(
-            "decoder_layer0_decode_generated_pnnx",
+            f"{PNNX_SCRIPT.stem}_generated",
             PNNX_SCRIPT,
         )
     )
@@ -292,28 +299,64 @@ def validate_output(
 
 
 def main() -> None:
+    args = parse_args()
+    layer_index = args.layer_index
+
+    if layer_index < 0:
+        raise ValueError(
+            f"layer_index不能为负数：{layer_index}"
+        )
+
+    layer_prefix = f"layer{layer_index}"
+    decode_name = (
+        f"decoder_layer{layer_index}_decode"
+    )
+
+    global PNNX_SCRIPT
+    global REFERENCE_DIR
+    global REPORT_PATH
+
+    PNNX_SCRIPT = (
+        PROJECT_DIR
+        / "artifacts"
+        / decode_name
+        / f"{decode_name}_pnnx.py"
+    )
+
+    REFERENCE_DIR = (
+        PROJECT_DIR
+        / "reference/smoke_en_cpu_fp32"
+        / decode_name
+    )
+
+    REPORT_PATH = (
+        PROJECT_DIR
+        / "docs"
+        / f"{decode_name}_pnnx_parity.json"
+    )
+
     torch.set_grad_enabled(False)
     torch.set_num_threads(TORCH_THREADS)
 
     inputs = (
         load_tensor(
-            "layer0_hidden_states"
+            f"{layer_prefix}_hidden_states"
         ),
         load_tensor(
-            "layer0_attention_mask"
+            f"{layer_prefix}_attention_mask"
         ),
         load_tensor(
-            "layer0_position_embeddings_0"
+            f"{layer_prefix}_position_embeddings_0"
         ),
         load_tensor(
-            "layer0_position_embeddings_1"
+            f"{layer_prefix}_position_embeddings_1"
         ),
         load_tensor("past_key"),
         load_tensor("past_value"),
     )
 
     expected_outputs = (
-        load_tensor("layer0_output"),
+        load_tensor(f"{layer_prefix}_output"),
         load_tensor("present_key"),
         load_tensor("present_value"),
     )
@@ -357,25 +400,73 @@ def main() -> None:
     # 因此在它所在目录下初始化并执行。
     original_directory = Path.cwd()
 
-    try:
-        os.chdir(PROJECT_DIR)
+    attempted_directories: list[Path] = []
+    last_file_error: FileNotFoundError | None = None
 
-        model = model_class().eval()
-
-        print(
-            "Model class:",
-            model_class.__name__,
+    # 新生成的PNNX脚本通常从自身目录读取
+    # "./模型名.pnnx.bin"；旧产物可能保存了
+    # 相对于项目根目录的"artifacts/..."路径。
+    for working_directory in (
+        PNNX_SCRIPT.parent,
+        PROJECT_DIR,
+    ):
+        working_directory = (
+            working_directory.resolve()
         )
 
-        print()
-        print(
-            "===== PNNX reference inference ====="
+        if (
+            working_directory
+            in attempted_directories
+        ):
+            continue
+
+        attempted_directories.append(
+            working_directory
         )
 
-        with torch.inference_mode():
-            outputs = model(*inputs)
-    finally:
-        os.chdir(original_directory)
+        try:
+            os.chdir(working_directory)
+
+            model = model_class().eval()
+
+            print(
+                "Model class:",
+                model_class.__name__,
+            )
+
+            print(
+                "PNNX working directory:",
+                working_directory,
+            )
+
+            print()
+            print(
+                "===== PNNX reference inference ====="
+            )
+
+            with torch.inference_mode():
+                outputs = model(*inputs)
+
+        except FileNotFoundError as error:
+            last_file_error = error
+
+        else:
+            break
+
+        finally:
+            os.chdir(original_directory)
+
+    else:
+        attempted_text = ", ".join(
+            str(item)
+            for item in attempted_directories
+        )
+
+        raise RuntimeError(
+            "无法在候选工作目录中加载"
+            "PNNX权重："
+            f"{attempted_text}"
+        ) from last_file_error
 
     if not isinstance(
         outputs,
@@ -436,6 +527,8 @@ def main() -> None:
         )
 
     report = {
+        "layer_index": layer_index,
+        "decode_name": decode_name,
         "torch_version":
             torch.__version__,
         "torch_threads":
@@ -468,7 +561,7 @@ def main() -> None:
     print()
     print("Report:", REPORT_PATH)
     print(
-        "✅ Decoder Layer 0 Decode "
+        f"✅ Decoder Layer {layer_index} Decode "
         "PNNX三输出数值对齐成功。"
     )
 
