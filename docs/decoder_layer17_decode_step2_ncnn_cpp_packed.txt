@@ -1,0 +1,53 @@
+===== Runtime options =====
+threads            : 9
+packing layout     : true
+
+===== Input shapes =====
+in0 hidden_states: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+in1 attention_mask: dims=3, w=315, h=1, d=1, c=1, elempack=1, logical_count=315
+in2 rope_cos: dims=3, w=128, h=1, d=1, c=4, elempack=1, logical_count=512
+in3 rope_sin: dims=3, w=128, h=1, d=1, c=4, elempack=1, logical_count=512
+in4 past_key: dims=3, w=128, h=314, d=1, c=8, elempack=1, logical_count=321536
+in5 past_value: dims=3, w=128, h=314, d=1, c=8, elempack=1, logical_count=321536
+
+===== Output shapes =====
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=315, d=1, c=8, elempack=1, logical_count=322560
+out2 present_value: dims=3, w=128, h=315, d=1, c=8, elempack=1, logical_count=322560
+
+===== Numerical parity =====
+
+out0 layer_output
+  Maximum abs error : 3.7252902985e-08
+  Mean abs error    : 8.7336502474e-09
+  RMSE              : 1.1267156906e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 175
+  Actual at max     : 0.0729213208
+  Expected at max   : 0.0729213580
+
+out1 present_key
+  Maximum abs error : 1.1920928955e-06
+  Mean abs error    : 7.1910750511e-10
+  RMSE              : 1.6705626118e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 120893
+  Actual at max     : 3.3979713917
+  Expected at max   : 3.3979701996
+
+out2 present_value
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 3.2098666582e-11
+  RMSE              : 7.2867745816e-10
+  Cosine similarity : 1.000000000000
+  Max error index   : 80541
+  Actual at max     : -0.2361547947
+  Expected at max   : -0.2361548543
+
+===== Cache region checks =====
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.1920928955e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 5.9604644775e-08
+
+✅ Decoder Layer 17 Decode Step 2 PNNX → ncnn C++三输出数值对齐成功。

@@ -1,10 +1,10 @@
-pnnxparam = ./decoder_layer0_decode_step2.pnnx.param
-pnnxbin = ./decoder_layer0_decode_step2.pnnx.bin
-pnnxpy = ./decoder_layer0_decode_step2_pnnx.py
-pnnxonnx = ./decoder_layer0_decode_step2.pnnx.onnx
-ncnnparam = ./decoder_layer0_decode_step2.ncnn.param
-ncnnbin = ./decoder_layer0_decode_step2.ncnn.bin
-ncnnpy = ./decoder_layer0_decode_step2_ncnn.py
+pnnxparam = ./decoder_layer11_decode_step2.pnnx.param
+pnnxbin = ./decoder_layer11_decode_step2.pnnx.bin
+pnnxpy = ./decoder_layer11_decode_step2_pnnx.py
+pnnxonnx = ./decoder_layer11_decode_step2.pnnx.onnx
+ncnnparam = ./decoder_layer11_decode_step2.ncnn.param
+ncnnbin = ./decoder_layer11_decode_step2.ncnn.bin
+ncnnpy = ./decoder_layer11_decode_step2_ncnn.py
 fp16 = 0
 optlevel = 2
 device = cpu

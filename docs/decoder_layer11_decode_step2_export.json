@@ -1,6 +1,6 @@
 {
-  "layer_index": 0,
-  "decode_name": "decoder_layer0_decode_step2",
+  "layer_index": 11,
+  "decode_name": "decoder_layer11_decode_step2",
   "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
   "torch_version": "2.12.1+cpu",
   "torch_threads": 9,
@@ -62,10 +62,10 @@
       ]
     }
   },
-  "model_load_seconds": 1.2331599859899143,
-  "trace_seconds": 0.11742988300102297,
-  "torchscript_path": "artifacts/decoder_layer0_decode_step2/decoder_layer0_decode_step2.pt",
-  "torchscript_bytes": 69224833,
+  "model_load_seconds": 0.5675516180053819,
+  "trace_seconds": 0.06866955099394545,
+  "torchscript_path": "artifacts/decoder_layer11_decode_step2/decoder_layer11_decode_step2.pt",
+  "torchscript_bytes": 69224853,
   "inputs": {
     "hidden_states": {
       "shape": [
@@ -75,9 +75,9 @@
       ],
       "dtype": "torch.float32",
       "numel": 1024,
-      "minimum": -0.060791015625,
-      "maximum": 0.08544921875,
-      "mean": -0.0005636116839013994
+      "minimum": -0.6071659326553345,
+      "maximum": 0.13238701224327087,
+      "mean": 0.00026887928834185004
     },
     "attention_mask": {
       "shape": [
@@ -127,9 +127,9 @@
       ],
       "dtype": "torch.float32",
       "numel": 321536,
-      "minimum": -9.10250186920166,
-      "maximum": 11.014780044555664,
-      "mean": 0.003608312690630555
+      "minimum": -12.301501274108887,
+      "maximum": 10.866732597351074,
+      "mean": -0.01382305659353733
     },
     "past_value": {
       "shape": [
@@ -140,9 +140,9 @@
       ],
       "dtype": "torch.float32",
       "numel": 321536,
-      "minimum": -0.47120440006256104,
-      "maximum": 0.566735565662384,
-      "mean": -0.00028475033468566835
+      "minimum": -0.25501105189323425,
+      "maximum": 0.23581400513648987,
+      "mean": -0.0004230790364090353
     }
   },
   "eager_metrics": {
@@ -156,13 +156,13 @@
       "maximum_abs_error": 0.0,
       "mean_abs_error": 0.0,
       "rmse": 0.0,
-      "cosine_similarity": 0.9999999999999472
+      "cosine_similarity": 0.9999999999999523
     },
     "present_value": {
       "maximum_abs_error": 0.0,
       "mean_abs_error": 0.0,
       "rmse": 0.0,
-      "cosine_similarity": 0.9999999999999545
+      "cosine_similarity": 0.9999999999999359
     }
   },
   "torchscript_metrics": {
@@ -176,13 +176,13 @@
       "maximum_abs_error": 0.0,
       "mean_abs_error": 0.0,
       "rmse": 0.0,
-      "cosine_similarity": 0.9999999999999472
+      "cosine_similarity": 0.9999999999999523
     },
     "present_value": {
       "maximum_abs_error": 0.0,
       "mean_abs_error": 0.0,
       "rmse": 0.0,
-      "cosine_similarity": 0.9999999999999545
+      "cosine_similarity": 0.9999999999999359
     }
   },
   "graph_checks": {
