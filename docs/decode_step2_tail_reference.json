@@ -1,0 +1,13 @@
+{
+  "torch_version": "2.12.1+cpu",
+  "torch_threads": 9,
+  "model_load_seconds": 1.3504570420045638,
+  "final_norm_module": "model.language_model.norm",
+  "lm_head_module": "lm_head",
+  "hidden_size": 1024,
+  "vocab_size": 120818,
+  "expected_token": 206,
+  "actual_token": 206,
+  "logits_maximum_abs_error": 0.0,
+  "reference_directory": "artifacts/decode_tail_step2/reference"
+}

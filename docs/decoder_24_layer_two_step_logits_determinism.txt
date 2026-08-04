@@ -1,0 +1,23 @@
+HunyuanOCR-1.5 two-step decode logits-chain determinism
+Runs: 9
+Threads: 9
+Precision: FP32
+Packing layout: true
+Vulkan: disabled
+Step 1 cache: 313 -> 314
+Step 2 cache: 314 -> 315
+Final RMSNorm: executed
+LM Head: executed
+Expected final token: 206
+
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run1.txt
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run2.txt
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run3.txt
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run4.txt
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run5.txt
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run6.txt
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run7.txt
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run8.txt
+caab36b9eecda2a521ad7abebbf76e3cad275f681daf7815603c2df1898ae487  /tmp/decoder_two_step_logits_determinism/run9.txt
+
+All nine complete outputs compared with cmp.

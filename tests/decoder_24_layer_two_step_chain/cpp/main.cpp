@@ -1961,12 +1961,415 @@ int main(
         return EXIT_FAILURE;
     }
 
+    /*
+     * Step 2 Decoder Layer 23 out0
+     *     -> Final RMSNorm
+     *     -> LM Head
+     *     -> logits
+     *
+     * step2_current_hidden保持为真实链式输出，
+     * 不用参考hidden替换。
+     */
+    constexpr std::size_t kDecodeVocabSize =
+        120818;
+
+    constexpr int kExpectedStep2Token =
+        206;
+
+    const std::string step2_tail_reference =
+        project_root
+        + "/artifacts/decode_tail_step2/reference";
+
+    const std::string final_norm_directory =
+        project_root
+        + "/artifacts/final_norm";
+
+    const std::string lm_head_directory =
+        project_root
+        + "/artifacts/lm_head";
+
+    std::vector<float> expected_norm_input;
+    std::vector<float> expected_norm_output;
+    std::vector<float> expected_logits;
+
+    if (
+        !load_exact_binary(
+            step2_tail_reference
+                + "/final_norm_input_f32.bin",
+            hidden_count,
+            expected_norm_input
+        )
+        || !load_exact_binary(
+            step2_tail_reference
+                + "/final_norm_output_f32.bin",
+            hidden_count,
+            expected_norm_output
+        )
+        || !load_exact_binary(
+            step2_tail_reference
+                + "/decode_logits_f32.bin",
+            kDecodeVocabSize,
+            expected_logits
+        )
+    ) {
+        std::cerr
+            << "Step 2尾部参考数据加载失败。\n";
+
+        return EXIT_FAILURE;
+    }
+
+    std::vector<float> actual_decoder_output;
+
+    if (
+        !unpack_mat(
+            step2_current_hidden,
+            actual_decoder_output
+        )
+    ) {
+        return EXIT_FAILURE;
+    }
+
+    Metrics final_norm_input_metrics;
+
+    if (
+        !calculate_metrics(
+            actual_decoder_output,
+            expected_norm_input,
+            final_norm_input_metrics
+        )
+    ) {
+        return EXIT_FAILURE;
+    }
+
     std::cout
-        << "\n✅ Decoder 24层两步ncnn链验证成功：\n"
-        << "   Step 1与Step 2层间hidden均直接串联；\n"
-        << "   每层Step 1 present KV均直接传给"
-        << "同层Step 2 past KV；\n"
-        << "   Step 2推理未从参考文件重新加载KV。\n";
+        << "\n===== Step 2 Decoder -> Final RMSNorm boundary =====\n";
+
+    print_metrics(
+        "Step 2 Layer 23 chained output vs Final RMSNorm reference input",
+        final_norm_input_metrics
+    );
+
+    if (
+        !hidden_passed(
+            final_norm_input_metrics
+        )
+    ) {
+        std::cerr
+            << "❌ Step 2 Decoder最终输出累计误差超限。\n";
+
+        return EXIT_FAILURE;
+    }
+
+    ncnn::Mat norm_handoff;
+    Metrics norm_metrics;
+
+    {
+        ncnn::Net final_norm_network;
+
+        final_norm_network.opt.use_vulkan_compute =
+            false;
+
+        final_norm_network.opt.use_packing_layout =
+            use_packing_layout;
+
+        final_norm_network.opt.num_threads =
+            kRuntimeThreads;
+
+        const std::string param_path =
+            final_norm_directory
+            + "/final_norm.ncnn.param";
+
+        const std::string model_path =
+            final_norm_directory
+            + "/final_norm.ncnn.bin";
+
+        if (
+            final_norm_network.load_param(
+                param_path.c_str()
+            ) != 0
+            || final_norm_network.load_model(
+                model_path.c_str()
+            ) != 0
+        ) {
+            std::cerr
+                << "Final RMSNorm模型加载失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        ncnn::Extractor extractor =
+            final_norm_network.create_extractor();
+
+        extractor.set_light_mode(false);
+
+        if (
+            extractor.input(
+                "in0",
+                step2_current_hidden
+            ) != 0
+        ) {
+            std::cerr
+                << "Final RMSNorm输入绑定失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        ncnn::Mat norm_output;
+
+        if (
+            extractor.extract(
+                "out0",
+                norm_output
+            ) != 0
+            || norm_output.empty()
+        ) {
+            std::cerr
+                << "Final RMSNorm输出提取失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        std::vector<float> actual_norm_output;
+
+        if (
+            !unpack_mat(
+                norm_output,
+                actual_norm_output
+            )
+            || !calculate_metrics(
+                actual_norm_output,
+                expected_norm_output,
+                norm_metrics
+            )
+        ) {
+            return EXIT_FAILURE;
+        }
+
+        /*
+         * Final RMSNorm网络释放之前必须clone，
+         * 防止LM Head引用已经失效的内存。
+         */
+        norm_handoff =
+            norm_output.clone();
+    }
+
+    if (norm_handoff.empty()) {
+        std::cerr
+            << "Final RMSNorm out0.clone()失败。\n";
+
+        return EXIT_FAILURE;
+    }
+
+    std::cout
+        << "\n===== Step 2 Final RMSNorm parity =====\n";
+
+    print_metrics(
+        "Step 2 Final RMSNorm output",
+        norm_metrics
+    );
+
+    const bool norm_passed =
+        norm_metrics.maximum_abs_error
+            <= 5.0e-5
+        && norm_metrics.mean_abs_error
+            <= 5.0e-6
+        && norm_metrics.cosine_similarity
+            >= 0.99999999;
+
+    if (!norm_passed) {
+        std::cerr
+            << "❌ Step 2 Final RMSNorm误差超限。\n";
+
+        return EXIT_FAILURE;
+    }
+
+    std::vector<float> actual_logits;
+    Metrics logits_metrics;
+
+    {
+        ncnn::Net lm_head_network;
+
+        lm_head_network.opt.use_vulkan_compute =
+            false;
+
+        lm_head_network.opt.use_packing_layout =
+            use_packing_layout;
+
+        lm_head_network.opt.num_threads =
+            kRuntimeThreads;
+
+        const std::string param_path =
+            lm_head_directory
+            + "/lm_head.ncnn.param";
+
+        const std::string model_path =
+            lm_head_directory
+            + "/lm_head.ncnn.bin";
+
+        if (
+            lm_head_network.load_param(
+                param_path.c_str()
+            ) != 0
+            || lm_head_network.load_model(
+                model_path.c_str()
+            ) != 0
+        ) {
+            std::cerr
+                << "LM Head模型加载失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        ncnn::Extractor extractor =
+            lm_head_network.create_extractor();
+
+        extractor.set_light_mode(false);
+
+        if (
+            extractor.input(
+                "in0",
+                norm_handoff
+            ) != 0
+        ) {
+            std::cerr
+                << "LM Head输入绑定失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        ncnn::Mat logits;
+
+        if (
+            extractor.extract(
+                "out0",
+                logits
+            ) != 0
+            || logits.empty()
+        ) {
+            std::cerr
+                << "LM Head输出提取失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        if (
+            !unpack_mat(
+                logits,
+                actual_logits
+            )
+        ) {
+            return EXIT_FAILURE;
+        }
+    }
+
+    if (
+        actual_logits.size()
+        != kDecodeVocabSize
+    ) {
+        std::cerr
+            << "Step 2 logits数量错误："
+            << actual_logits.size()
+            << "，预期："
+            << kDecodeVocabSize
+            << '\n';
+
+        return EXIT_FAILURE;
+    }
+
+    if (
+        !calculate_metrics(
+            actual_logits,
+            expected_logits,
+            logits_metrics
+        )
+    ) {
+        return EXIT_FAILURE;
+    }
+
+    const auto expected_iterator =
+        std::max_element(
+            expected_logits.begin(),
+            expected_logits.end()
+        );
+
+    const auto actual_iterator =
+        std::max_element(
+            actual_logits.begin(),
+            actual_logits.end()
+        );
+
+    const int expected_token =
+        static_cast<int>(
+            std::distance(
+                expected_logits.begin(),
+                expected_iterator
+            )
+        );
+
+    const int actual_token =
+        static_cast<int>(
+            std::distance(
+                actual_logits.begin(),
+                actual_iterator
+            )
+        );
+
+    std::cout
+        << "\n===== Step 2 full logits parity =====\n";
+
+    print_metrics(
+        "Two-step Decoder -> Final RMSNorm -> LM Head logits",
+        logits_metrics
+    );
+
+    std::cout
+        << "Expected Step 2 token : "
+        << expected_token
+        << '\n'
+        << "Actual Step 2 token   : "
+        << actual_token
+        << '\n'
+        << "Contract token        : "
+        << kExpectedStep2Token
+        << '\n';
+
+    const bool logits_passed =
+        logits_metrics.maximum_abs_error
+            <= 3.0e-3
+        && logits_metrics.mean_abs_error
+            <= 5.0e-5
+        && logits_metrics.cosine_similarity
+            >= 0.999999
+        && expected_token
+            == kExpectedStep2Token
+        && actual_token
+            == kExpectedStep2Token;
+
+    if (!logits_passed) {
+        std::cerr
+            << "❌ Step 2完整logits数值验证失败。\n";
+
+        return EXIT_FAILURE;
+    }
+
+    std::cout
+        << "\n===== Two-step logits-chain result =====\n"
+        << "Step 1 decoder layers : 0 -> 23\n"
+        << "Step 2 decoder layers : 0 -> 23\n"
+        << "Same-layer KV handoff : enabled\n"
+        << "Final RMSNorm          : executed\n"
+        << "LM Head                : executed\n"
+        << "Tail input reload      : disabled\n"
+        << "Final Step 2 token     : "
+        << actual_token
+        << '\n';
+
+    std::cout
+        << "\n✅ 两次Decode的24层Decoder"
+        << " → Final RMSNorm"
+        << " → LM Head"
+        << " → token 206"
+        << " 完整ncnn FP32链验证成功。\n";
 
     return EXIT_SUCCESS;
 }

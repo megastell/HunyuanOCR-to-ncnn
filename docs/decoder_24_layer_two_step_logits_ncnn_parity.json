@@ -1,0 +1,100 @@
+{
+  "layer_count": 24,
+  "threads": 9,
+  "precision": "FP32",
+  "vulkan": false,
+  "vocabulary_size": 120818,
+  "step1_cache": {
+    "past_length": 313,
+    "present_length": 314
+  },
+  "step2_cache": {
+    "past_length": 314,
+    "present_length": 315
+  },
+  "runtime_contract": {
+    "step1_intermediate_hidden_reload": false,
+    "step2_intermediate_hidden_reload": false,
+    "step2_reference_kv_reload": false,
+    "same_layer_kv_handoff": true,
+    "tail_input_reload": false,
+    "final_norm_executed": true,
+    "lm_head_executed": true
+  },
+  "packed": {
+    "packing_layout": true,
+    "step1_maximum_input_boundary_error": 2.8312206268e-07,
+    "step1_maximum_layer_output_error": 7.152557373e-07,
+    "step1_maximum_present_key_error": 3.9935112e-06,
+    "step1_maximum_present_value_error": 2.384185791e-07,
+    "step2_maximum_input_boundary_error": 4.768371582e-07,
+    "step2_maximum_layer_output_error": 4.768371582e-07,
+    "step2_maximum_present_key_error": 7.3909759521e-06,
+    "step2_maximum_present_value_error": 2.384185791e-07,
+    "maximum_kv_handoff_key_error": 3.9935112e-06,
+    "maximum_kv_handoff_value_error": 2.384185791e-07,
+    "maximum_step2_key_prefix_error": 0.0,
+    "maximum_step2_value_prefix_error": 0.0,
+    "decoder_to_final_norm_boundary": {
+      "maximum_abs_error": 4.0233135223e-07,
+      "mean_abs_error": 9.3987637229e-08,
+      "rmse": 1.1665461951e-07,
+      "cosine_similarity": 0.999999999999
+    },
+    "final_norm": {
+      "maximum_abs_error": 1.2397766113e-05,
+      "mean_abs_error": 2.6989662274e-06,
+      "rmse": 3.3728316296e-06,
+      "cosine_similarity": 0.999999999999
+    },
+    "logits": {
+      "maximum_abs_error": 1.049041748e-05,
+      "mean_abs_error": 1.9383186042e-06,
+      "rmse": 2.4366588814e-06,
+      "cosine_similarity": 1.0
+    },
+    "expected_token": 206,
+    "actual_token": 206,
+    "contract_token": 206,
+    "final_token": 206,
+    "success": true
+  },
+  "unpacked": {
+    "packing_layout": false,
+    "step1_maximum_input_boundary_error": 4.768371582e-07,
+    "step1_maximum_layer_output_error": 4.768371582e-07,
+    "step1_maximum_present_key_error": 3.6954879761e-06,
+    "step1_maximum_present_value_error": 2.421438694e-07,
+    "step2_maximum_input_boundary_error": 7.152557373e-07,
+    "step2_maximum_layer_output_error": 7.152557373e-07,
+    "step2_maximum_present_key_error": 4.9769878387e-06,
+    "step2_maximum_present_value_error": 2.421438694e-07,
+    "maximum_kv_handoff_key_error": 3.6954879761e-06,
+    "maximum_kv_handoff_value_error": 2.421438694e-07,
+    "maximum_step2_key_prefix_error": 0.0,
+    "maximum_step2_value_prefix_error": 0.0,
+    "decoder_to_final_norm_boundary": {
+      "maximum_abs_error": 3.5762786865e-07,
+      "mean_abs_error": 7.6475316746e-08,
+      "rmse": 9.6168063369e-08,
+      "cosine_similarity": 1.0
+    },
+    "final_norm": {
+      "maximum_abs_error": 1.0013580322e-05,
+      "mean_abs_error": 2.202848691e-06,
+      "rmse": 2.7710570207e-06,
+      "cosine_similarity": 1.0
+    },
+    "logits": {
+      "maximum_abs_error": 9.5367431641e-06,
+      "mean_abs_error": 1.5597613e-06,
+      "rmse": 1.9647369018e-06,
+      "cosine_similarity": 1.0
+    },
+    "expected_token": 206,
+    "actual_token": 206,
+    "contract_token": 206,
+    "final_token": 206,
+    "success": true
+  }
+}
