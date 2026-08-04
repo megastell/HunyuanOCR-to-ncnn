@@ -1,0 +1,374 @@
+{
+  "layer_index": 0,
+  "decode_step": 2,
+  "torch_threads": 9,
+  "model_load_seconds": 1.1369600690086372,
+  "decode_seconds": 0.057654838004964404,
+  "token_contract": {
+    "prefill_output_token": 93892,
+    "step1_output_token": 5112,
+    "step2_output_token": 206
+  },
+  "contract": {
+    "past_key_shape": [
+      1,
+      8,
+      314,
+      128
+    ],
+    "past_value_shape": [
+      1,
+      8,
+      314,
+      128
+    ],
+    "present_key_shape": [
+      1,
+      8,
+      315,
+      128
+    ],
+    "present_value_shape": [
+      1,
+      8,
+      315,
+      128
+    ],
+    "prepared_input_ids_shape": [
+      1,
+      1
+    ],
+    "prepared_attention_mask_shape": [
+      1,
+      315
+    ],
+    "prepared_mm_token_type_ids_shape": [
+      1,
+      315
+    ]
+  },
+  "cache_checks": {
+    "step1_present_vs_step2_past_key_max_error": 0.0,
+    "step1_present_vs_step2_past_value_max_error": 0.0,
+    "step2_key_prefix_max_error": 0.0,
+    "step2_value_prefix_max_error": 0.0
+  },
+  "module_argument_structure": {
+    "layer0_forward_non_tensor": {
+      "position_ids": {
+        "type": "NoneType",
+        "repr": "None"
+      },
+      "past_key_values": {
+        "type": "DynamicCache",
+        "repr": "DynamicCache(layers=[DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer])"
+      },
+      "use_cache": {
+        "type": "bool",
+        "repr": "True"
+      }
+    },
+    "self_attention_forward_non_tensor": {
+      "past_key_values": {
+        "type": "DynamicCache",
+        "repr": "DynamicCache(layers=[DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer, DynamicLayer])"
+      },
+      "kwargs": {
+        "type": "dict",
+        "repr": "{'position_ids': None, 'use_cache': True}"
+      }
+    }
+  },
+  "tensors": {
+    "decode_logits": {
+      "shape": [
+        1,
+        1,
+        120818
+      ],
+      "dtype": "torch.float32",
+      "numel": 120818,
+      "minimum_finite": -13.814352989196777,
+      "maximum_finite": 25.81247329711914,
+      "mean_finite": -2.709486484527588,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/decode_logits.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/decode_logits_f32.bin",
+      "raw_bytes": 483272
+    },
+    "layer0_attention_mask": {
+      "shape": [
+        1,
+        1,
+        1,
+        315
+      ],
+      "dtype": "torch.float32",
+      "numel": 315,
+      "minimum_finite": 0.0,
+      "maximum_finite": 0.0,
+      "mean_finite": 0.0,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/layer0_attention_mask.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/layer0_attention_mask_f32.bin",
+      "raw_bytes": 1260
+    },
+    "layer0_hidden_states": {
+      "shape": [
+        1,
+        1,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 1024,
+      "minimum_finite": -0.060791015625,
+      "maximum_finite": 0.08544921875,
+      "mean_finite": -0.0005636116839013994,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/layer0_hidden_states.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/layer0_hidden_states_f32.bin",
+      "raw_bytes": 4096
+    },
+    "layer0_output": {
+      "shape": [
+        1,
+        1,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 1024,
+      "minimum_finite": -0.22068209946155548,
+      "maximum_finite": 0.12449607998132706,
+      "mean_finite": 6.558977474924177e-05,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/layer0_output.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/layer0_output_f32.bin",
+      "raw_bytes": 4096
+    },
+    "layer0_position_embeddings_0": {
+      "shape": [
+        4,
+        1,
+        1,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 512,
+      "minimum_finite": -0.991534948348999,
+      "maximum_finite": 1.0,
+      "mean_finite": 0.6675503253936768,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/layer0_position_embeddings_0.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/layer0_position_embeddings_0_f32.bin",
+      "raw_bytes": 2048
+    },
+    "layer0_position_embeddings_1": {
+      "shape": [
+        4,
+        1,
+        1,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 512,
+      "minimum_finite": -0.9797957539558411,
+      "maximum_finite": 0.9991298913955688,
+      "mean_finite": 0.12133441120386124,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/layer0_position_embeddings_1.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/layer0_position_embeddings_1_f32.bin",
+      "raw_bytes": 2048
+    },
+    "next_token_id": {
+      "shape": [
+        1,
+        1
+      ],
+      "dtype": "torch.int64",
+      "numel": 1,
+      "minimum_finite": 206.0,
+      "maximum_finite": 206.0,
+      "mean_finite": 206.0,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/next_token_id.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/next_token_id_i64.bin",
+      "raw_bytes": 8
+    },
+    "past_key": {
+      "shape": [
+        1,
+        8,
+        314,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 321536,
+      "minimum_finite": -9.10250186920166,
+      "maximum_finite": 11.014780044555664,
+      "mean_finite": 0.003608312690630555,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/past_key.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/past_key_f32.bin",
+      "raw_bytes": 1286144
+    },
+    "past_value": {
+      "shape": [
+        1,
+        8,
+        314,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 321536,
+      "minimum_finite": -0.47120440006256104,
+      "maximum_finite": 0.566735565662384,
+      "mean_finite": -0.00028475033468566835,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/past_value.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/past_value_f32.bin",
+      "raw_bytes": 1286144
+    },
+    "prepared_attention_mask": {
+      "shape": [
+        1,
+        315
+      ],
+      "dtype": "torch.int64",
+      "numel": 315,
+      "minimum_finite": 1.0,
+      "maximum_finite": 1.0,
+      "mean_finite": 1.0,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/prepared_attention_mask.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/prepared_attention_mask_i64.bin",
+      "raw_bytes": 2520
+    },
+    "prepared_input_ids": {
+      "shape": [
+        1,
+        1
+      ],
+      "dtype": "torch.int64",
+      "numel": 1,
+      "minimum_finite": 5112.0,
+      "maximum_finite": 5112.0,
+      "mean_finite": 5112.0,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/prepared_input_ids.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/prepared_input_ids_i64.bin",
+      "raw_bytes": 8
+    },
+    "prepared_mm_token_type_ids": {
+      "shape": [
+        1,
+        315
+      ],
+      "dtype": "torch.int64",
+      "numel": 315,
+      "minimum_finite": 0.0,
+      "maximum_finite": 1.0,
+      "mean_finite": 0.9142857193946838,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/prepared_mm_token_type_ids.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/prepared_mm_token_type_ids_i64.bin",
+      "raw_bytes": 2520
+    },
+    "present_key": {
+      "shape": [
+        1,
+        8,
+        315,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 322560,
+      "minimum_finite": -9.10250186920166,
+      "maximum_finite": 11.014780044555664,
+      "mean_finite": 0.0036542462185025215,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/present_key.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/present_key_f32.bin",
+      "raw_bytes": 1290240
+    },
+    "present_value": {
+      "shape": [
+        1,
+        8,
+        315,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 322560,
+      "minimum_finite": -0.47120440006256104,
+      "maximum_finite": 0.566735565662384,
+      "mean_finite": -0.0002814742620103061,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/present_value.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/present_value_f32.bin",
+      "raw_bytes": 1290240
+    },
+    "self_attention_attention_mask": {
+      "shape": [
+        1,
+        1,
+        1,
+        315
+      ],
+      "dtype": "torch.float32",
+      "numel": 315,
+      "minimum_finite": 0.0,
+      "maximum_finite": 0.0,
+      "mean_finite": 0.0,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/self_attention_attention_mask.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/self_attention_attention_mask_f32.bin",
+      "raw_bytes": 1260
+    },
+    "self_attention_hidden_states": {
+      "shape": [
+        1,
+        1,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 1024,
+      "minimum_finite": -0.16453948616981506,
+      "maximum_finite": 0.4200623333454132,
+      "mean_finite": -0.0005051748594269156,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/self_attention_hidden_states.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/self_attention_hidden_states_f32.bin",
+      "raw_bytes": 4096
+    },
+    "self_attention_position_embeddings_0": {
+      "shape": [
+        4,
+        1,
+        1,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 512,
+      "minimum_finite": -0.991534948348999,
+      "maximum_finite": 1.0,
+      "mean_finite": 0.6675503253936768,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/self_attention_position_embeddings_0.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/self_attention_position_embeddings_0_f32.bin",
+      "raw_bytes": 2048
+    },
+    "self_attention_position_embeddings_1": {
+      "shape": [
+        4,
+        1,
+        1,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 512,
+      "minimum_finite": -0.9797957539558411,
+      "maximum_finite": 0.9991298913955688,
+      "mean_finite": 0.12133441120386124,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/self_attention_position_embeddings_1.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/self_attention_position_embeddings_1_f32.bin",
+      "raw_bytes": 2048
+    },
+    "step2_input_token_id": {
+      "shape": [
+        1,
+        1
+      ],
+      "dtype": "torch.int64",
+      "numel": 1,
+      "minimum_finite": 5112.0,
+      "maximum_finite": 5112.0,
+      "mean_finite": 5112.0,
+      "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_decode_step2/step2_input_token_id.npy",
+      "raw_path": "artifacts/decoder_layer0_decode_step2/reference/step2_input_token_id_i64.bin",
+      "raw_bytes": 8
+    }
+  }
+}

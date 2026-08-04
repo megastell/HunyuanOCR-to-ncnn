@@ -1,0 +1,107 @@
+===== Two-step Layer 0 KV runtime =====
+threads                  : 9
+packing layout           : true
+Step 1 past length       : 313
+Step 1 present length    : 314
+Step 2 past length       : 314
+Step 2 present length    : 315
+KV file reload at Step 2: disabled
+KV handoff               : Step1 out1/out2.clone() -> Step2 in4/in5
+
+===== Step 1 output shapes =====
+step1_out0: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+step1_out1_present_key: dims=3, w=128, h=314, d=1, c=8, elempack=1, logical_count=321536
+step1_out2_present_value: dims=3, w=128, h=314, d=1, c=8, elempack=1, logical_count=321536
+
+===== Step 1 numerical parity =====
+
+Step 1 layer output
+  Maximum abs error : 6.7055225372e-08
+  Mean abs error    : 8.7139824245e-09
+  RMSE              : 1.1400673932e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 984
+  Actual at max     : 0.1000988558
+  Expected at max   : 0.1000989228
+
+Step 1 present key
+  Maximum abs error : 2.3841857910e-06
+  Mean abs error    : 7.6836643205e-10
+  RMSE              : 1.9333203122e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 281280
+  Actual at max     : 5.6853227615
+  Expected at max   : 5.6853251457
+
+Step 1 present value
+  Maximum abs error : 2.9802322388e-08
+  Mean abs error    : 1.4355859742e-11
+  RMSE              : 3.4179181252e-10
+  Cosine similarity : 1.000000000000
+  Max error index   : 281280
+  Actual at max     : 0.0494367443
+  Expected at max   : 0.0494367145
+
+===== Step 1 -> Step 2 KV boundary =====
+step2_in4_direct_key: dims=3, w=128, h=314, d=1, c=8, elempack=1, logical_count=321536
+step2_in5_direct_value: dims=3, w=128, h=314, d=1, c=8, elempack=1, logical_count=321536
+
+Step 1 ncnn present key vs Step 2 PyTorch past key
+  Maximum abs error : 2.3841857910e-06
+  Mean abs error    : 7.6836643205e-10
+  RMSE              : 1.9333203122e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 281280
+  Actual at max     : 5.6853227615
+  Expected at max   : 5.6853251457
+
+Step 1 ncnn present value vs Step 2 PyTorch past value
+  Maximum abs error : 2.9802322388e-08
+  Mean abs error    : 1.4355859742e-11
+  RMSE              : 3.4179181252e-10
+  Cosine similarity : 1.000000000000
+  Max error index   : 281280
+  Actual at max     : 0.0494367443
+  Expected at max   : 0.0494367145
+
+===== Step 2 output shapes =====
+step2_out0: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+step2_out1_present_key: dims=3, w=128, h=315, d=1, c=8, elempack=1, logical_count=322560
+step2_out2_present_value: dims=3, w=128, h=315, d=1, c=8, elempack=1, logical_count=322560
+
+===== Step 2 direct-KV numerical parity =====
+
+Step 2 layer output
+  Maximum abs error : 1.1920928955e-07
+  Mean abs error    : 1.3850012692e-08
+  RMSE              : 1.7843020314e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 466
+  Actual at max     : -0.2206822187
+  Expected at max   : -0.2206820995
+
+Step 2 present key
+  Maximum abs error : 2.3841857910e-06
+  Mean abs error    : 1.5037706304e-09
+  RMSE              : 2.6218942169e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 282048
+  Actual at max     : 5.6853227615
+  Expected at max   : 5.6853251457
+
+Step 2 present value
+  Maximum abs error : 2.9802322388e-08
+  Mean abs error    : 2.8660271334e-11
+  RMSE              : 4.7706296935e-10
+  Cosine similarity : 1.000000000000
+  Max error index   : 282048
+  Actual at max     : 0.0494367443
+  Expected at max   : 0.0494367145
+
+===== Direct KV cache checks =====
+Step 2 key prefix vs Step 1 handoff   : 0.0000000000e+00
+Step 2 value prefix vs Step 1 handoff : 0.0000000000e+00
+Step 2 appended key vs reference      : 1.4305114746e-06
+Step 2 appended value vs reference    : 2.6077032089e-08
+
+✅ Decoder Layer 0 Step 1 present KV → Step 2 past KV ncnn::Mat直接串联验证成功。

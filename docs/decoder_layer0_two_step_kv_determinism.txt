@@ -1,0 +1,22 @@
+HunyuanOCR-1.5 Decoder Layer 0 two-step KV determinism
+Runs: 9
+Threads: 9
+Precision: FP32
+Packing layout: true
+Vulkan: disabled
+Step 1 past/present: 313 -> 314
+Step 2 past/present: 314 -> 315
+Step 2 KV file reload: disabled
+KV handoff: Step1 out1/out2.clone() -> Step2 in4/in5
+
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run1.txt
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run2.txt
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run3.txt
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run4.txt
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run5.txt
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run6.txt
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run7.txt
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run8.txt
+2ed6401d38ae1014b296398eadd5f57dab7f5f991b73a3df8207ccc8fa2f7e94  /tmp/decoder_layer0_two_step_kv_determinism/run9.txt
+
+All nine full outputs compared identical with cmp.

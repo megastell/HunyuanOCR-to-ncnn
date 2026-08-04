@@ -1,0 +1,32 @@
+===== Load generated PNNX model =====
+Model class: Model
+PNNX working directory: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer0_decode_step2
+
+===== PNNX Step 2 reference inference =====
+
+layer_output
+  actual shape:        (1, 1, 1024)
+  expected shape:      (1, 1, 1024)
+  maximum abs error:  0.0000000000e+00
+  mean abs error:     0.0000000000e+00
+  RMSE:               0.0000000000e+00
+  cosine similarity:  1.000000000000
+
+present_key
+  actual shape:        (1, 8, 315, 128)
+  expected shape:      (1, 8, 315, 128)
+  maximum abs error:  0.0000000000e+00
+  mean abs error:     0.0000000000e+00
+  RMSE:               0.0000000000e+00
+  cosine similarity:  1.000000000000
+
+present_value
+  actual shape:        (1, 8, 315, 128)
+  expected shape:      (1, 8, 315, 128)
+  maximum abs error:  0.0000000000e+00
+  mean abs error:     0.0000000000e+00
+  RMSE:               0.0000000000e+00
+  cosine similarity:  1.000000000000
+
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decoder_layer0_decode_step2_pnnx_parity.json
+✅ Decoder Layer 0 Decode Step 2 PNNX三输出数值对齐成功。

@@ -1,0 +1,41 @@
+===== Token contract =====
+Prefill output token: 93892
+Step 1 output token: 5112
+Step 2 output token: 206
+
+===== Load model =====
+
+Model loaded in 1.137s
+
+===== Prefill =====
+
+===== Second single-token decode capture =====
+Captured tensors:
+  decode_logits                               (1, 1, 120818)           torch.float32
+  layer0_attention_mask                       (1, 1, 1, 315)           torch.float32
+  layer0_hidden_states                        (1, 1, 1024)             torch.float32
+  layer0_output                               (1, 1, 1024)             torch.float32
+  layer0_position_embeddings_0                (4, 1, 1, 128)           torch.float32
+  layer0_position_embeddings_1                (4, 1, 1, 128)           torch.float32
+  next_token_id                               (1, 1)                   torch.int64
+  past_key                                    (1, 8, 314, 128)         torch.float32
+  past_value                                  (1, 8, 314, 128)         torch.float32
+  prepared_attention_mask                     (1, 315)                 torch.int64
+  prepared_input_ids                          (1, 1)                   torch.int64
+  prepared_mm_token_type_ids                  (1, 315)                 torch.int64
+  present_key                                 (1, 8, 315, 128)         torch.float32
+  present_value                               (1, 8, 315, 128)         torch.float32
+  self_attention_attention_mask               (1, 1, 1, 315)           torch.float32
+  self_attention_hidden_states                (1, 1, 1024)             torch.float32
+  self_attention_position_embeddings_0        (4, 1, 1, 128)           torch.float32
+  self_attention_position_embeddings_1        (4, 1, 1, 128)           torch.float32
+  step2_input_token_id                        (1, 1)                   torch.int64
+
+Step1 present -> Step2 past key error: 0.0
+Step1 present -> Step2 past value error: 0.0
+Step2 key history prefix error: 0.0
+Step2 value history prefix error: 0.0
+Step2 input token: 5112
+Step2 output token: 206
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decoder_layer0_decode_step2_reference.json
+✅ Decoder Layer 0 第二次Decode参考捕获成功。
