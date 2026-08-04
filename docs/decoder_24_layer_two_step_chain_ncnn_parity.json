@@ -1,0 +1,32 @@
+{
+  "layer_count": 24,
+  "threads": 9,
+  "precision": "FP32",
+  "packing_layout": true,
+  "step1": {
+    "past_length": 313,
+    "present_length": 314,
+    "maximum_input_boundary_error": 2.8312206268e-07,
+    "maximum_layer_output_error": 7.152557373e-07,
+    "maximum_present_key_error": 3.9935112e-06,
+    "maximum_present_value_error": 2.384185791e-07
+  },
+  "step2": {
+    "past_length": 314,
+    "present_length": 315,
+    "maximum_input_boundary_error": 4.768371582e-07,
+    "maximum_layer_output_error": 4.768371582e-07,
+    "maximum_present_key_error": 7.3909759521e-06,
+    "maximum_present_value_error": 2.384185791e-07,
+    "maximum_key_prefix_error": 0.0,
+    "maximum_value_prefix_error": 0.0,
+    "maximum_appended_key_error": 7.3909759521e-06,
+    "maximum_appended_value_error": 2.2351741791e-07
+  },
+  "kv_handoff": {
+    "maximum_key_error": 3.9935112e-06,
+    "maximum_value_error": 2.384185791e-07,
+    "reference_reload_during_step2": false,
+    "same_layer_indexing": true
+  }
+}

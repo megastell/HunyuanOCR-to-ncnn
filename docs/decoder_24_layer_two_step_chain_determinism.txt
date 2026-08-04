@@ -1,0 +1,21 @@
+HunyuanOCR-1.5 Decoder 24-layer two-step chain determinism
+Runs: 9
+Threads: 9
+Precision: FP32
+Packing layout: true
+Vulkan: disabled
+Step 1 past/present: 313 -> 314
+Step 2 past/present: 314 -> 315
+Step 2 KV inference reload: disabled
+
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run1.txt
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run2.txt
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run3.txt
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run4.txt
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run5.txt
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run6.txt
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run7.txt
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run8.txt
+8c0a1fd870adfa7e800fabb4c2a9dd25373eeb979dd57640fe2206e7b11d30f4  /tmp/decoder_24_layer_two_step_chain_determinism/run9.txt
+
+All nine full outputs compared with cmp.
