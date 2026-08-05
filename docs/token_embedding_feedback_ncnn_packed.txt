@@ -1,0 +1,17 @@
+===== Token Embedding runtime =====
+token ID       : 5112
+threads        : 9
+packing layout : true
+input type     : int32
+input shape    : dims=1, w=1, h=1, d=1, c=1, elempack=1, elemsize=4, logical_count=1
+output shape   : dims=2, w=1024, h=1, d=1, c=1, elempack=1, elemsize=4, logical_count=1024
+
+===== Numerical parity =====
+Maximum abs error : 0.0000000000e+00
+Mean abs error    : 0.0000000000e+00
+RMSE              : 0.0000000000e+00
+Cosine similarity : 1.000000000000
+Maximum error idx : 0
+Byte-identical    : true
+
+✅ token 5112 → ncnn Embed → Step 2 Layer 0 hidden 字节级一致。
