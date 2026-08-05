@@ -1,0 +1,194 @@
+{
+  "layer_index": 3,
+  "decode_name": "decoder_layer3_decode_step3",
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "torch_version": "2.12.1+cpu",
+  "torch_threads": 9,
+  "contract": {
+    "inputs": {
+      "hidden_states": [
+        1,
+        1,
+        1024
+      ],
+      "attention_mask": [
+        1,
+        1,
+        1,
+        316
+      ],
+      "rope_cos": [
+        4,
+        1,
+        1,
+        128
+      ],
+      "rope_sin": [
+        4,
+        1,
+        1,
+        128
+      ],
+      "past_key": [
+        1,
+        8,
+        315,
+        128
+      ],
+      "past_value": [
+        1,
+        8,
+        315,
+        128
+      ]
+    },
+    "outputs": {
+      "layer_output": [
+        1,
+        1,
+        1024
+      ],
+      "present_key": [
+        1,
+        8,
+        316,
+        128
+      ],
+      "present_value": [
+        1,
+        8,
+        316,
+        128
+      ]
+    }
+  },
+  "model_load_seconds": 0.5823817709997456,
+  "trace_seconds": 0.07762908899985632,
+  "torchscript_path": "artifacts/decoder_layer3_decode_step3/decoder_layer3_decode_step3.pt",
+  "torchscript_bytes": 69224833,
+  "inputs": {
+    "hidden_states": {
+      "shape": [
+        1,
+        1,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 1024,
+      "minimum": -0.6416295766830444,
+      "maximum": 0.1141127198934555,
+      "mean": -0.0006353555945679545
+    },
+    "attention_mask": {
+      "shape": [
+        1,
+        1,
+        1,
+        316
+      ],
+      "dtype": "torch.float32",
+      "numel": 316,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "mean": 0.0
+    },
+    "rope_cos": {
+      "shape": [
+        4,
+        1,
+        1,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 512,
+      "minimum": -0.9998883008956909,
+      "maximum": 1.0,
+      "mean": 0.6542112231254578
+    },
+    "rope_sin": {
+      "shape": [
+        4,
+        1,
+        1,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 512,
+      "minimum": -0.8856468796730042,
+      "maximum": 0.9993211627006531,
+      "mean": 0.15061531960964203
+    },
+    "past_key": {
+      "shape": [
+        1,
+        8,
+        315,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 322560,
+      "minimum": -8.938918113708496,
+      "maximum": 9.426958084106445,
+      "mean": -0.015937240794301033
+    },
+    "past_value": {
+      "shape": [
+        1,
+        8,
+        315,
+        128
+      ],
+      "dtype": "torch.float32",
+      "numel": 322560,
+      "minimum": -0.17232826352119446,
+      "maximum": 0.12607534229755402,
+      "mean": 0.00015847552276682109
+    }
+  },
+  "eager_metrics": {
+    "layer_output": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 1.0
+    },
+    "present_key": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 0.9999999999999487
+    },
+    "present_value": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 0.9999999999999348
+    }
+  },
+  "torchscript_metrics": {
+    "layer_output": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 1.0
+    },
+    "present_key": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 0.9999999999999487
+    },
+    "present_value": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 0.9999999999999348
+    }
+  },
+  "graph_checks": {
+    "contains_python_op": false,
+    "contains_softmax": true,
+    "contains_matmul": true,
+    "contains_cat": true
+  }
+}

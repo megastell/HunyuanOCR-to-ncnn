@@ -1,0 +1,15 @@
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenMP_CXX: -fopenmp (found version "4.5")
+-- Found OpenMP: TRUE (found version "4.5")
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found ncnn: 20260802
+-- Configuring done (1.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/tests/decoder_layer0_decode_step3/build-ropefix-rmsnorm

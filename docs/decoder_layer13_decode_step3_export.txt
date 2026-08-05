@@ -1,0 +1,43 @@
+===== Load model =====
+
+Model loaded in 0.534s
+
+===== Eager wrapper parity =====
+layer_output
+  maximum abs error: 0.0000000000e+00
+  mean abs error:    0.0000000000e+00
+  RMSE:              0.0000000000e+00
+  cosine similarity: 1.000000000000
+present_key
+  maximum abs error: 0.0000000000e+00
+  mean abs error:    0.0000000000e+00
+  RMSE:              0.0000000000e+00
+  cosine similarity: 1.000000000000
+present_value
+  maximum abs error: 0.0000000000e+00
+  mean abs error:    0.0000000000e+00
+  RMSE:              0.0000000000e+00
+  cosine similarity: 1.000000000000
+
+===== TorchScript trace =====
+Trace completed in 0.073s
+TorchScript: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer13_decode_step3/decoder_layer13_decode_step3.pt
+TorchScript size: 66.02 MiB
+TorchScript layer_output
+  maximum abs error: 0.0000000000e+00
+  mean abs error:    0.0000000000e+00
+  RMSE:              0.0000000000e+00
+  cosine similarity: 1.000000000000
+TorchScript present_key
+  maximum abs error: 0.0000000000e+00
+  mean abs error:    0.0000000000e+00
+  RMSE:              0.0000000000e+00
+  cosine similarity: 1.000000000000
+TorchScript present_value
+  maximum abs error: 0.0000000000e+00
+  mean abs error:    0.0000000000e+00
+  RMSE:              0.0000000000e+00
+  cosine similarity: 1.000000000000
+
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decoder_layer13_decode_step3_export.json
+✅ Decoder Layer 13 Decode Step 3 Eager与TorchScript对齐成功。

@@ -1,0 +1,53 @@
+===== Runtime options =====
+threads            : 9
+packing layout     : true
+
+===== Input shapes =====
+in0 hidden_states: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+in1 attention_mask: dims=3, w=316, h=1, d=1, c=1, elempack=1, logical_count=316
+in2 rope_cos: dims=3, w=128, h=1, d=1, c=4, elempack=1, logical_count=512
+in3 rope_sin: dims=3, w=128, h=1, d=1, c=4, elempack=1, logical_count=512
+in4 past_key: dims=3, w=128, h=315, d=1, c=8, elempack=1, logical_count=322560
+in5 past_value: dims=3, w=128, h=315, d=1, c=8, elempack=1, logical_count=322560
+
+===== Output shapes =====
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+
+===== Numerical parity =====
+
+out0 layer_output
+  Maximum abs error : 7.1525573730e-07
+  Mean abs error    : 2.4426753953e-08
+  RMSE              : 3.8265635600e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 466
+  Actual at max     : -0.6208221912
+  Expected at max   : -0.6208229065
+
+out1 present_key
+  Maximum abs error : 9.5367431641e-07
+  Mean abs error    : 5.9992040590e-10
+  RMSE              : 1.4318585001e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 80878
+  Actual at max     : -1.6237030029
+  Expected at max   : -1.6237020493
+
+out2 present_value
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 3.8980914137e-11
+  RMSE              : 8.9384598473e-10
+  Cosine similarity : 1.000000000000
+  Max error index   : 202123
+  Actual at max     : -0.1254768372
+  Expected at max   : -0.1254767776
+
+===== Cache region checks =====
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 9.5367431641e-07
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 5.9604644775e-08
+
+✅ Decoder Layer 23 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。

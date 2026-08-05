@@ -1,0 +1,86 @@
+{
+  "decode_name": "decoder_layer0_decode_step3",
+  "decode_step": 3,
+  "torch_version": "2.12.1+cpu",
+  "torch_threads": 9,
+  "pnnx_script": "artifacts/decoder_layer0_decode_step3/decoder_layer0_decode_step3_pnnx.py",
+  "input_shapes": [
+    [
+      1,
+      1,
+      1024
+    ],
+    [
+      1,
+      1,
+      1,
+      316
+    ],
+    [
+      4,
+      1,
+      1,
+      128
+    ],
+    [
+      4,
+      1,
+      1,
+      128
+    ],
+    [
+      1,
+      8,
+      315,
+      128
+    ],
+    [
+      1,
+      8,
+      315,
+      128
+    ]
+  ],
+  "output_shapes": [
+    [
+      1,
+      1,
+      1024
+    ],
+    [
+      1,
+      8,
+      316,
+      128
+    ],
+    [
+      1,
+      8,
+      316,
+      128
+    ]
+  ],
+  "metrics": {
+    "layer_output": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 1.0,
+      "maximum_error_index": 0
+    },
+    "present_key": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 1.0,
+      "maximum_error_index": 0
+    },
+    "present_value": {
+      "maximum_abs_error": 0.0,
+      "mean_abs_error": 0.0,
+      "rmse": 0.0,
+      "cosine_similarity": 1.0,
+      "maximum_error_index": 0
+    }
+  }
+}

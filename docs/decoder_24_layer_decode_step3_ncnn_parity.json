@@ -1,0 +1,480 @@
+{
+  "decode_step": 3,
+  "layer_count": 24,
+  "threads": 9,
+  "packing_layout": true,
+  "vulkan": false,
+  "past_length": 315,
+  "present_length": 316,
+  "token_contract": {
+    "input_token": 206,
+    "output_token": 1717
+  },
+  "maximum_errors": {
+    "layer_output": 7.152557373e-07,
+    "present_key": 2.8610229492e-06,
+    "present_value": 5.9604644775e-08,
+    "key_history_prefix": 0.0,
+    "key_appended_token": 2.8610229492e-06,
+    "value_history_prefix": 0.0,
+    "value_appended_token": 5.9604644775e-08
+  },
+  "layers": [
+    {
+      "layer_index": 0,
+      "layer_output": {
+        "maximum_abs_error": 3.7252902985e-08,
+        "mean_abs_error": 6.1396576712e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.4305114746e-06,
+        "mean_abs_error": 6.6072198627e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.1420419216e-08,
+        "mean_abs_error": 1.2658093982e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.4305114746e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.1420419216e-08
+    },
+    {
+      "layer_index": 1,
+      "layer_output": {
+        "maximum_abs_error": 2.9802322388e-08,
+        "mean_abs_error": 4.5261572268e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.1920928955e-06,
+        "mean_abs_error": 5.6569356232e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 1.1175870895e-08,
+        "mean_abs_error": 7.3885651465e-12
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.1920928955e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 1.1175870895e-08
+    },
+    {
+      "layer_index": 2,
+      "layer_output": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 6.1682214891e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.1920928955e-06,
+        "mean_abs_error": 6.7356321364e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.2351741791e-08,
+        "mean_abs_error": 1.0574854635e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.1920928955e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.2351741791e-08
+    },
+    {
+      "layer_index": 3,
+      "layer_output": {
+        "maximum_abs_error": 1.1920928955e-07,
+        "mean_abs_error": 5.5999294091e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.3113021851e-06,
+        "mean_abs_error": 6.6823270405e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 1.8626451492e-08,
+        "mean_abs_error": 9.9994049609e-12
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.3113021851e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 1.8626451492e-08
+    },
+    {
+      "layer_index": 4,
+      "layer_output": {
+        "maximum_abs_error": 1.1920928955e-07,
+        "mean_abs_error": 8.3592794908e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.4305114746e-06,
+        "mean_abs_error": 7.4366985706e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.2351741791e-08,
+        "mean_abs_error": 1.5894930941e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.4305114746e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.2351741791e-08
+    },
+    {
+      "layer_index": 5,
+      "layer_output": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 6.0957745518e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.4305114746e-06,
+        "mean_abs_error": 6.0014454166e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.2351741791e-08,
+        "mean_abs_error": 1.3380868846e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.4305114746e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.2351741791e-08
+    },
+    {
+      "layer_index": 6,
+      "layer_output": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 5.4128577176e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.6689300537e-06,
+        "mean_abs_error": 7.2359513599e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.9802322388e-08,
+        "mean_abs_error": 1.7987704153e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.6689300537e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.9802322388e-08
+    },
+    {
+      "layer_index": 7,
+      "layer_output": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 5.4957354223e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.3113021851e-06,
+        "mean_abs_error": 6.2063731369e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.6077032089e-08,
+        "mean_abs_error": 1.4576019716e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.3113021851e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.6077032089e-08
+    },
+    {
+      "layer_index": 8,
+      "layer_output": {
+        "maximum_abs_error": 2.384185791e-07,
+        "mean_abs_error": 8.59802185e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.4305114746e-06,
+        "mean_abs_error": 6.5400891454e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.6077032089e-08,
+        "mean_abs_error": 1.2998434958e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.4305114746e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.6077032089e-08
+    },
+    {
+      "layer_index": 9,
+      "layer_output": {
+        "maximum_abs_error": 4.4703483582e-08,
+        "mean_abs_error": 9.6206349554e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.6689300537e-06,
+        "mean_abs_error": 8.0647508924e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.9802322388e-08,
+        "mean_abs_error": 2.0188407907e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.6689300537e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.9802322388e-08
+    },
+    {
+      "layer_index": 10,
+      "layer_output": {
+        "maximum_abs_error": 4.0978193283e-08,
+        "mean_abs_error": 8.8322167358e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 2.8610229492e-06,
+        "mean_abs_error": 7.6926342652e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 2.9802322388e-08,
+        "mean_abs_error": 2.1162660934e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 2.8610229492e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 2.9802322388e-08
+    },
+    {
+      "layer_index": 11,
+      "layer_output": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 1.0570033737e-08
+      },
+      "present_key": {
+        "maximum_abs_error": 1.1920928955e-06,
+        "mean_abs_error": 6.4327079809e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.4703483582e-08,
+        "mean_abs_error": 2.7704331094e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.1920928955e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.4703483582e-08
+    },
+    {
+      "layer_index": 12,
+      "layer_output": {
+        "maximum_abs_error": 3.5390257835e-08,
+        "mean_abs_error": 8.1086000137e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.4305114746e-06,
+        "mean_abs_error": 7.4894118474e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.4703483582e-08,
+        "mean_abs_error": 2.9260689511e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.4305114746e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.4703483582e-08
+    },
+    {
+      "layer_index": 13,
+      "layer_output": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 6.9672978498e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.5497207642e-06,
+        "mean_abs_error": 7.1941894355e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.0978193283e-08,
+        "mean_abs_error": 2.3684997704e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.5497207642e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.0978193283e-08
+    },
+    {
+      "layer_index": 14,
+      "layer_output": {
+        "maximum_abs_error": 1.1920928955e-07,
+        "mean_abs_error": 6.1027094489e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.4305114746e-06,
+        "mean_abs_error": 8.2417812659e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.4703483582e-08,
+        "mean_abs_error": 2.7912277271e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.4305114746e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.4703483582e-08
+    },
+    {
+      "layer_index": 15,
+      "layer_output": {
+        "maximum_abs_error": 3.7252902985e-08,
+        "mean_abs_error": 8.1408870756e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.9073486328e-06,
+        "mean_abs_error": 7.6729081598e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.0978193283e-08,
+        "mean_abs_error": 2.8138211873e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.9073486328e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.0978193283e-08
+    },
+    {
+      "layer_index": 16,
+      "layer_output": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 6.8383769758e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.1920928955e-06,
+        "mean_abs_error": 7.3914423949e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.4703483582e-08,
+        "mean_abs_error": 2.9796025e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.1920928955e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.4703483582e-08
+    },
+    {
+      "layer_index": 17,
+      "layer_output": {
+        "maximum_abs_error": 2.9802322388e-08,
+        "mean_abs_error": 7.1717636274e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.3113021851e-06,
+        "mean_abs_error": 6.7428203105e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 3.7252902985e-08,
+        "mean_abs_error": 2.5147816319e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.3113021851e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 3.7252902985e-08
+    },
+    {
+      "layer_index": 18,
+      "layer_output": {
+        "maximum_abs_error": 1.1920928955e-07,
+        "mean_abs_error": 1.1913243725e-08
+      },
+      "present_key": {
+        "maximum_abs_error": 1.1920928955e-06,
+        "mean_abs_error": 7.3993725914e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.4703483582e-08,
+        "mean_abs_error": 3.0286749199e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.1920928955e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.4703483582e-08
+    },
+    {
+      "layer_index": 19,
+      "layer_output": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 9.4701135822e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.4305114746e-06,
+        "mean_abs_error": 7.6844720179e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.4703483582e-08,
+        "mean_abs_error": 3.3247643738e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.4305114746e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.4703483582e-08
+    },
+    {
+      "layer_index": 20,
+      "layer_output": {
+        "maximum_abs_error": 1.1920928955e-07,
+        "mean_abs_error": 9.4059942057e-09
+      },
+      "present_key": {
+        "maximum_abs_error": 1.5497207642e-06,
+        "mean_abs_error": 6.8975387427e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 4.842877388e-08,
+        "mean_abs_error": 3.1518596453e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.5497207642e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 4.842877388e-08
+    },
+    {
+      "layer_index": 21,
+      "layer_output": {
+        "maximum_abs_error": 2.384185791e-07,
+        "mean_abs_error": 3.1665194911e-08
+      },
+      "present_key": {
+        "maximum_abs_error": 1.5497207642e-06,
+        "mean_abs_error": 6.970866753e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 3.6525854071e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.5497207642e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 5.9604644775e-08
+    },
+    {
+      "layer_index": 22,
+      "layer_output": {
+        "maximum_abs_error": 7.8231096268e-08,
+        "mean_abs_error": 1.5802697817e-08
+      },
+      "present_key": {
+        "maximum_abs_error": 1.9073486328e-06,
+        "mean_abs_error": 6.698047124e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 5.2154064178e-08,
+        "mean_abs_error": 3.7280648329e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 1.9073486328e-06,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 5.2154064178e-08
+    },
+    {
+      "layer_index": 23,
+      "layer_output": {
+        "maximum_abs_error": 7.152557373e-07,
+        "mean_abs_error": 2.4426753953e-08
+      },
+      "present_key": {
+        "maximum_abs_error": 9.5367431641e-07,
+        "mean_abs_error": 5.999204059e-10
+      },
+      "present_value": {
+        "maximum_abs_error": 5.9604644775e-08,
+        "mean_abs_error": 3.8980914137e-11
+      },
+      "key_history_prefix_max_error": 0.0,
+      "key_appended_token_max_error": 9.5367431641e-07,
+      "value_history_prefix_max_error": 0.0,
+      "value_appended_token_max_error": 5.9604644775e-08
+    }
+  ]
+}

@@ -1,0 +1,530 @@
+
+============================================================
+Validate Layer 0/23
+============================================================
+Layer 00 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 3.7252902985e-08
+  Mean abs error    : 6.1396576712e-09
+out1 present_key
+  Maximum abs error : 1.4305114746e-06
+  Mean abs error    : 6.6072198627e-10
+out2 present_value
+  Maximum abs error : 2.1420419216e-08
+  Mean abs error    : 1.2658093982e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.4305114746e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.1420419216e-08
+✅ Decoder Layer 0 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 1/23
+============================================================
+Layer 01 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 2.9802322388e-08
+  Mean abs error    : 4.5261572268e-09
+out1 present_key
+  Maximum abs error : 1.1920928955e-06
+  Mean abs error    : 5.6569356232e-10
+out2 present_value
+  Maximum abs error : 1.1175870895e-08
+  Mean abs error    : 7.3885651465e-12
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.1920928955e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 1.1175870895e-08
+✅ Decoder Layer 1 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 2/23
+============================================================
+Layer 02 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 6.1682214891e-09
+out1 present_key
+  Maximum abs error : 1.1920928955e-06
+  Mean abs error    : 6.7356321364e-10
+out2 present_value
+  Maximum abs error : 2.2351741791e-08
+  Mean abs error    : 1.0574854635e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.1920928955e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.2351741791e-08
+✅ Decoder Layer 2 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 3/23
+============================================================
+Layer 03 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 1.1920928955e-07
+  Mean abs error    : 5.5999294091e-09
+out1 present_key
+  Maximum abs error : 1.3113021851e-06
+  Mean abs error    : 6.6823270405e-10
+out2 present_value
+  Maximum abs error : 1.8626451492e-08
+  Mean abs error    : 9.9994049609e-12
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.3113021851e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 1.8626451492e-08
+✅ Decoder Layer 3 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 4/23
+============================================================
+Layer 04 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 1.1920928955e-07
+  Mean abs error    : 8.3592794908e-09
+out1 present_key
+  Maximum abs error : 1.4305114746e-06
+  Mean abs error    : 7.4366985706e-10
+out2 present_value
+  Maximum abs error : 2.2351741791e-08
+  Mean abs error    : 1.5894930941e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.4305114746e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.2351741791e-08
+✅ Decoder Layer 4 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 5/23
+============================================================
+Layer 05 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 6.0957745518e-09
+out1 present_key
+  Maximum abs error : 1.4305114746e-06
+  Mean abs error    : 6.0014454166e-10
+out2 present_value
+  Maximum abs error : 2.2351741791e-08
+  Mean abs error    : 1.3380868846e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.4305114746e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.2351741791e-08
+✅ Decoder Layer 5 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 6/23
+============================================================
+Layer 06 status=0 elapsed=1s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 5.4128577176e-09
+out1 present_key
+  Maximum abs error : 1.6689300537e-06
+  Mean abs error    : 7.2359513599e-10
+out2 present_value
+  Maximum abs error : 2.9802322388e-08
+  Mean abs error    : 1.7987704153e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.6689300537e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.9802322388e-08
+✅ Decoder Layer 6 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 7/23
+============================================================
+Layer 07 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 5.4957354223e-09
+out1 present_key
+  Maximum abs error : 1.3113021851e-06
+  Mean abs error    : 6.2063731369e-10
+out2 present_value
+  Maximum abs error : 2.6077032089e-08
+  Mean abs error    : 1.4576019716e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.3113021851e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.6077032089e-08
+✅ Decoder Layer 7 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 8/23
+============================================================
+Layer 08 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 2.3841857910e-07
+  Mean abs error    : 8.5980218500e-09
+out1 present_key
+  Maximum abs error : 1.4305114746e-06
+  Mean abs error    : 6.5400891454e-10
+out2 present_value
+  Maximum abs error : 2.6077032089e-08
+  Mean abs error    : 1.2998434958e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.4305114746e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.6077032089e-08
+✅ Decoder Layer 8 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 9/23
+============================================================
+Layer 09 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 4.4703483582e-08
+  Mean abs error    : 9.6206349554e-09
+out1 present_key
+  Maximum abs error : 1.6689300537e-06
+  Mean abs error    : 8.0647508924e-10
+out2 present_value
+  Maximum abs error : 2.9802322388e-08
+  Mean abs error    : 2.0188407907e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.6689300537e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.9802322388e-08
+✅ Decoder Layer 9 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 10/23
+============================================================
+Layer 10 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 4.0978193283e-08
+  Mean abs error    : 8.8322167358e-09
+out1 present_key
+  Maximum abs error : 2.8610229492e-06
+  Mean abs error    : 7.6926342652e-10
+out2 present_value
+  Maximum abs error : 2.9802322388e-08
+  Mean abs error    : 2.1162660934e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 2.8610229492e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.9802322388e-08
+✅ Decoder Layer 10 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 11/23
+============================================================
+Layer 11 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 1.0570033737e-08
+out1 present_key
+  Maximum abs error : 1.1920928955e-06
+  Mean abs error    : 6.4327079809e-10
+out2 present_value
+  Maximum abs error : 4.4703483582e-08
+  Mean abs error    : 2.7704331094e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.1920928955e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.4703483582e-08
+✅ Decoder Layer 11 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 12/23
+============================================================
+Layer 12 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 3.5390257835e-08
+  Mean abs error    : 8.1086000137e-09
+out1 present_key
+  Maximum abs error : 1.4305114746e-06
+  Mean abs error    : 7.4894118474e-10
+out2 present_value
+  Maximum abs error : 4.4703483582e-08
+  Mean abs error    : 2.9260689511e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.4305114746e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.4703483582e-08
+✅ Decoder Layer 12 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 13/23
+============================================================
+Layer 13 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 6.9672978498e-09
+out1 present_key
+  Maximum abs error : 1.5497207642e-06
+  Mean abs error    : 7.1941894355e-10
+out2 present_value
+  Maximum abs error : 4.0978193283e-08
+  Mean abs error    : 2.3684997704e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.5497207642e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.0978193283e-08
+✅ Decoder Layer 13 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 14/23
+============================================================
+Layer 14 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 1.1920928955e-07
+  Mean abs error    : 6.1027094489e-09
+out1 present_key
+  Maximum abs error : 1.4305114746e-06
+  Mean abs error    : 8.2417812659e-10
+out2 present_value
+  Maximum abs error : 4.4703483582e-08
+  Mean abs error    : 2.7912277271e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.4305114746e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.4703483582e-08
+✅ Decoder Layer 14 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 15/23
+============================================================
+Layer 15 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 3.7252902985e-08
+  Mean abs error    : 8.1408870756e-09
+out1 present_key
+  Maximum abs error : 1.9073486328e-06
+  Mean abs error    : 7.6729081598e-10
+out2 present_value
+  Maximum abs error : 4.0978193283e-08
+  Mean abs error    : 2.8138211873e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.9073486328e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.0978193283e-08
+✅ Decoder Layer 15 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 16/23
+============================================================
+Layer 16 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 6.8383769758e-09
+out1 present_key
+  Maximum abs error : 1.1920928955e-06
+  Mean abs error    : 7.3914423949e-10
+out2 present_value
+  Maximum abs error : 4.4703483582e-08
+  Mean abs error    : 2.9796025000e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.1920928955e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.4703483582e-08
+✅ Decoder Layer 16 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 17/23
+============================================================
+Layer 17 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 2.9802322388e-08
+  Mean abs error    : 7.1717636274e-09
+out1 present_key
+  Maximum abs error : 1.3113021851e-06
+  Mean abs error    : 6.7428203105e-10
+out2 present_value
+  Maximum abs error : 3.7252902985e-08
+  Mean abs error    : 2.5147816319e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.3113021851e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 3.7252902985e-08
+✅ Decoder Layer 17 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 18/23
+============================================================
+Layer 18 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 1.1920928955e-07
+  Mean abs error    : 1.1913243725e-08
+out1 present_key
+  Maximum abs error : 1.1920928955e-06
+  Mean abs error    : 7.3993725914e-10
+out2 present_value
+  Maximum abs error : 4.4703483582e-08
+  Mean abs error    : 3.0286749199e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.1920928955e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.4703483582e-08
+✅ Decoder Layer 18 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 19/23
+============================================================
+Layer 19 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 9.4701135822e-09
+out1 present_key
+  Maximum abs error : 1.4305114746e-06
+  Mean abs error    : 7.6844720179e-10
+out2 present_value
+  Maximum abs error : 4.4703483582e-08
+  Mean abs error    : 3.3247643738e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.4305114746e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.4703483582e-08
+✅ Decoder Layer 19 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 20/23
+============================================================
+Layer 20 status=0 elapsed=1s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 1.1920928955e-07
+  Mean abs error    : 9.4059942057e-09
+out1 present_key
+  Maximum abs error : 1.5497207642e-06
+  Mean abs error    : 6.8975387427e-10
+out2 present_value
+  Maximum abs error : 4.8428773880e-08
+  Mean abs error    : 3.1518596453e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.5497207642e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 4.8428773880e-08
+✅ Decoder Layer 20 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 21/23
+============================================================
+Layer 21 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 2.3841857910e-07
+  Mean abs error    : 3.1665194911e-08
+out1 present_key
+  Maximum abs error : 1.5497207642e-06
+  Mean abs error    : 6.9708667530e-10
+out2 present_value
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 3.6525854071e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.5497207642e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 5.9604644775e-08
+✅ Decoder Layer 21 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 22/23
+============================================================
+Layer 22 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 7.8231096268e-08
+  Mean abs error    : 1.5802697817e-08
+out1 present_key
+  Maximum abs error : 1.9073486328e-06
+  Mean abs error    : 6.6980471240e-10
+out2 present_value
+  Maximum abs error : 5.2154064178e-08
+  Mean abs error    : 3.7280648329e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.9073486328e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 5.2154064178e-08
+✅ Decoder Layer 22 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+============================================================
+Validate Layer 23/23
+============================================================
+Layer 23 status=0 elapsed=0s
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out2 present_value: dims=3, w=128, h=316, d=1, c=8, elempack=1, logical_count=323584
+out0 layer_output
+  Maximum abs error : 7.1525573730e-07
+  Mean abs error    : 2.4426753953e-08
+out1 present_key
+  Maximum abs error : 9.5367431641e-07
+  Mean abs error    : 5.9992040590e-10
+out2 present_value
+  Maximum abs error : 5.9604644775e-08
+  Mean abs error    : 3.8980914137e-11
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 9.5367431641e-07
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 5.9604644775e-08
+✅ Decoder Layer 23 Decode Step 3 PNNX → ncnn C++三输出数值对齐成功。
+
+✅ 全部24层Step 3 packed ncnn独立数值验证成功

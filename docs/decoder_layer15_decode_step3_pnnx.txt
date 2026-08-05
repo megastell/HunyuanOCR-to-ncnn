@@ -1,0 +1,52 @@
+pnnxparam = ./decoder_layer15_decode_step3.pnnx.param
+pnnxbin = ./decoder_layer15_decode_step3.pnnx.bin
+pnnxpy = ./decoder_layer15_decode_step3_pnnx.py
+pnnxonnx = ./decoder_layer15_decode_step3.pnnx.onnx
+ncnnparam = ./decoder_layer15_decode_step3.ncnn.param
+ncnnbin = ./decoder_layer15_decode_step3.ncnn.bin
+ncnnpy = ./decoder_layer15_decode_step3_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [1,1,1024]f32,[1,1,1,316]f32,[4,1,1,128]f32,[4,1,1,128]f32,[1,8,315,128]f32,[1,8,315,128]f32
+inputshape2 =
+input =
+input2 =
+customop =
+moduleop =
+############# pass_level0
+
+----------------
+
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+model inputshape = [1,1,1024]f32,[1,1,1,316]f32,[4,1,1,128]f32,[4,1,1,128]f32,[1,8,315,128]f32,[1,8,315,128]f32
+FLOPS = 37.296M
+memory OPS = 21.947M
+	Command being timed: "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx ./decoder_layer15_decode_step3.pt inputshape=[1,1,1024]f32,[1,1,1,316]f32,[4,1,1,128]f32,[4,1,1,128]f32,[1,8,315,128]f32,[1,8,315,128]f32 fp16=0 optlevel=2 device=cpu"
+	User time (seconds): 2.87
+	System time (seconds): 0.38
+	Percent of CPU this job got: 167%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.94
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 232480
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 195032
+	Voluntary context switches: 397
+	Involuntary context switches: 25
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 540856
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
