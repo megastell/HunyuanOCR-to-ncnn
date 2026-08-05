@@ -1,0 +1,31 @@
+{
+  "token_id": 5112,
+  "hidden_size": 1024,
+  "torch_threads": 9,
+  "torch_version": "2.12.1+cpu",
+  "model_load_seconds": 1.3657688139937818,
+  "input_embedding_module": "model.language_model.embed_tokens",
+  "output_embedding_module": "lm_head",
+  "input_embedding_weight_shape": [
+    120818,
+    1024
+  ],
+  "input_embedding_dtype": "torch.float32",
+  "embedding_output_shape": [
+    1,
+    1,
+    1024
+  ],
+  "embedding_vs_step2_hidden": {
+    "maximum_abs_error": 0.0,
+    "mean_abs_error": 0.0,
+    "byte_identical": true
+  },
+  "embedding_output_vs_weight_row": {
+    "maximum_abs_error": 0.0
+  },
+  "lm_head_relationship": {
+    "shares_weight_storage": true,
+    "row_5112_maximum_abs_error": 0.0
+  }
+}

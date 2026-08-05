@@ -1,0 +1,17 @@
+===== Load model =====
+Model loaded in 1.366s
+Input embedding module: model.language_model.embed_tokens
+Output embedding module: lm_head
+Input embedding weight shape: (120818, 1024)
+Input embedding dtype: torch.float32
+Token ID: 5112
+Embedding output shape: (1, 1, 1024)
+Embedding vs Step 2 Layer 0 max error: 0.0000000000e+00
+Embedding vs Step 2 Layer 0 mean error: 0.0000000000e+00
+Embedding output vs weight row max error: 0.0000000000e+00
+Embedding and Step 2 hidden byte-identical: True
+Input embedding and LM Head share storage: True
+Embedding row vs LM Head row max error: 0.0000000000e+00
+
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/token_embedding_feedback_reference.json
+✅ token 5112 Embedding反馈契约捕获成功。
