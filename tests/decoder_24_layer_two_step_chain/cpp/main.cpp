@@ -810,7 +810,6 @@ int main(
     std::vector<float> step1_rope_cos_values;
     std::vector<float> step1_rope_sin_values;
 
-    std::vector<float> step2_initial_hidden_values;
     std::vector<float> step2_mask_values;
     std::vector<float> step2_rope_cos_values;
     std::vector<float> step2_rope_sin_values;
@@ -839,12 +838,6 @@ int main(
                 + "/layer0_position_embeddings_1_f32.bin",
             rope_count,
             step1_rope_sin_values
-        )
-        || !load_exact_binary(
-            step2_layer0_reference
-                + "/layer0_hidden_states_f32.bin",
-            hidden_count,
-            step2_initial_hidden_values
         )
         || !load_exact_binary(
             step2_layer0_reference
@@ -892,11 +885,6 @@ int main(
             step1_rope_sin_values
         );
 
-    ncnn::Mat step2_initial_hidden =
-        make_hidden(
-            step2_initial_hidden_values
-        );
-
     ncnn::Mat step2_mask =
         make_mask(
             step2_mask_values,
@@ -918,7 +906,6 @@ int main(
         || step1_mask.empty()
         || step1_rope_cos.empty()
         || step1_rope_sin.empty()
-        || step2_initial_hidden.empty()
         || step2_mask.empty()
         || step2_rope_cos.empty()
         || step2_rope_sin.empty()
@@ -982,6 +969,7 @@ int main(
         << '\n'
         << "Step 1 hidden reload       : disabled\n"
         << "Step 2 hidden reload       : disabled\n"
+        << "Step 2 initial hidden      : Step1 token -> ncnn Embed\n"
         << "Step 2 KV inference reload : disabled\n"
         << "hidden handoff             : "
         << "previous out0.clone() -> next in0\n"
@@ -1400,18 +1388,611 @@ int main(
             next_hidden;
     }
 
-    std::cout
-        << "\n===== Step 2: direct same-layer KV chain =====\n";
+    /*
+     * 真正的自回归Token反馈：
+     *
+     * Step 1 Layer 23 out0
+     *     -> Final RMSNorm
+     *     -> LM Head
+     *     -> argmax token 5112
+     *     -> ncnn Embed
+     *     -> Step 2 Layer 0 in0
+     *
+     * 参考hidden仅用于数值验证，不作为推理输入。
+     */
+    constexpr std::size_t kFeedbackVocabSize =
+        120818;
 
-    ncnn::Mat step2_current_hidden =
-        step2_initial_hidden.clone();
+    constexpr int kExpectedStep1Token =
+        5112;
 
-    if (step2_current_hidden.empty()) {
-        std::cerr
-            << "Step 2初始hidden clone失败。\n";
+    int step1_actual_token =
+        -1;
 
-        return EXIT_FAILURE;
+    ncnn::Mat step2_current_hidden;
+
+    {
+        const std::string step1_tail_reference =
+            project_root
+            + "/artifacts/decode_tail/reference";
+
+        const std::string feedback_reference =
+            project_root
+            + "/artifacts/token_embedding_feedback/reference";
+
+        const std::string final_norm_directory =
+            project_root
+            + "/artifacts/final_norm";
+
+        const std::string lm_head_directory =
+            project_root
+            + "/artifacts/lm_head";
+
+        const std::string embedding_directory =
+            project_root
+            + "/artifacts/text_embedding";
+
+        std::vector<float>
+            expected_step1_norm_input;
+
+        std::vector<float>
+            expected_step1_norm_output;
+
+        std::vector<float>
+            expected_step1_logits;
+
+        std::vector<float>
+            expected_step2_initial_hidden;
+
+        if (
+            !load_exact_binary(
+                step1_tail_reference
+                    + "/final_norm_input_f32.bin",
+                hidden_count,
+                expected_step1_norm_input
+            )
+            || !load_exact_binary(
+                step1_tail_reference
+                    + "/final_norm_output_f32.bin",
+                hidden_count,
+                expected_step1_norm_output
+            )
+            || !load_exact_binary(
+                step1_tail_reference
+                    + "/decode_logits_f32.bin",
+                kFeedbackVocabSize,
+                expected_step1_logits
+            )
+            || !load_exact_binary(
+                feedback_reference
+                    + "/token_5112_embedding_f32.bin",
+                hidden_count,
+                expected_step2_initial_hidden
+            )
+        ) {
+            std::cerr
+                << "Step 1反馈链参考数据加载失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        /*
+         * Step 1 Decoder Layer 23
+         * -> Final RMSNorm边界验证。
+         */
+        std::vector<float>
+            actual_step1_decoder_output;
+
+        if (
+            !unpack_mat(
+                step1_current_hidden,
+                actual_step1_decoder_output
+            )
+        ) {
+            return EXIT_FAILURE;
+        }
+
+        Metrics step1_norm_input_metrics;
+
+        if (
+            !calculate_metrics(
+                actual_step1_decoder_output,
+                expected_step1_norm_input,
+                step1_norm_input_metrics
+            )
+        ) {
+            return EXIT_FAILURE;
+        }
+
+        std::cout
+            << "\n===== Step 1 Decoder -> Final RMSNorm boundary =====\n";
+
+        print_metrics(
+            "Step 1 Layer 23 chained output vs Final RMSNorm reference input",
+            step1_norm_input_metrics
+        );
+
+        if (
+            !hidden_passed(
+                step1_norm_input_metrics
+            )
+        ) {
+            std::cerr
+                << "❌ Step 1 Decoder最终hidden误差超限。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        /*
+         * Step 1 Final RMSNorm。
+         */
+        ncnn::Mat step1_norm_handoff;
+        Metrics step1_norm_metrics;
+
+        {
+            ncnn::Net network;
+
+            network.opt.use_vulkan_compute =
+                false;
+
+            network.opt.use_packing_layout =
+                use_packing_layout;
+
+            network.opt.num_threads =
+                kRuntimeThreads;
+
+            const std::string param_path =
+                final_norm_directory
+                + "/final_norm.ncnn.param";
+
+            const std::string model_path =
+                final_norm_directory
+                + "/final_norm.ncnn.bin";
+
+            if (
+                network.load_param(
+                    param_path.c_str()
+                ) != 0
+                || network.load_model(
+                    model_path.c_str()
+                ) != 0
+            ) {
+                std::cerr
+                    << "Step 1 Final RMSNorm模型加载失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            ncnn::Extractor extractor =
+                network.create_extractor();
+
+            extractor.set_light_mode(false);
+
+            if (
+                extractor.input(
+                    "in0",
+                    step1_current_hidden
+                ) != 0
+            ) {
+                std::cerr
+                    << "Step 1 Final RMSNorm输入绑定失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            ncnn::Mat output;
+
+            if (
+                extractor.extract(
+                    "out0",
+                    output
+                ) != 0
+                || output.empty()
+            ) {
+                std::cerr
+                    << "Step 1 Final RMSNorm输出提取失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            std::vector<float>
+                actual_norm_output;
+
+            if (
+                !unpack_mat(
+                    output,
+                    actual_norm_output
+                )
+                || !calculate_metrics(
+                    actual_norm_output,
+                    expected_step1_norm_output,
+                    step1_norm_metrics
+                )
+            ) {
+                return EXIT_FAILURE;
+            }
+
+            step1_norm_handoff =
+                output.clone();
+        }
+
+        if (step1_norm_handoff.empty()) {
+            std::cerr
+                << "Step 1 Final RMSNorm out0.clone()失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        std::cout
+            << "\n===== Step 1 Final RMSNorm parity =====\n";
+
+        print_metrics(
+            "Step 1 Final RMSNorm output",
+            step1_norm_metrics
+        );
+
+        const bool step1_norm_passed =
+            step1_norm_metrics.maximum_abs_error
+                <= 5.0e-5
+            && step1_norm_metrics.mean_abs_error
+                <= 5.0e-6
+            && step1_norm_metrics.cosine_similarity
+                >= 0.99999999;
+
+        if (!step1_norm_passed) {
+            std::cerr
+                << "❌ Step 1 Final RMSNorm误差超限。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        /*
+         * Step 1 LM Head并计算实际反馈token。
+         */
+        std::vector<float>
+            actual_step1_logits;
+
+        Metrics step1_logits_metrics;
+
+        {
+            ncnn::Net network;
+
+            network.opt.use_vulkan_compute =
+                false;
+
+            network.opt.use_packing_layout =
+                use_packing_layout;
+
+            network.opt.num_threads =
+                kRuntimeThreads;
+
+            const std::string param_path =
+                lm_head_directory
+                + "/lm_head.ncnn.param";
+
+            const std::string model_path =
+                lm_head_directory
+                + "/lm_head.ncnn.bin";
+
+            if (
+                network.load_param(
+                    param_path.c_str()
+                ) != 0
+                || network.load_model(
+                    model_path.c_str()
+                ) != 0
+            ) {
+                std::cerr
+                    << "Step 1 LM Head模型加载失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            ncnn::Extractor extractor =
+                network.create_extractor();
+
+            extractor.set_light_mode(false);
+
+            if (
+                extractor.input(
+                    "in0",
+                    step1_norm_handoff
+                ) != 0
+            ) {
+                std::cerr
+                    << "Step 1 LM Head输入绑定失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            ncnn::Mat logits;
+
+            if (
+                extractor.extract(
+                    "out0",
+                    logits
+                ) != 0
+                || logits.empty()
+            ) {
+                std::cerr
+                    << "Step 1 LM Head输出提取失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            if (
+                !unpack_mat(
+                    logits,
+                    actual_step1_logits
+                )
+            ) {
+                return EXIT_FAILURE;
+            }
+        }
+
+        if (
+            actual_step1_logits.size()
+            != kFeedbackVocabSize
+        ) {
+            std::cerr
+                << "Step 1 logits数量错误："
+                << actual_step1_logits.size()
+                << '\n';
+
+            return EXIT_FAILURE;
+        }
+
+        if (
+            !calculate_metrics(
+                actual_step1_logits,
+                expected_step1_logits,
+                step1_logits_metrics
+            )
+        ) {
+            return EXIT_FAILURE;
+        }
+
+        const auto expected_iterator =
+            std::max_element(
+                expected_step1_logits.begin(),
+                expected_step1_logits.end()
+            );
+
+        const auto actual_iterator =
+            std::max_element(
+                actual_step1_logits.begin(),
+                actual_step1_logits.end()
+            );
+
+        const int step1_expected_token =
+            static_cast<int>(
+                std::distance(
+                    expected_step1_logits.begin(),
+                    expected_iterator
+                )
+            );
+
+        step1_actual_token =
+            static_cast<int>(
+                std::distance(
+                    actual_step1_logits.begin(),
+                    actual_iterator
+                )
+            );
+
+        std::cout
+            << "\n===== Step 1 feedback logits parity =====\n";
+
+        print_metrics(
+            "Step 1 Decoder -> Final RMSNorm -> LM Head logits",
+            step1_logits_metrics
+        );
+
+        std::cout
+            << "Expected Step 1 token : "
+            << step1_expected_token
+            << '\n'
+            << "Actual Step 1 token   : "
+            << step1_actual_token
+            << '\n'
+            << "Feedback contract     : "
+            << kExpectedStep1Token
+            << '\n';
+
+        const bool step1_logits_passed =
+            step1_logits_metrics.maximum_abs_error
+                <= 3.0e-3
+            && step1_logits_metrics.mean_abs_error
+                <= 5.0e-5
+            && step1_logits_metrics.cosine_similarity
+                >= 0.999999
+            && step1_expected_token
+                == kExpectedStep1Token
+            && step1_actual_token
+                == kExpectedStep1Token;
+
+        if (!step1_logits_passed) {
+            std::cerr
+                << "❌ Step 1反馈logits或token验证失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        /*
+         * actual token 5112
+         * -> int32 ncnn Embed
+         * -> Step 2初始hidden。
+         */
+        ncnn::Mat token_input(
+            1,
+            static_cast<std::size_t>(4u)
+        );
+
+        if (token_input.empty()) {
+            std::cerr
+                << "反馈token Mat创建失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        int* token_pointer =
+            token_input;
+
+        token_pointer[0] =
+            step1_actual_token;
+
+        {
+            ncnn::Net network;
+
+            network.opt.use_vulkan_compute =
+                false;
+
+            network.opt.use_packing_layout =
+                use_packing_layout;
+
+            network.opt.num_threads =
+                kRuntimeThreads;
+
+            const std::string param_path =
+                embedding_directory
+                + "/text_embedding.ncnn.param";
+
+            const std::string model_path =
+                embedding_directory
+                + "/text_embedding.ncnn.bin";
+
+            if (
+                network.load_param(
+                    param_path.c_str()
+                ) != 0
+                || network.load_model(
+                    model_path.c_str()
+                ) != 0
+            ) {
+                std::cerr
+                    << "反馈Token Embedding模型加载失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            ncnn::Extractor extractor =
+                network.create_extractor();
+
+            extractor.set_light_mode(false);
+
+            if (
+                extractor.input(
+                    "in0",
+                    token_input
+                ) != 0
+            ) {
+                std::cerr
+                    << "反馈Token Embedding输入绑定失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            ncnn::Mat output;
+
+            if (
+                extractor.extract(
+                    "out0",
+                    output
+                ) != 0
+                || output.empty()
+            ) {
+                std::cerr
+                    << "反馈Token Embedding输出提取失败。\n";
+
+                return EXIT_FAILURE;
+            }
+
+            step2_current_hidden =
+                output.clone();
+        }
+
+        if (step2_current_hidden.empty()) {
+            std::cerr
+                << "反馈Embedding out0.clone()失败。\n";
+
+            return EXIT_FAILURE;
+        }
+
+        std::vector<float>
+            generated_step2_initial_hidden;
+
+        if (
+            !unpack_mat(
+                step2_current_hidden,
+                generated_step2_initial_hidden
+            )
+        ) {
+            return EXIT_FAILURE;
+        }
+
+        Metrics feedback_embedding_metrics;
+
+        if (
+            !calculate_metrics(
+                generated_step2_initial_hidden,
+                expected_step2_initial_hidden,
+                feedback_embedding_metrics
+            )
+        ) {
+            return EXIT_FAILURE;
+        }
+
+        const bool feedback_byte_identical =
+            generated_step2_initial_hidden.size()
+                == expected_step2_initial_hidden.size()
+            && std::equal(
+                generated_step2_initial_hidden.begin(),
+                generated_step2_initial_hidden.end(),
+                expected_step2_initial_hidden.begin()
+            );
+
+        std::cout
+            << "\n===== Autoregressive Token Embedding feedback =====\n";
+
+        print_metrics(
+            "Step 1 token 5112 -> ncnn Embed -> Step 2 Layer 0 hidden",
+            feedback_embedding_metrics
+        );
+
+        std::cout
+            << "Feedback token        : "
+            << step1_actual_token
+            << '\n'
+            << "Embedding input type  : int32\n"
+            << "Reference used as input: false\n"
+            << "Byte-identical hidden : "
+            << (
+                feedback_byte_identical
+                ? "true"
+                : "false"
+            )
+            << '\n';
+
+        if (
+            feedback_embedding_metrics.maximum_abs_error
+                != 0.0
+            || feedback_embedding_metrics.mean_abs_error
+                != 0.0
+            || !feedback_byte_identical
+        ) {
+            std::cerr
+                << "❌ 自回归Embedding反馈hidden"
+                << "未达到字节级一致。\n";
+
+            return EXIT_FAILURE;
+        }
     }
+
+    std::cout
+        << "\n===== Step 2: direct same-layer KV chain =====\n"
+        << "Step 2 initial hidden source: "
+        << "Step 1 actual token -> ncnn Embed\n"
+        << "Step 2 initial hidden reload: disabled\n";
 
     for (
         int layer = 0;
@@ -2357,6 +2938,11 @@ int main(
         << "Step 1 decoder layers : 0 -> 23\n"
         << "Step 2 decoder layers : 0 -> 23\n"
         << "Same-layer KV handoff : enabled\n"
+        << "Step 1 feedback token  : "
+        << step1_actual_token
+        << '\n'
+        << "Token Embedding        : executed\n"
+        << "Step 2 hidden reload   : disabled\n"
         << "Final RMSNorm          : executed\n"
         << "LM Head                : executed\n"
         << "Tail input reload      : disabled\n"

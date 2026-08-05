@@ -1,0 +1,63 @@
+{
+  "layer_count": 24,
+  "precision": "FP32",
+  "threads": 9,
+  "vulkan": false,
+  "step1_cache": {
+    "past_length": 313,
+    "present_length": 314
+  },
+  "step2_cache": {
+    "past_length": 314,
+    "present_length": 315
+  },
+  "runtime_path": [
+    "Step 1 Decoder Layer 0-23",
+    "Final RMSNorm",
+    "LM Head",
+    "argmax token 5112",
+    "ncnn Embed",
+    "Step 2 Decoder Layer 0-23",
+    "Final RMSNorm",
+    "LM Head",
+    "argmax token 206"
+  ],
+  "packed": {
+    "packing_layout": true,
+    "step1_expected_token": 5112,
+    "step1_actual_token": 5112,
+    "feedback_contract_token": 5112,
+    "feedback_token": 5112,
+    "feedback_reference_used_as_input": false,
+    "feedback_hidden_byte_identical": true,
+    "step2_initial_hidden_reload": false,
+    "maximum_step2_key_prefix_error": 0.0,
+    "maximum_step2_value_prefix_error": 0.0,
+    "step2_expected_token": 206,
+    "step2_actual_token": 206,
+    "step2_final_token": 206,
+    "success": true
+  },
+  "unpacked": {
+    "packing_layout": false,
+    "step1_expected_token": 5112,
+    "step1_actual_token": 5112,
+    "feedback_contract_token": 5112,
+    "feedback_token": 5112,
+    "feedback_reference_used_as_input": false,
+    "feedback_hidden_byte_identical": true,
+    "step2_initial_hidden_reload": false,
+    "maximum_step2_key_prefix_error": 0.0,
+    "maximum_step2_value_prefix_error": 0.0,
+    "step2_expected_token": 206,
+    "step2_actual_token": 206,
+    "step2_final_token": 206,
+    "success": true
+  },
+  "remaining_reference_inputs": [
+    "Step 1 initial hidden",
+    "initial KV cache",
+    "attention masks",
+    "RoPE tensors"
+  ]
+}

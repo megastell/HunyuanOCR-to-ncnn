@@ -1,0 +1,22 @@
+HunyuanOCR-1.5 autoregressive token feedback determinism
+Runs: 9
+Threads: 9
+Precision: FP32
+Packing layout: true
+Vulkan: disabled
+Step 1 token: 5112
+Token Embedding: ncnn Embed
+Step 2 initial hidden reference input: disabled
+Step 2 token: 206
+
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run1.txt
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run2.txt
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run3.txt
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run4.txt
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run5.txt
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run6.txt
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run7.txt
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run8.txt
+4bb4cbf54a8d42bc5ff54593bf3ff7870b142c7bf23ce38d3155928039506458  /tmp/autoregressive_token_feedback_determinism/run9.txt
+
+All nine complete outputs compared with cmp.

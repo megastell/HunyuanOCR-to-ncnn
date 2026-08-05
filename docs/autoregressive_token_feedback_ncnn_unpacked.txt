@@ -1,0 +1,182 @@
+===== Decoder 24-layer two-step runtime =====
+threads                    : 9
+packing layout             : false
+Step 1 past/present        : 313 -> 314
+Step 2 past/present        : 314 -> 315
+Step 1 hidden reload       : disabled
+Step 2 hidden reload       : disabled
+Step 2 initial hidden      : Step1 token -> ncnn Embed
+Step 2 KV inference reload : disabled
+hidden handoff             : previous out0.clone() -> next in0
+KV handoff                 : Step1 Layer i out1/out2.clone() -> Step2 Layer i in4/in5
+
+===== Step 1: 24-layer hidden chain =====
+Step1 Layer 00: boundary=0.0000000000e+00, output=5.9604644775e-08, key=1.4305114746e-06, value=2.9802322388e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 01: boundary=5.9604644775e-08, output=5.9604644775e-08, key=1.4305114746e-06, value=5.5879354477e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 02: boundary=5.9604644775e-08, output=6.7055225372e-08, key=2.2351741791e-06, value=4.0978193283e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 03: boundary=6.7055225372e-08, output=6.7055225372e-08, key=1.6689300537e-06, value=3.7252902985e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 04: boundary=6.7055225372e-08, output=6.7055225372e-08, key=3.6954879761e-06, value=6.7055225372e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 05: boundary=6.7055225372e-08, output=1.1920928955e-07, key=2.6226043701e-06, value=4.6566128731e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 06: boundary=1.1920928955e-07, output=1.1920928955e-07, key=1.9371509552e-06, value=6.3329935074e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 07: boundary=1.1920928955e-07, output=2.3841857910e-07, key=3.3378601074e-06, value=6.7055225372e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 08: boundary=2.3841857910e-07, output=7.4505805969e-08, key=2.1457672119e-06, value=7.4505805969e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 09: boundary=7.4505805969e-08, output=8.1956386566e-08, key=3.3378601074e-06, value=8.1956386566e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 10: boundary=8.1956386566e-08, output=9.6857547760e-08, key=2.1457672119e-06, value=7.6368451118e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 11: boundary=9.6857547760e-08, output=8.9406967163e-08, key=2.4288892746e-06, value=1.1920928955e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 12: boundary=8.9406967163e-08, output=1.1920928955e-07, key=2.3841857910e-06, value=1.0058283806e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 13: boundary=1.1920928955e-07, output=1.1920928955e-07, key=2.3841857910e-06, value=8.1956386566e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 14: boundary=1.1920928955e-07, output=1.2665987015e-07, key=2.5033950806e-06, value=8.1956386566e-08, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 15: boundary=1.2665987015e-07, output=1.4156103134e-07, key=2.6226043701e-06, value=1.0523945093e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 16: boundary=1.4156103134e-07, output=1.4901161194e-07, key=2.7418136597e-06, value=1.1734664440e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 17: boundary=1.4901161194e-07, output=1.4156103134e-07, key=3.2186508179e-06, value=1.1920928955e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 18: boundary=1.4156103134e-07, output=2.3841857910e-07, key=2.6673078537e-06, value=1.6577541828e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 19: boundary=2.3841857910e-07, output=2.9802322388e-07, key=2.9802322388e-06, value=1.9371509552e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 20: boundary=2.9802322388e-07, output=4.7683715820e-07, key=2.7269124985e-06, value=1.5273690224e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 21: boundary=4.7683715820e-07, output=2.3841857910e-07, key=2.8610229492e-06, value=1.8626451492e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 22: boundary=2.3841857910e-07, output=2.3841857910e-07, key=2.9206275940e-06, value=1.7136335373e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+Step1 Layer 23: boundary=2.3841857910e-07, output=3.5017728806e-07, key=2.8610229492e-06, value=2.4214386940e-07, prefix=(0.0000000000e+00, 0.0000000000e+00)
+
+===== Step 1 Decoder -> Final RMSNorm boundary =====
+
+Step 1 Layer 23 chained output vs Final RMSNorm reference input
+  Maximum abs error : 3.5017728806e-07
+  Mean abs error    : 8.2842234406e-08
+  RMSE              : 1.0195751817e-07
+  Cosine similarity : 1.000000000000
+  Max error index   : 468
+  Actual at max     : 0.0627546310
+  Expected at max   : 0.0627549812
+
+===== Step 1 Final RMSNorm parity =====
+
+Step 1 Final RMSNorm output
+  Maximum abs error : 9.1791152954e-06
+  Mean abs error    : 2.1132073016e-06
+  RMSE              : 2.6087196480e-06
+  Cosine similarity : 1.000000000000
+  Max error index   : 468
+  Actual at max     : 1.6264314651
+  Expected at max   : 1.6264406443
+
+===== Step 1 feedback logits parity =====
+
+Step 1 Decoder -> Final RMSNorm -> LM Head logits
+  Maximum abs error : 9.0599060059e-06
+  Mean abs error    : 1.6562055193e-06
+  RMSE              : 2.0912792737e-06
+  Cosine similarity : 1.000000000000
+  Max error index   : 42039
+  Actual at max     : -6.8147616386
+  Expected at max   : -6.8147525787
+Expected Step 1 token : 5112
+Actual Step 1 token   : 5112
+Feedback contract     : 5112
+
+===== Autoregressive Token Embedding feedback =====
+
+Step 1 token 5112 -> ncnn Embed -> Step 2 Layer 0 hidden
+  Maximum abs error : 0.0000000000e+00
+  Mean abs error    : 0.0000000000e+00
+  RMSE              : 0.0000000000e+00
+  Cosine similarity : 1.000000000000
+  Max error index   : 0
+  Actual at max     : 0.0000000000
+  Expected at max   : 0.0000000000
+Feedback token        : 5112
+Embedding input type  : int32
+Reference used as input: false
+Byte-identical hidden : true
+
+===== Step 2: direct same-layer KV chain =====
+Step 2 initial hidden source: Step 1 actual token -> ncnn Embed
+Step 2 initial hidden reload: disabled
+Step2 Layer 00: boundary=0.0000000000e+00, handoff=(1.4305114746e-06, 2.9802322388e-08), output=1.0430812836e-07, key=1.9073486328e-06, value=2.9802322388e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(1.9073486328e-06, 2.6077032089e-08)
+Step2 Layer 01: boundary=1.0430812836e-07, handoff=(1.4305114746e-06, 5.5879354477e-08), output=1.3411045074e-07, key=1.9073486328e-06, value=5.5879354477e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(1.9073486328e-06, 5.5879354477e-08)
+Step2 Layer 02: boundary=1.3411045074e-07, handoff=(2.2351741791e-06, 4.0978193283e-08), output=1.7881393433e-07, key=3.7550926208e-06, value=9.1269612312e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.7550926208e-06, 9.1269612312e-08)
+Step2 Layer 03: boundary=1.7881393433e-07, handoff=(1.6689300537e-06, 3.7252902985e-08), output=2.0861625671e-07, key=2.7418136597e-06, value=8.5681676865e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(2.7418136597e-06, 8.5681676865e-08)
+Step2 Layer 04: boundary=2.0861625671e-07, handoff=(3.6954879761e-06, 6.7055225372e-08), output=8.1956386566e-08, key=4.2915344238e-06, value=1.1641532183e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(4.2915344238e-06, 1.1641532183e-07)
+Step2 Layer 05: boundary=8.1956386566e-08, handoff=(2.6226043701e-06, 4.6566128731e-08), output=7.4505805969e-08, key=3.9339065552e-06, value=7.4505805969e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.9339065552e-06, 7.4505805969e-08)
+Step2 Layer 06: boundary=7.4505805969e-08, handoff=(1.9371509552e-06, 6.3329935074e-08), output=8.3819031715e-08, key=3.3378601074e-06, value=8.8475644588e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.3378601074e-06, 8.8475644588e-08)
+Step2 Layer 07: boundary=8.3819031715e-08, handoff=(3.3378601074e-06, 6.7055225372e-08), output=9.1269612312e-08, key=4.7087669373e-06, value=8.1956386566e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(4.7087669373e-06, 8.1956386566e-08)
+Step2 Layer 08: boundary=9.1269612312e-08, handoff=(2.1457672119e-06, 7.4505805969e-08), output=1.1920928955e-07, key=2.4437904358e-06, value=8.2887709141e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(2.4437904358e-06, 8.2887709141e-08)
+Step2 Layer 09: boundary=1.1920928955e-07, handoff=(3.3378601074e-06, 8.1956386566e-08), output=1.1920928955e-07, key=3.6358833313e-06, value=1.1175870895e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.6358833313e-06, 1.1175870895e-07)
+Step2 Layer 10: boundary=1.1920928955e-07, handoff=(2.1457672119e-06, 7.6368451118e-08), output=1.1920928955e-07, key=3.0994415283e-06, value=8.1956386566e-08, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.0994415283e-06, 8.1956386566e-08)
+Step2 Layer 11: boundary=1.1920928955e-07, handoff=(2.4288892746e-06, 1.1920928955e-07), output=1.4901161194e-07, key=4.2915344238e-06, value=1.2665987015e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(4.2915344238e-06, 1.2665987015e-07)
+Step2 Layer 12: boundary=1.4901161194e-07, handoff=(2.3841857910e-06, 1.0058283806e-07), output=9.4994902611e-08, key=2.5033950806e-06, value=1.4901161194e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(2.5033950806e-06, 1.4901161194e-07)
+Step2 Layer 13: boundary=9.4994902611e-08, handoff=(2.3841857910e-06, 8.1956386566e-08), output=2.3841857910e-07, key=2.8610229492e-06, value=1.1920928955e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(2.8610229492e-06, 1.1920928955e-07)
+Step2 Layer 14: boundary=2.3841857910e-07, handoff=(2.5033950806e-06, 8.1956386566e-08), output=2.9802322388e-07, key=3.0994415283e-06, value=1.0989606380e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.0994415283e-06, 1.0989606380e-07)
+Step2 Layer 15: boundary=2.9802322388e-07, handoff=(2.6226043701e-06, 1.0523945093e-07), output=3.5762786865e-07, key=3.2186508179e-06, value=1.0989606380e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.2186508179e-06, 1.0989606380e-07)
+Step2 Layer 16: boundary=3.5762786865e-07, handoff=(2.7418136597e-06, 1.1734664440e-07), output=3.5762786865e-07, key=3.6358833313e-06, value=1.2665987015e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.6358833313e-06, 1.2665987015e-07)
+Step2 Layer 17: boundary=3.5762786865e-07, handoff=(3.2186508179e-06, 1.1920928955e-07), output=4.1723251343e-07, key=3.2186508179e-06, value=1.3411045074e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.0398368835e-06, 1.3411045074e-07)
+Step2 Layer 18: boundary=4.1723251343e-07, handoff=(2.6673078537e-06, 1.6577541828e-07), output=5.9604644775e-07, key=3.6954879761e-06, value=1.6577541828e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.6954879761e-06, 1.4156103134e-07)
+Step2 Layer 19: boundary=5.9604644775e-07, handoff=(2.9802322388e-06, 1.9371509552e-07), output=5.9604644775e-07, key=4.9769878387e-06, value=1.9371509552e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(4.9769878387e-06, 1.8626451492e-07)
+Step2 Layer 20: boundary=5.9604644775e-07, handoff=(2.7269124985e-06, 1.5273690224e-07), output=5.9604644775e-07, key=3.5762786865e-06, value=1.7136335373e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.5762786865e-06, 1.7136335373e-07)
+Step2 Layer 21: boundary=5.9604644775e-07, handoff=(2.8610229492e-06, 1.8626451492e-07), output=7.1525573730e-07, key=4.1723251343e-06, value=1.8626451492e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(4.1723251343e-06, 1.7136335373e-07)
+Step2 Layer 22: boundary=7.1525573730e-07, handoff=(2.9206275940e-06, 1.7136335373e-07), output=7.1525573730e-07, key=2.9206275940e-06, value=1.7881393433e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(2.7418136597e-06, 1.7881393433e-07)
+Step2 Layer 23: boundary=7.1525573730e-07, handoff=(2.8610229492e-06, 2.4214386940e-07), output=3.5762786865e-07, key=3.2186508179e-06, value=2.4214386940e-07, prefix=(0.0000000000e+00, 0.0000000000e+00), appended=(3.2186508179e-06, 1.8626451492e-07)
+
+===== Two-step chain maximum errors =====
+Step 1 maximum input boundary : 4.7683715820e-07
+Step 1 maximum layer output   : 4.7683715820e-07
+Step 1 maximum present key    : 3.6954879761e-06
+Step 1 maximum present value  : 2.4214386940e-07
+Step 2 maximum input boundary : 7.1525573730e-07
+Step 2 maximum layer output   : 7.1525573730e-07
+Step 2 maximum present key    : 4.9769878387e-06
+Step 2 maximum present value  : 2.4214386940e-07
+Maximum KV handoff key error  : 3.6954879761e-06
+Maximum KV handoff value error: 2.4214386940e-07
+Maximum Step 2 key prefix     : 0.0000000000e+00
+Maximum Step 2 value prefix   : 0.0000000000e+00
+Maximum Step 2 appended key   : 4.9769878387e-06
+Maximum Step 2 appended value : 1.8626451492e-07
+
+===== Step 2 Decoder -> Final RMSNorm boundary =====
+
+Step 2 Layer 23 chained output vs Final RMSNorm reference input
+  Maximum abs error : 3.5762786865e-07
+  Mean abs error    : 7.6475316746e-08
+  RMSE              : 9.6168063369e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 466
+  Actual at max     : -1.4442535639
+  Expected at max   : -1.4442532063
+
+===== Step 2 Final RMSNorm parity =====
+
+Step 2 Final RMSNorm output
+  Maximum abs error : 1.0013580322e-05
+  Mean abs error    : 2.2028486910e-06
+  RMSE              : 2.7710570207e-06
+  Cosine similarity : 1.000000000000
+  Max error index   : 575
+  Actual at max     : -4.5371851921
+  Expected at max   : -4.5371952057
+
+===== Step 2 full logits parity =====
+
+Two-step Decoder -> Final RMSNorm -> LM Head logits
+  Maximum abs error : 9.5367431641e-06
+  Mean abs error    : 1.5597613000e-06
+  RMSE              : 1.9647369018e-06
+  Cosine similarity : 1.000000000000
+  Max error index   : 37792
+  Actual at max     : -4.2461109161
+  Expected at max   : -4.2461013794
+Expected Step 2 token : 206
+Actual Step 2 token   : 206
+Contract token        : 206
+
+===== Two-step logits-chain result =====
+Step 1 decoder layers : 0 -> 23
+Step 2 decoder layers : 0 -> 23
+Same-layer KV handoff : enabled
+Step 1 feedback token  : 5112
+Token Embedding        : executed
+Step 2 hidden reload   : disabled
+Final RMSNorm          : executed
+LM Head                : executed
+Tail input reload      : disabled
+Final Step 2 token     : 206
+
+✅ 两次Decode的24层Decoder → Final RMSNorm → LM Head → token 206 完整ncnn FP32链验证成功。
