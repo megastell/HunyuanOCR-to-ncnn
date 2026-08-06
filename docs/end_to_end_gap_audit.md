@@ -52,7 +52,9 @@ but are not runtime dependencies.
 | ByteLevel text decoding | Exported ID-ordered vocabulary and dependency-free C++ decoder reproduce the reference UTF-8 text | Complete |
 | Fixed OCR prompt encoding | C++ chat assembly and ByteLevel BPE produce all 313 reference input IDs exactly | Complete |
 | Multimodal positions | C++ attention/type masks, four-axis position IDs, and prefill/decode mRoPE replace captured positional inputs | Complete |
-| Linux build | CMake and GCC build succeeds in Ubuntu 24.04 WSL2 | Partial platform proof |
+| Product runtime | Root CMake builds and installs `HunyuanOCR::runtime` plus a reference-free OCR CLI | Complete on Linux |
+| Model manifest | 162 product files have size and SHA-256 inventory checks; runtime set is 5.659 GiB | Complete |
+| Linux build | CMake/GCC build, install, packed CLI, unpacked CLI, and parity tests pass in Ubuntu 24.04 WSL2 | Complete |
 
 The dynamic decoder milestone uses 24 pnnx/ncnn models, one per decoder layer.
 Every TorchScript model produced zero maximum error against the Step 1, Step 2,
@@ -65,23 +67,21 @@ token 120007, and decodes `HELLO 2026\nNCNN CPU TEST` in both layouts.
 
 ## Important boundary
 
-The Phase 3C executable is image-to-text end to end for the fixed smoke
-contract. It starts from the source PNG and fixed OCR instruction, constructs
-all 313 prompt IDs in C++, runs the full vision and language chains, and
-generates masks, four-axis positions, and mRoPE through EOS. It does not load
-captured prompt or positional input tensors. The tokenizer deliberately
-rejects prompts other than the audited OCR instruction; arbitrary Unicode chat
-input remains a product-runtime extension rather than a completed capability.
+The Phase 4A product runtime is image-to-text end to end for the fixed smoke
+contract. A root CMake project builds and installs a reusable library and OCR
+CLI. The product source contains no captured reference input or output path;
+reference tensors are confined to separately enabled parity targets. The
+tokenizer still rejects prompts other than the audited OCR instruction, and
+the image path currently requires the audited `[1,22,50]` processor grid.
 
 ## Remaining gaps
 
 | Priority | Gap | Acceptance condition |
 | --- | --- | --- |
-| P1 | Product runtime | Non-empty `src/` and `include/`, a root CMake project, a reusable library, and an OCR CLI replace milestone-only test executables |
 | P1 | General prompt API | Extend the audited fixed-prompt tokenizer to the full configured Unicode pretokenizer and multi-turn chat-template surface |
 | P1 | Native Windows | MSVC CMake build and the same smoke image pass outside WSL |
-| P1 | Runtime dependency cleanup | Final executable depends on ncnn and the C++ runtime only; image decoding and tokenizer choices are documented |
-| P1 | Model packaging | Conversion outputs are deduplicated and packaged without the 30 GiB development reference tree |
+| P1 | Memory reduction | Add decoder streaming and shared tied embedding/LM-head weights; measure output parity and latency tradeoffs |
+| P1 | Model packaging | Deduplicate tied weights and package only the manifest-selected 5.659 GiB runtime set |
 | P1 | ncnn compatibility | The two required ncnn changes are rebased, tested, documented, and either carried cleanly or proposed upstream |
 | P2 | ncnn_llm integration | A concrete reuse/fork decision is recorded after comparing loader, tokenizer, sampler, and cache ownership patterns |
 | P2 | Release and article | Reproduction guide, accuracy table, performance data, repository URL, and GitHub Discussion are ready for review |
@@ -156,6 +156,13 @@ and unpacked runs still emit the exact 11-token text through EOS.
 4. Add more images and exact-text regression cases, then measure memory and
    latency.
 
+Phase 4A completed on 2026-08-06. The root CMake project now builds and
+installs `HunyuanOCR::runtime`, `hunyuanocr_cli`, and optional independent
+parity targets. Product source is free of reference paths. A 162-file,
+5.659-GiB manifest supports size and full SHA-256 checks. Packed and unpacked
+CLI runs emit the exact 11 tokens and text; measured runtime/peak RSS are
+11.717 s/5,978,556 KiB and 11.117 s/4,258,200 KiB, respectively.
+
 ### Phase 5: Publish
 
 1. Minimize and document dependencies and model conversion steps.
@@ -166,8 +173,7 @@ and unpacked runs still emit the exact 11-token text through EOS.
 
 ## Next action
 
-Phase 3C is the next highest-priority milestone. Implement the input tokenizer,
-chat template, special-token insertion, attention mask, multimodal token types,
-four-axis position IDs, and mRoPE tensors in C++. The acceptance target is the
-same exact image-to-text result without loading any captured prompt or prefill
-input tensor.
+Phase 4B is the next highest-priority milestone. Build the installed runtime
+and CLI with native Windows/MSVC against the required ncnn changes, run the
+same manifest and smoke-image contract, and require the exact 11 tokens and
+text. Then record platform-specific build, performance, and memory evidence.

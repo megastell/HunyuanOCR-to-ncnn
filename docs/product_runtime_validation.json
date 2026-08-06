@@ -1,0 +1,101 @@
+{
+  "phase": "4A",
+  "status": "passed",
+  "product_runtime_captured_reference_inputs": false,
+  "root_cmake_build": "passed",
+  "install_tree": "passed",
+  "installed_package_consumer": "passed",
+  "manifest": {
+    "format": "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1",
+    "file_count": 162,
+    "total_bytes": 6076349856,
+    "total_gib": 5.659041792154312,
+    "cpp_sha256_verification": "passed",
+    "component_bytes": {
+      "text_embedding": 494870697,
+      "lm_head": 494870690,
+      "vision": 1758571098,
+      "prefill": 1661294112,
+      "dynamic_decode": 1661299680,
+      "tokenizer": 5439325
+    }
+  },
+  "packed_cli": {
+    "tokens": [
+      93892,
+      5112,
+      206,
+      1717,
+      21,
+      185,
+      18009,
+      15613,
+      16678,
+      21836,
+      120007
+    ],
+    "text": "HELLO 2026\nNCNN CPU TEST",
+    "load_seconds": 0.36,
+    "input_seconds": 3.409,
+    "prefill_seconds": 1.483,
+    "decode_seconds": 6.825,
+    "runtime_seconds": 11.717,
+    "peak_rss_kib": 5978556
+  },
+  "unpacked_cli": {
+    "tokens": [
+      93892,
+      5112,
+      206,
+      1717,
+      21,
+      185,
+      18009,
+      15613,
+      16678,
+      21836,
+      120007
+    ],
+    "text": "HELLO 2026\nNCNN CPU TEST",
+    "load_seconds": 0.535,
+    "input_seconds": 7.695,
+    "prefill_seconds": 1.318,
+    "decode_seconds": 2.104,
+    "runtime_seconds": 11.117,
+    "peak_rss_kib": 4258200
+  },
+  "packed_parity": {
+    "status": "passed",
+    "tokens": [
+      93892,
+      5112,
+      206,
+      1717,
+      21,
+      185,
+      18009,
+      15613,
+      16678,
+      21836,
+      120007
+    ],
+    "text": "HELLO 2026\nNCNN CPU TEST"
+  },
+  "unpacked_parity": {
+    "status": "passed",
+    "tokens": [
+      93892,
+      5112,
+      206,
+      1717,
+      21,
+      185,
+      18009,
+      15613,
+      16678,
+      21836,
+      120007
+    ],
+    "text": "HELLO 2026\nNCNN CPU TEST"
+  }
+}

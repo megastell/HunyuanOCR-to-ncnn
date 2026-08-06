@@ -39,3 +39,36 @@ Windows/Linux 双平台部署项目。
 - Decoding: greedy
 - Build: CMake
 - Platforms: Ubuntu 24.04 / Windows x64
+
+## Phase 4A Runtime
+
+The repository now has a reusable C++17 runtime library and OCR CLI. The
+runtime accepts the converted model directory and a PNG image, and does not
+load any captured PyTorch reference tensor.
+
+```bash
+cmake -S . -B build-runtime -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -Dncnn_DIR="$HOME/.local/ncnn-cpu-ropefix-rmsnorm/lib/cmake/ncnn"
+cmake --build build-runtime --parallel
+
+build-runtime/hunyuanocr_cli \
+  --model-dir "$PWD/artifacts" \
+  --image "$PWD/tests/assets/ocr_smoke_en.png" \
+  --packing 1 \
+  --threads 9 \
+  --verify size
+```
+
+Generate or refresh `artifacts/runtime_manifest.tsv` after conversion with:
+
+```bash
+$HOME/work/hunyuanocr/.venv-reference/bin/python \
+  tools/export/export_runtime_manifest.py
+```
+
+`--verify size` checks the complete 162-file inventory at normal startup.
+`--verify sha256` performs a full content hash check for installation or
+release validation. The current public runtime contract uses the fixed OCR
+prompt and the audited `[1,22,50]` image grid. Reference-backed parity tests
+remain available through `-DHUNYUANOCR_BUILD_PARITY_TESTS=ON`.

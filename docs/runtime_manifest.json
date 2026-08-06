@@ -1,0 +1,820 @@
+{
+  "format": "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1",
+  "model_directory": "artifacts",
+  "file_count": 162,
+  "total_bytes": 6076349856,
+  "total_gib": 5.659041792154312,
+  "manifest_path": "artifacts/runtime_manifest.tsv",
+  "entries": [
+    {
+      "path": "final_norm/final_norm.ncnn.param",
+      "bytes": 158,
+      "sha256": "6973d2aec99233ea40c97b83cce9c9cbe1d85102811acf08c80f30b572a4ee1b"
+    },
+    {
+      "path": "final_norm/final_norm.ncnn.bin",
+      "bytes": 4096,
+      "sha256": "ab3216565d8b1c0d838ed3d980fd3c8c5a336d35debfb27bfe5db2fd2ac9cd14"
+    },
+    {
+      "path": "lm_head/lm_head.ncnn.param",
+      "bytes": 158,
+      "sha256": "4c58bd134c0dfe3da6ef7853f98efaec752c378552f19ae9ca58c38967226e68"
+    },
+    {
+      "path": "lm_head/lm_head.ncnn.bin",
+      "bytes": 494870532,
+      "sha256": "ddfe020dcafa57b5374992f39399ce3f2cc76497f80f92f9c33724e7c39389e1"
+    },
+    {
+      "path": "text_embedding/text_embedding.ncnn.param",
+      "bytes": 165,
+      "sha256": "37876590d73972374cf0c0789570487eb3b45b72b493a90f567a4c190a1df049"
+    },
+    {
+      "path": "text_embedding/text_embedding.ncnn.bin",
+      "bytes": 494870532,
+      "sha256": "ddfe020dcafa57b5374992f39399ce3f2cc76497f80f92f9c33724e7c39389e1"
+    },
+    {
+      "path": "vision_patch_embed/vision_patch_embed.ncnn.param",
+      "bytes": 681,
+      "sha256": "34ff5e4c77739e66681c92edcaa9bb33660374dbd2178a2a529450983e083488"
+    },
+    {
+      "path": "vision_patch_embed/vision_patch_embed.ncnn.bin",
+      "bytes": 8612356,
+      "sha256": "3b4b8a6f319bd8808c8c9293837f6d448147e7d0803a8de45fd010185f200116"
+    },
+    {
+      "path": "vision_patch_merger/vision_patch_merger.ncnn.param",
+      "bytes": 1281,
+      "sha256": "d71b2cafcf017ffad596230b21bd8eed719eb5a6e404605dcb9ca0649f0d57f0"
+    },
+    {
+      "path": "vision_patch_merger/vision_patch_merger.ncnn.bin",
+      "bytes": 104060432,
+      "sha256": "8941428a83dc4ed206a1381cd6cd74be90f352cda6d5c797decd6ba176559d8c"
+    },
+    {
+      "path": "vision_block0/vision_block0.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block0/vision_block0.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "324964d4182799c89e8b4be3ee75f639ffeb1f544c11ea76cef6cb1a5aaa7250"
+    },
+    {
+      "path": "vision_block1/vision_block1.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block1/vision_block1.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "b4ba85a5e395908aa648468bd9ac00f05314001900e298377ec078922d1ca220"
+    },
+    {
+      "path": "vision_block2/vision_block2.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block2/vision_block2.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "637d137d7214448c45749431310bdb9d271b7658efa156c108ba378371c6ccff"
+    },
+    {
+      "path": "vision_block3/vision_block3.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block3/vision_block3.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "f7e71ba7d5e4fe71bb4f2dc895a0d74ef55fae2efb0f81cf9d516736cc75290c"
+    },
+    {
+      "path": "vision_block4/vision_block4.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block4/vision_block4.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "e0d128607f773cdd05ae25908c2d59dba9966ed5a84685cf2041d9e237649b4a"
+    },
+    {
+      "path": "vision_block5/vision_block5.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block5/vision_block5.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "0404d5bd3cdc4a54e9eb7ceb80bc58b13c0b83e792b2060c08728611a7379b2b"
+    },
+    {
+      "path": "vision_block6/vision_block6.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block6/vision_block6.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "9ef9e928ca6f4491920f9933db55546f84e366a51c41f72e1f2654ee0a6d79b2"
+    },
+    {
+      "path": "vision_block7/vision_block7.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block7/vision_block7.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "d23c0af4c08f79ea933fa540a53e0c06fe55909d0e08b0346d592e921f08dc23"
+    },
+    {
+      "path": "vision_block8/vision_block8.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block8/vision_block8.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "ce77735b5c1a4ce0dc61c29d3a9fd459d3c00f38d39d99da231d493dba4bcd17"
+    },
+    {
+      "path": "vision_block9/vision_block9.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block9/vision_block9.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "c6646132a45954ef5c30a143102dd8d6e88bdfa98f1b4d56194685e4c8c5b962"
+    },
+    {
+      "path": "vision_block10/vision_block10.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block10/vision_block10.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "e26b0cef74f956ba5fb0803d9e119a4c47df01e838700be742ccc4e2e391887b"
+    },
+    {
+      "path": "vision_block11/vision_block11.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block11/vision_block11.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "49c34088ec74d747e82212a02a81b7a40b4fce7b30e5f925fe81b045ae4c34ad"
+    },
+    {
+      "path": "vision_block12/vision_block12.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block12/vision_block12.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "9ffc014538afe0df08184f94a30788a1793df195ff0b863d8e8b5d2eb04a608d"
+    },
+    {
+      "path": "vision_block13/vision_block13.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block13/vision_block13.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "b362e8d7934f5bab35b946df05246f168f666b20d9efaea2d20caec9ee3c09be"
+    },
+    {
+      "path": "vision_block14/vision_block14.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block14/vision_block14.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "bb7ba61a17748348975fceb281900b2b30ed28234547b782361257a36819d19a"
+    },
+    {
+      "path": "vision_block15/vision_block15.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block15/vision_block15.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "1cde67c9f1644153baab6a8f04b8dc53b2816af6c99264fc2979dc1f1f18fc4a"
+    },
+    {
+      "path": "vision_block16/vision_block16.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block16/vision_block16.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "66901e16655b6a6e047809ec78af9e5a9b36bbd800d205cb26cdd8941fc4e663"
+    },
+    {
+      "path": "vision_block17/vision_block17.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block17/vision_block17.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "106877f3a11b34b3df8b2226d3b99e1b3adecfbc81864dc46a95d9550e361389"
+    },
+    {
+      "path": "vision_block18/vision_block18.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block18/vision_block18.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "479230c0936d30a8257c0ab37ff552314d001a5b059cfdd88a1f4309ca55d0bf"
+    },
+    {
+      "path": "vision_block19/vision_block19.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block19/vision_block19.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "aa72725ef2ed30ab8c97cdf9742be5ca880fe8e1eb4bd9454e9817c3bcd6a60d"
+    },
+    {
+      "path": "vision_block20/vision_block20.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block20/vision_block20.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "9c79c95411cfff52af966aa2df4931b41759911667e0ffcc34658e93b25818cd"
+    },
+    {
+      "path": "vision_block21/vision_block21.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block21/vision_block21.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "73d3453211bfd26fbef9a1524b034b2703a6aa34d75d69ccaa2bf627d805da4f"
+    },
+    {
+      "path": "vision_block22/vision_block22.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block22/vision_block22.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "3aff2e7edf62895724acfa15a38be5cab6dcb7dd89280008da78a3b6b342a1e4"
+    },
+    {
+      "path": "vision_block23/vision_block23.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block23/vision_block23.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "a2d618cfbae8be4a6a182561f3e39cc9d7d0e1f56722aafe46738d4ecdf46c7f"
+    },
+    {
+      "path": "vision_block24/vision_block24.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block24/vision_block24.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "e102798cb2e259463540da5ef02df283235eec8c5a2fa9a603ec40599a68d721"
+    },
+    {
+      "path": "vision_block25/vision_block25.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block25/vision_block25.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "6fc37039156efe253b72bb94fca679f9773ff65cc99ea32ffffae398cd679f33"
+    },
+    {
+      "path": "vision_block26/vision_block26.ncnn.param",
+      "bytes": 1084,
+      "sha256": "afd20ace67eda58d04bfcc7458362bf605fd0419ed9100142e42c4c455a23668"
+    },
+    {
+      "path": "vision_block26/vision_block26.ncnn.bin",
+      "bytes": 60958040,
+      "sha256": "f819ff1400682738e0f43fd0af5d19dfe1808e65c14ab49f4decfb0de0e53343"
+    },
+    {
+      "path": "decoder_layer0_prefill_kv/decoder_layer0_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer0_prefill_kv/decoder_layer0_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "701c5898cdeaa3772836792d77ceaa374013e80f14f4137dec1b6d75075c38f4"
+    },
+    {
+      "path": "decoder_layer0_decode_dynamic/decoder_layer0_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer0_decode_dynamic/decoder_layer0_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "701c5898cdeaa3772836792d77ceaa374013e80f14f4137dec1b6d75075c38f4"
+    },
+    {
+      "path": "decoder_layer1_prefill_kv/decoder_layer1_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer1_prefill_kv/decoder_layer1_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "d967bd96abe5911020f386dae7d263a812bd14781116d02b36cdfb04602ee9ee"
+    },
+    {
+      "path": "decoder_layer1_decode_dynamic/decoder_layer1_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer1_decode_dynamic/decoder_layer1_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "d967bd96abe5911020f386dae7d263a812bd14781116d02b36cdfb04602ee9ee"
+    },
+    {
+      "path": "decoder_layer2_prefill_kv/decoder_layer2_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer2_prefill_kv/decoder_layer2_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "e432444b45836523a399045da4ddf673e2cdd3c9600dd6e6b73d4241609e7512"
+    },
+    {
+      "path": "decoder_layer2_decode_dynamic/decoder_layer2_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer2_decode_dynamic/decoder_layer2_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "e432444b45836523a399045da4ddf673e2cdd3c9600dd6e6b73d4241609e7512"
+    },
+    {
+      "path": "decoder_layer3_prefill_kv/decoder_layer3_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer3_prefill_kv/decoder_layer3_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "2c4c4cbb71ffd35f55a7e3eb631cba1f217e93bfd10e80c903b96a47bf0a9a27"
+    },
+    {
+      "path": "decoder_layer3_decode_dynamic/decoder_layer3_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer3_decode_dynamic/decoder_layer3_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "2c4c4cbb71ffd35f55a7e3eb631cba1f217e93bfd10e80c903b96a47bf0a9a27"
+    },
+    {
+      "path": "decoder_layer4_prefill_kv/decoder_layer4_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer4_prefill_kv/decoder_layer4_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "d1fa3746cc9ce4ef8dae1663c360d1b4e58ab3636e0cea3b6d6d9ba96b31cf4e"
+    },
+    {
+      "path": "decoder_layer4_decode_dynamic/decoder_layer4_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer4_decode_dynamic/decoder_layer4_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "d1fa3746cc9ce4ef8dae1663c360d1b4e58ab3636e0cea3b6d6d9ba96b31cf4e"
+    },
+    {
+      "path": "decoder_layer5_prefill_kv/decoder_layer5_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer5_prefill_kv/decoder_layer5_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "acc6237f755255499199c587c181851dc9118751a37c9b2a984bd4b3d5fac9cb"
+    },
+    {
+      "path": "decoder_layer5_decode_dynamic/decoder_layer5_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer5_decode_dynamic/decoder_layer5_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "acc6237f755255499199c587c181851dc9118751a37c9b2a984bd4b3d5fac9cb"
+    },
+    {
+      "path": "decoder_layer6_prefill_kv/decoder_layer6_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer6_prefill_kv/decoder_layer6_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "e75b4c1043a8cd0a8538f69b48129d3118f990c93684bfe519f8639489d8ccf8"
+    },
+    {
+      "path": "decoder_layer6_decode_dynamic/decoder_layer6_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer6_decode_dynamic/decoder_layer6_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "e75b4c1043a8cd0a8538f69b48129d3118f990c93684bfe519f8639489d8ccf8"
+    },
+    {
+      "path": "decoder_layer7_prefill_kv/decoder_layer7_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer7_prefill_kv/decoder_layer7_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "93a6c8a8cc61e019d6d04a92ef55ae918a0a549603ecad98f4193aebf7935a06"
+    },
+    {
+      "path": "decoder_layer7_decode_dynamic/decoder_layer7_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer7_decode_dynamic/decoder_layer7_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "93a6c8a8cc61e019d6d04a92ef55ae918a0a549603ecad98f4193aebf7935a06"
+    },
+    {
+      "path": "decoder_layer8_prefill_kv/decoder_layer8_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer8_prefill_kv/decoder_layer8_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "b04bd13e117f564811862a4289f7e012a953f7d753684c10b799d8184abadc37"
+    },
+    {
+      "path": "decoder_layer8_decode_dynamic/decoder_layer8_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer8_decode_dynamic/decoder_layer8_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "b04bd13e117f564811862a4289f7e012a953f7d753684c10b799d8184abadc37"
+    },
+    {
+      "path": "decoder_layer9_prefill_kv/decoder_layer9_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer9_prefill_kv/decoder_layer9_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "ff941c3e0bba5f9d7be1251fe8c0e4eb7bdf1ef663b0e615f87738eb2b8a3220"
+    },
+    {
+      "path": "decoder_layer9_decode_dynamic/decoder_layer9_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer9_decode_dynamic/decoder_layer9_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "ff941c3e0bba5f9d7be1251fe8c0e4eb7bdf1ef663b0e615f87738eb2b8a3220"
+    },
+    {
+      "path": "decoder_layer10_prefill_kv/decoder_layer10_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer10_prefill_kv/decoder_layer10_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "d976611f4904b63d433b8be893022658cf46f91668ba607431a762338cd7fa67"
+    },
+    {
+      "path": "decoder_layer10_decode_dynamic/decoder_layer10_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer10_decode_dynamic/decoder_layer10_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "d976611f4904b63d433b8be893022658cf46f91668ba607431a762338cd7fa67"
+    },
+    {
+      "path": "decoder_layer11_prefill_kv/decoder_layer11_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer11_prefill_kv/decoder_layer11_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "5dc768aa593b29d50ff364b09dd5499882451087034b4a873c42a9d02869536e"
+    },
+    {
+      "path": "decoder_layer11_decode_dynamic/decoder_layer11_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer11_decode_dynamic/decoder_layer11_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "5dc768aa593b29d50ff364b09dd5499882451087034b4a873c42a9d02869536e"
+    },
+    {
+      "path": "decoder_layer12_prefill_kv/decoder_layer12_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer12_prefill_kv/decoder_layer12_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "a67df3a5c66cc222f227b29ce94a49f978eec830d768faf8c7aba8176f552d5b"
+    },
+    {
+      "path": "decoder_layer12_decode_dynamic/decoder_layer12_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer12_decode_dynamic/decoder_layer12_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "a67df3a5c66cc222f227b29ce94a49f978eec830d768faf8c7aba8176f552d5b"
+    },
+    {
+      "path": "decoder_layer13_prefill_kv/decoder_layer13_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer13_prefill_kv/decoder_layer13_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "027cae1abfbb0e38a9af1b0790a7c23a198afcde16b3c3af73ad949a63a5c955"
+    },
+    {
+      "path": "decoder_layer13_decode_dynamic/decoder_layer13_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer13_decode_dynamic/decoder_layer13_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "027cae1abfbb0e38a9af1b0790a7c23a198afcde16b3c3af73ad949a63a5c955"
+    },
+    {
+      "path": "decoder_layer14_prefill_kv/decoder_layer14_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer14_prefill_kv/decoder_layer14_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "21c550f1111393c5371394f106950d9946faeeaa6bbf951160b96212eb2ee5e5"
+    },
+    {
+      "path": "decoder_layer14_decode_dynamic/decoder_layer14_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer14_decode_dynamic/decoder_layer14_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "21c550f1111393c5371394f106950d9946faeeaa6bbf951160b96212eb2ee5e5"
+    },
+    {
+      "path": "decoder_layer15_prefill_kv/decoder_layer15_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer15_prefill_kv/decoder_layer15_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "8c9a60504ca6eee39c3a6890652a1094a7562d5affddec3c0c2afd67092da04b"
+    },
+    {
+      "path": "decoder_layer15_decode_dynamic/decoder_layer15_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer15_decode_dynamic/decoder_layer15_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "8c9a60504ca6eee39c3a6890652a1094a7562d5affddec3c0c2afd67092da04b"
+    },
+    {
+      "path": "decoder_layer16_prefill_kv/decoder_layer16_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer16_prefill_kv/decoder_layer16_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "ca3647928bee6aee383a47bfe3e3199059955614cf855cf239322ba630e1d68d"
+    },
+    {
+      "path": "decoder_layer16_decode_dynamic/decoder_layer16_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer16_decode_dynamic/decoder_layer16_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "ca3647928bee6aee383a47bfe3e3199059955614cf855cf239322ba630e1d68d"
+    },
+    {
+      "path": "decoder_layer17_prefill_kv/decoder_layer17_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer17_prefill_kv/decoder_layer17_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "1f49b3aa3e45ddb111ccf6563d85af19e74991c1f0314211c1d7a332ba3b8eda"
+    },
+    {
+      "path": "decoder_layer17_decode_dynamic/decoder_layer17_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer17_decode_dynamic/decoder_layer17_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "1f49b3aa3e45ddb111ccf6563d85af19e74991c1f0314211c1d7a332ba3b8eda"
+    },
+    {
+      "path": "decoder_layer18_prefill_kv/decoder_layer18_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer18_prefill_kv/decoder_layer18_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "c7a5f9da95ca639258367fd55f373ed2e8dde1f1ada7299bc8b1f7e3c8585e02"
+    },
+    {
+      "path": "decoder_layer18_decode_dynamic/decoder_layer18_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer18_decode_dynamic/decoder_layer18_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "c7a5f9da95ca639258367fd55f373ed2e8dde1f1ada7299bc8b1f7e3c8585e02"
+    },
+    {
+      "path": "decoder_layer19_prefill_kv/decoder_layer19_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer19_prefill_kv/decoder_layer19_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "9fb409e8e1130cd619a92619b302d31677c96b425a1fdfa3976f30f04fd5b45a"
+    },
+    {
+      "path": "decoder_layer19_decode_dynamic/decoder_layer19_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer19_decode_dynamic/decoder_layer19_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "9fb409e8e1130cd619a92619b302d31677c96b425a1fdfa3976f30f04fd5b45a"
+    },
+    {
+      "path": "decoder_layer20_prefill_kv/decoder_layer20_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer20_prefill_kv/decoder_layer20_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "e6dbfe3910475cb562abad1af6138c2dc227ef64dd3c9725e68d80900c0e8491"
+    },
+    {
+      "path": "decoder_layer20_decode_dynamic/decoder_layer20_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer20_decode_dynamic/decoder_layer20_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "e6dbfe3910475cb562abad1af6138c2dc227ef64dd3c9725e68d80900c0e8491"
+    },
+    {
+      "path": "decoder_layer21_prefill_kv/decoder_layer21_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer21_prefill_kv/decoder_layer21_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "5df635a26ed63ffcc135de67b0bcb36d645ea61c9039493093145949594f13e4"
+    },
+    {
+      "path": "decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "5df635a26ed63ffcc135de67b0bcb36d645ea61c9039493093145949594f13e4"
+    },
+    {
+      "path": "decoder_layer22_prefill_kv/decoder_layer22_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer22_prefill_kv/decoder_layer22_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "aefc2e670f94d4dab23d117463132137eb962aaff9b191485212d66fdbcba444"
+    },
+    {
+      "path": "decoder_layer22_decode_dynamic/decoder_layer22_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer22_decode_dynamic/decoder_layer22_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "aefc2e670f94d4dab23d117463132137eb962aaff9b191485212d66fdbcba444"
+    },
+    {
+      "path": "decoder_layer23_prefill_kv/decoder_layer23_prefill_kv.ncnn.param",
+      "bytes": 5328,
+      "sha256": "bad738bff692a13c9764528dae2b46a3a096dfa5c76a5fa620c5f01ae8357746"
+    },
+    {
+      "path": "decoder_layer23_prefill_kv/decoder_layer23_prefill_kv.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "8edacbcec6be0e78d6dc9fd0180fb1c0db170023922832f3338e0e24863a0739"
+    },
+    {
+      "path": "decoder_layer23_decode_dynamic/decoder_layer23_decode_dynamic.ncnn.param",
+      "bytes": 5560,
+      "sha256": "4d1e0fcaa7ed0489bebf8c0d5fc36f3aaf4ff7e54222047aba13cb00afc888d7"
+    },
+    {
+      "path": "decoder_layer23_decode_dynamic/decoder_layer23_decode_dynamic.ncnn.bin",
+      "bytes": 69215260,
+      "sha256": "8edacbcec6be0e78d6dc9fd0180fb1c0db170023922832f3338e0e24863a0739"
+    },
+    {
+      "path": "tokenizer/bytelevel_vocab.txt",
+      "bytes": 2689569,
+      "sha256": "9193116b32375f4590e5a7a106313dfb3e73ecf895cd68898b3921c1fea3536d"
+    },
+    {
+      "path": "tokenizer/bytelevel_bpe_merges.txt",
+      "bytes": 2749756,
+      "sha256": "a63971bfbd97616c73978c0454b147636a1c7fdef6ec971ee606fdff341f2f84"
+    }
+  ]
+}
