@@ -7,6 +7,8 @@
 
 #include <net.h>
 
+#include "prompt_inputs.h"
+
 struct BoundaryMetrics {
     double maximum_abs_error = 0.0;
     double mean_abs_error = 0.0;
@@ -15,6 +17,7 @@ struct BoundaryMetrics {
 
 struct MultimodalPrefillInput {
     std::vector<float> hidden_states;
+    PromptInputs prompt_inputs;
     std::array<std::int64_t, 3> image_grid_thw = {0, 0, 0};
     int original_width = 0;
     int original_height = 0;

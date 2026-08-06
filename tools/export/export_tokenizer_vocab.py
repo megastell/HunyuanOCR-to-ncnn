@@ -9,6 +9,7 @@ from transformers import AutoTokenizer
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
 OUTPUT_PATH = PROJECT_DIR / "artifacts/tokenizer/bytelevel_vocab.txt"
+MERGES_PATH = PROJECT_DIR / "artifacts/tokenizer/bytelevel_bpe_merges.txt"
 REPORT_PATH = PROJECT_DIR / "docs/tokenizer_vocab_export.json"
 
 
@@ -33,6 +34,19 @@ def main() -> None:
         for token in tokens:
             encoded = "" if token is None else token.encode("utf-8").hex()
             output.write(encoded + "\n")
+
+    tokenizer_data = json.loads(
+        (MODEL_DIR / "tokenizer.json").read_text(encoding="utf-8")
+    )
+    merges = tokenizer_data["model"]["merges"]
+    with MERGES_PATH.open("w", encoding="ascii", newline="\n") as output:
+        output.write("HUNYUANOCR_BYTELEVEL_BPE_MERGES_V1\n")
+        output.write(f"{len(merges)}\n")
+        for left, right in merges:
+            output.write(
+                f"{left.encode('utf-8').hex()}\t"
+                f"{right.encode('utf-8').hex()}\n"
+            )
 
     smoke_ids = [
         93892,
@@ -62,6 +76,10 @@ def main() -> None:
         "smoke_text": smoke_text,
         "output_path": OUTPUT_PATH.relative_to(PROJECT_DIR).as_posix(),
         "output_bytes": OUTPUT_PATH.stat().st_size,
+        "merges_format": "HUNYUANOCR_BYTELEVEL_BPE_MERGES_V1",
+        "merge_count": len(merges),
+        "merges_path": MERGES_PATH.relative_to(PROJECT_DIR).as_posix(),
+        "merges_bytes": MERGES_PATH.stat().st_size,
     }
     REPORT_PATH.write_text(
         json.dumps(report, indent=2, ensure_ascii=True) + "\n",
@@ -71,6 +89,7 @@ def main() -> None:
     print(f"Missing IDs: {len(missing_ids)}")
     print(f"Smoke text: {smoke_text!r}")
     print(f"Output: {OUTPUT_PATH}")
+    print(f"Merges: {MERGES_PATH}")
     print(f"Report: {REPORT_PATH}")
 
 

@@ -50,6 +50,8 @@ but are not runtime dependencies.
 | Three-token chain | Dynamic 24-layer chain returns `5112 -> 206 -> 1717` | Complete |
 | Full decoder generation | One C++ loop emits all 11 tokens, reaches EOS, and reproduces the reference text | Complete |
 | ByteLevel text decoding | Exported ID-ordered vocabulary and dependency-free C++ decoder reproduce the reference UTF-8 text | Complete |
+| Fixed OCR prompt encoding | C++ chat assembly and ByteLevel BPE produce all 313 reference input IDs exactly | Complete |
+| Multimodal positions | C++ attention/type masks, four-axis position IDs, and prefill/decode mRoPE replace captured positional inputs | Complete |
 | Linux build | CMake and GCC build succeeds in Ubuntu 24.04 WSL2 | Partial platform proof |
 
 The dynamic decoder milestone uses 24 pnnx/ncnn models, one per decoder layer.
@@ -63,21 +65,20 @@ token 120007, and decodes `HELLO 2026\nNCNN CPU TEST` in both layouts.
 
 ## Important boundary
 
-The Phase 3B executable is image-to-text end to end for the fixed smoke
-contract. It starts from the source PNG, reproduces processor pixels and grid,
-runs all 29 ncnn vision components, places the 288 visual embeddings into the
-313-token text embedding, and feeds that hidden state directly through ncnn
-prefill and generation. Packed and unpacked modes emit the exact reference
-tokens and text. It still loads captured prompt token IDs, attention mask, and
-mRoPE tensors, so arbitrary runtime prompts are not complete.
+The Phase 3C executable is image-to-text end to end for the fixed smoke
+contract. It starts from the source PNG and fixed OCR instruction, constructs
+all 313 prompt IDs in C++, runs the full vision and language chains, and
+generates masks, four-axis positions, and mRoPE through EOS. It does not load
+captured prompt or positional input tensors. The tokenizer deliberately
+rejects prompts other than the audited OCR instruction; arbitrary Unicode chat
+input remains a product-runtime extension rather than a completed capability.
 
 ## Remaining gaps
 
 | Priority | Gap | Acceptance condition |
 | --- | --- | --- |
-| P0 | Input tokenizer and prompt construction | C++ tokenization, chat-template handling, and special-token insertion match Transformers; output ByteLevel decoding is already complete |
-| P0 | Multimodal position construction | C++ attention mask, multimodal token types, four-axis position IDs, and mRoPE tensors replace captured prefill inputs |
 | P1 | Product runtime | Non-empty `src/` and `include/`, a root CMake project, a reusable library, and an OCR CLI replace milestone-only test executables |
+| P1 | General prompt API | Extend the audited fixed-prompt tokenizer to the full configured Unicode pretokenizer and multi-turn chat-template surface |
 | P1 | Native Windows | MSVC CMake build and the same smoke image pass outside WSL |
 | P1 | Runtime dependency cleanup | Final executable depends on ncnn and the C++ runtime only; image decoding and tokenizer choices are documented |
 | P1 | Model packaging | Conversion outputs are deduplicated and packaged without the 30 GiB development reference tree |
@@ -138,6 +139,14 @@ text embeddings, and places all 288 visual embeddings at `[2, 290)`. That
 generated `[1, 313, 1024]` hidden state feeds the 24-layer prefill and dynamic
 decoder directly. Packed and unpacked runs both emit the exact 11 tokens and
 `HELLO 2026\nNCNN CPU TEST`.
+
+Phase 3C completed on 2026-08-06. C++ now applies the fixed OCR chat template,
+loads the model's exported 120818-entry ByteLevel vocabulary and 119758 BPE
+merge ranks, and constructs all 313 input IDs without a captured ID tensor.
+Attention masks, multimodal token types, four-axis position IDs, and dynamic
+mRoPE are generated in C++ for prefill and every decode step. The discrete
+contract fields are exact, mRoPE differs by at most `5.96046e-08`, and packed
+and unpacked runs still emit the exact 11-token text through EOS.
 
 ### Phase 4: Productize and validate two platforms
 

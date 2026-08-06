@@ -19,5 +19,9 @@
   ],
   "smoke_text": "HELLO 2026\nNCNN CPU TEST",
   "output_path": "artifacts/tokenizer/bytelevel_vocab.txt",
-  "output_bytes": 2689569
+  "output_bytes": 2689569,
+  "merges_format": "HUNYUANOCR_BYTELEVEL_BPE_MERGES_V1",
+  "merge_count": 119758,
+  "merges_path": "artifacts/tokenizer/bytelevel_bpe_merges.txt",
+  "merges_bytes": 2749756
 }

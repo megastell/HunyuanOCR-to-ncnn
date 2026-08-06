@@ -707,13 +707,12 @@ bool build_multimodal_prefill_input(
         return false;
     }
 
-    std::vector<std::int64_t> input_ids;
     std::vector<float> expected_text_embeddings;
     std::vector<float> expected_fused_hidden;
-    if (!load_exact_binary(
-            reference + "/input_ids_i64.bin",
-            kPrefillLength,
-            input_ids)
+    if (!build_fixed_ocr_prompt_inputs(
+            project_root,
+            result.image_grid_thw,
+            result.prompt_inputs)
         || !load_exact_binary(
             reference + "/text_embeddings_f32.bin",
             kPrefillHiddenCount,
@@ -726,14 +725,14 @@ bool build_multimodal_prefill_input(
     }
 
     std::vector<float> text_embeddings(kPrefillHiddenCount);
-    result.image_token_start = -1;
-    result.image_token_end = -1;
+    result.image_token_start = result.prompt_inputs.image_token_start;
+    result.image_token_end = result.prompt_inputs.image_token_end;
     int image_token_count = 0;
     for (int position = 0; position < kPrefillLength; ++position) {
         std::vector<float> embedding;
         if (!run_text_embedding(
                 text_embedding_network,
-                static_cast<int>(input_ids[position]),
+                static_cast<int>(result.prompt_inputs.input_ids[position]),
                 embedding)) {
             std::cerr << "Text embedding failed at position " << position
                       << '\n';
@@ -744,11 +743,7 @@ bool build_multimodal_prefill_input(
             embedding.end(),
             text_embeddings.begin()
                 + static_cast<std::size_t>(position) * kTextHiddenSize);
-        if (input_ids[position] == kImageTokenId) {
-            if (result.image_token_start < 0) {
-                result.image_token_start = position;
-            }
-            result.image_token_end = position + 1;
+        if (result.prompt_inputs.input_ids[position] == kImageTokenId) {
             ++image_token_count;
         }
     }

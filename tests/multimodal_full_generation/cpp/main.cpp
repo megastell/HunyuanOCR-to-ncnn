@@ -620,8 +620,6 @@ int main(int argc, char** argv)
         return EXIT_FAILURE;
     }
 
-    const std::string prefill_layer0_reference =
-        prefill_reference_directory(project_root, 0);
     MultimodalPrefillInput multimodal_input;
     if (!build_multimodal_prefill_input(
             project_root,
@@ -644,6 +642,8 @@ int main(int argc, char** argv)
               << 'x' << multimodal_input.image_grid_thw[2] << '\n'
               << "image token span: [" << multimodal_input.image_token_start
               << ", " << multimodal_input.image_token_end << ")\n"
+              << "prompt input ids: generated in C++ ("
+              << multimodal_input.prompt_inputs.input_ids.size() << ")\n"
               << std::scientific << std::setprecision(3)
               << "original RGB max     : "
               << multimodal_input.original_rgb_metrics.maximum_abs_error
@@ -668,25 +668,12 @@ int main(int argc, char** argv)
               << " / "
               << multimodal_input.fused_hidden_metrics.mean_abs_error
               << "\n\n";
-    std::vector<float> prefill_mask_values;
-    std::vector<float> prefill_rope_cos_values;
-    std::vector<float> prefill_rope_sin_values;
-    if (!load_exact_binary(
-            prefill_layer0_reference + "/layer0_attention_mask_f32.bin",
-            kPrefillMaskCount,
-            prefill_mask_values)
-        || !load_exact_binary(
-            prefill_layer0_reference
-                + "/layer0_position_embeddings_0_f32.bin",
-            kPrefillRopeCount,
-            prefill_rope_cos_values)
-        || !load_exact_binary(
-            prefill_layer0_reference
-                + "/layer0_position_embeddings_1_f32.bin",
-            kPrefillRopeCount,
-            prefill_rope_sin_values)) {
-        return EXIT_FAILURE;
-    }
+    std::vector<float> prefill_mask_values =
+        std::move(multimodal_input.prompt_inputs.causal_mask);
+    std::vector<float> prefill_rope_cos_values =
+        std::move(multimodal_input.prompt_inputs.rope_cos);
+    std::vector<float> prefill_rope_sin_values =
+        std::move(multimodal_input.prompt_inputs.rope_sin);
 
     ncnn::Mat prefill_hidden = make_prefill_hidden(prefill_input_values);
     ncnn::Mat prefill_mask = make_prefill_mask(prefill_mask_values);
@@ -961,22 +948,14 @@ int main(int argc, char** argv)
         const std::size_t present_count = static_cast<std::size_t>(kKvHeads)
             * present_length * kHeadDim;
 
-        const std::string layer0_reference =
-            reference_directory(project_root, 0, step);
         std::vector<float> mask_values;
         std::vector<float> rope_cos_values;
         std::vector<float> rope_sin_values;
-        if (!load_exact_binary(
-                layer0_reference + "/layer0_attention_mask_f32.bin",
+        if (!build_decode_position_inputs(
+                past_length,
                 present_length,
-                mask_values)
-            || !load_exact_binary(
-                layer0_reference + "/layer0_position_embeddings_0_f32.bin",
-                kRopeComponents * kHeadDim,
-                rope_cos_values)
-            || !load_exact_binary(
-                layer0_reference + "/layer0_position_embeddings_1_f32.bin",
-                kRopeComponents * kHeadDim,
+                mask_values,
+                rope_cos_values,
                 rope_sin_values)) {
             return EXIT_FAILURE;
         }

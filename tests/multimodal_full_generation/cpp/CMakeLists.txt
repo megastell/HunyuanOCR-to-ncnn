@@ -12,6 +12,7 @@ add_executable(
     multimodal_full_generation
     main.cpp
     multimodal_input.cpp
+    prompt_inputs.cpp
 )
 target_include_directories(
     multimodal_full_generation
@@ -20,5 +21,15 @@ target_include_directories(
 target_link_libraries(multimodal_full_generation PRIVATE ncnn)
 target_compile_options(
     multimodal_full_generation
+    PRIVATE -Wall -Wextra -Wpedantic
+)
+
+add_executable(
+    prompt_inputs_contract
+    prompt_inputs.cpp
+    prompt_inputs_contract.cpp
+)
+target_compile_options(
+    prompt_inputs_contract
     PRIVATE -Wall -Wextra -Wpedantic
 )
