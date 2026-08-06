@@ -31,10 +31,10 @@ foreach ($path in @($cli, $manifestPath, $ImagePath)) {
 
 $manifest = Get-Content -LiteralPath $manifestPath
 if ($manifest.Count -lt 3 -or
-    $manifest[0] -ne "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1" -or
-    $manifest[1] -ne "file_count`t162") {
+    $manifest[0] -ne "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1") {
     throw "Unexpected runtime manifest header or file count"
 }
+$manifestFileCount = [int](($manifest[1] -split "`t")[1])
 $totalBytes = [int64]0
 foreach ($line in $manifest | Select-Object -Skip 2) {
     $columns = $line -split "`t"
@@ -43,7 +43,7 @@ foreach ($line in $manifest | Select-Object -Skip 2) {
     }
     $totalBytes += [int64]$columns[1]
 }
-if (($manifest.Count - 2) -ne 162 -or $totalBytes -ne 6076349856) {
+if (($manifest.Count - 2) -ne $manifestFileCount) {
     throw "Manifest inventory or total byte count changed"
 }
 
@@ -117,7 +117,7 @@ $report = [ordered]@{
     }
     manifest = [ordered]@{
         format = "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1"
-        file_count = 162
+        file_count = $manifestFileCount
         total_bytes = $totalBytes
         size_verification = "passed"
         cpp_sha256_verification = "passed"

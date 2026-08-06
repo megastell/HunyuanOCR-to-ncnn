@@ -1,0 +1,294 @@
+{
+    "phase":  "4C",
+    "status":  "passed",
+    "platform":  {
+                     "os":  "Microsoft Windows 11 Pro",
+                     "version":  "10.0.26200",
+                     "architecture":  "64-bit",
+                     "cmake":  "cmake version 4.4.0"
+                 },
+    "manifest":  {
+                     "format":  "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1",
+                     "file_count":  170,
+                     "total_bytes":  6146592586,
+                     "ntfs_directory":  "D:\\hunyuanocr-recovery\\phase4c\\model-ntfs",
+                     "size_verification":  "passed",
+                     "cpp_sha256_verification":  "passed"
+                 },
+    "results":  [
+                    {
+                        "case":  "ocr_wide_en",
+                        "packing":  0,
+                        "verification":  "size",
+                        "grid_thw":  [
+                                         1,
+                                         16,
+                                         64
+                                     ],
+                        "image_token_span":  [
+                                                 2,
+                                                 268
+                                             ],
+                        "prefill_length":  291,
+                        "tokens":  [
+                                       54,
+                                       30118,
+                                       113184,
+                                       185,
+                                       26997,
+                                       206,
+                                       24096,
+                                       120007
+                                   ],
+                        "text":  "WIDE OCR\nTEST 314",
+                        "load_seconds":  0.55,
+                        "input_seconds":  13.501,
+                        "prefill_seconds":  3.505,
+                        "decode_seconds":  3.228,
+                        "runtime_seconds":  20.234,
+                        "peak_rss_kib":  3419756,
+                        "wall_seconds":  21.165
+                    },
+                    {
+                        "case":  "ocr_wide_en",
+                        "packing":  1,
+                        "verification":  "size",
+                        "grid_thw":  [
+                                         1,
+                                         16,
+                                         64
+                                     ],
+                        "image_token_span":  [
+                                                 2,
+                                                 268
+                                             ],
+                        "prefill_length":  291,
+                        "tokens":  [
+                                       54,
+                                       30118,
+                                       113184,
+                                       185,
+                                       26997,
+                                       206,
+                                       24096,
+                                       120007
+                                   ],
+                        "text":  "WIDE OCR\nTEST 314",
+                        "load_seconds":  0.525,
+                        "input_seconds":  5.417,
+                        "prefill_seconds":  3.716,
+                        "decode_seconds":  6.658,
+                        "runtime_seconds":  15.791,
+                        "peak_rss_kib":  4663536,
+                        "wall_seconds":  16.768
+                    },
+                    {
+                        "case":  "ocr_square_en",
+                        "packing":  0,
+                        "verification":  "size",
+                        "grid_thw":  [
+                                         1,
+                                         32,
+                                         32
+                                     ],
+                        "image_token_span":  [
+                                                 2,
+                                                 276
+                                             ],
+                        "prefill_length":  299,
+                        "tokens":  [
+                                       50,
+                                       12548,
+                                       86874,
+                                       185,
+                                       114946,
+                                       21836,
+                                       185,
+                                       22,
+                                       120007
+                                   ],
+                        "text":  "SQUARE\nOCR TEST\n7",
+                        "load_seconds":  0.492,
+                        "input_seconds":  13.579,
+                        "prefill_seconds":  3.313,
+                        "decode_seconds":  3.451,
+                        "runtime_seconds":  20.343,
+                        "peak_rss_kib":  3566092,
+                        "wall_seconds":  21.196
+                    },
+                    {
+                        "case":  "ocr_square_en",
+                        "packing":  1,
+                        "verification":  "size",
+                        "grid_thw":  [
+                                         1,
+                                         32,
+                                         32
+                                     ],
+                        "image_token_span":  [
+                                                 2,
+                                                 276
+                                             ],
+                        "prefill_length":  299,
+                        "tokens":  [
+                                       50,
+                                       12548,
+                                       86874,
+                                       185,
+                                       114946,
+                                       21836,
+                                       185,
+                                       22,
+                                       120007
+                                   ],
+                        "text":  "SQUARE\nOCR TEST\n7",
+                        "load_seconds":  0.579,
+                        "input_seconds":  5.523,
+                        "prefill_seconds":  3.609,
+                        "decode_seconds":  7.567,
+                        "runtime_seconds":  16.698,
+                        "peak_rss_kib":  4992184,
+                        "wall_seconds":  17.748
+                    },
+                    {
+                        "case":  "ocr_tall_en",
+                        "packing":  0,
+                        "verification":  "size",
+                        "grid_thw":  [
+                                         1,
+                                         48,
+                                         24
+                                     ],
+                        "image_token_span":  [
+                                                 2,
+                                                 316
+                                             ],
+                        "prefill_length":  339,
+                        "tokens":  [
+                                       51,
+                                       12887,
+                                       185,
+                                       114946,
+                                       185,
+                                       26997,
+                                       206,
+                                       4065,
+                                       120007
+                                   ],
+                        "text":  "TALL\nOCR\nTEST 42",
+                        "load_seconds":  0.545,
+                        "input_seconds":  15.585,
+                        "prefill_seconds":  2.555,
+                        "decode_seconds":  2.054,
+                        "runtime_seconds":  20.194,
+                        "peak_rss_kib":  3723688,
+                        "wall_seconds":  20.993
+                    },
+                    {
+                        "case":  "ocr_tall_en",
+                        "packing":  1,
+                        "verification":  "size",
+                        "grid_thw":  [
+                                         1,
+                                         48,
+                                         24
+                                     ],
+                        "image_token_span":  [
+                                                 2,
+                                                 316
+                                             ],
+                        "prefill_length":  339,
+                        "tokens":  [
+                                       51,
+                                       12887,
+                                       185,
+                                       114946,
+                                       185,
+                                       26997,
+                                       206,
+                                       4065,
+                                       120007
+                                   ],
+                        "text":  "TALL\nOCR\nTEST 42",
+                        "load_seconds":  0.51,
+                        "input_seconds":  4.472,
+                        "prefill_seconds":  2.212,
+                        "decode_seconds":  5.493,
+                        "runtime_seconds":  12.177,
+                        "peak_rss_kib":  5338056,
+                        "wall_seconds":  13.06
+                    },
+                    {
+                        "case":  "ocr_smoke_en",
+                        "packing":  0,
+                        "verification":  "size",
+                        "grid_thw":  [
+                                         1,
+                                         22,
+                                         50
+                                     ],
+                        "image_token_span":  [
+                                                 2,
+                                                 290
+                                             ],
+                        "prefill_length":  313,
+                        "tokens":  [
+                                       93892,
+                                       5112,
+                                       206,
+                                       1717,
+                                       21,
+                                       185,
+                                       18009,
+                                       15613,
+                                       16678,
+                                       21836,
+                                       120007
+                                   ],
+                        "text":  "HELLO 2026\nNCNN CPU TEST",
+                        "load_seconds":  0.55,
+                        "input_seconds":  9.424,
+                        "prefill_seconds":  1.975,
+                        "decode_seconds":  2.451,
+                        "runtime_seconds":  13.85,
+                        "peak_rss_kib":  3869440,
+                        "wall_seconds":  14.676
+                    },
+                    {
+                        "case":  "ocr_smoke_en",
+                        "packing":  1,
+                        "verification":  "sha256",
+                        "grid_thw":  [
+                                         1,
+                                         22,
+                                         50
+                                     ],
+                        "image_token_span":  [
+                                                 2,
+                                                 290
+                                             ],
+                        "prefill_length":  313,
+                        "tokens":  [
+                                       93892,
+                                       5112,
+                                       206,
+                                       1717,
+                                       21,
+                                       185,
+                                       18009,
+                                       15613,
+                                       16678,
+                                       21836,
+                                       120007
+                                   ],
+                        "text":  "HELLO 2026\nNCNN CPU TEST",
+                        "load_seconds":  23.251,
+                        "input_seconds":  4.667,
+                        "prefill_seconds":  2.215,
+                        "decode_seconds":  6.462,
+                        "runtime_seconds":  13.344,
+                        "peak_rss_kib":  5127892,
+                        "wall_seconds":  36.966
+                    }
+                ]
+}

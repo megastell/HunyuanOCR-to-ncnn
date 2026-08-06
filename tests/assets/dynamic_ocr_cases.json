@@ -1,0 +1,40 @@
+{
+  "format": "HUNYUANOCR_DYNAMIC_OCR_CASES_V1",
+  "cases": [
+    {
+      "name": "ocr_wide_en",
+      "path": "tests/assets/ocr_wide_en.png",
+      "width": 1024,
+      "height": 256,
+      "source_lines": [
+        "WIDE OCR",
+        "TEST 314"
+      ],
+      "sha256": "e56c8e4595dd5e3c7bb86c19ff47c13c437379a4563bfebc3fcdd70718cbc8a3"
+    },
+    {
+      "name": "ocr_square_en",
+      "path": "tests/assets/ocr_square_en.png",
+      "width": 512,
+      "height": 512,
+      "source_lines": [
+        "SQUARE",
+        "OCR TEST",
+        "7"
+      ],
+      "sha256": "c343f26a43e80f68d87ca385befb8be633a9d30ca7590af30fad1620e76739a5"
+    },
+    {
+      "name": "ocr_tall_en",
+      "path": "tests/assets/ocr_tall_en.png",
+      "width": 384,
+      "height": 768,
+      "source_lines": [
+        "TALL",
+        "OCR",
+        "TEST 42"
+      ],
+      "sha256": "6149e097907e86e9775b17db56b29fd7c1353b658443d5a3e9de3cd09697f14a"
+    }
+  ]
+}

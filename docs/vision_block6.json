@@ -22,16 +22,17 @@
     "mean_abs_error": 8.429936434652637e-08
   },
   "torchscript_path": "artifacts/vision_block6/vision_block6.pt",
-  "torchscript_bytes": 60965321,
+  "torchscript_bytes": 60965385,
   "pnnx_command": [
     "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
     "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_block6/vision_block6.pt",
     "inputshape=[1100,1152]",
+    "inputshape2=[1024,1152]",
     "fp16=0",
     "optlevel=2"
   ],
   "pnnx_log": "docs/vision_block6_pnnx.txt",
-  "elapsed_seconds": 3.587037522000003,
+  "elapsed_seconds": 5.26860198400027,
   "layer_index": 6,
   "attention_mask": null,
   "cu_seqlens": [

@@ -25,6 +25,7 @@ TORCH_THREADS = 9
 LAYER_COUNT = 24
 BATCH_SIZE = 1
 SEQUENCE_LENGTH = 313
+ALTERNATE_SEQUENCE_LENGTH = 299
 HIDDEN_SIZE = 1024
 QUERY_HEADS = 16
 KV_HEADS = 8
@@ -110,6 +111,7 @@ class PrefillDecoderLayer(nn.Module):
         rope_sin: torch.Tensor,
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         wrapper = self.fixed_wrapper
+        sequence_length = hidden_states.shape[1]
         residual = hidden_states
         normalized_states = wrapper.input_layernorm(hidden_states)
 
@@ -118,13 +120,13 @@ class PrefillDecoderLayer(nn.Module):
         value_states = wrapper.v_proj(normalized_states)
 
         query_states = query_states.reshape(
-            BATCH_SIZE, SEQUENCE_LENGTH, QUERY_HEADS, HEAD_DIM
+            BATCH_SIZE, sequence_length, QUERY_HEADS, HEAD_DIM
         ).transpose(1, 2)
         key_states = key_states.reshape(
-            BATCH_SIZE, SEQUENCE_LENGTH, KV_HEADS, HEAD_DIM
+            BATCH_SIZE, sequence_length, KV_HEADS, HEAD_DIM
         ).transpose(1, 2)
         value_states = value_states.reshape(
-            BATCH_SIZE, SEQUENCE_LENGTH, KV_HEADS, HEAD_DIM
+            BATCH_SIZE, sequence_length, KV_HEADS, HEAD_DIM
         ).transpose(1, 2)
 
         merged_cos = wrapper.merge_mrope_components(rope_cos)
@@ -157,7 +159,7 @@ class PrefillDecoderLayer(nn.Module):
         attention_output = (
             attention_output.transpose(1, 2)
             .contiguous()
-            .reshape(BATCH_SIZE, SEQUENCE_LENGTH, QUERY_HEADS * HEAD_DIM)
+            .reshape(BATCH_SIZE, sequence_length, QUERY_HEADS * HEAD_DIM)
         )
         hidden_states = residual + wrapper.o_proj(attention_output)
 
@@ -246,6 +248,12 @@ def export_layer(
             str(PNNX_PATH),
             str(script_path),
             f"inputshape={shape_argument(inputs)}",
+            "inputshape2=" + ",".join((
+                f"[1,{ALTERNATE_SEQUENCE_LENGTH},{HIDDEN_SIZE}]",
+                f"[1,1,{ALTERNATE_SEQUENCE_LENGTH},{ALTERNATE_SEQUENCE_LENGTH}]",
+                f"[4,1,{ALTERNATE_SEQUENCE_LENGTH},{HEAD_DIM}]",
+                f"[4,1,{ALTERNATE_SEQUENCE_LENGTH},{HEAD_DIM}]",
+            )),
             "fp16=0",
             "optlevel=2",
         ]
@@ -257,7 +265,10 @@ def export_layer(
             stderr=subprocess.STDOUT,
             check=False,
         )
-        pnnx_log_path.write_text(conversion.stdout, encoding="utf-8")
+        normalized_log = "\n".join(
+            line.rstrip() for line in conversion.stdout.splitlines()
+        ) + "\n"
+        pnnx_log_path.write_text(normalized_log, encoding="utf-8")
         if conversion.returncode != 0:
             raise RuntimeError(
                 f"Layer {layer_index} pnnx failed with status "
@@ -272,6 +283,8 @@ def export_layer(
         "torch_version": torch.__version__,
         "torch_threads": TORCH_THREADS,
         "sequence_length": SEQUENCE_LENGTH,
+        "alternate_sequence_length": ALTERNATE_SEQUENCE_LENGTH,
+        "dynamic_sequence_length": True,
         "torchscript_path": script_path.relative_to(PROJECT_DIR).as_posix(),
         "torchscript_bytes": script_path.stat().st_size,
         "eager_metrics": eager_metrics,

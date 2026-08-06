@@ -9,7 +9,7 @@ fp16 = 0
 optlevel = 2
 device = cpu
 inputshape = [1,313,1024]f32,[1,1,313,313]f32,[4,1,313,128]f32,[4,1,313,128]f32
-inputshape2 =
+inputshape2 = [1,299,1024]f32,[1,1,299,299]f32,[4,1,299,128]f32,[4,1,299,128]f32
 input =
 input2 =
 customop =
@@ -18,12 +18,13 @@ moduleop =
 
 ----------------
 
+assign dynamic shape info
 ############# pass_level1
 ############# pass_level2
 ############# pass_level3
 ############# pass_level4
 ############# pass_level5
 ############# pass_ncnn
-model inputshape = [1,313,1024]f32,[1,1,313,313]f32,[4,1,313,128]f32,[4,1,313,128]f32
-FLOPS = 11.666G
-memory OPS = 55.653M
+model inputshape = [1,?,1024]f32,[1,1,?,?]f32,[4,1,?,128]f32,[4,1,?,128]f32
+FLOPS = 0
+memory OPS = 0

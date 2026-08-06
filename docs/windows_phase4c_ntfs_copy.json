@@ -1,0 +1,10 @@
+{
+  "format": "HUNYUANOCR_NCNN_NTFS_COPY_V1",
+  "source": "WSL artifacts selected by runtime_manifest.tsv",
+  "destination": "D:\\hunyuanocr-recovery\\phase4c\\model-ntfs",
+  "file_count": 170,
+  "total_bytes": 6146592586,
+  "copy_seconds": 9.582,
+  "sha256_seconds": 11.277,
+  "status": "passed"
+}

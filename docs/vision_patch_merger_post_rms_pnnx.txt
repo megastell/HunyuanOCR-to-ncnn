@@ -1,0 +1,30 @@
+pnnxparam = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_merger_post_rms/vision_patch_merger_post_rms.pnnx.param
+pnnxbin = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_merger_post_rms/vision_patch_merger_post_rms.pnnx.bin
+pnnxpy = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_merger_post_rms/vision_patch_merger_post_rms_pnnx.py
+pnnxonnx = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_merger_post_rms/vision_patch_merger_post_rms.pnnx.onnx
+ncnnparam = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_merger_post_rms/vision_patch_merger_post_rms.ncnn.param
+ncnnbin = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_merger_post_rms/vision_patch_merger_post_rms.ncnn.bin
+ncnnpy = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_merger_post_rms/vision_patch_merger_post_rms_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [288,1024]f32
+inputshape2 = [274,1024]f32
+input =
+input2 =
+customop =
+moduleop =
+############# pass_level0
+
+----------------
+
+assign dynamic shape info
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+model inputshape = [?,1024]f32
+FLOPS = 0
+memory OPS = 0

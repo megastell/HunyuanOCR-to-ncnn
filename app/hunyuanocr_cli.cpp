@@ -163,6 +163,11 @@ int main(int argc, char** argv)
               << "Image size      : " << result.original_width << 'x'
               << result.original_height << " -> " << result.resized_width
               << 'x' << result.resized_height << '\n'
+              << "Image grid      : [" << result.image_grid_t << ','
+              << result.image_grid_h << ',' << result.image_grid_w << "]\n"
+              << "Image token span: [" << result.image_token_start << ','
+              << result.image_token_end << ")\n"
+              << "Prefill length  : " << result.prefill_length << '\n'
               << "Generated tokens:";
     for (int token : result.token_ids) std::cout << ' ' << token;
     std::cout << "\nEOS reached     : " << result.reached_eos

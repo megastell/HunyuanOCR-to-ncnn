@@ -326,11 +326,17 @@ bool validate_prompt_contract(const PromptInputs& result)
         1537, 8287, 12858, 1843, 9738, 7812, 270, 12231, 112273,
         270, 4426, 6465, 292, 120006,
     };
-    return result.input_ids.size() == 313
+    return result.input_ids.size()
+            == static_cast<std::size_t>(result.image_token_end)
+                + expected_suffix.size()
         && result.input_ids[0] == kBosTokenId
         && result.input_ids[1] == kImageStartTokenId
         && result.image_token_start == 2
-        && result.image_token_end == 290
+        && result.image_token_end > result.image_token_start
+        && std::all_of(
+            result.input_ids.begin() + result.image_token_start,
+            result.input_ids.begin() + result.image_token_end,
+            [](std::int64_t token) { return token == kImageTokenId; })
         && std::equal(
             expected_suffix.begin(),
             expected_suffix.end(),
@@ -378,7 +384,7 @@ void build_rope_embeddings(
 
 } // namespace
 
-bool build_fixed_ocr_prompt_inputs(
+bool build_ocr_prompt_inputs(
     const std::string& model_directory,
     const std::array<std::int64_t, 3>& image_grid_thw,
     PromptInputs& result)
@@ -400,7 +406,7 @@ bool build_fixed_ocr_prompt_inputs(
     if (image_grid_thw[0] != 1
         || grid_h % (kMergeSize * kSpatialPatchSize) != 0
         || grid_w % (kMergeSize * kSpatialPatchSize) != 0) {
-        std::cerr << "Unsupported image grid for the fixed OCR prompt\n";
+        std::cerr << "Unsupported image grid for the OCR prompt\n";
         return false;
     }
     const int llm_h = grid_h / kMergeSize / kSpatialPatchSize;
@@ -419,7 +425,7 @@ bool build_fixed_ocr_prompt_inputs(
         result.input_ids.end(), prompt_ids.begin(), prompt_ids.end());
     result.input_ids.push_back(kUserTokenId);
     if (!validate_prompt_contract(result)) {
-        std::cerr << "Generated prompt differs from the Phase 3C contract\n";
+        std::cerr << "Generated prompt differs from the OCR template contract\n";
         return false;
     }
 

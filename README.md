@@ -67,11 +67,12 @@ $HOME/work/hunyuanocr/.venv-reference/bin/python \
   tools/export/export_runtime_manifest.py
 ```
 
-`--verify size` checks the complete 162-file inventory at normal startup.
+`--verify size` checks the complete 170-file inventory at normal startup.
 `--verify sha256` performs a full content hash check for installation or
-release validation. The current public runtime contract uses the fixed OCR
-prompt and the audited `[1,22,50]` image grid. Reference-backed parity tests
-remain available through `-DHUNYUANOCR_BUILD_PARITY_TESTS=ON`.
+release validation. The OCR prompt remains fixed, while image preprocessing,
+vision patch grids, image-token spans, multimodal positions, prefill lengths,
+and KV caches are now dynamic. Reference-backed parity tests remain available
+through `-DHUNYUANOCR_BUILD_PARITY_TESTS=ON`.
 
 ## Phase 4B Native Windows
 
@@ -81,3 +82,11 @@ both reproduce the exact 11-token smoke result through EOS. Reproducible
 PowerShell entry points are available in `tools/windows/`; detailed environment,
 manifest, performance, memory, and dependency evidence is recorded in
 `docs/windows_msvc_milestone.md` and `docs/windows_msvc_validation.json`.
+
+## Phase 4C Dynamic Image Grids
+
+The runtime accepts processor-compatible PNG aspect ratios without a fixed
+`[1,22,50]` grid. Linux and native Windows regressions cover wide `[1,16,64]`,
+square `[1,32,32]`, tall `[1,48,24]`, and the original smoke grid in both
+packed and unpacked modes. See `docs/phase4c_dynamic_image_grid_milestone.md`
+for exact tokens, NTFS model-copy measurements, and remaining resource limits.

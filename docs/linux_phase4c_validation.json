@@ -1,0 +1,28 @@
+{
+  "phase": "4C",
+  "status": "passed",
+  "platform": "WSL2 Ubuntu 24.04",
+  "manifest": {
+    "file_count": 170,
+    "total_bytes": 6146592586,
+    "size_verification": "passed",
+    "cpp_sha256_verification": "passed"
+  },
+  "dynamic_cases": {
+    "count": 3,
+    "packed": "passed",
+    "unpacked": "passed",
+    "exact_grid_span_prefill_tokens_eos_text": true,
+    "runtime_seconds_min": 10.902,
+    "runtime_seconds_max": 20.073,
+    "peak_rss_kib_min": 3699188,
+    "peak_rss_kib_max": 5806220
+  },
+  "smoke": {
+    "packed": "passed",
+    "unpacked": "passed",
+    "tokens": [93892, 5112, 206, 1717, 21, 185, 18009, 15613, 16678, 21836, 120007],
+    "text": "HELLO 2026\nNCNN CPU TEST"
+  },
+  "persistent_log_root": "~/hunyuanocr-recovery/phase4c"
+}

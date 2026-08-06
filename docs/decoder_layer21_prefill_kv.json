@@ -5,7 +5,7 @@
   "torch_threads": 9,
   "sequence_length": 313,
   "torchscript_path": "artifacts/decoder_layer21_prefill_kv/decoder_layer21_prefill_kv.pt",
-  "torchscript_bytes": 69224751,
+  "torchscript_bytes": 69224815,
   "eager_metrics": {
     "layer_output": {
       "maximum_abs_error": 0.0,
@@ -38,9 +38,10 @@
     "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
     "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer21_prefill_kv/decoder_layer21_prefill_kv.pt",
     "inputshape=[1,313,1024],[1,1,313,313],[4,1,313,128],[4,1,313,128]",
+    "inputshape2=[1,299,1024],[1,1,299,299],[4,1,299,128],[4,1,299,128]",
     "fp16=0",
     "optlevel=2"
   ],
   "pnnx_log": "docs/decoder_layer21_prefill_kv_pnnx.txt",
-  "elapsed_seconds": 2.511444038999798
+  "elapsed_seconds": 3.0976895980002155
 }

@@ -35,6 +35,12 @@ struct OcrResult {
     int original_height = 0;
     int resized_width = 0;
     int resized_height = 0;
+    int image_grid_t = 0;
+    int image_grid_h = 0;
+    int image_grid_w = 0;
+    int image_token_start = 0;
+    int image_token_end = 0;
+    int prefill_length = 0;
     RuntimeStats stats;
 };
 

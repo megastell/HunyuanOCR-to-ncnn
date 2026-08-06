@@ -188,7 +188,7 @@ def parse_parity(mode: str) -> dict[str, object]:
 manifest = json.loads(
     (root / "docs/runtime_manifest.json").read_text(encoding="utf-8")
 )
-assert manifest["file_count"] == 162
+assert manifest["file_count"] == 170
 groups = {
     "text_embedding": 0,
     "lm_head": 0,

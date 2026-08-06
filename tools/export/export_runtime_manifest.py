@@ -26,9 +26,20 @@ def required_files() -> list[Path]:
         "lm_head",
         "text_embedding",
         "vision_patch_embed",
-        "vision_patch_merger",
+        "vision_patch_merger_pre_rms",
+        "vision_patch_merger_conv",
+        "vision_patch_merger_projection",
+        "vision_patch_merger_post_rms",
     ]:
         files.extend(component_files(name))
+    files.extend(
+        [
+            MODEL_DIR
+            / "vision_patch_embed/vision_position_embedding.f32.bin",
+            MODEL_DIR
+            / "vision_patch_merger/vision_patch_merger_constants.f32.bin",
+        ]
+    )
     for layer in range(27):
         files.extend(component_files(f"vision_block{layer}"))
     for layer in range(24):

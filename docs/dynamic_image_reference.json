@@ -1,0 +1,350 @@
+{
+  "format": "HUNYUANOCR_DYNAMIC_OCR_EXPECTED_V1",
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "prompt": "\u8bf7\u9010\u884c\u8bc6\u522b\u56fe\u7247\u4e2d\u7684\u6240\u6709\u6587\u5b57\u3002\u53ea\u8f93\u51fa\u56fe\u7247\u4e2d\u7684\u6587\u5b57\u672c\u8eab\uff0c\u4fdd\u7559\u6362\u884c\uff0c\u4e0d\u8981\u89e3\u91ca\u3002",
+  "cases": [
+    {
+      "name": "ocr_wide_en",
+      "path": "tests/assets/ocr_wide_en.png",
+      "width": 1024,
+      "height": 256,
+      "source_lines": [
+        "WIDE OCR",
+        "TEST 314"
+      ],
+      "sha256": "e56c8e4595dd5e3c7bb86c19ff47c13c437379a4563bfebc3fcdd70718cbc8a3",
+      "grid_thw": [
+        1,
+        16,
+        64
+      ],
+      "sequence_length": 291,
+      "image_token_count": 266,
+      "image_token_span": [
+        2,
+        268
+      ],
+      "generated_token_ids": [
+        54,
+        30118,
+        113184,
+        185,
+        26997,
+        206,
+        24096,
+        120007
+      ],
+      "generated_text": "WIDE OCR\nTEST 314",
+      "eos_reached": true,
+      "elapsed_seconds": 6.142635746000451,
+      "tensors": {
+        "pixel_values": {
+          "shape": [
+            1024,
+            768
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_wide_en/pixel_values.npy",
+          "sha256": "5b19dbd131e94e3eb5a43e74753db468caf5692e77268c89dacad565ee19db6f"
+        },
+        "image_grid_thw": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_wide_en/image_grid_thw.npy",
+          "sha256": "c88c921cee96117ea7932d7c955fed6a0de5e744ccc98f5deb8378143770d60e"
+        },
+        "input_ids": {
+          "shape": [
+            1,
+            291
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_wide_en/input_ids.npy",
+          "sha256": "06ecf4831e2a00b49dfe83855458253857ccce8eeabf7919ef973e995ac7a2da"
+        },
+        "attention_mask": {
+          "shape": [
+            1,
+            291
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_wide_en/attention_mask.npy",
+          "sha256": "53c5095b116f166c774f26408e6dab348a05c0377e225de44fe7be5602555321"
+        },
+        "mm_token_type_ids": {
+          "shape": [
+            1,
+            291
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_wide_en/mm_token_type_ids.npy",
+          "sha256": "da7f5212d271fed216069af9b0dc2bf85dc69d872b9fcfa6971865437b3e71fb"
+        },
+        "position_ids": {
+          "shape": [
+            4,
+            1,
+            291
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_wide_en/position_ids.npy",
+          "sha256": "b9ccf09a343e0ff4995b07ee02d8d305013b8dd0a0e39f4a8e9af2844848fcb0"
+        },
+        "image_features": {
+          "shape": [
+            1,
+            266,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_wide_en/image_features.npy",
+          "sha256": "b2ee243ca93ff7a36e2ae88c6c14d20ec695a8fb6556bde089166ddb12b13787"
+        },
+        "fused_embeddings": {
+          "shape": [
+            1,
+            291,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_wide_en/fused_embeddings.npy",
+          "sha256": "5f3dcf915d278ffef8ab0d088fae86f62ded380d8a8f3f773a671d5cf1e83235"
+        }
+      }
+    },
+    {
+      "name": "ocr_square_en",
+      "path": "tests/assets/ocr_square_en.png",
+      "width": 512,
+      "height": 512,
+      "source_lines": [
+        "SQUARE",
+        "OCR TEST",
+        "7"
+      ],
+      "sha256": "c343f26a43e80f68d87ca385befb8be633a9d30ca7590af30fad1620e76739a5",
+      "grid_thw": [
+        1,
+        32,
+        32
+      ],
+      "sequence_length": 299,
+      "image_token_count": 274,
+      "image_token_span": [
+        2,
+        276
+      ],
+      "generated_token_ids": [
+        50,
+        12548,
+        86874,
+        185,
+        114946,
+        21836,
+        185,
+        22,
+        120007
+      ],
+      "generated_text": "SQUARE\nOCR TEST\n7",
+      "eos_reached": true,
+      "elapsed_seconds": 5.856881153000359,
+      "tensors": {
+        "pixel_values": {
+          "shape": [
+            1024,
+            768
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_square_en/pixel_values.npy",
+          "sha256": "4d179158fd1327f67c0345a07e8caf9ca4d10cdf7297062811d3d7523dcce3d8"
+        },
+        "image_grid_thw": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_square_en/image_grid_thw.npy",
+          "sha256": "322d0935eb4074e75462917da54116ab15c279aa7776745c3d3865d8c2b68e40"
+        },
+        "input_ids": {
+          "shape": [
+            1,
+            299
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_square_en/input_ids.npy",
+          "sha256": "b43650262b77bc39c8e9be85422ed598fd20a2b48c4d4fe2e79a2b3f1cd61c4c"
+        },
+        "attention_mask": {
+          "shape": [
+            1,
+            299
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_square_en/attention_mask.npy",
+          "sha256": "a5d11f23cc33aae63093547391f7640dd866e918a92cad6359a9624b2b51a769"
+        },
+        "mm_token_type_ids": {
+          "shape": [
+            1,
+            299
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_square_en/mm_token_type_ids.npy",
+          "sha256": "8fcbfee4a571146307d1b473d347859d19220dee15d6af4e45a38e6879eec98b"
+        },
+        "position_ids": {
+          "shape": [
+            4,
+            1,
+            299
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_square_en/position_ids.npy",
+          "sha256": "d15418b181790035cc2b2fb7b3f4031e4b2212d8b5d30262bb4785d3dd11d2fe"
+        },
+        "image_features": {
+          "shape": [
+            1,
+            274,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_square_en/image_features.npy",
+          "sha256": "d22d52cd67eb1b6be980ae7d6901d5e9688bd8cc39249540faf45131d0ba2663"
+        },
+        "fused_embeddings": {
+          "shape": [
+            1,
+            299,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_square_en/fused_embeddings.npy",
+          "sha256": "8c0ec35cdf3931780f2810bb61ff0795743f322bd1bb985303cd0aad52ca8842"
+        }
+      }
+    },
+    {
+      "name": "ocr_tall_en",
+      "path": "tests/assets/ocr_tall_en.png",
+      "width": 384,
+      "height": 768,
+      "source_lines": [
+        "TALL",
+        "OCR",
+        "TEST 42"
+      ],
+      "sha256": "6149e097907e86e9775b17db56b29fd7c1353b658443d5a3e9de3cd09697f14a",
+      "grid_thw": [
+        1,
+        48,
+        24
+      ],
+      "sequence_length": 339,
+      "image_token_count": 314,
+      "image_token_span": [
+        2,
+        316
+      ],
+      "generated_token_ids": [
+        51,
+        12887,
+        185,
+        114946,
+        185,
+        26997,
+        206,
+        4065,
+        120007
+      ],
+      "generated_text": "TALL\nOCR\nTEST 42",
+      "eos_reached": true,
+      "elapsed_seconds": 6.771071146000395,
+      "tensors": {
+        "pixel_values": {
+          "shape": [
+            1152,
+            768
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_tall_en/pixel_values.npy",
+          "sha256": "81c8b60585f859b4b9288a2b94b026b833bd006f0fb6a1bd7777dd23d779da3c"
+        },
+        "image_grid_thw": {
+          "shape": [
+            1,
+            3
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_tall_en/image_grid_thw.npy",
+          "sha256": "dc5c127f52ad8f5066eb3b3ba96135da31ea9ece762b8c0c2fd01a2f8295b57f"
+        },
+        "input_ids": {
+          "shape": [
+            1,
+            339
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_tall_en/input_ids.npy",
+          "sha256": "729eb344d8578f9e36744af4b0dbde3f0bc110d953d1bd84a430605aea6d1292"
+        },
+        "attention_mask": {
+          "shape": [
+            1,
+            339
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_tall_en/attention_mask.npy",
+          "sha256": "4251c72118a3a55dfcb87cb6620be3378a521d7b1c4460583a1186858a897d43"
+        },
+        "mm_token_type_ids": {
+          "shape": [
+            1,
+            339
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_tall_en/mm_token_type_ids.npy",
+          "sha256": "0c30fc1c746e5805066ddbc34df09be56aa6ae44c1d1c7bbb51a19971ed0e415"
+        },
+        "position_ids": {
+          "shape": [
+            4,
+            1,
+            339
+          ],
+          "dtype": "torch.int64",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_tall_en/position_ids.npy",
+          "sha256": "388699218ae65bbf3674288fd0dae90a69aa6994ea7a1159d2bc3a1e792c137f"
+        },
+        "image_features": {
+          "shape": [
+            1,
+            314,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_tall_en/image_features.npy",
+          "sha256": "f2b595c4b6e87f46df3cdb693244fcade4b59c0735209b92f6031be2cfce9dd0"
+        },
+        "fused_embeddings": {
+          "shape": [
+            1,
+            339,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "path": "reference/dynamic_image_cpu_fp32/ocr_tall_en/fused_embeddings.npy",
+          "sha256": "4e3541f1dfc118562c6ae72d564240c03f569ce8be794e9495cbea3c1ef3d1b7"
+        }
+      }
+    }
+  ],
+  "torch_threads": 9,
+  "max_new_tokens": 32,
+  "total_seconds": 20.11379878599837
+}

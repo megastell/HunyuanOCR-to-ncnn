@@ -26,7 +26,6 @@ constexpr int kHiddenSize = 1024;
 constexpr int kKvHeads = 8;
 constexpr int kHeadDim = 128;
 constexpr int kMropeAxes = 4;
-constexpr int kPrefillLength = 313;
 constexpr int kEosToken = 120007;
 
 using Clock = std::chrono::steady_clock;
@@ -99,19 +98,21 @@ ncnn::Mat make_hidden(std::vector<float>& values)
     return ncnn::Mat(kHiddenSize, 1, values.data()).clone();
 }
 
-ncnn::Mat make_prefill_hidden(std::vector<float>& values)
+ncnn::Mat make_prefill_hidden(std::vector<float>& values, int sequence_length)
 {
-    return ncnn::Mat(kHiddenSize, kPrefillLength, values.data()).clone();
+    return ncnn::Mat(kHiddenSize, sequence_length, values.data()).clone();
 }
 
-ncnn::Mat make_prefill_mask(std::vector<float>& values)
+ncnn::Mat make_prefill_mask(std::vector<float>& values, int sequence_length)
 {
-    return ncnn::Mat(kPrefillLength, kPrefillLength, 1, values.data()).clone();
+    return ncnn::Mat(
+        sequence_length, sequence_length, 1, values.data()).clone();
 }
 
-ncnn::Mat make_prefill_rope(std::vector<float>& values)
+ncnn::Mat make_prefill_rope(std::vector<float>& values, int sequence_length)
 {
-    return ncnn::Mat(kHeadDim, kPrefillLength, kMropeAxes, values.data()).clone();
+    return ncnn::Mat(
+        kHeadDim, sequence_length, kMropeAxes, values.data()).clone();
 }
 
 ncnn::Mat make_decode_mask(std::vector<float>& values, int length)
@@ -475,6 +476,13 @@ public:
         result.original_height = multimodal.original_height;
         result.resized_width = multimodal.resized_width;
         result.resized_height = multimodal.resized_height;
+        result.image_grid_t = static_cast<int>(multimodal.image_grid_thw[0]);
+        result.image_grid_h = static_cast<int>(multimodal.image_grid_thw[1]);
+        result.image_grid_w = static_cast<int>(multimodal.image_grid_thw[2]);
+        result.image_token_start = multimodal.image_token_start;
+        result.image_token_end = multimodal.image_token_end;
+        result.prefill_length = static_cast<int>(
+            multimodal.prompt_inputs.input_ids.size());
         result.stats.input_seconds = seconds_between(input_start, Clock::now());
 
         const Clock::time_point prefill_start = Clock::now();
@@ -485,10 +493,11 @@ public:
             std::move(multimodal.prompt_inputs.rope_cos);
         std::vector<float> sin_values =
             std::move(multimodal.prompt_inputs.rope_sin);
-        ncnn::Mat hidden = make_prefill_hidden(prefill_values);
-        ncnn::Mat mask = make_prefill_mask(mask_values);
-        ncnn::Mat rope_cos = make_prefill_rope(cos_values);
-        ncnn::Mat rope_sin = make_prefill_rope(sin_values);
+        const int prefill_length = result.prefill_length;
+        ncnn::Mat hidden = make_prefill_hidden(prefill_values, prefill_length);
+        ncnn::Mat mask = make_prefill_mask(mask_values, prefill_length);
+        ncnn::Mat rope_cos = make_prefill_rope(cos_values, prefill_length);
+        ncnn::Mat rope_sin = make_prefill_rope(sin_values, prefill_length);
         if (hidden.empty() || mask.empty() || rope_cos.empty() || rope_sin.empty()) {
             error = "Unable to create prefill input tensors";
             return false;
@@ -524,7 +533,7 @@ public:
         std::vector<float> full_hidden;
         if (!unpack_mat(hidden, full_hidden)
             || full_hidden.size()
-                != static_cast<std::size_t>(kPrefillLength) * kHiddenSize) {
+                != static_cast<std::size_t>(prefill_length) * kHiddenSize) {
             error = "Unable to unpack the final prefill hidden state";
             return false;
         }
@@ -563,7 +572,7 @@ public:
             && static_cast<int>(result.token_ids.size())
                 < options.max_new_tokens) {
             const int step = static_cast<int>(result.token_ids.size());
-            const int position = kPrefillLength + step - 1;
+            const int position = prefill_length + step - 1;
             const int present_length = position + 1;
             std::vector<float> decode_mask_values;
             std::vector<float> decode_cos_values;

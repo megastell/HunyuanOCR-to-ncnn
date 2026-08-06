@@ -17,7 +17,7 @@ struct PromptInputs {
     int image_token_end = 0;
 };
 
-bool build_fixed_ocr_prompt_inputs(
+bool build_ocr_prompt_inputs(
     const std::string& model_directory,
     const std::array<std::int64_t, 3>& image_grid_thw,
     PromptInputs& result);

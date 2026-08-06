@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <fstream>
 #include <iostream>
 #include <limits>
 #include <string>
@@ -27,18 +28,14 @@ namespace {
 constexpr int kPatchSize = 16;
 constexpr int kMergeSize = 2;
 constexpr int kPatchVectorSize = 768;
-constexpr int kPatchCount = 1100;
 constexpr int kVisionHiddenSize = 1152;
 constexpr int kTextHiddenSize = 1024;
 constexpr int kVisionBlocks = 27;
-constexpr int kMergedTokens = 288;
-constexpr int kPrefillLength = 313;
 constexpr int kImageTokenId = 120120;
-constexpr int kExpectedGridT = 1;
-constexpr int kExpectedGridH = 22;
-constexpr int kExpectedGridW = 50;
 constexpr int kMinimumPixels = 262144;
 constexpr int kMaximumPixels = 16777216;
+constexpr int kPositionGridSize = 128;
+constexpr int kMergerWidth = kVisionHiddenSize * kMergeSize * kMergeSize;
 
 constexpr float kImageMean[3] = {
     0.48145466f,
@@ -50,15 +47,6 @@ constexpr float kImageStd[3] = {
     0.26130258f,
     0.27577711f,
 };
-
-constexpr std::size_t kPixelValueCount =
-    static_cast<std::size_t>(kPatchCount) * kPatchVectorSize;
-constexpr std::size_t kVisionHiddenCount =
-    static_cast<std::size_t>(kPatchCount) * kVisionHiddenSize;
-constexpr std::size_t kMergedHiddenCount =
-    static_cast<std::size_t>(kMergedTokens) * kTextHiddenSize;
-constexpr std::size_t kPrefillHiddenCount =
-    static_cast<std::size_t>(kPrefillLength) * kTextHiddenSize;
 
 std::size_t logical_count(const ncnn::Mat& value)
 {
@@ -392,13 +380,16 @@ bool preprocess_image(
 
     const int grid_h = resized_height / kPatchSize;
     const int grid_w = resized_width / kPatchSize;
-    if (grid_h != kExpectedGridH || grid_w != kExpectedGridW) {
-        std::cerr << "Unexpected resized grid: " << grid_h << 'x' << grid_w
+    if (grid_h <= 0 || grid_w <= 0
+        || grid_h % kMergeSize != 0 || grid_w % kMergeSize != 0) {
+        std::cerr << "Unsupported resized grid: " << grid_h << 'x' << grid_w
                   << '\n';
         return false;
     }
 
-    pixel_values.resize(kPixelValueCount);
+    const std::size_t patch_count =
+        static_cast<std::size_t>(grid_h) * grid_w;
+    pixel_values.resize(patch_count * kPatchVectorSize);
     for (int patch_y = 0; patch_y < grid_h; ++patch_y) {
         for (int patch_x = 0; patch_x < grid_w; ++patch_x) {
             const std::size_t patch =
@@ -468,79 +459,272 @@ bool run_component(
     return !output.empty();
 }
 
+bool load_f32_file(
+    const std::string& path,
+    std::size_t expected_count,
+    std::vector<float>& values)
+{
+    std::ifstream file(path, std::ios::binary | std::ios::ate);
+    if (!file) return false;
+    const std::streamsize bytes = file.tellg();
+    if (bytes != static_cast<std::streamsize>(
+            expected_count * sizeof(float))) {
+        return false;
+    }
+    values.resize(expected_count);
+    file.seekg(0, std::ios::beg);
+    return static_cast<bool>(file.read(
+        reinterpret_cast<char*>(values.data()), bytes));
+}
+
+bool add_interpolated_positions(
+    const std::string& model_directory,
+    int grid_h,
+    int grid_w,
+    std::vector<float>& hidden)
+{
+    const std::size_t table_count =
+        static_cast<std::size_t>(kPositionGridSize) * kPositionGridSize
+        * kVisionHiddenSize;
+    std::vector<float> table;
+    if (!load_f32_file(
+            model_directory
+                + "/vision_patch_embed/vision_position_embedding.f32.bin",
+            table_count,
+            table)) {
+        std::cerr << "Unable to load the vision position table\n";
+        return false;
+    }
+    if (hidden.size()
+        != static_cast<std::size_t>(grid_h) * grid_w
+            * kVisionHiddenSize) {
+        return false;
+    }
+    for (int y = 0; y < grid_h; ++y) {
+        const float source_y =
+            (static_cast<float>(y) + 0.5f) * kPositionGridSize / grid_h
+            - 0.5f;
+        const int floor_y = static_cast<int>(std::floor(source_y));
+        const int y0 = std::clamp(floor_y, 0, kPositionGridSize - 1);
+        const int y1 = std::clamp(floor_y + 1, 0, kPositionGridSize - 1);
+        const float weight_y = source_y - floor_y;
+        for (int x = 0; x < grid_w; ++x) {
+            const float source_x =
+                (static_cast<float>(x) + 0.5f) * kPositionGridSize / grid_w
+                - 0.5f;
+            const int floor_x = static_cast<int>(std::floor(source_x));
+            const int x0 = std::clamp(floor_x, 0, kPositionGridSize - 1);
+            const int x1 = std::clamp(floor_x + 1, 0, kPositionGridSize - 1);
+            const float weight_x = source_x - floor_x;
+            const std::size_t destination =
+                (static_cast<std::size_t>(y) * grid_w + x)
+                * kVisionHiddenSize;
+            const std::size_t source00 =
+                (static_cast<std::size_t>(y0) * kPositionGridSize + x0)
+                * kVisionHiddenSize;
+            const std::size_t source01 =
+                (static_cast<std::size_t>(y0) * kPositionGridSize + x1)
+                * kVisionHiddenSize;
+            const std::size_t source10 =
+                (static_cast<std::size_t>(y1) * kPositionGridSize + x0)
+                * kVisionHiddenSize;
+            const std::size_t source11 =
+                (static_cast<std::size_t>(y1) * kPositionGridSize + x1)
+                * kVisionHiddenSize;
+            for (int feature = 0; feature < kVisionHiddenSize; ++feature) {
+                const float top = table[source00 + feature]
+                    + (table[source01 + feature] - table[source00 + feature])
+                        * weight_x;
+                const float bottom = table[source10 + feature]
+                    + (table[source11 + feature] - table[source10 + feature])
+                        * weight_x;
+                hidden[destination + feature] +=
+                    top + (bottom - top) * weight_y;
+            }
+        }
+    }
+    return true;
+}
+
+bool run_named_component(
+    const std::string& model_directory,
+    const std::string& name,
+    bool use_packing_layout,
+    int num_threads,
+    const ncnn::Mat& input,
+    ncnn::Mat& output)
+{
+    ncnn::Net network;
+    if (!configure_and_load(
+            network,
+            model_directory + "/" + name,
+            name,
+            use_packing_layout,
+            num_threads)
+        || !run_component(network, input, output)) {
+        return false;
+    }
+    network.clear();
+    return true;
+}
+
 bool run_vision_tower(
     const std::string& model_directory,
     bool use_packing_layout,
     int num_threads,
-    std::vector<float>& pixel_values,
+    const std::vector<float>& pixel_values,
+    int grid_h,
+    int grid_w,
     std::vector<float>& vision_embeddings)
 {
+    const int patch_count = grid_h * grid_w;
+    if (patch_count <= 0
+        || pixel_values.size()
+            != static_cast<std::size_t>(patch_count) * kPatchVectorSize) {
+        return false;
+    }
     ncnn::Mat flat(
-        static_cast<int>(pixel_values.size()), pixel_values.data());
-    ncnn::Mat hidden = flat.reshape(kPatchVectorSize, kPatchCount).clone();
-    if (hidden.empty()) {
-        return false;
-    }
-
-    const std::string patch_name = "vision_patch_embed";
-    ncnn::Net patch_network;
-    if (!configure_and_load(
-            patch_network,
-            model_directory + "/" + patch_name,
-            patch_name,
+        static_cast<int>(pixel_values.size()),
+        const_cast<float*>(pixel_values.data()));
+    ncnn::Mat input = flat.reshape(kPatchVectorSize, patch_count).clone();
+    ncnn::Mat output;
+    if (input.empty()
+        || !run_named_component(
+            model_directory,
+            "vision_patch_embed",
             use_packing_layout,
-            num_threads)) {
+            num_threads,
+            input,
+            output)) {
         return false;
     }
-    ncnn::Mat patch_output;
-    if (!run_component(patch_network, hidden, patch_output)) {
+    std::vector<float> hidden_values;
+    if (!unpack_mat(output, hidden_values)
+        || !add_interpolated_positions(
+            model_directory, grid_h, grid_w, hidden_values)) {
         return false;
     }
-    patch_network.clear();
-    hidden = patch_output.reshape(kVisionHiddenSize, kPatchCount).clone();
-    if (hidden.empty()) {
-        return false;
-    }
+    ncnn::Mat hidden(
+        kVisionHiddenSize, patch_count, hidden_values.data());
+    hidden = hidden.clone();
 
     for (int layer = 0; layer < kVisionBlocks; ++layer) {
         const std::string name = "vision_block" + std::to_string(layer);
-        ncnn::Net network;
-        if (!configure_and_load(
-                network,
-                model_directory + "/" + name,
+        if (!run_named_component(
+                model_directory,
                 name,
                 use_packing_layout,
-                num_threads)) {
+                num_threads,
+                hidden,
+                output)) {
             return false;
         }
-        ncnn::Mat output;
-        if (!run_component(network, hidden, output)) {
-            return false;
-        }
-        network.clear();
         hidden = output;
     }
 
-    const std::string merger_name = "vision_patch_merger";
-    ncnn::Net merger_network;
-    if (!configure_and_load(
-            merger_network,
-            model_directory + "/" + merger_name,
-            merger_name,
+    if (!run_named_component(
+            model_directory,
+            "vision_patch_merger_pre_rms",
             use_packing_layout,
-            num_threads)) {
+            num_threads,
+            hidden,
+            output)
+        || !unpack_mat(output, hidden_values)) {
         return false;
     }
-    ncnn::Mat merger_input = hidden.reshape(
-        kVisionHiddenSize, kPatchCount, 1).clone();
-    ncnn::Mat merger_output;
-    if (merger_input.empty()
-        || !run_component(merger_network, merger_input, merger_output)) {
+    ncnn::Mat convolution_input(grid_w, grid_h, kVisionHiddenSize);
+    if (convolution_input.empty()) return false;
+    for (int feature = 0; feature < kVisionHiddenSize; ++feature) {
+        float* channel = convolution_input.channel(feature);
+        for (int patch = 0; patch < patch_count; ++patch) {
+            channel[patch] = hidden_values[
+                static_cast<std::size_t>(patch) * kVisionHiddenSize + feature];
+        }
+    }
+    if (!run_named_component(
+            model_directory,
+            "vision_patch_merger_conv",
+            use_packing_layout,
+            num_threads,
+            convolution_input,
+            output)) {
         return false;
     }
-    merger_network.clear();
-    return unpack_mat(merger_output, vision_embeddings)
-        && vision_embeddings.size() == kMergedHiddenCount;
+    std::vector<float> convolution_values;
+    if (!unpack_mat(output, convolution_values)) return false;
+
+    std::vector<float> constants;
+    constexpr std::size_t newline_count = kMergerWidth;
+    constexpr std::size_t boundary_count = kTextHiddenSize;
+    if (!load_f32_file(
+            model_directory
+                + "/vision_patch_merger/vision_patch_merger_constants.f32.bin",
+            newline_count + 2 * boundary_count,
+            constants)) {
+        std::cerr << "Unable to load vision merger constants\n";
+        return false;
+    }
+    const int merged_h = grid_h / kMergeSize;
+    const int merged_w = grid_w / kMergeSize;
+    const int projection_tokens = merged_h * (merged_w + 1);
+    std::vector<float> projection_values(
+        static_cast<std::size_t>(projection_tokens) * kMergerWidth);
+    for (int y = 0; y < merged_h; ++y) {
+        for (int x = 0; x <= merged_w; ++x) {
+            const std::size_t destination =
+                static_cast<std::size_t>(y * (merged_w + 1) + x)
+                * kMergerWidth;
+            for (int feature = 0; feature < kMergerWidth; ++feature) {
+                projection_values[destination + feature] = x == merged_w
+                    ? constants[feature]
+                    : convolution_values[
+                        (static_cast<std::size_t>(feature) * merged_h + y)
+                            * merged_w + x];
+            }
+        }
+    }
+    ncnn::Mat projection_input(
+        kMergerWidth, projection_tokens, projection_values.data());
+    if (!run_named_component(
+            model_directory,
+            "vision_patch_merger_projection",
+            use_packing_layout,
+            num_threads,
+            projection_input,
+            output)) {
+        return false;
+    }
+    std::vector<float> projected;
+    if (!unpack_mat(output, projected)) return false;
+    const int image_tokens = projection_tokens + 2;
+    std::vector<float> with_boundaries(
+        static_cast<std::size_t>(image_tokens) * kTextHiddenSize);
+    std::copy(
+        constants.begin() + newline_count,
+        constants.begin() + newline_count + boundary_count,
+        with_boundaries.begin());
+    std::copy(
+        projected.begin(),
+        projected.end(),
+        with_boundaries.begin() + kTextHiddenSize);
+    std::copy(
+        constants.begin() + newline_count + boundary_count,
+        constants.end(),
+        with_boundaries.end() - kTextHiddenSize);
+    ncnn::Mat post_input(
+        kTextHiddenSize, image_tokens, with_boundaries.data());
+    if (!run_named_component(
+            model_directory,
+            "vision_patch_merger_post_rms",
+            use_packing_layout,
+            num_threads,
+            post_input,
+            output)
+        || !unpack_mat(output, vision_embeddings)) {
+        return false;
+    }
+    return vision_embeddings.size()
+        == static_cast<std::size_t>(image_tokens) * kTextHiddenSize;
 }
 
 bool run_text_embedding(
@@ -586,16 +770,11 @@ bool build_multimodal_prefill_input(
         return false;
     }
     result.image_grid_thw = {
-        kExpectedGridT,
+        1,
         result.resized_height / kPatchSize,
         result.resized_width / kPatchSize};
-
-    if (result.image_grid_thw[0] != kExpectedGridT
-        || result.image_grid_thw[1] != kExpectedGridH
-        || result.image_grid_thw[2] != kExpectedGridW) {
-        std::cerr << "This runtime currently requires image grid [1,22,50]\n";
-        return false;
-    }
+    const int grid_h = static_cast<int>(result.image_grid_thw[1]);
+    const int grid_w = static_cast<int>(result.image_grid_thw[2]);
 
     std::vector<float> vision_embeddings;
     if (!run_vision_tower(
@@ -603,22 +782,27 @@ bool build_multimodal_prefill_input(
             use_packing_layout,
             num_threads,
             pixel_values,
+            grid_h,
+            grid_w,
             vision_embeddings)) {
         std::cerr << "Full ncnn vision tower failed\n";
         return false;
     }
-    if (!build_fixed_ocr_prompt_inputs(
+    if (!build_ocr_prompt_inputs(
             model_directory,
             result.image_grid_thw,
             result.prompt_inputs)) {
         return false;
     }
 
-    std::vector<float> text_embeddings(kPrefillHiddenCount);
+    const int prefill_length = static_cast<int>(
+        result.prompt_inputs.input_ids.size());
+    std::vector<float> text_embeddings(
+        static_cast<std::size_t>(prefill_length) * kTextHiddenSize);
     result.image_token_start = result.prompt_inputs.image_token_start;
     result.image_token_end = result.prompt_inputs.image_token_end;
     int image_token_count = 0;
-    for (int position = 0; position < kPrefillLength; ++position) {
+    for (int position = 0; position < prefill_length; ++position) {
         std::vector<float> embedding;
         if (!run_text_embedding(
                 text_embedding_network,
@@ -637,9 +821,15 @@ bool build_multimodal_prefill_input(
             ++image_token_count;
         }
     }
-    if (image_token_count != kMergedTokens
+    const int expected_image_tokens =
+        (grid_h / kMergeSize) * (grid_w / kMergeSize + 1) + 2;
+    if (image_token_count != expected_image_tokens
         || result.image_token_start != 2
-        || result.image_token_end != 290) {
+        || result.image_token_end
+            != result.image_token_start + expected_image_tokens
+        || vision_embeddings.size()
+            != static_cast<std::size_t>(expected_image_tokens)
+                * kTextHiddenSize) {
         std::cerr << "Unexpected image token span\n";
         return false;
     }

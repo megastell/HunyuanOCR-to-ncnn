@@ -44,7 +44,7 @@ EXPORT_MEAN_ABS_ERROR = 2.0e-6
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Export the fixed-grid HunyuanOCR patch embedding, all vision "
+            "Export the dynamic-grid HunyuanOCR patch projection, all vision "
             "blocks, and patch merger."
         )
     )
@@ -84,32 +84,24 @@ def metrics(actual: torch.Tensor, expected: torch.Tensor) -> dict[str, float]:
     }
 
 
-class PatchEmbeddingWrapper(nn.Module):
+class PatchProjectionWrapper(nn.Module):
     def __init__(self, embeddings: nn.Module) -> None:
         super().__init__()
-        self.patch_embedding = embeddings.patch_embedding
-        example = torch.empty(
-            1, PATCH_COUNT, VISION_HIDDEN_SIZE, dtype=torch.float32
+        convolution = embeddings.patch_embedding
+        self.projection = nn.Linear(
+            PATCH_VECTOR_SIZE,
+            VISION_HIDDEN_SIZE,
+            bias=convolution.bias is not None,
         )
         with torch.no_grad():
-            position = embeddings.interpolate_pos_encoding(
-                example, GRID_H, GRID_W
+            self.projection.weight.copy_(
+                convolution.weight.reshape(VISION_HIDDEN_SIZE, PATCH_VECTOR_SIZE)
             )
-        self.register_buffer(
-            "position_embedding", position.detach().float().contiguous()
-        )
+            if convolution.bias is not None:
+                self.projection.bias.copy_(convolution.bias)
 
     def forward(self, pixel_values: torch.Tensor) -> torch.Tensor:
-        pixels = pixel_values.reshape(
-            PATCH_COUNT, CHANNELS, PATCH_SIZE, PATCH_SIZE
-        )
-        patch_embeddings = self.patch_embedding(pixels)
-        patch_embeddings = (
-            patch_embeddings.flatten(-2)
-            .squeeze(-1)
-            .reshape(1, PATCH_COUNT, VISION_HIDDEN_SIZE)
-        )
-        return patch_embeddings + self.position_embedding
+        return self.projection(pixel_values)
 
 
 class VisionBlockWrapper(nn.Module):
@@ -127,16 +119,17 @@ class VisionBlockWrapper(nn.Module):
         self.fc2 = layer.mlp.fc2
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
+        patch_count = hidden_states.shape[0]
         residual = hidden_states
         normalized = self.layer_norm1(hidden_states)
         query = self.q_proj(normalized).reshape(
-            PATCH_COUNT, ATTENTION_HEADS, HEAD_DIM
+            patch_count, ATTENTION_HEADS, HEAD_DIM
         ).transpose(0, 1)
         key = self.k_proj(normalized).reshape(
-            PATCH_COUNT, ATTENTION_HEADS, HEAD_DIM
+            patch_count, ATTENTION_HEADS, HEAD_DIM
         ).transpose(0, 1)
         value = self.v_proj(normalized).reshape(
-            PATCH_COUNT, ATTENTION_HEADS, HEAD_DIM
+            patch_count, ATTENTION_HEADS, HEAD_DIM
         ).transpose(0, 1)
         attention_output = F.scaled_dot_product_attention(
             query,
@@ -149,7 +142,7 @@ class VisionBlockWrapper(nn.Module):
         attention_output = (
             attention_output.transpose(0, 1)
             .contiguous()
-            .reshape(PATCH_COUNT, VISION_HIDDEN_SIZE)
+            .reshape(patch_count, VISION_HIDDEN_SIZE)
         )
         hidden_states = residual + self.o_proj(attention_output)
 
@@ -159,45 +152,46 @@ class VisionBlockWrapper(nn.Module):
         return residual + hidden_states
 
 
-class PatchMergerWrapper(nn.Module):
+class RmsWrapper(nn.Module):
+    def __init__(self, normalization: nn.Module) -> None:
+        super().__init__()
+        self.normalization = normalization
+
+    def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
+        return self.normalization(hidden_states)
+
+
+class MergerConvolutionWrapper(nn.Module):
     def __init__(self, merger: nn.Module) -> None:
         super().__init__()
-        self.before_rms = merger.before_rms
         self.proj_conv = merger.proj_conv
         self.proj_act = merger.proj_act
         self.proj_out = merger.proj_out
-        self.mlp = merger.mlp
-        self.image_newline = merger.image_newline
-        self.image_begin = merger.image_begin
-        self.image_end = merger.image_end
-        self.after_rms = merger.after_rms
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        hidden_states = self.before_rms(hidden_states)
-        hidden_states = hidden_states.permute(0, 2, 1).reshape(
-            1, VISION_HIDDEN_SIZE, GRID_H, GRID_W
-        )
-        hidden_states = self.proj_conv(hidden_states)
-        hidden_states = self.proj_act(hidden_states)
-        hidden_states = self.proj_out(hidden_states)
-        newline = self.image_newline.reshape(1, -1, 1, 1).expand(
-            1, VISION_HIDDEN_SIZE * 4, MERGED_H, 1
-        )
-        hidden_states = torch.cat((hidden_states, newline), dim=-1)
-        hidden_states = hidden_states.reshape(
-            1, VISION_HIDDEN_SIZE * 4, MERGED_H * (MERGED_W + 1)
-        ).permute(0, 2, 1)
-        hidden_states = self.mlp(hidden_states)
-        begin = self.image_begin.reshape(1, 1, TEXT_HIDDEN_SIZE)
-        end = self.image_end.reshape(1, 1, TEXT_HIDDEN_SIZE)
-        hidden_states = torch.cat((begin, hidden_states, end), dim=1)
-        return self.after_rms(hidden_states)
+        return self.proj_out(self.proj_act(self.proj_conv(hidden_states)))
+
+
+class MergerProjectionWrapper(nn.Module):
+    def __init__(self, merger: nn.Module) -> None:
+        super().__init__()
+        self.mlp = merger.mlp
+
+    def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
+        return self.mlp(hidden_states)
 
 
 def shape_argument(values: tuple[torch.Tensor, ...]) -> str:
     return ",".join(
         "[" + ",".join(str(dimension) for dimension in value.shape) + "]"
         for value in values
+    )
+
+
+def shape_list_argument(shapes: tuple[tuple[int, ...], ...]) -> str:
+    return ",".join(
+        "[" + ",".join(str(dimension) for dimension in shape) + "]"
+        for shape in shapes
     )
 
 
@@ -255,7 +249,7 @@ def normalize_vision_sdpa_layout(param_path: Path) -> None:
         expected_shape = {
             "0": str(HEAD_DIM),
             "1": str(ATTENTION_HEADS),
-            "2": str(PATCH_COUNT),
+            "2": "-1",
         }
         if any(parameters.get(key) != value
                for key, value in expected_shape.items()):
@@ -309,7 +303,7 @@ def normalize_vision_sdpa_layout(param_path: Path) -> None:
         if "=" in token
     }
     if (output_parameters.get("0") != str(VISION_HIDDEN_SIZE)
-            or output_parameters.get("1") != str(PATCH_COUNT)):
+            or output_parameters.get("1") != "-1"):
         raise RuntimeError(
             f"Unexpected SDPA output reshape: {' '.join(output_reshape)}"
         )
@@ -333,6 +327,7 @@ def export_component(
     expected: torch.Tensor,
     skip_pnnx: bool,
     metadata: dict[str, Any],
+    alternate_shapes: tuple[tuple[int, ...], ...],
 ) -> dict[str, Any]:
     component_start = time.perf_counter()
     wrapper = wrapper.eval()
@@ -371,6 +366,7 @@ def export_component(
             str(PNNX_PATH),
             str(script_path),
             f"inputshape={shape_argument(inputs)}",
+            f"inputshape2={shape_list_argument(alternate_shapes)}",
             "fp16=0",
             "optlevel=2",
         ]
@@ -464,17 +460,39 @@ def main() -> None:
 
     if args.component in ("all", "patch"):
         pixel_values = load_f32("vision_patch_embed", "pixel_values")
-        expected = load_f32("vision_patch_embed", "expected_output")
+        flat_pixels = pixel_values.reshape(PATCH_COUNT, PATCH_VECTOR_SIZE)
+        with torch.inference_mode():
+            expected = vision_tower.embeddings.patch_embedding(
+                pixel_values.reshape(
+                    PATCH_COUNT, CHANNELS, PATCH_SIZE, PATCH_SIZE
+                )
+            ).flatten(1)
+        position_weights = (
+            vision_tower.embeddings.position_embedding.weight[1:]
+            .detach().float().contiguous().cpu().numpy()
+        )
+        if position_weights.shape != (128 * 128, VISION_HIDDEN_SIZE):
+            raise RuntimeError(
+                f"Unexpected vision position table: {position_weights.shape}"
+            )
+        position_path = (
+            PROJECT_DIR / "artifacts/vision_patch_embed"
+            / "vision_position_embedding.f32.bin"
+        )
+        position_path.parent.mkdir(parents=True, exist_ok=True)
+        position_weights.tofile(position_path)
         export_component(
             "vision_patch_embed",
-            PatchEmbeddingWrapper(vision_tower.embeddings),
-            (pixel_values,),
+            PatchProjectionWrapper(vision_tower.embeddings),
+            (flat_pixels,),
             expected,
             args.skip_pnnx,
             {
-                "grid_thw": [[1, GRID_H, GRID_W]],
-                "position_encoding": "precomputed bilinear 22x50 patch grid",
+                "position_encoding": "C++ bilinear interpolation from 128x128 table",
+                "position_table": position_path.relative_to(PROJECT_DIR).as_posix(),
+                "position_table_shape": [128, 128, VISION_HIDDEN_SIZE],
             },
+            ((1024, PATCH_VECTOR_SIZE),),
         )
         exported += 1
 
@@ -497,29 +515,97 @@ def main() -> None:
                 {
                     "layer_index": layer_index,
                     "attention_mask": None,
-                    "cu_seqlens": [0, PATCH_COUNT],
+                    "cu_seqlens": "dynamic [0, patch_count]",
                     "rotary_position_embedding": False,
                 },
+                ((1024, VISION_HIDDEN_SIZE),),
             )
             exported += 1
 
     if args.component in ("all", "merger"):
-        hidden = load_f32("vision_patch_merger", "hidden_states")
-        expected = load_f32("vision_patch_merger", "expected_output")
-        export_component(
-            "vision_patch_merger",
-            PatchMergerWrapper(vision_tower.patch_merger),
-            (hidden,),
-            expected,
-            args.skip_pnnx,
-            {
-                "grid_thw": [[1, GRID_H, GRID_W]],
-                "spatial_merge_size": MERGE_SIZE,
-                "merged_spatial_shape": [MERGED_H, MERGED_W],
-                "output_token_count": MERGED_TOKEN_COUNT,
-            },
+        merger = vision_tower.patch_merger
+        hidden = load_f32("vision_patch_merger", "hidden_states").squeeze(0)
+        with torch.inference_mode():
+            before = merger.before_rms(hidden)
+            convolution_input = before.transpose(0, 1).reshape(
+                1, VISION_HIDDEN_SIZE, GRID_H, GRID_W
+            )
+            convolution = merger.proj_out(
+                merger.proj_act(merger.proj_conv(convolution_input))
+            )
+            newline = merger.image_newline.reshape(1, -1, 1, 1).expand(
+                1, VISION_HIDDEN_SIZE * 4, MERGED_H, 1
+            )
+            projection_input = torch.cat(
+                (convolution, newline), dim=-1
+            ).reshape(
+                1,
+                VISION_HIDDEN_SIZE * 4,
+                MERGED_H * (MERGED_W + 1),
+            ).permute(0, 2, 1).squeeze(0)
+            projected = merger.mlp(projection_input)
+            with_boundaries = torch.cat((
+                merger.image_begin.reshape(1, TEXT_HIDDEN_SIZE),
+                projected,
+                merger.image_end.reshape(1, TEXT_HIDDEN_SIZE),
+            ), dim=0)
+            after = merger.after_rms(with_boundaries)
+
+        constants_path = (
+            PROJECT_DIR / "artifacts/vision_patch_merger"
+            / "vision_patch_merger_constants.f32.bin"
         )
-        exported += 1
+        constants_path.parent.mkdir(parents=True, exist_ok=True)
+        np.concatenate((
+            merger.image_newline.detach().float().cpu().numpy().reshape(-1),
+            merger.image_begin.detach().float().cpu().numpy().reshape(-1),
+            merger.image_end.detach().float().cpu().numpy().reshape(-1),
+        )).astype(np.float32).tofile(constants_path)
+
+        merger_components = (
+            (
+                "vision_patch_merger_pre_rms",
+                RmsWrapper(merger.before_rms),
+                (hidden,),
+                before,
+                ((1024, VISION_HIDDEN_SIZE),),
+            ),
+            (
+                "vision_patch_merger_conv",
+                MergerConvolutionWrapper(merger),
+                (convolution_input,),
+                convolution,
+                ((1, VISION_HIDDEN_SIZE, 32, 32),),
+            ),
+            (
+                "vision_patch_merger_projection",
+                MergerProjectionWrapper(merger),
+                (projection_input,),
+                projected,
+                ((272, VISION_HIDDEN_SIZE * 4),),
+            ),
+            (
+                "vision_patch_merger_post_rms",
+                RmsWrapper(merger.after_rms),
+                (with_boundaries,),
+                after,
+                ((274, TEXT_HIDDEN_SIZE),),
+            ),
+        )
+        for name, wrapper, inputs, expected, alternate_shapes in merger_components:
+            export_component(
+                name,
+                wrapper,
+                inputs,
+                expected,
+                args.skip_pnnx,
+                {
+                    "spatial_merge_size": MERGE_SIZE,
+                    "constants": constants_path.relative_to(PROJECT_DIR).as_posix(),
+                },
+                alternate_shapes,
+            )
+            exported += 1
 
     print(f"exported_components={exported}")
 
