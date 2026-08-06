@@ -1,0 +1,42 @@
+{
+  "component": "vision_block11",
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "torch_version": "2.12.1+cpu",
+  "torch_threads": 9,
+  "inputs": [
+    [
+      1100,
+      1152
+    ]
+  ],
+  "output": [
+    1100,
+    1152
+  ],
+  "eager_metrics": {
+    "maximum_abs_error": 1.9073486328125e-06,
+    "mean_abs_error": 1.0908607471333887e-07
+  },
+  "torchscript_metrics": {
+    "maximum_abs_error": 1.9073486328125e-06,
+    "mean_abs_error": 1.0908607471333887e-07
+  },
+  "torchscript_path": "artifacts/vision_block11/vision_block11.pt",
+  "torchscript_bytes": 60965344,
+  "pnnx_command": [
+    "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
+    "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_block11/vision_block11.pt",
+    "inputshape=[1100,1152]",
+    "fp16=0",
+    "optlevel=2"
+  ],
+  "pnnx_log": "docs/vision_block11_pnnx.txt",
+  "elapsed_seconds": 3.7544969909999963,
+  "layer_index": 11,
+  "attention_mask": null,
+  "cu_seqlens": [
+    0,
+    1100
+  ],
+  "rotary_position_embedding": false
+}

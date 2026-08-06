@@ -1,0 +1,44 @@
+{
+  "component": "vision_patch_embed",
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "torch_version": "2.12.1+cpu",
+  "torch_threads": 9,
+  "inputs": [
+    [
+      1100,
+      768
+    ]
+  ],
+  "output": [
+    1,
+    1100,
+    1152
+  ],
+  "eager_metrics": {
+    "maximum_abs_error": 0.0,
+    "mean_abs_error": 0.0
+  },
+  "torchscript_metrics": {
+    "maximum_abs_error": 0.0,
+    "mean_abs_error": 0.0
+  },
+  "torchscript_path": "artifacts/vision_patch_embed/vision_patch_embed.pt",
+  "torchscript_bytes": 8615952,
+  "pnnx_command": [
+    "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
+    "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_embed/vision_patch_embed.pt",
+    "inputshape=[1100,768]",
+    "fp16=0",
+    "optlevel=2"
+  ],
+  "pnnx_log": "docs/vision_patch_embed_pnnx.txt",
+  "elapsed_seconds": 2.799101065000002,
+  "grid_thw": [
+    [
+      1,
+      22,
+      50
+    ]
+  ],
+  "position_encoding": "precomputed bilinear 22x50 patch grid"
+}

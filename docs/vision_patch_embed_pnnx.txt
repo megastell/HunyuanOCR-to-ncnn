@@ -1,0 +1,29 @@
+pnnxparam = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_embed/vision_patch_embed.pnnx.param
+pnnxbin = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_embed/vision_patch_embed.pnnx.bin
+pnnxpy = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_embed/vision_patch_embed_pnnx.py
+pnnxonnx = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_embed/vision_patch_embed.pnnx.onnx
+ncnnparam = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_embed/vision_patch_embed.ncnn.param
+ncnnbin = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_embed/vision_patch_embed.ncnn.bin
+ncnnpy = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_embed/vision_patch_embed_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [1100,768]f32
+inputshape2 =
+input =
+input2 =
+customop =
+moduleop =
+############# pass_level0
+
+----------------
+
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+model inputshape = [1100,768]f32
+FLOPS = 1.949G
+memory OPS = 6.799M

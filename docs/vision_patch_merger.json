@@ -1,0 +1,50 @@
+{
+  "component": "vision_patch_merger",
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "torch_version": "2.12.1+cpu",
+  "torch_threads": 9,
+  "inputs": [
+    [
+      1,
+      1100,
+      1152
+    ]
+  ],
+  "output": [
+    1,
+    288,
+    1024
+  ],
+  "eager_metrics": {
+    "maximum_abs_error": 0.0,
+    "mean_abs_error": 0.0
+  },
+  "torchscript_metrics": {
+    "maximum_abs_error": 0.0,
+    "mean_abs_error": 0.0
+  },
+  "torchscript_path": "artifacts/vision_patch_merger/vision_patch_merger.pt",
+  "torchscript_bytes": 103882839,
+  "pnnx_command": [
+    "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
+    "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/vision_patch_merger/vision_patch_merger.pt",
+    "inputshape=[1,1100,1152]",
+    "fp16=0",
+    "optlevel=2"
+  ],
+  "pnnx_log": "docs/vision_patch_merger_pnnx.txt",
+  "elapsed_seconds": 3.7242445989999737,
+  "grid_thw": [
+    [
+      1,
+      22,
+      50
+    ]
+  ],
+  "spatial_merge_size": 2,
+  "merged_spatial_shape": [
+    11,
+    25
+  ],
+  "output_token_count": 288
+}
