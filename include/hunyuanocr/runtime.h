@@ -17,6 +17,8 @@ struct RuntimeOptions {
     bool use_packing_layout = false;
     int num_threads = 9;
     int max_new_tokens = 32;
+    int max_vision_patches = 2048;
+    bool cache_decode_weights = false;
     ManifestVerification manifest_verification = ManifestVerification::size;
 };
 

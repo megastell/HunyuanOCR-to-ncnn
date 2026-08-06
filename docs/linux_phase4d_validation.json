@@ -1,0 +1,1100 @@
+{
+  "phase": "4D",
+  "status": "passed",
+  "platform": "WSL2 Ubuntu 24.04",
+  "repeat_modes": {
+    "unpacked": {
+      "before": {
+        "iterations": [
+          {
+            "iteration": 1,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 40.3045,
+            "current_rss_kib": 3703652,
+            "peak_rss_kib": 3702368
+          },
+          {
+            "iteration": 2,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 15.1544,
+            "current_rss_kib": 4705628,
+            "peak_rss_kib": 4703904
+          },
+          {
+            "iteration": 3,
+            "grid": [
+              1,
+              48,
+              24
+            ],
+            "runtime_seconds": 14.4347,
+            "current_rss_kib": 5529700,
+            "peak_rss_kib": 5527784
+          },
+          {
+            "iteration": 4,
+            "grid": [
+              1,
+              22,
+              50
+            ],
+            "runtime_seconds": 11.1687,
+            "current_rss_kib": 5529828,
+            "peak_rss_kib": 5809584
+          },
+          {
+            "iteration": 5,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 10.1552,
+            "current_rss_kib": 5529828,
+            "peak_rss_kib": 5809584
+          },
+          {
+            "iteration": 6,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 9.53199,
+            "current_rss_kib": 5558572,
+            "peak_rss_kib": 5809584
+          },
+          {
+            "iteration": 7,
+            "grid": [
+              1,
+              48,
+              24
+            ],
+            "runtime_seconds": 10.8033,
+            "current_rss_kib": 5574332,
+            "peak_rss_kib": 5826368
+          },
+          {
+            "iteration": 8,
+            "grid": [
+              1,
+              22,
+              50
+            ],
+            "runtime_seconds": 10.0878,
+            "current_rss_kib": 5580564,
+            "peak_rss_kib": 5841204
+          },
+          {
+            "iteration": 9,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 9.33579,
+            "current_rss_kib": 5574460,
+            "peak_rss_kib": 5841204
+          },
+          {
+            "iteration": 10,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 9.30492,
+            "current_rss_kib": 5582648,
+            "peak_rss_kib": 5841204
+          }
+        ],
+        "final_rss_kib": 5582648,
+        "peak_rss_kib": 5841204,
+        "warmup_to_final_growth_kib": 877020,
+        "warm_runtime_seconds_mean": 9.869833333333334
+      },
+      "after": {
+        "iterations": [
+          {
+            "iteration": 1,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 9.95777,
+            "current_rss_kib": 1084956,
+            "peak_rss_kib": 1104752
+          },
+          {
+            "iteration": 2,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 9.98411,
+            "current_rss_kib": 1089040,
+            "peak_rss_kib": 1167864
+          },
+          {
+            "iteration": 3,
+            "grid": [
+              1,
+              48,
+              24
+            ],
+            "runtime_seconds": 10.9804,
+            "current_rss_kib": 1075936,
+            "peak_rss_kib": 1241896
+          },
+          {
+            "iteration": 4,
+            "grid": [
+              1,
+              22,
+              50
+            ],
+            "runtime_seconds": 11.1918,
+            "current_rss_kib": 1092356,
+            "peak_rss_kib": 1241896
+          },
+          {
+            "iteration": 5,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 9.77409,
+            "current_rss_kib": 1092356,
+            "peak_rss_kib": 1241896
+          },
+          {
+            "iteration": 6,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 10.1291,
+            "current_rss_kib": 1092356,
+            "peak_rss_kib": 1241896
+          },
+          {
+            "iteration": 7,
+            "grid": [
+              1,
+              48,
+              24
+            ],
+            "runtime_seconds": 10.9974,
+            "current_rss_kib": 1121672,
+            "peak_rss_kib": 1241896
+          },
+          {
+            "iteration": 8,
+            "grid": [
+              1,
+              22,
+              50
+            ],
+            "runtime_seconds": 11.2456,
+            "current_rss_kib": 1092356,
+            "peak_rss_kib": 1241896
+          },
+          {
+            "iteration": 9,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 9.85426,
+            "current_rss_kib": 1092356,
+            "peak_rss_kib": 1241896
+          },
+          {
+            "iteration": 10,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 10.1974,
+            "current_rss_kib": 1092356,
+            "peak_rss_kib": 1241896
+          }
+        ],
+        "final_rss_kib": 1092356,
+        "peak_rss_kib": 1241896,
+        "warmup_to_final_growth_kib": 3316,
+        "warm_runtime_seconds_mean": 10.366308333333334
+      },
+      "peak_rss_reduction_percent": 78.73904078679669,
+      "final_rss_reduction_percent": 80.43301315074854
+    },
+    "packed": {
+      "before": {
+        "iterations": [
+          {
+            "iteration": 1,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 12.2156,
+            "current_rss_kib": 5043224,
+            "peak_rss_kib": 5042104
+          },
+          {
+            "iteration": 2,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 11.5221,
+            "current_rss_kib": 6613004,
+            "peak_rss_kib": 6611808
+          },
+          {
+            "iteration": 3,
+            "grid": [
+              1,
+              48,
+              24
+            ],
+            "runtime_seconds": 12.3965,
+            "current_rss_kib": 7508560,
+            "peak_rss_kib": 7507164
+          },
+          {
+            "iteration": 4,
+            "grid": [
+              1,
+              22,
+              50
+            ],
+            "runtime_seconds": 12.1691,
+            "current_rss_kib": 7508688,
+            "peak_rss_kib": 7783200
+          },
+          {
+            "iteration": 5,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 8.36765,
+            "current_rss_kib": 7508688,
+            "peak_rss_kib": 7783200
+          },
+          {
+            "iteration": 6,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 8.66596,
+            "current_rss_kib": 7519440,
+            "peak_rss_kib": 7783200
+          },
+          {
+            "iteration": 7,
+            "grid": [
+              1,
+              48,
+              24
+            ],
+            "runtime_seconds": 9.6706,
+            "current_rss_kib": 7569632,
+            "peak_rss_kib": 7802036
+          },
+          {
+            "iteration": 8,
+            "grid": [
+              1,
+              22,
+              50
+            ],
+            "runtime_seconds": 10.975,
+            "current_rss_kib": 7569760,
+            "peak_rss_kib": 7847116
+          },
+          {
+            "iteration": 9,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 8.24511,
+            "current_rss_kib": 7586660,
+            "peak_rss_kib": 7847116
+          },
+          {
+            "iteration": 10,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 8.71223,
+            "current_rss_kib": 7569760,
+            "peak_rss_kib": 7847116
+          }
+        ],
+        "final_rss_kib": 7569760,
+        "peak_rss_kib": 7847116,
+        "warmup_to_final_growth_kib": 956756,
+        "warm_runtime_seconds_mean": 9.106091666666666
+      },
+      "after": {
+        "iterations": [
+          {
+            "iteration": 1,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 9.17236,
+            "current_rss_kib": 1105236,
+            "peak_rss_kib": 1113584
+          },
+          {
+            "iteration": 2,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 9.80046,
+            "current_rss_kib": 1073852,
+            "peak_rss_kib": 1120484
+          },
+          {
+            "iteration": 3,
+            "grid": [
+              1,
+              48,
+              24
+            ],
+            "runtime_seconds": 10.5942,
+            "current_rss_kib": 1136400,
+            "peak_rss_kib": 1167252
+          },
+          {
+            "iteration": 4,
+            "grid": [
+              1,
+              22,
+              50
+            ],
+            "runtime_seconds": 12.1782,
+            "current_rss_kib": 1074540,
+            "peak_rss_kib": 1167252
+          },
+          {
+            "iteration": 5,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 9.14659,
+            "current_rss_kib": 1123360,
+            "peak_rss_kib": 1167252
+          },
+          {
+            "iteration": 6,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 9.79492,
+            "current_rss_kib": 1117604,
+            "peak_rss_kib": 1167252
+          },
+          {
+            "iteration": 7,
+            "grid": [
+              1,
+              48,
+              24
+            ],
+            "runtime_seconds": 10.6492,
+            "current_rss_kib": 1020292,
+            "peak_rss_kib": 1168012
+          },
+          {
+            "iteration": 8,
+            "grid": [
+              1,
+              22,
+              50
+            ],
+            "runtime_seconds": 12.7215,
+            "current_rss_kib": 1029300,
+            "peak_rss_kib": 1168012
+          },
+          {
+            "iteration": 9,
+            "grid": [
+              1,
+              16,
+              64
+            ],
+            "runtime_seconds": 9.09668,
+            "current_rss_kib": 1078532,
+            "peak_rss_kib": 1168012
+          },
+          {
+            "iteration": 10,
+            "grid": [
+              1,
+              32,
+              32
+            ],
+            "runtime_seconds": 9.86684,
+            "current_rss_kib": 1114900,
+            "peak_rss_kib": 1168012
+          }
+        ],
+        "final_rss_kib": 1114900,
+        "peak_rss_kib": 1168012,
+        "warmup_to_final_growth_kib": 41048,
+        "warm_runtime_seconds_mean": 10.212621666666665
+      },
+      "peak_rss_reduction_percent": 85.11539780984505,
+      "final_rss_reduction_percent": 85.27165986768405
+    }
+  },
+  "dynamic_exact_results": [
+    {
+      "case": "ocr_wide_en",
+      "packing": 0,
+      "wall_seconds": 10.605859257000702,
+      "grid_thw": [
+        1,
+        16,
+        64
+      ],
+      "image_token_span": [
+        2,
+        268
+      ],
+      "sequence_length": 291,
+      "generated_token_ids": [
+        54,
+        30118,
+        113184,
+        185,
+        26997,
+        206,
+        24096,
+        120007
+      ],
+      "generated_text": "WIDE OCR\nTEST 314",
+      "eos_reached": true,
+      "peak_rss_kib": 1106388,
+      "runtime_seconds": 10.04,
+      "load_seconds": 0.546,
+      "log": "/home/asus/hunyuanocr-recovery/phase4d/linux_dynamic/ocr_wide_en_packing0.log"
+    },
+    {
+      "case": "ocr_wide_en",
+      "packing": 1,
+      "wall_seconds": 9.586558972001512,
+      "grid_thw": [
+        1,
+        16,
+        64
+      ],
+      "image_token_span": [
+        2,
+        268
+      ],
+      "sequence_length": 291,
+      "generated_token_ids": [
+        54,
+        30118,
+        113184,
+        185,
+        26997,
+        206,
+        24096,
+        120007
+      ],
+      "generated_text": "WIDE OCR\nTEST 314",
+      "eos_reached": true,
+      "peak_rss_kib": 1118576,
+      "runtime_seconds": 9.111,
+      "load_seconds": 0.455,
+      "log": "/home/asus/hunyuanocr-recovery/phase4d/linux_dynamic/ocr_wide_en_packing1.log"
+    },
+    {
+      "case": "ocr_square_en",
+      "packing": 0,
+      "wall_seconds": 10.630228739002632,
+      "grid_thw": [
+        1,
+        32,
+        32
+      ],
+      "image_token_span": [
+        2,
+        276
+      ],
+      "sequence_length": 299,
+      "generated_token_ids": [
+        50,
+        12548,
+        86874,
+        185,
+        114946,
+        21836,
+        185,
+        22,
+        120007
+      ],
+      "generated_text": "SQUARE\nOCR TEST\n7",
+      "eos_reached": true,
+      "peak_rss_kib": 1103484,
+      "runtime_seconds": 10.173,
+      "load_seconds": 0.433,
+      "log": "/home/asus/hunyuanocr-recovery/phase4d/linux_dynamic/ocr_square_en_packing0.log"
+    },
+    {
+      "case": "ocr_square_en",
+      "packing": 1,
+      "wall_seconds": 10.265204575000098,
+      "grid_thw": [
+        1,
+        32,
+        32
+      ],
+      "image_token_span": [
+        2,
+        276
+      ],
+      "sequence_length": 299,
+      "generated_token_ids": [
+        50,
+        12548,
+        86874,
+        185,
+        114946,
+        21836,
+        185,
+        22,
+        120007
+      ],
+      "generated_text": "SQUARE\nOCR TEST\n7",
+      "eos_reached": true,
+      "peak_rss_kib": 1114276,
+      "runtime_seconds": 9.811,
+      "load_seconds": 0.427,
+      "log": "/home/asus/hunyuanocr-recovery/phase4d/linux_dynamic/ocr_square_en_packing1.log"
+    },
+    {
+      "case": "ocr_tall_en",
+      "packing": 0,
+      "wall_seconds": 11.585366395000165,
+      "grid_thw": [
+        1,
+        48,
+        24
+      ],
+      "image_token_span": [
+        2,
+        316
+      ],
+      "sequence_length": 339,
+      "generated_token_ids": [
+        51,
+        12887,
+        185,
+        114946,
+        185,
+        26997,
+        206,
+        4065,
+        120007
+      ],
+      "generated_text": "TALL\nOCR\nTEST 42",
+      "eos_reached": true,
+      "peak_rss_kib": 1152212,
+      "runtime_seconds": 11.139,
+      "load_seconds": 0.419,
+      "log": "/home/asus/hunyuanocr-recovery/phase4d/linux_dynamic/ocr_tall_en_packing0.log"
+    },
+    {
+      "case": "ocr_tall_en",
+      "packing": 1,
+      "wall_seconds": 11.134352624998428,
+      "grid_thw": [
+        1,
+        48,
+        24
+      ],
+      "image_token_span": [
+        2,
+        316
+      ],
+      "sequence_length": 339,
+      "generated_token_ids": [
+        51,
+        12887,
+        185,
+        114946,
+        185,
+        26997,
+        206,
+        4065,
+        120007
+      ],
+      "generated_text": "TALL\nOCR\nTEST 42",
+      "eos_reached": true,
+      "peak_rss_kib": 1161212,
+      "runtime_seconds": 10.678,
+      "load_seconds": 0.432,
+      "log": "/home/asus/hunyuanocr-recovery/phase4d/linux_dynamic/ocr_tall_en_packing1.log"
+    }
+  ],
+  "real_ocr_exact_results": [
+    {
+      "case": "ocr_receipt_real_png",
+      "packing": 0,
+      "wall_seconds": 68.85200855199946,
+      "grid_thw": [
+        1,
+        58,
+        22
+      ],
+      "image_token_span": [
+        2,
+        352
+      ],
+      "sequence_length": 375,
+      "generated_token_ids": [
+        16178,
+        5297,
+        504,
+        185,
+        14346,
+        10836,
+        28367,
+        1373,
+        185,
+        16178,
+        21244,
+        504,
+        33881,
+        47020,
+        1772,
+        185,
+        5124,
+        8936,
+        504,
+        7827,
+        2445,
+        185,
+        4127,
+        2408,
+        16996,
+        504,
+        7415,
+        16,
+        185,
+        1420,
+        16996,
+        504,
+        29977,
+        33056,
+        4700,
+        185,
+        8936,
+        504,
+        29977,
+        33056,
+        4700,
+        185,
+        63400,
+        185,
+        1257,
+        1821,
+        504,
+        29977,
+        29977,
+        41703,
+        23,
+        185,
+        59253,
+        4037,
+        13,
+        185,
+        1360,
+        1821,
+        504,
+        15338,
+        32,
+        2383,
+        51,
+        28574,
+        16,
+        185,
+        51,
+        32445,
+        4037,
+        359,
+        12232,
+        504,
+        1717,
+        15,
+        12,
+        4152,
+        12,
+        1038,
+        185,
+        6116,
+        185,
+        69371,
+        504,
+        4950,
+        25,
+        3567,
+        185,
+        4505,
+        377,
+        185,
+        50168,
+        504,
+        4950,
+        25,
+        6179,
+        185,
+        4505,
+        1517,
+        185,
+        28092,
+        504,
+        18,
+        13,
+        439,
+        185,
+        15130,
+        19670,
+        185,
+        31112,
+        504,
+        2238,
+        13,
+        16,
+        10898,
+        185,
+        44,
+        750,
+        578,
+        185,
+        60829,
+        504,
+        439,
+        25,
+        1374,
+        25,
+        2508,
+        185,
+        31673,
+        185,
+        9387,
+        504,
+        100657,
+        4813,
+        13,
+        605,
+        1107,
+        185,
+        13752,
+        185,
+        829,
+        2063,
+        16178,
+        206,
+        113049,
+        14406,
+        185,
+        81679,
+        16178,
+        2095,
+        809,
+        2638,
+        185,
+        42222,
+        185,
+        829,
+        2063,
+        16178,
+        185,
+        51,
+        10001,
+        40,
+        14017,
+        5662,
+        32211,
+        185,
+        16178,
+        1782,
+        185,
+        1840,
+        26205,
+        16393,
+        185,
+        39156,
+        46329,
+        185,
+        16178,
+        15026,
+        2638,
+        120007
+      ],
+      "generated_text": "\u53d1\u7968\u4ee3\u7801\uff1a\n161002018100\n\u53d1\u7968\u53f7\u7801\uff1a42609332\n\u76d1\u7763\u7535\u8bdd\uff1a12345\n\u7ecf\u8425\u5355\u4f4d\u7f16\u53f7\uff1a0011\n\u7ba1\u7406\u7f16\u53f7\uff1a88887568\n\u7535\u8bdd\uff1a88887568\nTel\n\u8bc1\u53f7\uff1a8888880558\nCertificate No.\n\u8f66\u53f7\uff1a\u9655A\u00b7T5711\nTaxi No.\n\u65e5\u671f\uff1a2020-06-18\nDate\n\u4e0a\u8f66\uff1a09:01\nGet on\n\u4e0b\u8f66\uff1a09:51\nGet off\n\u5355\u4ef7\uff1a3.00\nUnit Price\n\u91cc\u7a0b\uff1a26.1km\nMileage\n\u7b49\u5019\uff1a00:17:33\nWait\n\u91d1\u989d\uff1a\uffe577.10\u5143\nSum\n\u673a\u6253\u53d1\u7968 \u624b\u5199\u65e0\u6548\n\u5168\u56fd\u7edf\u4e00\u53d1\u7968\u76d1\u5236\u7ae0\n\u56fd\u5bb6\u7a0e\u52a1\u603b\u5c40\n\u673a\u6253\u53d1\u7968\nTAXI RECEIPT\n\u53d1\u7968\u8054\nINVOICE\n\u5c71\u897f\u7701\u51fa\u79df\u8f66\n\u53d1\u7968\u4e13\u7528\u7ae0",
+      "eos_reached": true,
+      "peak_rss_kib": 1191776,
+      "runtime_seconds": 68.302,
+      "load_seconds": 0.527,
+      "log": "/home/asus/hunyuanocr-recovery/phase4d/linux_real/ocr_receipt_real_png_packing0.log"
+    },
+    {
+      "case": "ocr_receipt_real_png",
+      "packing": 1,
+      "wall_seconds": 188.20855896500143,
+      "grid_thw": [
+        1,
+        58,
+        22
+      ],
+      "image_token_span": [
+        2,
+        352
+      ],
+      "sequence_length": 375,
+      "generated_token_ids": [
+        16178,
+        5297,
+        504,
+        185,
+        14346,
+        10836,
+        28367,
+        1373,
+        185,
+        16178,
+        21244,
+        504,
+        33881,
+        47020,
+        1772,
+        185,
+        5124,
+        8936,
+        504,
+        7827,
+        2445,
+        185,
+        4127,
+        2408,
+        16996,
+        504,
+        7415,
+        16,
+        185,
+        1420,
+        16996,
+        504,
+        29977,
+        33056,
+        4700,
+        185,
+        8936,
+        504,
+        29977,
+        33056,
+        4700,
+        185,
+        63400,
+        185,
+        1257,
+        1821,
+        504,
+        29977,
+        29977,
+        41703,
+        23,
+        185,
+        59253,
+        4037,
+        13,
+        185,
+        1360,
+        1821,
+        504,
+        15338,
+        32,
+        2383,
+        51,
+        28574,
+        16,
+        185,
+        51,
+        32445,
+        4037,
+        359,
+        12232,
+        504,
+        1717,
+        15,
+        12,
+        4152,
+        12,
+        1038,
+        185,
+        6116,
+        185,
+        69371,
+        504,
+        4950,
+        25,
+        3567,
+        185,
+        4505,
+        377,
+        185,
+        50168,
+        504,
+        4950,
+        25,
+        6179,
+        185,
+        4505,
+        1517,
+        185,
+        28092,
+        504,
+        18,
+        13,
+        439,
+        185,
+        15130,
+        19670,
+        185,
+        31112,
+        504,
+        2238,
+        13,
+        16,
+        10898,
+        185,
+        44,
+        750,
+        578,
+        185,
+        60829,
+        504,
+        439,
+        25,
+        1374,
+        25,
+        2508,
+        185,
+        31673,
+        185,
+        9387,
+        504,
+        100657,
+        4813,
+        13,
+        605,
+        1107,
+        185,
+        13752,
+        185,
+        829,
+        2063,
+        16178,
+        206,
+        113049,
+        14406,
+        185,
+        81679,
+        16178,
+        2095,
+        809,
+        2638,
+        185,
+        42222,
+        185,
+        829,
+        2063,
+        16178,
+        185,
+        51,
+        10001,
+        40,
+        14017,
+        5662,
+        32211,
+        185,
+        16178,
+        1782,
+        185,
+        1840,
+        26205,
+        16393,
+        185,
+        39156,
+        46329,
+        185,
+        16178,
+        15026,
+        2638,
+        120007
+      ],
+      "generated_text": "\u53d1\u7968\u4ee3\u7801\uff1a\n161002018100\n\u53d1\u7968\u53f7\u7801\uff1a42609332\n\u76d1\u7763\u7535\u8bdd\uff1a12345\n\u7ecf\u8425\u5355\u4f4d\u7f16\u53f7\uff1a0011\n\u7ba1\u7406\u7f16\u53f7\uff1a88887568\n\u7535\u8bdd\uff1a88887568\nTel\n\u8bc1\u53f7\uff1a8888880558\nCertificate No.\n\u8f66\u53f7\uff1a\u9655A\u00b7T5711\nTaxi No.\n\u65e5\u671f\uff1a2020-06-18\nDate\n\u4e0a\u8f66\uff1a09:01\nGet on\n\u4e0b\u8f66\uff1a09:51\nGet off\n\u5355\u4ef7\uff1a3.00\nUnit Price\n\u91cc\u7a0b\uff1a26.1km\nMileage\n\u7b49\u5019\uff1a00:17:33\nWait\n\u91d1\u989d\uff1a\uffe577.10\u5143\nSum\n\u673a\u6253\u53d1\u7968 \u624b\u5199\u65e0\u6548\n\u5168\u56fd\u7edf\u4e00\u53d1\u7968\u76d1\u5236\u7ae0\n\u56fd\u5bb6\u7a0e\u52a1\u603b\u5c40\n\u673a\u6253\u53d1\u7968\nTAXI RECEIPT\n\u53d1\u7968\u8054\nINVOICE\n\u5c71\u897f\u7701\u51fa\u79df\u8f66\n\u53d1\u7968\u4e13\u7528\u7ae0",
+      "eos_reached": true,
+      "peak_rss_kib": 1195664,
+      "runtime_seconds": 187.742,
+      "load_seconds": 0.437,
+      "log": "/home/asus/hunyuanocr-recovery/phase4d/linux_real/ocr_receipt_real_png_packing1.log"
+    }
+  ],
+  "jpeg_compatibility": {
+    "status": "passed",
+    "pyTorch_exact_parity": "not claimed; stb and Pillow JPEG pixels differ"
+  },
+  "patch_limit": {
+    "status": "passed",
+    "default_max_vision_patches": 2048,
+    "rejected_grid": [
+      1,
+      120,
+      56
+    ],
+    "rejected_patch_count": 6720
+  },
+  "persistent_log_root": "/home/asus/hunyuanocr-recovery/phase4d"
+}

@@ -90,3 +90,30 @@ The runtime accepts processor-compatible PNG aspect ratios without a fixed
 square `[1,32,32]`, tall `[1,48,24]`, and the original smoke grid in both
 packed and unpacked modes. See `docs/phase4c_dynamic_image_grid_milestone.md`
 for exact tokens, NTFS model-copy measurements, and remaining resource limits.
+
+## Phase 4D Production Inputs And Memory
+
+The runtime now accepts PNG and JPEG input, retains reusable vision position,
+merger, and prompt resources across calls, and streams decoder layers by
+default. Streaming keeps repeated-process memory near 1.1 GiB instead of
+retaining every decoder network. Use `--cache-decode 1` only when the additional
+memory is acceptable, and set the workload guard with
+`--max-vision-patches N` (default: 2048).
+
+```bash
+build-phase4d-optimized/hunyuanocr_cli \
+  --model-dir "$PWD/artifacts" \
+  --image "$PWD/tests/assets/ocr_receipt_real.jpg" \
+  --packing 1 \
+  --max-vision-patches 2048 \
+  --cache-decode 0
+```
+
+The optional repeated-runtime benchmark is enabled with
+`-DHUNYUANOCR_BUILD_BENCHMARKS=ON`. Linux and native Windows regressions cover
+ten mixed-size calls in one process, exact PyTorch token parity for a real OCR
+receipt through its lossless PNG fixture, JPEG decoding compatibility, and
+explicit rejection of excessive vision grids. JPEG pixels can differ between
+stb_image and Pillow/libjpeg, so exact cross-decoder token parity is asserted on
+the lossless PNG fixture. Full evidence and remaining risks are documented in
+`docs/phase4d_runtime_memory_milestone.md`.

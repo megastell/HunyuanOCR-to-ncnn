@@ -21,8 +21,10 @@ namespace {
 void print_usage(const char* program)
 {
     std::cerr
-        << "Usage: " << program << " --model-dir <artifacts> --image <png>\n"
+        << "Usage: " << program
+        << " --model-dir <artifacts> --image <png-or-jpeg>\n"
         << "       [--packing 0|1] [--threads N] [--max-new-tokens N]\n"
+        << "       [--max-vision-patches N] [--cache-decode 0|1]\n"
         << "       [--verify none|size|sha256]\n";
 }
 
@@ -107,6 +109,22 @@ int main(int argc, char** argv)
                 print_usage(argv[0]);
                 return EXIT_FAILURE;
             }
+        } else if (argument == "--max-vision-patches") {
+            const char* value = next_value();
+            if (value == nullptr
+                || !parse_positive_integer(
+                    value, options.max_vision_patches)) {
+                print_usage(argv[0]);
+                return EXIT_FAILURE;
+            }
+        } else if (argument == "--cache-decode") {
+            const char* value = next_value();
+            if (value == nullptr
+                || (std::string(value) != "0" && std::string(value) != "1")) {
+                print_usage(argv[0]);
+                return EXIT_FAILURE;
+            }
+            options.cache_decode_weights = std::string(value) == "1";
         } else if (argument == "--verify") {
             const char* value = next_value();
             if (value == nullptr) {
@@ -160,6 +178,8 @@ int main(int argc, char** argv)
               << "Input image     : " << image_path << '\n'
               << "Packing layout : " << std::boolalpha
               << options.use_packing_layout << '\n'
+              << "Decode cache    : " << options.cache_decode_weights << '\n'
+              << "Patch limit     : " << options.max_vision_patches << '\n'
               << "Image size      : " << result.original_width << 'x'
               << result.original_height << " -> " << result.resized_width
               << 'x' << result.resized_height << '\n'

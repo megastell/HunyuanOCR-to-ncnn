@@ -4,6 +4,7 @@ project(HunyuanOCR_ncnn VERSION 0.1.0 LANGUAGES CXX)
 
 option(HUNYUANOCR_BUILD_CLI "Build the HunyuanOCR command-line application" ON)
 option(HUNYUANOCR_BUILD_PARITY_TESTS "Build reference-backed parity tests" OFF)
+option(HUNYUANOCR_BUILD_BENCHMARKS "Build runtime benchmark utilities" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -37,6 +38,26 @@ else()
     target_compile_options(
         hunyuanocr_runtime PRIVATE -Wall -Wextra -Wpedantic
     )
+endif()
+
+if(HUNYUANOCR_BUILD_BENCHMARKS)
+    add_executable(
+        hunyuanocr_repeat_benchmark
+        tools/benchmark/runtime_repeat_benchmark.cpp
+    )
+    target_link_libraries(
+        hunyuanocr_repeat_benchmark PRIVATE HunyuanOCR::runtime
+    )
+    if(MSVC)
+        target_link_libraries(hunyuanocr_repeat_benchmark PRIVATE Psapi)
+        target_compile_options(
+            hunyuanocr_repeat_benchmark PRIVATE /W4 /permissive-
+        )
+    else()
+        target_compile_options(
+            hunyuanocr_repeat_benchmark PRIVATE -Wall -Wextra -Wpedantic
+        )
+    endif()
 endif()
 
 if(HUNYUANOCR_BUILD_CLI)

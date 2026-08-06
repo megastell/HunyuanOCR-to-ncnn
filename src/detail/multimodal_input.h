@@ -21,10 +21,24 @@ struct MultimodalPrefillInput {
     int image_token_end = 0;
 };
 
+struct MultimodalResources {
+    std::vector<float> vision_position_embedding;
+    std::vector<float> vision_merger_constants;
+    std::vector<std::int64_t> prompt_token_ids;
+};
+
+bool load_multimodal_resources(
+    const std::string& model_directory,
+    MultimodalResources& resources,
+    std::string& error);
+
 bool build_multimodal_prefill_input(
     const std::string& model_directory,
     const std::string& image_path,
     bool use_packing_layout,
     int num_threads,
+    int max_vision_patches,
     ncnn::Net& text_embedding_network,
+    const MultimodalResources& resources,
+    std::string& error,
     MultimodalPrefillInput& result);

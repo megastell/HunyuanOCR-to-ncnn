@@ -18,9 +18,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cli", type=Path, required=True)
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--log-dir", type=Path, required=True)
+    parser.add_argument(
+        "--expected",
+        type=Path,
+        default=PROJECT_DIR / "tests/assets/dynamic_ocr_expected.json",
+    )
     parser.add_argument("--packing", choices=("0", "1", "both"), default="both")
     parser.add_argument("--verify", choices=("none", "size", "sha256"), default="size")
     parser.add_argument("--threads", type=int, default=9)
+    parser.add_argument("--max-new-tokens", type=int, default=32)
     return parser.parse_args()
 
 
@@ -58,8 +64,7 @@ def parse_output(output: str) -> dict[str, object]:
 
 def main() -> None:
     args = parse_args()
-    expected_path = PROJECT_DIR / "tests/assets/dynamic_ocr_expected.json"
-    expected = json.loads(expected_path.read_text(encoding="utf-8"))
+    expected = json.loads(args.expected.read_text(encoding="utf-8"))
     modes = [0, 1] if args.packing == "both" else [int(args.packing)]
     args.log_dir.mkdir(parents=True, exist_ok=True)
     results: list[dict[str, object]] = []
@@ -71,6 +76,7 @@ def main() -> None:
                 "--image", str(PROJECT_DIR / case["path"]),
                 "--packing", str(packing),
                 "--threads", str(args.threads),
+                "--max-new-tokens", str(args.max_new_tokens),
                 "--verify", args.verify,
             ]
             start = time.perf_counter()

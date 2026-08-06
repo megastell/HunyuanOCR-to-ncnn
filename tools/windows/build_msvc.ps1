@@ -2,7 +2,7 @@
 param(
     [string]$RepoRoot = "",
     [string]$NcnnSource = "",
-    [string]$WorkRoot = "D:\hunyuanocr-recovery\phase4c",
+    [string]$WorkRoot = "D:\hunyuanocr-recovery\phase4d",
     [ValidateRange(1, 64)]
     [int]$Jobs = 12
 )
@@ -92,7 +92,8 @@ Invoke-VsCommand -Log (Join-Path $WorkRoot "runtime_configure.log") -Command (
     "cmake -S `"$RepoRoot`" -B `"$runtimeBuild`" -G Ninja " +
     "-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=`"$runtimeInstall`" " +
     "-Dncnn_DIR=`"$ncnnInstall\lib\cmake\ncnn`" " +
-    "-DHUNYUANOCR_BUILD_CLI=ON -DHUNYUANOCR_BUILD_PARITY_TESTS=OFF"
+    "-DHUNYUANOCR_BUILD_CLI=ON -DHUNYUANOCR_BUILD_BENCHMARKS=ON " +
+    "-DHUNYUANOCR_BUILD_PARITY_TESTS=OFF"
 )
 Invoke-VsCommand -Log (Join-Path $WorkRoot "runtime_build_install.log") -Command (
     "cmake --build `"$runtimeBuild`" -j $Jobs && " +

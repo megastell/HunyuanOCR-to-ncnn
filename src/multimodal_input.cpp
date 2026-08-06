@@ -18,6 +18,7 @@
 #endif
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_PNG
+#define STBI_ONLY_JPEG
 #include "stb_image.h"
 #if defined(__GNUC__)
 #pragma GCC diagnostic pop
@@ -324,8 +325,8 @@ bool resize_rgb_pillow_bicubic(
 bool preprocess_image(
     const std::string& image_path,
     std::vector<float>& pixel_values,
-    std::vector<float>& original_rgb,
-    std::vector<float>& resized_rgb,
+    int max_vision_patches,
+    std::string& error,
     int& original_width,
     int& original_height,
     int& resized_width,
@@ -339,7 +340,8 @@ bool preprocess_image(
         &channels,
         3);
     if (decoded == nullptr) {
-        std::cerr << "Unable to decode image: " << stbi_failure_reason() << '\n';
+        error = "Unable to decode PNG/JPEG image: ";
+        error += stbi_failure_reason();
         return false;
     }
     if (!smart_resize(
@@ -348,14 +350,8 @@ bool preprocess_image(
             resized_height,
             resized_width)) {
         stbi_image_free(decoded);
+        error = "Image dimensions are invalid or exceed the 200:1 ratio limit";
         return false;
-    }
-
-    const std::size_t original_value_count =
-        static_cast<std::size_t>(original_width) * original_height * 3;
-    original_rgb.resize(original_value_count);
-    for (std::size_t index = 0; index < original_value_count; ++index) {
-        original_rgb[index] = static_cast<float>(decoded[index]);
     }
 
     std::vector<std::uint8_t> quantized;
@@ -368,27 +364,37 @@ bool preprocess_image(
         quantized);
     stbi_image_free(decoded);
     if (!resize_succeeded) {
+        error = "Pillow-compatible bicubic image resize failed";
         return false;
-    }
-
-    const std::size_t resized_pixels =
-        static_cast<std::size_t>(resized_width) * resized_height;
-    resized_rgb.resize(resized_pixels * 3);
-    for (std::size_t index = 0; index < quantized.size(); ++index) {
-        resized_rgb[index] = static_cast<float>(quantized[index]);
     }
 
     const int grid_h = resized_height / kPatchSize;
     const int grid_w = resized_width / kPatchSize;
     if (grid_h <= 0 || grid_w <= 0
         || grid_h % kMergeSize != 0 || grid_w % kMergeSize != 0) {
-        std::cerr << "Unsupported resized grid: " << grid_h << 'x' << grid_w
-                  << '\n';
+        error = "Unsupported resized image grid [1,"
+            + std::to_string(grid_h) + ',' + std::to_string(grid_w)
+            + "]; both spatial dimensions must be positive and even";
         return false;
     }
 
     const std::size_t patch_count =
         static_cast<std::size_t>(grid_h) * grid_w;
+    if (patch_count > static_cast<std::size_t>(max_vision_patches)) {
+        const double attention_mib =
+            16.0 * patch_count * patch_count * sizeof(float)
+            / (1024.0 * 1024.0);
+        error = "Image grid [1," + std::to_string(grid_h) + ','
+            + std::to_string(grid_w) + "] contains "
+            + std::to_string(patch_count)
+            + " vision patches, exceeding the configured limit of "
+            + std::to_string(max_vision_patches)
+            + ". Estimated FP32 attention-score memory is "
+            + std::to_string(static_cast<long long>(attention_mib))
+            + " MiB per vision layer. Resize the image or raise "
+              "max_vision_patches only when sufficient RAM is available.";
+        return false;
+    }
     pixel_values.resize(patch_count * kPatchVectorSize);
     for (int patch_y = 0; patch_y < grid_h; ++patch_y) {
         for (int patch_x = 0; patch_x < grid_w; ++patch_x) {
@@ -478,7 +484,7 @@ bool load_f32_file(
 }
 
 bool add_interpolated_positions(
-    const std::string& model_directory,
+    const std::vector<float>& table,
     int grid_h,
     int grid_w,
     std::vector<float>& hidden)
@@ -486,13 +492,7 @@ bool add_interpolated_positions(
     const std::size_t table_count =
         static_cast<std::size_t>(kPositionGridSize) * kPositionGridSize
         * kVisionHiddenSize;
-    std::vector<float> table;
-    if (!load_f32_file(
-            model_directory
-                + "/vision_patch_embed/vision_position_embedding.f32.bin",
-            table_count,
-            table)) {
-        std::cerr << "Unable to load the vision position table\n";
+    if (table.size() != table_count) {
         return false;
     }
     if (hidden.size()
@@ -575,6 +575,7 @@ bool run_vision_tower(
     const std::vector<float>& pixel_values,
     int grid_h,
     int grid_w,
+    const MultimodalResources& resources,
     std::vector<float>& vision_embeddings)
 {
     const int patch_count = grid_h * grid_w;
@@ -601,12 +602,18 @@ bool run_vision_tower(
     std::vector<float> hidden_values;
     if (!unpack_mat(output, hidden_values)
         || !add_interpolated_positions(
-            model_directory, grid_h, grid_w, hidden_values)) {
+            resources.vision_position_embedding,
+            grid_h,
+            grid_w,
+            hidden_values)) {
         return false;
     }
     ncnn::Mat hidden(
         kVisionHiddenSize, patch_count, hidden_values.data());
     hidden = hidden.clone();
+    input.release();
+    hidden_values.clear();
+    hidden_values.shrink_to_fit();
 
     for (int layer = 0; layer < kVisionBlocks; ++layer) {
         const std::string name = "vision_block" + std::to_string(layer);
@@ -632,6 +639,8 @@ bool run_vision_tower(
         || !unpack_mat(output, hidden_values)) {
         return false;
     }
+    hidden.release();
+    output.release();
     ncnn::Mat convolution_input(grid_w, grid_h, kVisionHiddenSize);
     if (convolution_input.empty()) return false;
     for (int feature = 0; feature < kVisionHiddenSize; ++feature) {
@@ -641,6 +650,8 @@ bool run_vision_tower(
                 static_cast<std::size_t>(patch) * kVisionHiddenSize + feature];
         }
     }
+    hidden_values.clear();
+    hidden_values.shrink_to_fit();
     if (!run_named_component(
             model_directory,
             "vision_patch_merger_conv",
@@ -652,16 +663,13 @@ bool run_vision_tower(
     }
     std::vector<float> convolution_values;
     if (!unpack_mat(output, convolution_values)) return false;
+    convolution_input.release();
+    output.release();
 
-    std::vector<float> constants;
     constexpr std::size_t newline_count = kMergerWidth;
     constexpr std::size_t boundary_count = kTextHiddenSize;
-    if (!load_f32_file(
-            model_directory
-                + "/vision_patch_merger/vision_patch_merger_constants.f32.bin",
-            newline_count + 2 * boundary_count,
-            constants)) {
-        std::cerr << "Unable to load vision merger constants\n";
+    const std::vector<float>& constants = resources.vision_merger_constants;
+    if (constants.size() != newline_count + 2 * boundary_count) {
         return false;
     }
     const int merged_h = grid_h / kMergeSize;
@@ -694,8 +702,14 @@ bool run_vision_tower(
             output)) {
         return false;
     }
+    projection_input.release();
+    projection_values.clear();
+    projection_values.shrink_to_fit();
+    convolution_values.clear();
+    convolution_values.shrink_to_fit();
     std::vector<float> projected;
     if (!unpack_mat(output, projected)) return false;
+    output.release();
     const int image_tokens = projection_tokens + 2;
     std::vector<float> with_boundaries(
         static_cast<std::size_t>(image_tokens) * kTextHiddenSize);
@@ -711,6 +725,8 @@ bool run_vision_tower(
         constants.begin() + newline_count + boundary_count,
         constants.end(),
         with_boundaries.end() - kTextHiddenSize);
+    projected.clear();
+    projected.shrink_to_fit();
     ncnn::Mat post_input(
         kTextHiddenSize, image_tokens, with_boundaries.data());
     if (!run_named_component(
@@ -746,27 +762,62 @@ bool run_text_embedding(
 
 } // namespace
 
+bool load_multimodal_resources(
+    const std::string& model_directory,
+    MultimodalResources& resources,
+    std::string& error)
+{
+    const std::size_t position_count =
+        static_cast<std::size_t>(kPositionGridSize) * kPositionGridSize
+        * kVisionHiddenSize;
+    constexpr std::size_t merger_count =
+        kMergerWidth + 2 * kTextHiddenSize;
+    resources = MultimodalResources{};
+    if (!load_f32_file(
+            model_directory
+                + "/vision_patch_embed/vision_position_embedding.f32.bin",
+            position_count,
+            resources.vision_position_embedding)) {
+        error = "Unable to load the 128x128 vision position table";
+        return false;
+    }
+    if (!load_f32_file(
+            model_directory
+                + "/vision_patch_merger/vision_patch_merger_constants.f32.bin",
+            merger_count,
+            resources.vision_merger_constants)) {
+        error = "Unable to load the vision merger constants";
+        return false;
+    }
+    if (!load_ocr_prompt_token_ids(
+            model_directory, resources.prompt_token_ids)) {
+        error = "Unable to construct the fixed OCR prompt token IDs";
+        return false;
+    }
+    return true;
+}
+
 bool build_multimodal_prefill_input(
     const std::string& model_directory,
     const std::string& image_path,
     bool use_packing_layout,
     int num_threads,
+    int max_vision_patches,
     ncnn::Net& text_embedding_network,
+    const MultimodalResources& resources,
+    std::string& error,
     MultimodalPrefillInput& result)
 {
     std::vector<float> pixel_values;
-    std::vector<float> original_rgb;
-    std::vector<float> resized_rgb;
     if (!preprocess_image(
             image_path,
             pixel_values,
-            original_rgb,
-            resized_rgb,
+            max_vision_patches,
+            error,
             result.original_width,
             result.original_height,
             result.resized_width,
             result.resized_height)) {
-        std::cerr << "C++ image preprocessing failed\n";
         return false;
     }
     result.image_grid_thw = {
@@ -784,14 +835,16 @@ bool build_multimodal_prefill_input(
             pixel_values,
             grid_h,
             grid_w,
+            resources,
             vision_embeddings)) {
-        std::cerr << "Full ncnn vision tower failed\n";
+        error = "Full ncnn vision tower failed";
         return false;
     }
     if (!build_ocr_prompt_inputs(
-            model_directory,
+            resources.prompt_token_ids,
             result.image_grid_thw,
             result.prompt_inputs)) {
+        error = "Dynamic OCR prompt or mRoPE construction failed";
         return false;
     }
 
@@ -808,8 +861,8 @@ bool build_multimodal_prefill_input(
                 text_embedding_network,
                 static_cast<int>(result.prompt_inputs.input_ids[position]),
                 embedding)) {
-            std::cerr << "Text embedding failed at position " << position
-                      << '\n';
+            error = "Text embedding failed at position "
+                + std::to_string(position);
             return false;
         }
         std::copy(
@@ -830,7 +883,7 @@ bool build_multimodal_prefill_input(
         || vision_embeddings.size()
             != static_cast<std::size_t>(expected_image_tokens)
                 * kTextHiddenSize) {
-        std::cerr << "Unexpected image token span\n";
+        error = "Vision output and dynamic image-token span disagree";
         return false;
     }
     result.hidden_states = text_embeddings;

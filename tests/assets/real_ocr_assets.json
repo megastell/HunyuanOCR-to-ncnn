@@ -1,0 +1,25 @@
+{
+  "format": "HUNYUANOCR_REAL_OCR_ASSETS_V1",
+  "source": {
+    "repository": "https://github.com/Tencent-Hunyuan/HunyuanOCR.git",
+    "revision": "c55965d3da1e6f41987abec8068f2e70851318bc",
+    "path": "HunyuanOCR_v1.0/assets/ie_parallel.jpg",
+    "sha256": "a69ce288471933fcf521ee950324338feebc07f7b329cf2896aa460bfada427d"
+  },
+  "dimensions": [
+    352,
+    941
+  ],
+  "assets": [
+    {
+      "path": "tests/assets/ocr_receipt_real.jpg",
+      "encoding": "original JPEG",
+      "sha256": "a69ce288471933fcf521ee950324338feebc07f7b329cf2896aa460bfada427d"
+    },
+    {
+      "path": "tests/assets/ocr_receipt_real.png",
+      "encoding": "Pillow-decoded RGB saved losslessly as PNG",
+      "sha256": "c217e9aa93c365c14db744436f4cc4d778438402e43dbb35ae14e888d6b2d1ea"
+    }
+  ]
+}

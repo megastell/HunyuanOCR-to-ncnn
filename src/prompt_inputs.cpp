@@ -384,10 +384,9 @@ void build_rope_embeddings(
 
 } // namespace
 
-bool build_ocr_prompt_inputs(
+bool load_ocr_prompt_token_ids(
     const std::string& model_directory,
-    const std::array<std::int64_t, 3>& image_grid_thw,
-    PromptInputs& result)
+    std::vector<std::int64_t>& prompt_ids)
 {
     FixedOcrByteLevelBpe tokenizer;
     if (!tokenizer.load(
@@ -396,8 +395,16 @@ bool build_ocr_prompt_inputs(
         std::cerr << "Failed to load the C++ ByteLevel BPE assets\n";
         return false;
     }
-    std::vector<std::int64_t> prompt_ids;
-    if (!tokenizer.encode(fixed_ocr_prompt(), prompt_ids)) {
+    return tokenizer.encode(fixed_ocr_prompt(), prompt_ids);
+}
+
+bool build_ocr_prompt_inputs(
+    const std::vector<std::int64_t>& prompt_ids,
+    const std::array<std::int64_t, 3>& image_grid_thw,
+    PromptInputs& result)
+{
+    if (prompt_ids.empty()) {
+        std::cerr << "OCR prompt token IDs are empty\n";
         return false;
     }
 

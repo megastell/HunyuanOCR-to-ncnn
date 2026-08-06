@@ -394,8 +394,11 @@ public:
 
     bool load(const std::string& directory, std::string& error)
     {
-        if (options.num_threads <= 0 || options.max_new_tokens <= 0) {
-            error = "num_threads and max_new_tokens must be positive";
+        loaded = false;
+        if (options.num_threads <= 0 || options.max_new_tokens <= 0
+            || options.max_vision_patches <= 0) {
+            error = "num_threads, max_new_tokens, and max_vision_patches "
+                "must be positive";
             return false;
         }
         if (!detail::verify_model_manifest(
@@ -407,6 +410,7 @@ public:
         lm_head.clear();
         embedding.clear();
         decoder_networks.clear();
+        multimodal_resources = MultimodalResources{};
         if (!configure_and_load(
                 final_norm, directory, "final_norm", options)) {
             error = "Unable to load final_norm model";
@@ -425,13 +429,19 @@ public:
             error = "Unable to load tokenizer vocabulary";
             return false;
         }
+        if (!load_multimodal_resources(
+                directory, multimodal_resources, error)) {
+            return false;
+        }
         loaded = true;
         return true;
     }
 
     bool ensure_decoder_networks(std::string& error)
     {
-        if (!decoder_networks.empty()) return true;
+        if (!options.cache_decode_weights || !decoder_networks.empty()) {
+            return true;
+        }
         decoder_networks.reserve(kLayerCount);
         for (int layer = 0; layer < kLayerCount; ++layer) {
             const std::string name = "decoder_layer" + std::to_string(layer)
@@ -467,9 +477,11 @@ public:
                 image_path,
                 options.use_packing_layout,
                 options.num_threads,
+                options.max_vision_patches,
                 embedding,
+                multimodal_resources,
+                error,
                 multimodal)) {
-            error = "Image preprocessing, vision encoding, or prompt fusion failed";
             return false;
         }
         result.original_width = multimodal.original_width;
@@ -591,11 +603,30 @@ public:
             ncnn::Mat decode_cos = make_decode_rope(decode_cos_values);
             ncnn::Mat decode_sin = make_decode_rope(decode_sin_values);
             for (int layer = 0; layer < kLayerCount; ++layer) {
+                std::unique_ptr<ncnn::Net> streamed_network;
+                ncnn::Net* decoder = nullptr;
+                if (options.cache_decode_weights) {
+                    decoder = decoder_networks[layer].get();
+                } else {
+                    const std::string name = "decoder_layer"
+                        + std::to_string(layer) + "_decode_dynamic";
+                    streamed_network = std::make_unique<ncnn::Net>();
+                    if (!configure_and_load(
+                            *streamed_network,
+                            model_directory,
+                            name,
+                            options)) {
+                        error = "Unable to stream dynamic decoder layer "
+                            + std::to_string(layer);
+                        return false;
+                    }
+                    decoder = streamed_network.get();
+                }
                 ncnn::Mat next_hidden;
                 ncnn::Mat present_key;
                 ncnn::Mat present_value;
                 if (!run_decoder_layer(
-                        *decoder_networks[layer],
+                        *decoder,
                         current_hidden,
                         decode_mask,
                         decode_cos,
@@ -611,6 +642,7 @@ public:
                         + std::to_string(layer);
                     return false;
                 }
+                if (streamed_network) streamed_network->clear();
                 cache_keys[layer] = present_key;
                 cache_values[layer] = present_value;
                 current_hidden = next_hidden;
@@ -653,6 +685,7 @@ public:
     ncnn::Net final_norm;
     ncnn::Net lm_head;
     ncnn::Net embedding;
+    MultimodalResources multimodal_resources;
     ByteLevelDecoder tokenizer;
     std::vector<std::unique_ptr<ncnn::Net>> decoder_networks;
 };
