@@ -1,0 +1,23 @@
+{
+  "format": "HUNYUANOCR_BYTELEVEL_VOCAB_V1",
+  "vocabulary_size": 120818,
+  "missing_id_count": 0,
+  "missing_ids": [],
+  "eos_token_id": 120007,
+  "smoke_token_ids": [
+    93892,
+    5112,
+    206,
+    1717,
+    21,
+    185,
+    18009,
+    15613,
+    16678,
+    21836,
+    120007
+  ],
+  "smoke_text": "HELLO 2026\nNCNN CPU TEST",
+  "output_path": "artifacts/tokenizer/bytelevel_vocab.txt",
+  "output_bytes": 2689569
+}

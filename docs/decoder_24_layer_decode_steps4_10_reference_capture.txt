@@ -1,0 +1,9 @@
+Step 4: token 1717 -> 21, KV 316 -> 317, 0.063s
+Step 5: token 21 -> 185, KV 317 -> 318, 0.056s
+Step 6: token 185 -> 18009, KV 318 -> 319, 0.058s
+Step 7: token 18009 -> 15613, KV 319 -> 320, 0.063s
+Step 8: token 15613 -> 16678, KV 320 -> 321, 0.057s
+Step 9: token 16678 -> 21836, KV 321 -> 322, 0.063s
+Step 10: token 21836 -> 120007, KV 322 -> 323, 0.055s
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decoder_24_layer_decode_steps4_10_reference.json
+Captured autoregressive references successfully.
