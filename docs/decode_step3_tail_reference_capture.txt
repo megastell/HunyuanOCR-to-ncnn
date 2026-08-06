@@ -1,0 +1,15 @@
+===== Load model =====
+Model loaded in 1.388s
+Final norm module: model.language_model.norm
+LM Head module: lm_head
+
+===== Step 3 tail reference =====
+Final norm input shape: (1, 1, 1024)
+Final norm output shape: (1, 1, 1024)
+Logits shape: (1, 1, 120818)
+Logits maximum abs error: 0.0000000000e+00
+Expected token: 1717
+Actual token: 1717
+
+Report: /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/decode_step3_tail_reference.json
+✅ Step 3 Final RMSNorm与LM Head参考捕获成功。
