@@ -1,0 +1,2159 @@
+{
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "torch_version": "2.12.1+cpu",
+  "torch_threads": 9,
+  "model_load_seconds": 1.2000738520000596,
+  "prefill_forward_seconds": 3.3760777940005937,
+  "total_capture_seconds": 4.980889031000515,
+  "sequence_length": 313,
+  "layer_count": 24,
+  "position_ids_are_none": true,
+  "shared_input_max_abs_errors": {
+    "attention_mask": 0.0,
+    "rope_cos": 0.0,
+    "rope_sin": 0.0
+  },
+  "layer0_contract_max_abs_errors": {
+    "hidden_states": 0.0,
+    "attention_mask": 0.0,
+    "rope_cos": 0.0,
+    "rope_sin": 0.0
+  },
+  "maximum_layer_boundary_error": 0.0,
+  "maximum_existing_cache_error": 0.0,
+  "attention_mask": {
+    "shape": [
+      1,
+      1,
+      313,
+      313
+    ],
+    "dtype": "torch.float32",
+    "numel": 97969,
+    "minimum_finite": -3.4028234663852886e+38,
+    "maximum_finite": 0.0,
+    "mean_finite": -Infinity,
+    "nan_count": 0,
+    "positive_inf_count": 0,
+    "negative_inf_count": 0,
+    "zero_count": 49141,
+    "negative_count": 48828
+  },
+  "rope_cos": {
+    "shape": [
+      4,
+      1,
+      313,
+      128
+    ],
+    "dtype": "torch.float32",
+    "numel": 160256,
+    "minimum_finite": -0.9999999403953552,
+    "maximum_finite": 1.0,
+    "mean_finite": 0.826760470867157,
+    "nan_count": 0,
+    "positive_inf_count": 0,
+    "negative_inf_count": 0
+  },
+  "rope_sin": {
+    "shape": [
+      4,
+      1,
+      313,
+      128
+    ],
+    "dtype": "torch.float32",
+    "numel": 160256,
+    "minimum_finite": -1.0,
+    "maximum_finite": 1.0,
+    "mean_finite": 0.07023238390684128,
+    "nan_count": 0,
+    "positive_inf_count": 0,
+    "negative_inf_count": 0
+  },
+  "expected_first_token": 93892,
+  "actual_first_token": 93892,
+  "tail_tensors": {
+    "final_norm_input": {
+      "shape": [
+        1,
+        1,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 1024,
+      "minimum_finite": -0.6089973449707031,
+      "maximum_finite": 0.5295103192329407,
+      "mean_finite": 0.003941761329770088,
+      "nan_count": 0,
+      "positive_inf_count": 0,
+      "negative_inf_count": 0,
+      "npy_path": "reference/smoke_en_cpu_fp32/prefill_tail/final_norm_input.npy",
+      "raw_path": "artifacts/prefill_tail/reference/final_norm_input_f32.bin",
+      "raw_bytes": 4096
+    },
+    "final_norm_output": {
+      "shape": [
+        1,
+        1,
+        1024
+      ],
+      "dtype": "torch.float32",
+      "numel": 1024,
+      "minimum_finite": -12.193961143493652,
+      "maximum_finite": 13.621238708496094,
+      "mean_finite": 0.11091244220733643,
+      "nan_count": 0,
+      "positive_inf_count": 0,
+      "negative_inf_count": 0,
+      "npy_path": "reference/smoke_en_cpu_fp32/prefill_tail/final_norm_output.npy",
+      "raw_path": "artifacts/prefill_tail/reference/final_norm_output_f32.bin",
+      "raw_bytes": 4096
+    },
+    "prefill_logits": {
+      "shape": [
+        1,
+        1,
+        120818
+      ],
+      "dtype": "torch.float32",
+      "numel": 120818,
+      "minimum_finite": -13.50861930847168,
+      "maximum_finite": 25.28235626220703,
+      "mean_finite": -2.4288697242736816,
+      "nan_count": 0,
+      "positive_inf_count": 0,
+      "negative_inf_count": 0,
+      "npy_path": "reference/smoke_en_cpu_fp32/prefill_tail/prefill_logits.npy",
+      "raw_path": "artifacts/prefill_tail/reference/prefill_logits_f32.bin",
+      "raw_bytes": 483272
+    }
+  },
+  "layers": [
+    {
+      "layer_index": 0,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -19.66667938232422,
+          "maximum_finite": 7.11028528213501,
+          "mean_finite": -0.014032484032213688,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill_kv/layer0_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer0_prefill_kv/reference/layer0_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.43325424194336,
+          "maximum_finite": 110.1541748046875,
+          "mean_finite": -0.008692948147654533,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill_kv/layer0_output.npy",
+          "raw_path": "artifacts/decoder_layer0_prefill_kv/reference/layer0_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -9.10250186920166,
+          "maximum_finite": 11.014780044555664,
+          "mean_finite": 0.003628822974860668,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer0_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.47120440006256104,
+          "maximum_finite": 0.566735565662384,
+          "mean_finite": -0.000287857954390347,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer0_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "attention_mask": {
+          "shape": [
+            1,
+            1,
+            313,
+            313
+          ],
+          "dtype": "torch.float32",
+          "numel": 97969,
+          "minimum_finite": -3.4028234663852886e+38,
+          "maximum_finite": 0.0,
+          "mean_finite": -Infinity,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill_kv/layer0_attention_mask.npy",
+          "raw_path": "artifacts/decoder_layer0_prefill_kv/reference/layer0_attention_mask_f32.bin",
+          "raw_bytes": 391876
+        },
+        "rope_cos": {
+          "shape": [
+            4,
+            1,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 160256,
+          "minimum_finite": -0.9999999403953552,
+          "maximum_finite": 1.0,
+          "mean_finite": 0.826760470867157,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill_kv/layer0_position_embeddings_0.npy",
+          "raw_path": "artifacts/decoder_layer0_prefill_kv/reference/layer0_position_embeddings_0_f32.bin",
+          "raw_bytes": 641024
+        },
+        "rope_sin": {
+          "shape": [
+            4,
+            1,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 160256,
+          "minimum_finite": -1.0,
+          "maximum_finite": 1.0,
+          "mean_finite": 0.07023238390684128,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer0_prefill_kv/layer0_position_embeddings_1.npy",
+          "raw_path": "artifacts/decoder_layer0_prefill_kv/reference/layer0_position_embeddings_1_f32.bin",
+          "raw_bytes": 641024
+        }
+      }
+    },
+    {
+      "layer_index": 1,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.43325424194336,
+          "maximum_finite": 110.1541748046875,
+          "mean_finite": -0.008692948147654533,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer1_prefill_kv/layer1_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer1_prefill_kv/reference/layer1_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.667095184326172,
+          "maximum_finite": 110.17848205566406,
+          "mean_finite": -0.006704261992126703,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer1_prefill_kv/layer1_output.npy",
+          "raw_path": "artifacts/decoder_layer1_prefill_kv/reference/layer1_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -8.825188636779785,
+          "maximum_finite": 8.86380386352539,
+          "mean_finite": -0.026510171592235565,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer1_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer1_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.322221040725708,
+          "maximum_finite": 0.3388074040412903,
+          "mean_finite": -9.731624231790192e-06,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer1_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer1_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 2,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.667095184326172,
+          "maximum_finite": 110.17848205566406,
+          "mean_finite": -0.006704261992126703,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer2_prefill_kv/layer2_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer2_prefill_kv/reference/layer2_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.57131576538086,
+          "maximum_finite": 110.35508728027344,
+          "mean_finite": -0.006619161460548639,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer2_prefill_kv/layer2_output.npy",
+          "raw_path": "artifacts/decoder_layer2_prefill_kv/reference/layer2_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -9.130130767822266,
+          "maximum_finite": 9.66765022277832,
+          "mean_finite": -0.03370165452361107,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer2_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer2_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.13671943545341492,
+          "maximum_finite": 0.1611160784959793,
+          "mean_finite": -0.00017480638052802533,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer2_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer2_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 3,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.57131576538086,
+          "maximum_finite": 110.35508728027344,
+          "mean_finite": -0.006619161460548639,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer3_prefill_kv/layer3_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer3_prefill_kv/reference/layer3_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.38103675842285,
+          "maximum_finite": 133.5363311767578,
+          "mean_finite": -0.005828165449202061,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer3_prefill_kv/layer3_output.npy",
+          "raw_path": "artifacts/decoder_layer3_prefill_kv/reference/layer3_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -8.938918113708496,
+          "maximum_finite": 9.426958084106445,
+          "mean_finite": -0.01604495942592621,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer3_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer3_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.17232826352119446,
+          "maximum_finite": 0.12607534229755402,
+          "mean_finite": 0.00016152406169567257,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer3_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer3_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 4,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.38103675842285,
+          "maximum_finite": 133.5363311767578,
+          "mean_finite": -0.005828165449202061,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer4_prefill_kv/layer4_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer4_prefill_kv/reference/layer4_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.372718811035156,
+          "maximum_finite": 133.5430908203125,
+          "mean_finite": -0.005938748363405466,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer4_prefill_kv/layer4_output.npy",
+          "raw_path": "artifacts/decoder_layer4_prefill_kv/reference/layer4_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -8.531074523925781,
+          "maximum_finite": 9.277971267700195,
+          "mean_finite": -0.007190044037997723,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer4_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer4_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.17912308871746063,
+          "maximum_finite": 0.15534314513206482,
+          "mean_finite": -0.0002106489846482873,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer4_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer4_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 5,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.372718811035156,
+          "maximum_finite": 133.5430908203125,
+          "mean_finite": -0.005938748363405466,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer5_prefill_kv/layer5_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer5_prefill_kv/reference/layer5_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.302804946899414,
+          "maximum_finite": 133.55406188964844,
+          "mean_finite": -0.00578042259439826,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer5_prefill_kv/layer5_output.npy",
+          "raw_path": "artifacts/decoder_layer5_prefill_kv/reference/layer5_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -8.577581405639648,
+          "maximum_finite": 9.140426635742188,
+          "mean_finite": -0.0007599496748298407,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer5_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer5_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.190851628780365,
+          "maximum_finite": 0.21494115889072418,
+          "mean_finite": -5.754346420872025e-05,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer5_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer5_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 6,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.302804946899414,
+          "maximum_finite": 133.55406188964844,
+          "mean_finite": -0.00578042259439826,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer6_prefill_kv/layer6_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer6_prefill_kv/reference/layer6_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.31163215637207,
+          "maximum_finite": 133.5518341064453,
+          "mean_finite": -0.005691236816346645,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer6_prefill_kv/layer6_output.npy",
+          "raw_path": "artifacts/decoder_layer6_prefill_kv/reference/layer6_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -10.024559020996094,
+          "maximum_finite": 10.355008125305176,
+          "mean_finite": -0.010842476971447468,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer6_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer6_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.22419482469558716,
+          "maximum_finite": 0.22669804096221924,
+          "mean_finite": 9.051358938449994e-05,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer6_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer6_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 7,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.31163215637207,
+          "maximum_finite": 133.5518341064453,
+          "mean_finite": -0.005691236816346645,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer7_prefill_kv/layer7_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer7_prefill_kv/reference/layer7_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.229103088378906,
+          "maximum_finite": 133.5565948486328,
+          "mean_finite": -0.005811728537082672,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer7_prefill_kv/layer7_output.npy",
+          "raw_path": "artifacts/decoder_layer7_prefill_kv/reference/layer7_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -10.484915733337402,
+          "maximum_finite": 9.147469520568848,
+          "mean_finite": -0.025556275621056557,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer7_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer7_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.22938883304595947,
+          "maximum_finite": 0.23431144654750824,
+          "mean_finite": 0.0003261739038862288,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer7_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer7_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 8,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.229103088378906,
+          "maximum_finite": 133.5565948486328,
+          "mean_finite": -0.005811728537082672,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer8_prefill_kv/layer8_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer8_prefill_kv/reference/layer8_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.2012882232666,
+          "maximum_finite": 133.54971313476562,
+          "mean_finite": -0.005930389277637005,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer8_prefill_kv/layer8_output.npy",
+          "raw_path": "artifacts/decoder_layer8_prefill_kv/reference/layer8_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -9.488773345947266,
+          "maximum_finite": 8.10287857055664,
+          "mean_finite": -0.009493138641119003,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer8_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer8_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.1619519144296646,
+          "maximum_finite": 0.2080773264169693,
+          "mean_finite": 0.00020027962455060333,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer8_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer8_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 9,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.2012882232666,
+          "maximum_finite": 133.54971313476562,
+          "mean_finite": -0.005930389277637005,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer9_prefill_kv/layer9_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer9_prefill_kv/reference/layer9_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.24659538269043,
+          "maximum_finite": 133.5496826171875,
+          "mean_finite": -0.005640283226966858,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer9_prefill_kv/layer9_output.npy",
+          "raw_path": "artifacts/decoder_layer9_prefill_kv/reference/layer9_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -9.028780937194824,
+          "maximum_finite": 9.944146156311035,
+          "mean_finite": 0.0036545542534440756,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer9_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer9_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.2501799166202545,
+          "maximum_finite": 0.3172377049922943,
+          "mean_finite": 0.00016222850535996258,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer9_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer9_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 10,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.24659538269043,
+          "maximum_finite": 133.5496826171875,
+          "mean_finite": -0.005640283226966858,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer10_prefill_kv/layer10_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer10_prefill_kv/reference/layer10_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.190610885620117,
+          "maximum_finite": 133.581787109375,
+          "mean_finite": -0.0053537823259830475,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer10_prefill_kv/layer10_output.npy",
+          "raw_path": "artifacts/decoder_layer10_prefill_kv/reference/layer10_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -10.173564910888672,
+          "maximum_finite": 11.458499908447266,
+          "mean_finite": -0.003793944139033556,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer10_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer10_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.23685313761234283,
+          "maximum_finite": 0.23069092631340027,
+          "mean_finite": -0.0007091955631040037,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer10_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer10_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 11,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.190610885620117,
+          "maximum_finite": 133.581787109375,
+          "mean_finite": -0.0053537823259830475,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer11_prefill_kv/layer11_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer11_prefill_kv/reference/layer11_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.057022094726562,
+          "maximum_finite": 133.61561584472656,
+          "mean_finite": -0.005533117335289717,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer11_prefill_kv/layer11_output.npy",
+          "raw_path": "artifacts/decoder_layer11_prefill_kv/reference/layer11_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -12.301501274108887,
+          "maximum_finite": 10.866732597351074,
+          "mean_finite": -0.013704802840948105,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer11_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer11_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.25501105189323425,
+          "maximum_finite": 0.23581400513648987,
+          "mean_finite": -0.0004266766190994531,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer11_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer11_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 12,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.057022094726562,
+          "maximum_finite": 133.61561584472656,
+          "mean_finite": -0.005533117335289717,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer12_prefill_kv/layer12_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer12_prefill_kv/reference/layer12_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.057767868041992,
+          "maximum_finite": 133.64736938476562,
+          "mean_finite": -0.005687278229743242,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer12_prefill_kv/layer12_output.npy",
+          "raw_path": "artifacts/decoder_layer12_prefill_kv/reference/layer12_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -10.36528491973877,
+          "maximum_finite": 8.44619369506836,
+          "mean_finite": -0.029688125476241112,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer12_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer12_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.3301539421081543,
+          "maximum_finite": 0.24410517513751984,
+          "mean_finite": 0.0002230988466180861,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer12_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer12_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 13,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.057767868041992,
+          "maximum_finite": 133.64736938476562,
+          "mean_finite": -0.005687278229743242,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer13_prefill_kv/layer13_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer13_prefill_kv/reference/layer13_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -15.997588157653809,
+          "maximum_finite": 133.66078186035156,
+          "mean_finite": -0.005474567413330078,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer13_prefill_kv/layer13_output.npy",
+          "raw_path": "artifacts/decoder_layer13_prefill_kv/reference/layer13_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -8.928101539611816,
+          "maximum_finite": 9.306337356567383,
+          "mean_finite": 0.0016906284727156162,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer13_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer13_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.22849975526332855,
+          "maximum_finite": 0.22707149386405945,
+          "mean_finite": -0.0006186563987284899,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer13_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer13_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 14,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -15.997588157653809,
+          "maximum_finite": 133.66078186035156,
+          "mean_finite": -0.005474567413330078,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer14_prefill_kv/layer14_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer14_prefill_kv/reference/layer14_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.018747329711914,
+          "maximum_finite": 133.66419982910156,
+          "mean_finite": -0.005542378406971693,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer14_prefill_kv/layer14_output.npy",
+          "raw_path": "artifacts/decoder_layer14_prefill_kv/reference/layer14_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -8.531900405883789,
+          "maximum_finite": 9.602113723754883,
+          "mean_finite": -0.038462769240140915,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer14_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer14_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.22337473928928375,
+          "maximum_finite": 0.2640191912651062,
+          "mean_finite": -6.263419345486909e-05,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer14_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer14_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 15,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.018747329711914,
+          "maximum_finite": 133.66419982910156,
+          "mean_finite": -0.005542378406971693,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer15_prefill_kv/layer15_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer15_prefill_kv/reference/layer15_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.116127014160156,
+          "maximum_finite": 133.68373107910156,
+          "mean_finite": -0.005681904964148998,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer15_prefill_kv/layer15_output.npy",
+          "raw_path": "artifacts/decoder_layer15_prefill_kv/reference/layer15_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -8.858362197875977,
+          "maximum_finite": 10.388960838317871,
+          "mean_finite": -0.0016626206925138831,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer15_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer15_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.18506941199302673,
+          "maximum_finite": 0.18793612718582153,
+          "mean_finite": -0.00032188816112466156,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer15_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer15_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 16,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.116127014160156,
+          "maximum_finite": 133.68373107910156,
+          "mean_finite": -0.005681904964148998,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer16_prefill_kv/layer16_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer16_prefill_kv/reference/layer16_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.13688850402832,
+          "maximum_finite": 133.70138549804688,
+          "mean_finite": -0.005732459481805563,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer16_prefill_kv/layer16_output.npy",
+          "raw_path": "artifacts/decoder_layer16_prefill_kv/reference/layer16_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -10.669267654418945,
+          "maximum_finite": 10.74491024017334,
+          "mean_finite": -0.012181214988231659,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer16_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer16_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.25194257497787476,
+          "maximum_finite": 0.28024184703826904,
+          "mean_finite": -9.366837184643373e-05,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer16_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer16_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 17,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.13688850402832,
+          "maximum_finite": 133.70138549804688,
+          "mean_finite": -0.005732459481805563,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer17_prefill_kv/layer17_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer17_prefill_kv/reference/layer17_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.12949562072754,
+          "maximum_finite": 133.696044921875,
+          "mean_finite": -0.005364228505641222,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer17_prefill_kv/layer17_output.npy",
+          "raw_path": "artifacts/decoder_layer17_prefill_kv/reference/layer17_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -8.550125122070312,
+          "maximum_finite": 9.039012908935547,
+          "mean_finite": 0.0008439928060397506,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer17_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer17_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.24797599017620087,
+          "maximum_finite": 0.21503624320030212,
+          "mean_finite": -0.0006372225470840931,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer17_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer17_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 18,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.12949562072754,
+          "maximum_finite": 133.696044921875,
+          "mean_finite": -0.005364228505641222,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer18_prefill_kv/layer18_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer18_prefill_kv/reference/layer18_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.186790466308594,
+          "maximum_finite": 133.71820068359375,
+          "mean_finite": -0.0054723890498280525,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer18_prefill_kv/layer18_output.npy",
+          "raw_path": "artifacts/decoder_layer18_prefill_kv/reference/layer18_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -10.07921314239502,
+          "maximum_finite": 9.736405372619629,
+          "mean_finite": -0.031090784817934036,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer18_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer18_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.26073014736175537,
+          "maximum_finite": 0.2581215500831604,
+          "mean_finite": 0.00030695900204591453,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer18_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer18_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 19,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.186790466308594,
+          "maximum_finite": 133.71820068359375,
+          "mean_finite": -0.0054723890498280525,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer19_prefill_kv/layer19_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer19_prefill_kv/reference/layer19_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.19279670715332,
+          "maximum_finite": 133.7267303466797,
+          "mean_finite": -0.005357328802347183,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer19_prefill_kv/layer19_output.npy",
+          "raw_path": "artifacts/decoder_layer19_prefill_kv/reference/layer19_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -11.147743225097656,
+          "maximum_finite": 7.637448310852051,
+          "mean_finite": 0.020885325968265533,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer19_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer19_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.3467808663845062,
+          "maximum_finite": 0.33048003911972046,
+          "mean_finite": -0.00012037206761306152,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer19_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer19_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 20,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.19279670715332,
+          "maximum_finite": 133.7267303466797,
+          "mean_finite": -0.005357328802347183,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer20_prefill_kv/layer20_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer20_prefill_kv/reference/layer20_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.184391021728516,
+          "maximum_finite": 133.72398376464844,
+          "mean_finite": -0.005480791907757521,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer20_prefill_kv/layer20_output.npy",
+          "raw_path": "artifacts/decoder_layer20_prefill_kv/reference/layer20_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -10.8299560546875,
+          "maximum_finite": 8.2827787399292,
+          "mean_finite": -0.01375237014144659,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer20_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer20_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.35248273611068726,
+          "maximum_finite": 0.321114718914032,
+          "mean_finite": -9.007279732031748e-05,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer20_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer20_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 21,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.184391021728516,
+          "maximum_finite": 133.72398376464844,
+          "mean_finite": -0.005480791907757521,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer21_prefill_kv/layer21_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer21_prefill_kv/reference/layer21_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.355621337890625,
+          "maximum_finite": 133.71353149414062,
+          "mean_finite": -0.006095819175243378,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer21_prefill_kv/layer21_output.npy",
+          "raw_path": "artifacts/decoder_layer21_prefill_kv/reference/layer21_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -10.946822166442871,
+          "maximum_finite": 10.80829906463623,
+          "mean_finite": 0.011167602613568306,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer21_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer21_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.3792157769203186,
+          "maximum_finite": 0.4633054733276367,
+          "mean_finite": -4.861644993070513e-05,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer21_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer21_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 22,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.355621337890625,
+          "maximum_finite": 133.71353149414062,
+          "mean_finite": -0.006095819175243378,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer22_prefill_kv/layer22_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer22_prefill_kv/reference/layer22_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.26796531677246,
+          "maximum_finite": 131.9830322265625,
+          "mean_finite": -0.006489600520581007,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer22_prefill_kv/layer22_output.npy",
+          "raw_path": "artifacts/decoder_layer22_prefill_kv/reference/layer22_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -11.875643730163574,
+          "maximum_finite": 11.333720207214355,
+          "mean_finite": 0.020235467702150345,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer22_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer22_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.36728447675704956,
+          "maximum_finite": 0.3328712582588196,
+          "mean_finite": -0.0004525530675891787,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer22_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer22_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    },
+    {
+      "layer_index": 23,
+      "boundary_max_abs_error": 0.0,
+      "decode_reference_key_max_abs_error": 0.0,
+      "decode_reference_value_max_abs_error": 0.0,
+      "tensors": {
+        "hidden_states": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -16.26796531677246,
+          "maximum_finite": 131.9830322265625,
+          "mean_finite": -0.006489600520581007,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer23_prefill_kv/layer23_hidden_states.npy",
+          "raw_path": "artifacts/decoder_layer23_prefill_kv/reference/layer23_hidden_states_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "layer_output": {
+          "shape": [
+            1,
+            313,
+            1024
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -15.54285717010498,
+          "maximum_finite": 117.34747314453125,
+          "mean_finite": -0.003999149426817894,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer23_prefill_kv/layer23_output.npy",
+          "raw_path": "artifacts/decoder_layer23_prefill_kv/reference/layer23_output_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_key": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -11.571956634521484,
+          "maximum_finite": 11.996134757995605,
+          "mean_finite": -0.04412698745727539,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer23_prefill_kv/present_key.npy",
+          "raw_path": "artifacts/decoder_layer23_prefill_kv/reference/present_key_f32.bin",
+          "raw_bytes": 1282048
+        },
+        "present_value": {
+          "shape": [
+            1,
+            8,
+            313,
+            128
+          ],
+          "dtype": "torch.float32",
+          "numel": 320512,
+          "minimum_finite": -0.29826849699020386,
+          "maximum_finite": 0.29391148686408997,
+          "mean_finite": 0.0004675460222642869,
+          "nan_count": 0,
+          "positive_inf_count": 0,
+          "negative_inf_count": 0,
+          "npy_path": "reference/smoke_en_cpu_fp32/decoder_layer23_prefill_kv/present_value.npy",
+          "raw_path": "artifacts/decoder_layer23_prefill_kv/reference/present_value_f32.bin",
+          "raw_bytes": 1282048
+        }
+      }
+    }
+  ]
+}

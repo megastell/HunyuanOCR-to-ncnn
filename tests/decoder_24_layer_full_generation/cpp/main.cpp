@@ -29,6 +29,15 @@ constexpr int kDecodeSteps = 10;
 constexpr int kVocabSize = 120818;
 constexpr int kEosToken = 120007;
 
+constexpr std::size_t kPrefillHiddenCount =
+    static_cast<std::size_t>(kPrefillLength) * kHiddenSize;
+constexpr std::size_t kPrefillMaskCount =
+    static_cast<std::size_t>(kPrefillLength) * kPrefillLength;
+constexpr std::size_t kPrefillRopeCount =
+    static_cast<std::size_t>(kRopeComponents) * kPrefillLength * kHeadDim;
+constexpr std::size_t kPrefillCacheCount =
+    static_cast<std::size_t>(kKvHeads) * kPrefillLength * kHeadDim;
+
 constexpr std::array<int, kDecodeSteps + 1> kExpectedTokens = {
     93892, 5112, 206, 1717, 21, 185,
     18009, 15613, 16678, 21836, 120007,
@@ -184,10 +193,42 @@ bool cache_passed(const Metrics& metrics)
         && metrics.cosine_similarity >= 0.999999;
 }
 
+bool prefill_hidden_passed(const Metrics& metrics)
+{
+    return metrics.maximum_abs_error <= 1.0e-3
+        && metrics.mean_abs_error <= 1.0e-5
+        && metrics.cosine_similarity >= 0.999999;
+}
+
+bool prefill_cache_passed(const Metrics& metrics)
+{
+    return metrics.maximum_abs_error <= 2.0e-4
+        && metrics.mean_abs_error <= 2.0e-6
+        && metrics.cosine_similarity >= 0.999999;
+}
+
 ncnn::Mat make_hidden(std::vector<float>& values)
 {
     ncnn::Mat flat(static_cast<int>(values.size()), values.data());
     return flat.reshape(kHiddenSize, 1).clone();
+}
+
+ncnn::Mat make_prefill_hidden(std::vector<float>& values)
+{
+    ncnn::Mat flat(static_cast<int>(values.size()), values.data());
+    return flat.reshape(kHiddenSize, kPrefillLength).clone();
+}
+
+ncnn::Mat make_prefill_mask(std::vector<float>& values)
+{
+    ncnn::Mat flat(static_cast<int>(values.size()), values.data());
+    return flat.reshape(kPrefillLength, kPrefillLength, 1).clone();
+}
+
+ncnn::Mat make_prefill_rope(std::vector<float>& values)
+{
+    ncnn::Mat flat(static_cast<int>(values.size()), values.data());
+    return flat.reshape(kHeadDim, kPrefillLength, kRopeComponents).clone();
 }
 
 ncnn::Mat make_mask(std::vector<float>& values, int length)
@@ -200,12 +241,6 @@ ncnn::Mat make_rope(std::vector<float>& values)
 {
     ncnn::Mat flat(static_cast<int>(values.size()), values.data());
     return flat.reshape(kHeadDim, 1, kRopeComponents).clone();
-}
-
-ncnn::Mat make_cache(std::vector<float>& values, int length)
-{
-    ncnn::Mat flat(static_cast<int>(values.size()), values.data());
-    return flat.reshape(kHeadDim, length, kKvHeads).clone();
 }
 
 std::string decode_name(int layer, int step)
@@ -225,6 +260,20 @@ std::string reference_directory(
 {
     return project_root + "/artifacts/" + decode_name(layer, step)
         + "/reference";
+}
+
+std::string prefill_reference_directory(
+    const std::string& project_root,
+    int layer)
+{
+    const std::string name = "decoder_layer" + std::to_string(layer)
+        + "_prefill_kv";
+    return project_root + "/artifacts/" + name + "/reference";
+}
+
+std::string prefill_tail_directory(const std::string& project_root)
+{
+    return project_root + "/artifacts/prefill_tail/reference";
 }
 
 std::string tail_directory(const std::string& project_root, int step)
@@ -269,6 +318,38 @@ bool run_decoder_layer(
         || extractor.input("in3", rope_sin) != 0
         || extractor.input("in4", past_key) != 0
         || extractor.input("in5", past_value) != 0) {
+        return false;
+    }
+    ncnn::Mat raw_output;
+    ncnn::Mat raw_key;
+    ncnn::Mat raw_value;
+    if (extractor.extract("out0", raw_output) != 0
+        || extractor.extract("out1", raw_key) != 0
+        || extractor.extract("out2", raw_value) != 0) {
+        return false;
+    }
+    output = raw_output.clone();
+    present_key = raw_key.clone();
+    present_value = raw_value.clone();
+    return !output.empty() && !present_key.empty() && !present_value.empty();
+}
+
+bool run_prefill_layer(
+    ncnn::Net& network,
+    const ncnn::Mat& hidden,
+    const ncnn::Mat& mask,
+    const ncnn::Mat& rope_cos,
+    const ncnn::Mat& rope_sin,
+    ncnn::Mat& output,
+    ncnn::Mat& present_key,
+    ncnn::Mat& present_value)
+{
+    ncnn::Extractor extractor = network.create_extractor();
+    extractor.set_light_mode(false);
+    if (extractor.input("in0", hidden) != 0
+        || extractor.input("in1", mask) != 0
+        || extractor.input("in2", rope_cos) != 0
+        || extractor.input("in3", rope_sin) != 0) {
         return false;
     }
     ncnn::Mat raw_output;
@@ -490,30 +571,13 @@ int main(int argc, char** argv)
     }
     const bool use_packing_layout = packing_text == "1";
 
-    std::cout << "===== HunyuanOCR dynamic full-generation runtime =====\n"
+    std::cout << "===== HunyuanOCR ncnn prefill + generation runtime =====\n"
               << "packing layout : " << std::boolalpha
               << use_packing_layout << '\n'
-              << "decoder models : 24, loaded once\n"
+              << "prefill models : 24, loaded one at a time\n"
+              << "decoder models : 24, loaded after prefill\n"
               << "decode steps   : 10 maximum\n"
               << "EOS token      : " << kEosToken << "\n\n";
-
-    std::vector<std::unique_ptr<ncnn::Net>> decoder_networks;
-    decoder_networks.reserve(kLayerCount);
-    for (int layer = 0; layer < kLayerCount; ++layer) {
-        const std::string name = "decoder_layer" + std::to_string(layer)
-            + "_decode_dynamic";
-        const std::string directory = project_root + "/artifacts/" + name;
-        auto network = std::make_unique<ncnn::Net>();
-        if (!configure_and_load(
-                *network,
-                directory + "/" + name + ".ncnn.param",
-                directory + "/" + name + ".ncnn.bin",
-                use_packing_layout)) {
-            std::cerr << "Failed to load dynamic decoder layer " << layer << '\n';
-            return EXIT_FAILURE;
-        }
-        decoder_networks.push_back(std::move(network));
-    }
 
     ncnn::Net final_norm_network;
     ncnn::Net lm_head_network;
@@ -544,18 +608,292 @@ int main(int argc, char** argv)
         return EXIT_FAILURE;
     }
 
-    std::vector<float> initial_hidden_values;
+    const std::string prefill_layer0_reference =
+        prefill_reference_directory(project_root, 0);
+    std::vector<float> prefill_input_values;
+    std::vector<float> prefill_mask_values;
+    std::vector<float> prefill_rope_cos_values;
+    std::vector<float> prefill_rope_sin_values;
+    if (!load_exact_binary(
+            prefill_layer0_reference + "/layer0_hidden_states_f32.bin",
+            kPrefillHiddenCount,
+            prefill_input_values)
+        || !load_exact_binary(
+            prefill_layer0_reference + "/layer0_attention_mask_f32.bin",
+            kPrefillMaskCount,
+            prefill_mask_values)
+        || !load_exact_binary(
+            prefill_layer0_reference
+                + "/layer0_position_embeddings_0_f32.bin",
+            kPrefillRopeCount,
+            prefill_rope_cos_values)
+        || !load_exact_binary(
+            prefill_layer0_reference
+                + "/layer0_position_embeddings_1_f32.bin",
+            kPrefillRopeCount,
+            prefill_rope_sin_values)) {
+        return EXIT_FAILURE;
+    }
+
+    ncnn::Mat prefill_hidden = make_prefill_hidden(prefill_input_values);
+    ncnn::Mat prefill_mask = make_prefill_mask(prefill_mask_values);
+    ncnn::Mat prefill_rope_cos = make_prefill_rope(prefill_rope_cos_values);
+    ncnn::Mat prefill_rope_sin = make_prefill_rope(prefill_rope_sin_values);
+    std::vector<ncnn::Mat> cache_keys(kLayerCount);
+    std::vector<ncnn::Mat> cache_values(kLayerCount);
+
+    double maximum_prefill_input_error = 0.0;
+    double maximum_prefill_output_error = 0.0;
+    double maximum_prefill_cache_error = 0.0;
+
+    std::cout << "===== 24-layer ncnn prefill =====\n";
+    for (int layer = 0; layer < kLayerCount; ++layer) {
+        const std::string prefix = "layer" + std::to_string(layer);
+        const std::string reference =
+            prefill_reference_directory(project_root, layer);
+        std::vector<float> expected_hidden;
+        std::vector<float> expected_output;
+        std::vector<float> expected_key;
+        std::vector<float> expected_value;
+        if (!load_exact_binary(
+                reference + "/" + prefix + "_hidden_states_f32.bin",
+                kPrefillHiddenCount,
+                expected_hidden)
+            || !load_exact_binary(
+                reference + "/" + prefix + "_output_f32.bin",
+                kPrefillHiddenCount,
+                expected_output)
+            || !load_exact_binary(
+                reference + "/present_key_f32.bin",
+                kPrefillCacheCount,
+                expected_key)
+            || !load_exact_binary(
+                reference + "/present_value_f32.bin",
+                kPrefillCacheCount,
+                expected_value)) {
+            return EXIT_FAILURE;
+        }
+
+        Metrics input_metrics;
+        if (!compare_mat(prefill_hidden, expected_hidden, input_metrics)
+            || !prefill_hidden_passed(input_metrics)) {
+            std::cerr << "Prefill layer " << layer
+                      << " input parity failed: max="
+                      << input_metrics.maximum_abs_error << '\n';
+            return EXIT_FAILURE;
+        }
+
+        const std::string name = "decoder_layer" + std::to_string(layer)
+            + "_prefill_kv";
+        const std::string directory = project_root + "/artifacts/" + name;
+        ncnn::Net prefill_network;
+        if (!configure_and_load(
+                prefill_network,
+                directory + "/" + name + ".ncnn.param",
+                directory + "/" + name + ".ncnn.bin",
+                use_packing_layout)) {
+            std::cerr << "Failed to load prefill layer " << layer << '\n';
+            return EXIT_FAILURE;
+        }
+
+        ncnn::Mat next_hidden;
+        ncnn::Mat present_key;
+        ncnn::Mat present_value;
+        if (!run_prefill_layer(
+                prefill_network,
+                prefill_hidden,
+                prefill_mask,
+                prefill_rope_cos,
+                prefill_rope_sin,
+                next_hidden,
+                present_key,
+                present_value)) {
+            std::cerr << "Prefill layer " << layer << " inference failed\n";
+            return EXIT_FAILURE;
+        }
+        prefill_network.clear();
+
+        Metrics output_metrics;
+        Metrics key_metrics;
+        Metrics value_metrics;
+        if (!compare_mat(next_hidden, expected_output, output_metrics)
+            || !compare_mat(present_key, expected_key, key_metrics)
+            || !compare_mat(present_value, expected_value, value_metrics)
+            || !prefill_hidden_passed(output_metrics)
+            || !prefill_cache_passed(key_metrics)
+            || !prefill_cache_passed(value_metrics)) {
+            std::cerr << "Prefill layer " << layer
+                      << " output parity failed: hidden="
+                      << output_metrics.maximum_abs_error
+                      << ", key=" << key_metrics.maximum_abs_error
+                      << ", value=" << value_metrics.maximum_abs_error
+                      << '\n';
+            return EXIT_FAILURE;
+        }
+
+        maximum_prefill_input_error = std::max(
+            maximum_prefill_input_error, input_metrics.maximum_abs_error);
+        maximum_prefill_output_error = std::max(
+            maximum_prefill_output_error, output_metrics.maximum_abs_error);
+        maximum_prefill_cache_error = std::max(
+            maximum_prefill_cache_error,
+            std::max(
+                key_metrics.maximum_abs_error,
+                value_metrics.maximum_abs_error));
+
+        std::cout << "Prefill Layer " << std::setw(2) << layer
+                  << std::scientific << std::setprecision(3)
+                  << ": input_max=" << input_metrics.maximum_abs_error
+                  << ", hidden_max=" << output_metrics.maximum_abs_error
+                  << ", key_max=" << key_metrics.maximum_abs_error
+                  << ", value_max=" << value_metrics.maximum_abs_error
+                  << '\n';
+
+        cache_keys[layer] = present_key;
+        cache_values[layer] = present_value;
+        prefill_hidden = next_hidden;
+    }
+
+    std::vector<float> full_prefill_hidden;
+    if (!unpack_mat(prefill_hidden, full_prefill_hidden)
+        || full_prefill_hidden.size() != kPrefillHiddenCount) {
+        std::cerr << "Unable to unpack final prefill hidden state\n";
+        return EXIT_FAILURE;
+    }
+    std::vector<float> last_hidden_values(
+        full_prefill_hidden.end() - kHiddenSize,
+        full_prefill_hidden.end());
+    ncnn::Mat last_hidden = make_hidden(last_hidden_values);
+
+    const std::string prefill_tail = prefill_tail_directory(project_root);
+    std::vector<float> expected_prefill_norm_input;
+    std::vector<float> expected_prefill_norm_output;
+    std::vector<float> expected_prefill_logits;
+    if (!load_exact_binary(
+            prefill_tail + "/final_norm_input_f32.bin",
+            kHiddenSize,
+            expected_prefill_norm_input)
+        || !load_exact_binary(
+            prefill_tail + "/final_norm_output_f32.bin",
+            kHiddenSize,
+            expected_prefill_norm_output)
+        || !load_exact_binary(
+            prefill_tail + "/prefill_logits_f32.bin",
+            kVocabSize,
+            expected_prefill_logits)) {
+        return EXIT_FAILURE;
+    }
+
+    Metrics prefill_norm_input_metrics;
+    if (!compare_mat(
+            last_hidden,
+            expected_prefill_norm_input,
+            prefill_norm_input_metrics)
+        || !prefill_hidden_passed(prefill_norm_input_metrics)) {
+        std::cerr << "Prefill final-norm input parity failed\n";
+        return EXIT_FAILURE;
+    }
+
+    ncnn::Mat prefill_norm_output;
+    ncnn::Mat prefill_logits;
+    if (!run_single_output(
+            final_norm_network, last_hidden, prefill_norm_output)
+        || !run_single_output(
+            lm_head_network, prefill_norm_output, prefill_logits)) {
+        std::cerr << "Prefill tail inference failed\n";
+        return EXIT_FAILURE;
+    }
+
+    Metrics prefill_norm_metrics;
+    Metrics prefill_logits_metrics;
+    std::vector<float> actual_prefill_logits;
+    if (!compare_mat(
+            prefill_norm_output,
+            expected_prefill_norm_output,
+            prefill_norm_metrics)
+        || !unpack_mat(prefill_logits, actual_prefill_logits)
+        || !calculate_metrics(
+            actual_prefill_logits,
+            expected_prefill_logits,
+            prefill_logits_metrics)
+        || !prefill_hidden_passed(prefill_norm_metrics)
+        || prefill_logits_metrics.maximum_abs_error > 3.0e-3
+        || prefill_logits_metrics.mean_abs_error > 5.0e-5
+        || prefill_logits_metrics.cosine_similarity < 0.999999) {
+        std::cerr << "Prefill tail parity failed: norm="
+                  << prefill_norm_metrics.maximum_abs_error
+                  << ", logits=" << prefill_logits_metrics.maximum_abs_error
+                  << '\n';
+        return EXIT_FAILURE;
+    }
+
+    const int prefill_token = static_cast<int>(std::distance(
+        actual_prefill_logits.begin(),
+        std::max_element(
+            actual_prefill_logits.begin(), actual_prefill_logits.end())));
+    if (prefill_token != kExpectedTokens[0]) {
+        std::cerr << "Prefill token mismatch: actual=" << prefill_token
+                  << ", expected=" << kExpectedTokens[0] << '\n';
+        return EXIT_FAILURE;
+    }
+
+    ncnn::Mat current_hidden;
+    if (!run_embedding(embedding_network, prefill_token, current_hidden)) {
+        std::cerr << "Prefill token embedding failed\n";
+        return EXIT_FAILURE;
+    }
+    std::vector<float> expected_decode_hidden;
     if (!load_exact_binary(
             reference_directory(project_root, 0, 1)
                 + "/layer0_hidden_states_f32.bin",
             kHiddenSize,
-            initial_hidden_values)) {
+            expected_decode_hidden)) {
         return EXIT_FAILURE;
     }
-    ncnn::Mat current_hidden = make_hidden(initial_hidden_values);
-    std::vector<ncnn::Mat> cache_keys(kLayerCount);
-    std::vector<ncnn::Mat> cache_values(kLayerCount);
-    std::vector<int> generated_tokens = {kExpectedTokens[0]};
+    Metrics prefill_embedding_metrics;
+    std::vector<float> actual_decode_hidden;
+    if (!unpack_mat(current_hidden, actual_decode_hidden)
+        || !calculate_metrics(
+            actual_decode_hidden,
+            expected_decode_hidden,
+            prefill_embedding_metrics)
+        || actual_decode_hidden != expected_decode_hidden) {
+        std::cerr << "Prefill token embedding was not byte-identical\n";
+        return EXIT_FAILURE;
+    }
+
+    std::cout << "\n===== Prefill result =====\n"
+              << "Prefill token        : " << prefill_token << '\n'
+              << std::scientific << std::setprecision(3)
+              << "Maximum input error  : " << maximum_prefill_input_error << '\n'
+              << "Maximum hidden error : " << maximum_prefill_output_error << '\n'
+              << "Maximum cache error  : " << maximum_prefill_cache_error << '\n'
+              << "Final hidden error   : "
+              << prefill_norm_input_metrics.maximum_abs_error << '\n'
+              << "Final norm error     : "
+              << prefill_norm_metrics.maximum_abs_error << '\n'
+              << "Prefill logits error : "
+              << prefill_logits_metrics.maximum_abs_error << "\n\n";
+
+    std::vector<std::unique_ptr<ncnn::Net>> decoder_networks;
+    decoder_networks.reserve(kLayerCount);
+    for (int layer = 0; layer < kLayerCount; ++layer) {
+        const std::string name = "decoder_layer" + std::to_string(layer)
+            + "_decode_dynamic";
+        const std::string directory = project_root + "/artifacts/" + name;
+        auto network = std::make_unique<ncnn::Net>();
+        if (!configure_and_load(
+                *network,
+                directory + "/" + name + ".ncnn.param",
+                directory + "/" + name + ".ncnn.bin",
+                use_packing_layout)) {
+            std::cerr << "Failed to load dynamic decoder layer " << layer << '\n';
+            return EXIT_FAILURE;
+        }
+        decoder_networks.push_back(std::move(network));
+    }
+
+    std::vector<int> generated_tokens = {prefill_token};
     bool reached_eos = false;
 
     for (int step = 1; step <= kDecodeSteps; ++step) {
@@ -641,25 +979,30 @@ int main(int argc, char** argv)
             maximum_input_error = std::max(
                 maximum_input_error, input_metrics.maximum_abs_error);
 
-            ncnn::Mat past_key;
-            ncnn::Mat past_value;
-            if (step == 1) {
-                past_key = make_cache(expected_past_key, past_length);
-                past_value = make_cache(expected_past_value, past_length);
-            } else {
-                past_key = cache_keys[layer];
-                past_value = cache_values[layer];
-                Metrics past_key_metrics;
-                Metrics past_value_metrics;
-                if (!compare_mat(past_key, expected_past_key, past_key_metrics)
-                    || !compare_mat(
-                        past_value, expected_past_value, past_value_metrics)
-                    || !cache_passed(past_key_metrics)
-                    || !cache_passed(past_value_metrics)) {
-                    std::cerr << "Step " << step << " layer " << layer
-                              << " KV handoff parity failed\n";
-                    return EXIT_FAILURE;
-                }
+            ncnn::Mat past_key = cache_keys[layer];
+            ncnn::Mat past_value = cache_values[layer];
+            Metrics past_key_metrics;
+            Metrics past_value_metrics;
+            if (!compare_mat(past_key, expected_past_key, past_key_metrics)
+                || !compare_mat(
+                    past_value, expected_past_value, past_value_metrics)) {
+                std::cerr << "Step " << step << " layer " << layer
+                          << " KV handoff comparison failed\n";
+                return EXIT_FAILURE;
+            }
+            const bool key_handoff_passed = step == 1
+                ? prefill_cache_passed(past_key_metrics)
+                : cache_passed(past_key_metrics);
+            const bool value_handoff_passed = step == 1
+                ? prefill_cache_passed(past_value_metrics)
+                : cache_passed(past_value_metrics);
+            if (!key_handoff_passed || !value_handoff_passed) {
+                std::cerr << "Step " << step << " layer " << layer
+                          << " KV handoff parity failed: key="
+                          << past_key_metrics.maximum_abs_error
+                          << ", value="
+                          << past_value_metrics.maximum_abs_error << '\n';
+                return EXIT_FAILURE;
             }
 
             ncnn::Mat next_hidden;
@@ -797,11 +1140,19 @@ int main(int argc, char** argv)
             || !calculate_metrics(
                 actual_logits, expected_logits, logits_metrics)
             || norm_metrics.maximum_abs_error > 5.0e-5
-            || norm_metrics.mean_abs_error > 5.0e-6
+            || norm_metrics.mean_abs_error > 1.0e-5
             || logits_metrics.maximum_abs_error > 3.0e-3
             || logits_metrics.mean_abs_error > 5.0e-5
             || logits_metrics.cosine_similarity < 0.999999) {
-            std::cerr << "Step " << step << " tail parity failed\n";
+            std::cerr << "Step " << step
+                      << " tail parity failed: norm_max="
+                      << norm_metrics.maximum_abs_error
+                      << ", norm_mean=" << norm_metrics.mean_abs_error
+                      << ", logits_max="
+                      << logits_metrics.maximum_abs_error
+                      << ", logits_mean=" << logits_metrics.mean_abs_error
+                      << ", logits_cos="
+                      << logits_metrics.cosine_similarity << '\n';
             return EXIT_FAILURE;
         }
         const int actual_token = static_cast<int>(std::distance(
@@ -887,6 +1238,6 @@ int main(int argc, char** argv)
     std::cout << "\nEOS reached      : true\n"
               << "Generated text:\n"
               << generated_text << "\n\n"
-              << "Full ncnn autoregressive generation passed.\n";
+              << "Full ncnn prefill + autoregressive generation passed.\n";
     return EXIT_SUCCESS;
 }

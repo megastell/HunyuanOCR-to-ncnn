@@ -39,6 +39,7 @@ but are not runtime dependencies.
 | PyTorch golden run | Three deterministic CPU runs, exact expected text | Complete |
 | Text embedding | pnnx/ncnn FP32 parity and shared embedding weight checks | Complete |
 | Decoder math | All 24 layers validated for the captured decode contracts | Complete |
+| Language-model prefill | All 24 layers produce hidden states and initial KV caches in ncnn | Complete |
 | Dynamic KV length | One model per layer handles past lengths 313 through 322 | Complete |
 | KV handoff | Same-layer cache prefix remains byte-identical across steps | Complete |
 | Final RMSNorm | pnnx/ncnn FP32 parity | Complete |
@@ -59,18 +60,17 @@ token 120007, and decodes `HELLO 2026\nNCNN CPU TEST` in both layouts.
 
 ## Important boundary
 
-The current executable is not end to end. It starts from captured PyTorch
-decoder inputs and prefill KV caches. It does not yet derive those tensors from
-the input image in C++. The dynamic decoder result removes the fixed-step model
-duplication problem and completes decoder-side output text generation, but it
-does not complete vision encoding, prefill, input tokenization, or the product
-runtime.
+The current executable is not yet image-to-text end to end. It starts from the
+captured fused Layer 0 prefill hidden state, attention mask, and mRoPE tensors.
+It now executes all 24 prefill layers, creates every initial KV cache, computes
+the first token, and completes autoregressive generation in ncnn. It does not
+yet derive the prefill inputs from image preprocessing, vision encoding, input
+tokenization, and multimodal embedding placement in C++.
 
 ## Remaining gaps
 
 | Priority | Gap | Acceptance condition |
 | --- | --- | --- |
-| P0 | Full language-model prefill | Text/image embeddings pass through all 24 decoder layers in ncnn and produce the reference first token and all initial KV caches |
 | P0 | Vision tower and patch merger | All 27 vision blocks and the merger are converted and reproduce the reference pooled output within an agreed tolerance |
 | P0 | Image preprocessing | C++ resize, normalization, patch packing, grid construction, and image-token placement match the processor tensors |
 | P0 | Input tokenizer and prompt construction | C++ tokenization, chat-template handling, and special-token insertion match Transformers; output ByteLevel decoding is already complete |
@@ -107,6 +107,13 @@ text.
 3. Validate first-token logits and every layer's initial KV cache.
 4. Connect the prefill output directly to the Phase 1 generation loop.
 
+Completed on 2026-08-06. All 24 prefill layers now execute in ncnn and return
+their hidden, key, and value outputs. Packed and unpacked runs both compute the
+reference first token `93892`, hand the generated caches directly to the
+dynamic decoder, reproduce all 11 tokens, and stop at EOS with the exact
+reference text. No PyTorch prefill KV or first-step decode hidden tensor is
+used as an inference input.
+
 ### Phase 3: Complete the vision and input pipeline
 
 1. Split and convert vision patch embedding, 27 transformer blocks, and patch
@@ -133,7 +140,7 @@ text.
 
 ## Next action
 
-Phase 2 is the next highest-priority milestone. Decoder-side generation is now
-complete from captured prefill state, so the next implementation should convert
-and validate all 24 prefill layers, produce the first token and initial KV
-caches in ncnn, and connect them directly to the completed generation loop.
+Phase 3 is the next highest-priority milestone. Prefill and decode are complete
+from the fused multimodal embedding boundary. The next implementation should
+convert and validate the vision tower and patch merger, then reproduce the
+processor, tokenizer, and multimodal token-placement inputs needed by Layer 0.
