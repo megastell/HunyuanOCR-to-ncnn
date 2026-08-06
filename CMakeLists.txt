@@ -43,6 +43,7 @@ if(HUNYUANOCR_BUILD_CLI)
     add_executable(hunyuanocr_cli app/hunyuanocr_cli.cpp)
     target_link_libraries(hunyuanocr_cli PRIVATE HunyuanOCR::runtime)
     if(MSVC)
+        target_link_libraries(hunyuanocr_cli PRIVATE Psapi)
         target_compile_options(hunyuanocr_cli PRIVATE /W4 /permissive-)
     else()
         target_compile_options(

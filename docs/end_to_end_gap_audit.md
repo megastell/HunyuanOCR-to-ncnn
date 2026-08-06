@@ -163,6 +163,13 @@ parity targets. Product source is free of reference paths. A 162-file,
 CLI runs emit the exact 11 tokens and text; measured runtime/peak RSS are
 11.717 s/5,978,556 KiB and 11.117 s/4,258,200 KiB, respectively.
 
+Phase 4B completed on 2026-08-06. Native Windows 11 x64 and MSVC 19.51 now
+build and install the runtime and CLI against the same two ncnn precision
+changes. The installed consumer finds `HunyuanOCR::runtime`; both native modes
+emit the exact 11 tokens and text; and the same 162-file manifest passes size
+and full C++ SHA-256 verification. The complete Linux Phase 4A suite was rerun
+after the Windows changes and remains green.
+
 ### Phase 5: Publish
 
 1. Minimize and document dependencies and model conversion steps.
@@ -173,7 +180,8 @@ CLI runs emit the exact 11 tokens and text; measured runtime/peak RSS are
 
 ## Next action
 
-Phase 4B is the next highest-priority milestone. Build the installed runtime
-and CLI with native Windows/MSVC against the required ncnn changes, run the
-same manifest and smoke-image contract, and require the exact 11 tokens and
-text. Then record platform-specific build, performance, and memory evidence.
+Phase 4C is the next highest-priority milestone. Generalize image preprocessing,
+visual token counts, multimodal positions, and prompt assembly beyond the fixed
+`[1,22,50]` smoke grid, then add several exact-text regression images on both
+Linux and native Windows. Remeasure Windows with model files on native NTFS so
+storage transport is separated from runtime performance.

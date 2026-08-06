@@ -1,0 +1,81 @@
+{
+    "phase":  "4B",
+    "status":  "passed",
+    "platform":  {
+                     "os":  "Microsoft Windows 11 Pro",
+                     "version":  "10.0.26200",
+                     "architecture":  "64-bit",
+                     "cmake":  "cmake version 4.4.0",
+                     "msvc":  "19.51.36246",
+                     "ncnn":  "20260806"
+                 },
+    "build":  {
+                  "runtime_install":  "passed",
+                  "installed_package_consumer":  "passed",
+                  "ncnn_rotaryembed_test":  "passed",
+                  "ncnn_rmsnorm_test":  "passed"
+              },
+    "manifest":  {
+                     "format":  "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1",
+                     "file_count":  162,
+                     "total_bytes":  6076349856,
+                     "size_verification":  "passed",
+                     "cpp_sha256_verification":  "passed"
+                 },
+    "unpacked_cli":  {
+                         "verification":  "size",
+                         "tokens":  [
+                                        93892,
+                                        5112,
+                                        206,
+                                        1717,
+                                        21,
+                                        185,
+                                        18009,
+                                        15613,
+                                        16678,
+                                        21836,
+                                        120007
+                                    ],
+                         "text":  "HELLO 2026\nNCNN CPU TEST",
+                         "load_seconds":  3.2,
+                         "input_seconds":  23.471,
+                         "prefill_seconds":  7.926,
+                         "decode_seconds":  8.696,
+                         "runtime_seconds":  40.093,
+                         "peak_rss_kib":  3869608,
+                         "wall_seconds":  43.557
+                     },
+    "packed_cli":  {
+                       "verification":  "sha256",
+                       "tokens":  [
+                                      93892,
+                                      5112,
+                                      206,
+                                      1717,
+                                      21,
+                                      185,
+                                      18009,
+                                      15613,
+                                      16678,
+                                      21836,
+                                      120007
+                                  ],
+                       "text":  "HELLO 2026\nNCNN CPU TEST",
+                       "load_seconds":  246.654,
+                       "input_seconds":  13.737,
+                       "prefill_seconds":  8.131,
+                       "decode_seconds":  13.624,
+                       "runtime_seconds":  35.492,
+                       "peak_rss_kib":  5128616,
+                       "wall_seconds":  282.545
+                   },
+    "binary_dependencies":  [
+                                "KERNEL32.dll",
+                                "MSVCP140.dll",
+                                "VCOMP140.DLL",
+                                "VCRUNTIME140.dll",
+                                "VCRUNTIME140_1.dll",
+                                "Universal CRT"
+                            ]
+}

@@ -35,12 +35,12 @@
       120007
     ],
     "text": "HELLO 2026\nNCNN CPU TEST",
-    "load_seconds": 0.36,
-    "input_seconds": 3.409,
-    "prefill_seconds": 1.483,
-    "decode_seconds": 6.825,
-    "runtime_seconds": 11.717,
-    "peak_rss_kib": 5978556
+    "load_seconds": 0.431,
+    "input_seconds": 3.506,
+    "prefill_seconds": 1.471,
+    "decode_seconds": 7.404,
+    "runtime_seconds": 12.381,
+    "peak_rss_kib": 5990504
   },
   "unpacked_cli": {
     "tokens": [
@@ -57,12 +57,12 @@
       120007
     ],
     "text": "HELLO 2026\nNCNN CPU TEST",
-    "load_seconds": 0.535,
-    "input_seconds": 7.695,
-    "prefill_seconds": 1.318,
-    "decode_seconds": 2.104,
-    "runtime_seconds": 11.117,
-    "peak_rss_kib": 4258200
+    "load_seconds": 0.422,
+    "input_seconds": 7.756,
+    "prefill_seconds": 1.231,
+    "decode_seconds": 2.15,
+    "runtime_seconds": 11.138,
+    "peak_rss_kib": 4251012
   },
   "packed_parity": {
     "status": "passed",

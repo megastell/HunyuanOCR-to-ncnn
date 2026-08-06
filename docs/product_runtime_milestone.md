@@ -126,7 +126,8 @@ per-invocation mode.
 
 ## Remaining Boundary
 
-Native Windows/MSVC has not yet been built or run. The runtime still supports
-the fixed OCR prompt and smoke image grid rather than arbitrary processor
-shapes and chat turns. The two local ncnn precision changes also need a clean
-cross-platform carry or upstream resolution before release.
+Native Windows/MSVC is validated in the follow-up Phase 4B milestone documented
+in `docs/windows_msvc_milestone.md`. The runtime still supports the fixed OCR
+prompt and smoke image grid rather than arbitrary processor shapes and chat
+turns. The two local ncnn precision changes also need a reproducible release
+carry or upstream resolution.

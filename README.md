@@ -72,3 +72,12 @@ $HOME/work/hunyuanocr/.venv-reference/bin/python \
 release validation. The current public runtime contract uses the fixed OCR
 prompt and the audited `[1,22,50]` image grid. Reference-backed parity tests
 remain available through `-DHUNYUANOCR_BUILD_PARITY_TESTS=ON`.
+
+## Phase 4B Native Windows
+
+The same runtime now builds and runs with native Windows x64 and MSVC. The
+installed package exports `HunyuanOCR::runtime`, and packed/unpacked execution
+both reproduce the exact 11-token smoke result through EOS. Reproducible
+PowerShell entry points are available in `tools/windows/`; detailed environment,
+manifest, performance, memory, and dependency evidence is recorded in
+`docs/windows_msvc_milestone.md` and `docs/windows_msvc_validation.json`.

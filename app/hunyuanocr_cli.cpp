@@ -6,7 +6,13 @@
 #include <iostream>
 #include <string>
 
-#if defined(__linux__)
+#if defined(_WIN32)
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#include <psapi.h>
+#elif defined(__linux__)
 #include <sys/resource.h>
 #endif
 
@@ -35,7 +41,17 @@ bool parse_positive_integer(const std::string& text, int& value)
 
 long peak_resident_kib()
 {
-#if defined(__linux__)
+#if defined(_WIN32)
+    PROCESS_MEMORY_COUNTERS_EX counters = {};
+    counters.cb = sizeof(counters);
+    if (!GetProcessMemoryInfo(
+            GetCurrentProcess(),
+            reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&counters),
+            sizeof(counters))) {
+        return 0;
+    }
+    return static_cast<long>(counters.PeakWorkingSetSize / 1024);
+#elif defined(__linux__)
     rusage usage = {};
     return getrusage(RUSAGE_SELF, &usage) == 0 ? usage.ru_maxrss : 0;
 #else
