@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "image_sha256": "6dfb4ee4e85fe56a06bae1c5669c0eaac8745baf39999d3cd0ec1f6b1ada4266",
+  "image_grid_thw": [
+    1,
+    22,
+    50
+  ],
+  "prefill_hidden_shape": [
+    1,
+    313,
+    1024
+  ],
+  "image_token_span": [
+    2,
+    290
+  ],
+  "image_embedding_shape": [
+    1,
+    288,
+    1024
+  ],
+  "packed": {
+    "tokens": [
+      93892,
+      5112,
+      206,
+      1717,
+      21,
+      185,
+      18009,
+      15613,
+      16678,
+      21836,
+      120007
+    ],
+    "text": "HELLO 2026\nNCNN CPU TEST",
+    "original_rgb_max_abs_error": 0.0,
+    "resized_rgb_max_abs_error": 0.0,
+    "pixel_values_max_abs_error": 4.76837e-07,
+    "vision_embedding_max_abs_error": 0.0364559,
+    "fused_hidden_max_abs_error": 0.0364559,
+    "prefill_hidden_max_abs_error": 0.3906,
+    "prefill_cache_max_abs_error": 0.3549,
+    "prefill_final_hidden_max_abs_error": 0.0003818,
+    "prefill_final_norm_max_abs_error": 0.008564,
+    "prefill_logits_max_abs_error": 0.008082,
+    "decode_logits_max_abs_error": 0.01242,
+    "kv_prefix_max_abs_error": 0.0,
+    "elapsed_wall_seconds": 14.16,
+    "maximum_resident_kib": 5982384
+  },
+  "unpacked": {
+    "tokens": [
+      93892,
+      5112,
+      206,
+      1717,
+      21,
+      185,
+      18009,
+      15613,
+      16678,
+      21836,
+      120007
+    ],
+    "text": "HELLO 2026\nNCNN CPU TEST",
+    "original_rgb_max_abs_error": 0.0,
+    "resized_rgb_max_abs_error": 0.0,
+    "pixel_values_max_abs_error": 4.76837e-07,
+    "vision_embedding_max_abs_error": 0.000341415,
+    "fused_hidden_max_abs_error": 0.000341415,
+    "prefill_hidden_max_abs_error": 0.00112,
+    "prefill_cache_max_abs_error": 0.001455,
+    "prefill_final_hidden_max_abs_error": 1.818e-06,
+    "prefill_final_norm_max_abs_error": 4.387e-05,
+    "prefill_logits_max_abs_error": 4.864e-05,
+    "decode_logits_max_abs_error": 6.771e-05,
+    "kv_prefix_max_abs_error": 0.0,
+    "elapsed_wall_seconds": 12.92,
+    "maximum_resident_kib": 4269660
+  }
+}

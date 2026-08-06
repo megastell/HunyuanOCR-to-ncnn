@@ -41,6 +41,8 @@ but are not runtime dependencies.
 | Decoder math | All 24 layers validated for the captured decode contracts | Complete |
 | Language-model prefill | All 24 layers produce hidden states and initial KV caches in ncnn | Complete |
 | Vision tower and patch merger | Patch embedding, all 27 blocks, and the 288-token merger output pass in packed and unpacked ncnn | Complete |
+| Image preprocessing | C++ PNG decode, Pillow-compatible resize, normalization, patch packing, and grid construction | Complete |
+| Multimodal embedding placement | 288 vision embeddings replace image-token positions `[2, 290)` and feed ncnn prefill directly | Complete |
 | Dynamic KV length | One model per layer handles past lengths 313 through 322 | Complete |
 | KV handoff | Same-layer cache prefix remains byte-identical across steps | Complete |
 | Final RMSNorm | pnnx/ncnn FP32 parity | Complete |
@@ -61,22 +63,20 @@ token 120007, and decodes `HELLO 2026\nNCNN CPU TEST` in both layouts.
 
 ## Important boundary
 
-The current executable is not yet image-to-text end to end. The vision chain
-starts from captured `pixel_values` and `image_grid_thw`, executes patch
-embedding, all 27 vision blocks, and the patch merger in ncnn, and returns the
-reference `[1, 288, 1024]` visual embedding. A separate decoder chain starts
-from the captured fused Layer 0 prefill hidden state, attention mask, and mRoPE
-tensors and completes prefill and autoregressive generation in ncnn. C++ image
-preprocessing, prompt tokenization, multimodal embedding placement, and the
-direct handoff between these two verified chains remain incomplete.
+The Phase 3B executable is image-to-text end to end for the fixed smoke
+contract. It starts from the source PNG, reproduces processor pixels and grid,
+runs all 29 ncnn vision components, places the 288 visual embeddings into the
+313-token text embedding, and feeds that hidden state directly through ncnn
+prefill and generation. Packed and unpacked modes emit the exact reference
+tokens and text. It still loads captured prompt token IDs, attention mask, and
+mRoPE tensors, so arbitrary runtime prompts are not complete.
 
 ## Remaining gaps
 
 | Priority | Gap | Acceptance condition |
 | --- | --- | --- |
-| P0 | Image preprocessing | C++ resize, normalization, patch packing, grid construction, and image-token placement match the processor tensors |
 | P0 | Input tokenizer and prompt construction | C++ tokenization, chat-template handling, and special-token insertion match Transformers; output ByteLevel decoding is already complete |
-| P0 | Multimodal embedding placement | The 288 ncnn vision embeddings replace the exact image-token span and reproduce the captured `[1, 313, 1024]` prefill hidden state |
+| P0 | Multimodal position construction | C++ attention mask, multimodal token types, four-axis position IDs, and mRoPE tensors replace captured prefill inputs |
 | P1 | Product runtime | Non-empty `src/` and `include/`, a root CMake project, a reusable library, and an OCR CLI replace milestone-only test executables |
 | P1 | Native Windows | MSVC CMake build and the same smoke image pass outside WSL |
 | P1 | Runtime dependency cleanup | Final executable depends on ncnn and the C++ runtime only; image decoding and tokenizer choices are documented |
@@ -129,9 +129,15 @@ Phase 3A completed on 2026-08-06. The fixed `22x50` smoke-image contract now
 runs patch embedding, all 27 vision blocks, and the patch merger in ncnn. Both
 packed and unpacked modes produce `[1, 288, 1024]` embeddings within the final
 merger tolerance. The implementation also establishes that this vision model
-uses interpolated learned patch positions and no vision RoPE. Phase 3B must
-replace captured processor outputs and place the generated visual embeddings
-into the decoder prefill sequence.
+uses interpolated learned patch positions and no vision RoPE.
+
+Phase 3B completed on 2026-08-06. C++ now decodes the original PNG, reproduces
+Pillow bicubic resize byte for byte, generates processor-compatible
+`pixel_values` and `image_grid_thw`, runs the full ncnn vision chain, computes
+text embeddings, and places all 288 visual embeddings at `[2, 290)`. That
+generated `[1, 313, 1024]` hidden state feeds the 24-layer prefill and dynamic
+decoder directly. Packed and unpacked runs both emit the exact 11 tokens and
+`HELLO 2026\nNCNN CPU TEST`.
 
 ### Phase 4: Productize and validate two platforms
 
@@ -151,9 +157,8 @@ into the decoder prefill sequence.
 
 ## Next action
 
-Phase 3B is the next highest-priority milestone. Vision, prefill, and decode
-are independently complete at their captured boundaries. The next
-implementation should reproduce image preprocessing in C++, then combine the
-ncnn visual embeddings with text embeddings at the exact image-token positions
-and validate the resulting Layer 0 prefill hidden state before joining the two
-existing C++ chains.
+Phase 3C is the next highest-priority milestone. Implement the input tokenizer,
+chat template, special-token insertion, attention mask, multimodal token types,
+four-axis position IDs, and mRoPE tensors in C++. The acceptance target is the
+same exact image-to-text result without loading any captured prompt or prefill
+input tensor.
