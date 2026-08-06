@@ -1110,7 +1110,9 @@ int main(
             + "_decode";
 
         const std::string model_name =
-            reference_name;
+            "decoder_layer"
+            + layer_text
+            + "_decode_dynamic";
 
         const std::string model_directory =
             project_root
@@ -2129,7 +2131,9 @@ int main(
             + "_decode_step2";
 
         const std::string model_name =
-            reference_name;
+            "decoder_layer"
+            + layer_text
+            + "_decode_dynamic";
 
         const std::string model_directory =
             project_root
@@ -3201,7 +3205,9 @@ int main(
             + "_decode_step3";
 
         const std::string model_name =
-            reference_name;
+            "decoder_layer"
+            + layer_text
+            + "_decode_dynamic";
 
         const std::string model_directory =
             project_root

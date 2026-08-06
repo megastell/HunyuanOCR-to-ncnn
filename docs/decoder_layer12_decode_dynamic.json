@@ -1,0 +1,74 @@
+{
+  "layer_index": 12,
+  "model_revision": "449e7d471a8a1ef5bd5d652e4881183d7252cbc7",
+  "torch_version": "2.12.1+cpu",
+  "torch_threads": 9,
+  "model_load_and_trace_seconds": 2.775822500999766,
+  "torchscript_path": "artifacts/decoder_layer12_decode_dynamic/decoder_layer12_decode_dynamic.pt",
+  "torchscript_bytes": 69224829,
+  "validation": {
+    "step1": {
+      "past_length": 313,
+      "present_length": 314,
+      "metrics": {
+        "layer_output": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "present_key": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "present_value": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      }
+    },
+    "step2": {
+      "past_length": 314,
+      "present_length": 315,
+      "metrics": {
+        "layer_output": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "present_key": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "present_value": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      }
+    },
+    "step3": {
+      "past_length": 315,
+      "present_length": 316,
+      "metrics": {
+        "layer_output": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "present_key": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        },
+        "present_value": {
+          "maximum_abs_error": 0.0,
+          "mean_abs_error": 0.0
+        }
+      }
+    }
+  },
+  "pnnx_command": [
+    "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
+    "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer12_decode_dynamic/decoder_layer12_decode_dynamic.pt",
+    "inputshape=[1,1,1024],[1,1,1,314],[4,1,1,128],[4,1,1,128],[1,8,313,128],[1,8,313,128]",
+    "inputshape2=[1,1,1024],[1,1,1,316],[4,1,1,128],[4,1,1,128],[1,8,315,128],[1,8,315,128]",
+    "fp16=0",
+    "optlevel=2"
+  ],
+  "pnnx_log": "docs/decoder_layer12_decode_dynamic_pnnx.txt"
+}

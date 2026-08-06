@@ -1,0 +1,53 @@
+===== Runtime options =====
+threads            : 9
+packing layout     : false
+
+===== Input shapes =====
+in0 hidden_states: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+in1 attention_mask: dims=3, w=315, h=1, d=1, c=1, elempack=1, logical_count=315
+in2 rope_cos: dims=3, w=128, h=1, d=1, c=4, elempack=1, logical_count=512
+in3 rope_sin: dims=3, w=128, h=1, d=1, c=4, elempack=1, logical_count=512
+in4 past_key: dims=3, w=128, h=314, d=1, c=8, elempack=1, logical_count=321536
+in5 past_value: dims=3, w=128, h=314, d=1, c=8, elempack=1, logical_count=321536
+
+===== Output shapes =====
+out0 layer_output: dims=2, w=1024, h=1, d=1, c=1, elempack=1, logical_count=1024
+out1 present_key: dims=3, w=128, h=315, d=1, c=8, elempack=1, logical_count=322560
+out2 present_value: dims=3, w=128, h=315, d=1, c=8, elempack=1, logical_count=322560
+
+===== Numerical parity =====
+
+out0 layer_output
+  Maximum abs error : 5.2154064178e-08
+  Mean abs error    : 9.9942099041e-09
+  RMSE              : 1.2818851836e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 276
+  Actual at max     : -0.0222408399
+  Expected at max   : -0.0222407877
+
+out1 present_key
+  Maximum abs error : 1.9073486328e-06
+  Mean abs error    : 5.7859165642e-10
+  RMSE              : 1.4064977674e-08
+  Cosine similarity : 1.000000000000
+  Max error index   : 322432
+  Actual at max     : 5.4710946083
+  Expected at max   : 5.4710965157
+
+out2 present_value
+  Maximum abs error : 2.6077032089e-08
+  Mean abs error    : 1.4349985750e-11
+  RMSE              : 3.3337410814e-10
+  Cosine similarity : 1.000000000000
+  Max error index   : 80628
+  Actual at max     : -0.0415355116
+  Expected at max   : -0.0415355377
+
+===== Cache region checks =====
+Key history prefix max error : 0.0000000000e+00
+Key appended token max error : 1.9073486328e-06
+Value history prefix max error: 0.0000000000e+00
+Value appended token max error: 2.6077032089e-08
+
+✅ Decoder Layer 0 Decode Step 2 PNNX → ncnn C++三输出数值对齐成功。

@@ -1,0 +1,30 @@
+pnnxparam = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.pnnx.param
+pnnxbin = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.pnnx.bin
+pnnxpy = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic_pnnx.py
+pnnxonnx = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.pnnx.onnx
+ncnnparam = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.ncnn.param
+ncnnbin = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.ncnn.bin
+ncnnpy = /home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts/decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic_ncnn.py
+fp16 = 0
+optlevel = 2
+device = cpu
+inputshape = [1,1,1024]f32,[1,1,1,314]f32,[4,1,1,128]f32,[4,1,1,128]f32,[1,8,313,128]f32,[1,8,313,128]f32
+inputshape2 = [1,1,1024]f32,[1,1,1,316]f32,[4,1,1,128]f32,[4,1,1,128]f32,[1,8,315,128]f32,[1,8,315,128]f32
+input =
+input2 =
+customop =
+moduleop =
+############# pass_level0
+
+----------------
+
+assign dynamic shape info
+############# pass_level1
+############# pass_level2
+############# pass_level3
+############# pass_level4
+############# pass_level5
+############# pass_ncnn
+model inputshape = [1,1,1024]f32,[1,1,1,?]f32,[4,1,1,128]f32,[4,1,1,128]f32,[1,8,?,128]f32,[1,8,?,128]f32
+FLOPS = 34.672M
+memory OPS = 17.384M
