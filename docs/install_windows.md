@@ -102,3 +102,28 @@ target_link_libraries(your_app PRIVATE HunyuanOCR::runtime)
 The Phase 4G dry run extracted the ZIP package into a clean directory and
 executed the installed CLI against the external model directory. The recorded
 report is `docs/windows_phase4g_release_dryrun.json`.
+
+## Runtime Artifact Reproduction
+
+The one-command artifact reproduction pipeline is Linux-based because the
+pnnx/reference capture flow uses the validated PyTorch and pnnx environments
+under WSL. Generate the staged runtime model first, then copy the resulting
+directory to an NTFS location for native Windows validation.
+
+```bash
+$HOME/work/hunyuanocr/.venv-reference/bin/python \
+  tools/release/reproduce_runtime_artifacts_acceptance.py \
+  --clean-staging \
+  --hf-model-dir "$HOME/work/hunyuanocr/models/HunyuanOCR-1.5" \
+  --work-dir "$HOME/hunyuanocr-recovery/phase4k"
+```
+
+Copy this directory to Windows after the Linux acceptance passes:
+
+```text
+$HOME/hunyuanocr-recovery/phase4k/direct-staging-artifacts
+```
+
+The report `docs/phase4k_reproducible_release_acceptance.json` records the
+manifest SHA-256 values and confirms that the repository `artifacts/` and
+`reference/` directories were unchanged during reproduction.

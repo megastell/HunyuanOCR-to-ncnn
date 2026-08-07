@@ -100,3 +100,41 @@ target_link_libraries(your_app PRIVATE HunyuanOCR::runtime)
 The Phase 4G dry run extracted the package into a clean directory and executed
 the installed CLI against the external model directory. The recorded report is
 `docs/linux_phase4g_release_dryrun.json`.
+
+## Reproduce Runtime Artifacts From A Local HF Model
+
+For release acceptance, the runtime artifacts can be rebuilt from an existing
+local `tencent/HunyuanOCR` HuggingFace model directory without downloading the
+model again. The pipeline regenerates PyTorch reference tensors, runs the
+direct pnnx/ncnn export into a clean persistent staging directory, generates
+`runtime_manifest.tsv` and `runtime_compatibility.tsv`, then runs the Linux
+smoke, dynamic-size, real PNG, real JPEG, and cache-budget validations.
+
+```bash
+cmake -S . -B build-phase4k \
+  -DCMAKE_BUILD_TYPE=Release \
+  -Dncnn_DIR="$HOME/.local/ncnn-cpu-ropefix-rmsnorm/lib/cmake/ncnn" \
+  -DHUNYUANOCR_ENABLE_REPRODUCTION_TESTS=ON \
+  -DHUNYUANOCR_REPRO_HF_MODEL_DIR="$HOME/work/hunyuanocr/models/HunyuanOCR-1.5" \
+  -DHUNYUANOCR_REPRO_WORK_DIR="$HOME/hunyuanocr-recovery/phase4k" \
+  -DHUNYUANOCR_REPRO_REFERENCE_PYTHON="$HOME/work/hunyuanocr/.venv-reference/bin/python" \
+  -DHUNYUANOCR_REPRO_PNNX="$HOME/work/hunyuanocr/.venv-pnnx/bin/pnnx"
+cmake --build build-phase4k --parallel
+ctest --test-dir build-phase4k -L reproducible-artifacts --output-on-failure
+```
+
+Direct script entry:
+
+```bash
+$HOME/work/hunyuanocr/.venv-reference/bin/python \
+  tools/release/reproduce_runtime_artifacts_acceptance.py \
+  --clean-staging \
+  --hf-model-dir "$HOME/work/hunyuanocr/models/HunyuanOCR-1.5" \
+  --work-dir "$HOME/hunyuanocr-recovery/phase4k"
+```
+
+The staging artifacts are written to
+`$HOME/hunyuanocr-recovery/phase4k/direct-staging-artifacts`. The acceptance
+report is `docs/phase4k_reproducible_release_acceptance.json`. The script
+checks that the existing repository `artifacts/` and `reference/` trees are
+unchanged after the run.

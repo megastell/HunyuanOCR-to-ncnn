@@ -94,7 +94,7 @@ def safe_clean(path: Path, allowed_root: Path) -> None:
     resolved = path.resolve()
     allowed = allowed_root.resolve()
     if resolved != allowed and allowed not in resolved.parents:
-        raise RuntimeError(f"Refusing to clean outside Phase 4J root: {resolved}")
+        raise RuntimeError(f"Refusing to clean outside staging root: {resolved}")
     if resolved.exists():
         shutil.rmtree(resolved)
 
@@ -170,7 +170,7 @@ def audit_inputs(args: argparse.Namespace, logger: PhaseLogger) -> dict[str, obj
     }
 
 
-def reference_env(args: argparse.Namespace) -> dict[str, str]:
+def reference_env(args: argparse.Namespace, phase_root: Path) -> dict[str, str]:
     env = os.environ.copy()
     env.update(
         {
@@ -180,10 +180,10 @@ def reference_env(args: argparse.Namespace) -> dict[str, str]:
             "HUNYUANOCR_DOCS_DIR": str(args.docs_dir),
             "HUNYUANOCR_SMOKE_IMAGE": str(PROJECT_DIR / "tests/assets/ocr_smoke_en.png"),
             "HUNYUANOCR_DYNAMIC_REFERENCE_DIR": str(
-                RECOVERY_ROOT / "dynamic-reference"
+                phase_root / "dynamic-reference"
             ),
-            "HUNYUANOCR_REAL_REFERENCE_DIR": str(RECOVERY_ROOT / "real-reference"),
-            "HUNYUANOCR_RECOVERY_DIR": str(RECOVERY_ROOT),
+            "HUNYUANOCR_REAL_REFERENCE_DIR": str(phase_root / "real-reference"),
+            "HUNYUANOCR_RECOVERY_DIR": str(phase_root),
         }
     )
     return env
@@ -192,10 +192,11 @@ def reference_env(args: argparse.Namespace) -> dict[str, str]:
 def capture_references(
     args: argparse.Namespace,
     logger: PhaseLogger,
+    phase_root: Path,
 ) -> list[dict[str, object]]:
     py = str(args.reference_python)
     logs = args.log_dir / "reference-capture"
-    env = reference_env(args)
+    env = reference_env(args, phase_root)
     steps = [
         ("smoke_reference", [py, "tools/reference/run_reference_smoke.py"]),
         ("split_contract", [py, "tools/reference/capture_split_contract.py"]),
@@ -246,7 +247,7 @@ def run_direct_export(
     args: argparse.Namespace,
     logger: PhaseLogger,
 ) -> dict[str, object]:
-    report_path = PROJECT_DIR / "docs/phase4j_direct_export_pipeline_report.json"
+    report_path = args.direct_export_docs_dir / "direct_export_pipeline_report.json"
     command = [
         str(args.reference_python),
         "tools/export/rebuild_runtime_artifacts.py",
@@ -311,6 +312,7 @@ def main() -> None:
     args.direct_export_docs_dir = args.direct_export_docs_dir.resolve()
     args.log_dir = args.log_dir.resolve()
     args.report = args.report.resolve()
+    phase_root = args.reference_dir.parent
 
     args.log_dir.mkdir(parents=True, exist_ok=True)
     logger = PhaseLogger(args.log_dir / "phase4j_reference_capture_pipeline.log")
@@ -332,15 +334,15 @@ def main() -> None:
                 args.direct_export_docs_dir,
                 args.log_dir / "direct-export",
                 args.log_dir / "reference-capture",
-                RECOVERY_ROOT / "dynamic-reference",
-                RECOVERY_ROOT / "real-reference",
+                phase_root / "dynamic-reference",
+                phase_root / "real-reference",
             ):
-                safe_clean(path, RECOVERY_ROOT)
+                safe_clean(path, phase_root)
         args.reference_dir.mkdir(parents=True, exist_ok=True)
         args.reference_artifacts_dir.mkdir(parents=True, exist_ok=True)
         args.docs_dir.mkdir(parents=True, exist_ok=True)
 
-        report["reference_capture"] = capture_references(args, logger)
+        report["reference_capture"] = capture_references(args, logger, phase_root)
         report["reference_summary"] = summarize_reference_dir(args.reference_dir)
         if not args.skip_direct_export:
             report["direct_export"] = run_direct_export(args, logger)

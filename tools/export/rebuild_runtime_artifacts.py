@@ -98,7 +98,7 @@ def safe_clean(path: Path, allowed_root: Path) -> None:
     resolved = path.resolve()
     allowed = allowed_root.resolve()
     if allowed != resolved and allowed not in resolved.parents:
-        raise RuntimeError(f"Refusing to clean outside Phase 4I root: {resolved}")
+        raise RuntimeError(f"Refusing to clean outside staging root: {resolved}")
     if resolved.exists():
         shutil.rmtree(resolved)
 
@@ -410,6 +410,7 @@ def main() -> None:
     args.reference_python = args.reference_python.absolute()
     args.pnnx = args.pnnx.resolve()
     args.cli = args.cli.resolve()
+    staging_root = args.staging_dir.parent
 
     args.log_dir.mkdir(parents=True, exist_ok=True)
     logger = PhaseLogger(args.log_dir / "phase4i_direct_export_pipeline.log")
@@ -423,8 +424,8 @@ def main() -> None:
         logger.write("HunyuanOCR-ncnn Phase 4I direct export pipeline")
         report["audit"] = audit_inputs(args, logger)
         if args.clean_staging:
-            safe_clean(args.staging_dir, RECOVERY_ROOT)
-            safe_clean(args.docs_dir, RECOVERY_ROOT)
+            safe_clean(args.staging_dir, staging_root)
+            safe_clean(args.docs_dir, staging_root)
         args.staging_dir.mkdir(parents=True, exist_ok=True)
         args.docs_dir.mkdir(parents=True, exist_ok=True)
 

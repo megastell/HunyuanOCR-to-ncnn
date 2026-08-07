@@ -6,6 +6,11 @@ option(HUNYUANOCR_BUILD_CLI "Build the HunyuanOCR command-line application" ON)
 option(HUNYUANOCR_BUILD_PARITY_TESTS "Build reference-backed parity tests" OFF)
 option(HUNYUANOCR_BUILD_BENCHMARKS "Build runtime benchmark utilities" OFF)
 option(HUNYUANOCR_ENABLE_RELEASE_TESTS "Register full OCR release tests with CTest" OFF)
+option(
+    HUNYUANOCR_ENABLE_REPRODUCTION_TESTS
+    "Register slow reproducible artifact generation acceptance with CTest"
+    OFF
+)
 set(HUNYUANOCR_RELEASE_MODEL_DIR
     "${CMAKE_CURRENT_SOURCE_DIR}/artifacts"
     CACHE PATH "Model directory used by HunyuanOCR release CTest entries"
@@ -13,6 +18,26 @@ set(HUNYUANOCR_RELEASE_MODEL_DIR
 set(HUNYUANOCR_RELEASE_LOG_DIR
     "$ENV{HOME}/hunyuanocr-recovery/phase4f/ctest"
     CACHE PATH "Persistent log directory used by HunyuanOCR release CTest entries"
+)
+set(HUNYUANOCR_REPRO_HF_MODEL_DIR
+    "$ENV{HOME}/work/hunyuanocr/models/HunyuanOCR-1.5"
+    CACHE PATH "Local HuggingFace model directory used by reproducible artifact CTest"
+)
+set(HUNYUANOCR_REPRO_WORK_DIR
+    "$ENV{HOME}/hunyuanocr-recovery/phase4k"
+    CACHE PATH "Persistent staging directory used by reproducible artifact CTest"
+)
+set(HUNYUANOCR_REPRO_REFERENCE_PYTHON
+    "$ENV{HOME}/work/hunyuanocr/.venv-reference/bin/python"
+    CACHE FILEPATH "Reference Python used by reproducible artifact CTest"
+)
+set(HUNYUANOCR_REPRO_PNNX
+    "$ENV{HOME}/work/hunyuanocr/.venv-pnnx/bin/pnnx"
+    CACHE FILEPATH "pnnx executable used by reproducible artifact CTest"
+)
+set(HUNYUANOCR_REPRO_REPORT
+    "${CMAKE_CURRENT_SOURCE_DIR}/docs/phase4k_reproducible_release_acceptance.json"
+    CACHE FILEPATH "Phase 4K reproducible release acceptance report"
 )
 
 set(CMAKE_CXX_STANDARD 17)
@@ -140,6 +165,32 @@ if(HUNYUANOCR_ENABLE_RELEASE_TESTS AND HUNYUANOCR_BUILD_CLI)
     hunyuanocr_add_release_test(hunyuanocr_real_jpeg_exact real-jpeg)
     hunyuanocr_add_release_test(hunyuanocr_decoder_cache_budgets cache-budgets)
     hunyuanocr_add_release_test(hunyuanocr_error_paths error-paths)
+endif()
+
+if(HUNYUANOCR_ENABLE_REPRODUCTION_TESTS)
+    if(NOT HUNYUANOCR_BUILD_CLI)
+        message(FATAL_ERROR "HUNYUANOCR_ENABLE_REPRODUCTION_TESTS requires HUNYUANOCR_BUILD_CLI")
+    endif()
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+    add_test(
+        NAME hunyuanocr_reproduce_runtime_artifacts_acceptance
+        COMMAND
+            "${Python3_EXECUTABLE}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/tools/release/reproduce_runtime_artifacts_acceptance.py"
+            --clean-staging
+            --hf-model-dir "${HUNYUANOCR_REPRO_HF_MODEL_DIR}"
+            --reference-python "${HUNYUANOCR_REPRO_REFERENCE_PYTHON}"
+            --pnnx "${HUNYUANOCR_REPRO_PNNX}"
+            --cli "$<TARGET_FILE:hunyuanocr_cli>"
+            --work-dir "${HUNYUANOCR_REPRO_WORK_DIR}"
+            --report "${HUNYUANOCR_REPRO_REPORT}"
+    )
+    set_tests_properties(
+        hunyuanocr_reproduce_runtime_artifacts_acceptance
+        PROPERTIES
+            LABELS "hunyuanocr;release;reproducible-artifacts;slow"
+            TIMEOUT 14400
+    )
 endif()
 
 include(GNUInstallDirs)

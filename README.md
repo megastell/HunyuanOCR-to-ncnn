@@ -243,3 +243,39 @@ platforms reproduce `HELLO 2026\nNCNN CPU TEST` from the package-installed CLI.
 
 See `docs/phase4g_open_source_release_milestone.md` for final package hashes,
 license status, dry-run measurements, and remaining release risks.
+
+## Reproduce Runtime Artifacts From A Local HF Model
+
+The release acceptance path can regenerate the PyTorch reference tensors and
+all runtime ncnn artifacts from an already downloaded `tencent/HunyuanOCR`
+HuggingFace directory. It does not download model weights and writes all large
+outputs to a persistent staging directory outside the repository.
+
+```bash
+cmake -S . -B build-phase4k \
+  -DCMAKE_BUILD_TYPE=Release \
+  -Dncnn_DIR="$HOME/.local/ncnn-cpu-ropefix-rmsnorm/lib/cmake/ncnn" \
+  -DHUNYUANOCR_ENABLE_REPRODUCTION_TESTS=ON \
+  -DHUNYUANOCR_REPRO_HF_MODEL_DIR="$HOME/work/hunyuanocr/models/HunyuanOCR-1.5" \
+  -DHUNYUANOCR_REPRO_WORK_DIR="$HOME/hunyuanocr-recovery/phase4k" \
+  -DHUNYUANOCR_REPRO_REFERENCE_PYTHON="$HOME/work/hunyuanocr/.venv-reference/bin/python" \
+  -DHUNYUANOCR_REPRO_PNNX="$HOME/work/hunyuanocr/.venv-pnnx/bin/pnnx"
+cmake --build build-phase4k --parallel
+ctest --test-dir build-phase4k -L reproducible-artifacts --output-on-failure
+```
+
+The same acceptance can be run directly:
+
+```bash
+$HOME/work/hunyuanocr/.venv-reference/bin/python \
+  tools/release/reproduce_runtime_artifacts_acceptance.py \
+  --clean-staging \
+  --hf-model-dir "$HOME/work/hunyuanocr/models/HunyuanOCR-1.5" \
+  --work-dir "$HOME/hunyuanocr-recovery/phase4k"
+```
+
+The generated staging model is
+`$HOME/hunyuanocr-recovery/phase4k/direct-staging-artifacts`. The acceptance
+report is written to `docs/phase4k_reproducible_release_acceptance.json` and
+records elapsed time, disk usage, key SHA-256 values, dependency versions, and
+the check that existing `artifacts/` and `reference/` trees were not modified.
