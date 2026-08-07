@@ -1,0 +1,263 @@
+{
+  "phase": "4L",
+  "status": "passed",
+  "phase4k_reproduction": {
+    "report": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/phase4k_reproducible_release_acceptance.json",
+    "staging_model_dir": "/home/asus/hunyuanocr-recovery/phase4k/direct-staging-artifacts",
+    "elapsed_seconds": 1216.4311861250026,
+    "runtime_manifest_sha256": "71498acaeafff31e2cbfa4c3ed9de81b73d9078e1f2bc7528e87bc36d7222431",
+    "runtime_compatibility_sha256": "cc47674acdbd3770952294b9363952fbea347acbeb355a7d363bd7e6c86c73f6",
+    "manifest_file_count": 170,
+    "manifest_total_gib": 5.724460432305932,
+    "existing_artifacts_reference_unchanged": true
+  },
+  "linux_release_acceptance": {
+    "report": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/linux_phase4l_release_validation.json",
+    "status": "passed",
+    "model_directory": "/home/asus/hunyuanocr-recovery/phase4k/direct-staging-artifacts",
+    "ctest_suites": [
+      "cache-budgets",
+      "dynamic",
+      "error-paths",
+      "real-jpeg",
+      "real-png",
+      "smoke"
+    ],
+    "ctest": {
+      "smoke": {
+        "passed_percent": 100,
+        "failed_tests": 0
+      },
+      "dynamic": {
+        "passed_percent": 100,
+        "failed_tests": 0
+      },
+      "real-png": {
+        "passed_percent": 100,
+        "failed_tests": 0
+      },
+      "real-jpeg": {
+        "passed_percent": 100,
+        "failed_tests": 0
+      },
+      "cache-budgets": {
+        "passed_percent": 100,
+        "failed_tests": 0
+      },
+      "error-paths": {
+        "passed_percent": 100,
+        "failed_tests": 0
+      }
+    },
+    "packages": [
+      {
+        "path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz",
+        "bytes": 7427742,
+        "sha256": "4315e56640357b44410b449be763d661f8444f9de9476bd907ff3d713c4e9290"
+      },
+      {
+        "path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.zip",
+        "bytes": 7441260,
+        "sha256": "247d67bc6b3200729f58c688aeb1d9da10dc2aa876f0a3e08122eafd211df18f"
+      }
+    ],
+    "package_rehearsals": [
+      {
+        "phase": "4G",
+        "status": "passed",
+        "package": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz",
+        "package_root": "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing0/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64",
+        "model_directory": "/home/asus/hunyuanocr-recovery/phase4k/direct-staging-artifacts",
+        "input_image": "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing0/inputs/ocr_smoke_en.png",
+        "packing": 0,
+        "decoder_cache_mib": 512,
+        "wall_seconds": 12.668957857997157,
+        "notice_files_checked": [
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing0/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/LICENSE",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing0/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/NOTICE",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing0/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/THIRD_PARTY_NOTICES.md",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing0/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/ncnn-LICENSE.txt",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing0/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/Tencent-HunyuanOCR-LICENSE.txt",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing0/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/stb_image-LICENSE.txt"
+        ],
+        "ocr": {
+          "generated_token_ids": [
+            93892,
+            5112,
+            206,
+            1717,
+            21,
+            185,
+            18009,
+            15613,
+            16678,
+            21836,
+            120007
+          ],
+          "generated_text": "HELLO 2026\nNCNN CPU TEST",
+          "runtime_seconds": 11.839,
+          "peak_rss_kib": 1609220
+        },
+        "log": "/home/asus/hunyuanocr-recovery/phase4l/linux/logs/package-rehearsal-packing0/package_rehearsal_packing0.log"
+      },
+      {
+        "phase": "4G",
+        "status": "passed",
+        "package": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz",
+        "package_root": "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64",
+        "model_directory": "/home/asus/hunyuanocr-recovery/phase4k/direct-staging-artifacts",
+        "input_image": "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/inputs/ocr_smoke_en.png",
+        "packing": 1,
+        "decoder_cache_mib": 512,
+        "wall_seconds": 13.293278775003273,
+        "notice_files_checked": [
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/LICENSE",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/NOTICE",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/THIRD_PARTY_NOTICES.md",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/ncnn-LICENSE.txt",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/Tencent-HunyuanOCR-LICENSE.txt",
+          "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/stb_image-LICENSE.txt"
+        ],
+        "ocr": {
+          "generated_token_ids": [
+            93892,
+            5112,
+            206,
+            1717,
+            21,
+            185,
+            18009,
+            15613,
+            16678,
+            21836,
+            120007
+          ],
+          "generated_text": "HELLO 2026\nNCNN CPU TEST",
+          "runtime_seconds": 12.637,
+          "peak_rss_kib": 1617796
+        },
+        "log": "/home/asus/hunyuanocr-recovery/phase4l/linux/logs/package-rehearsal-packing1/package_rehearsal_packing1.log"
+      }
+    ]
+  },
+  "windows_reproduced_artifact_acceptance": {
+    "report": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/windows_phase4l_reproduced_artifact_acceptance.json",
+    "status": "passed",
+    "source_model_directory": "\\\\wsl.localhost\\Ubuntu-24.04\\home\\asus\\hunyuanocr-recovery\\phase4k\\direct-staging-artifacts",
+    "ntfs_model_directory": "D:\\hunyuanocr-recovery\\phase4l\\model-ntfs",
+    "model_copy_file_count": 170,
+    "model_copy_total_bytes": 6146592586,
+    "model_manifest_sha256": "71498acaeafff31e2cbfa4c3ed9de81b73d9078e1f2bc7528e87bc36d7222431",
+    "model_compatibility_sha256": "cc47674acdbd3770952294b9363952fbea347acbeb355a7d363bd7e6c86c73f6",
+    "ctest_suites": [
+      "smoke",
+      "dynamic",
+      "real-png",
+      "real-jpeg",
+      "cache-budgets",
+      "error-paths"
+    ],
+    "ctest": [
+      {
+        "suite": "smoke",
+        "test_count": 1,
+        "status": "passed",
+        "log": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_smoke.log"
+      },
+      {
+        "suite": "dynamic",
+        "test_count": 1,
+        "status": "passed",
+        "log": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_dynamic.log"
+      },
+      {
+        "suite": "real-png",
+        "test_count": 1,
+        "status": "passed",
+        "log": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_real-png.log"
+      },
+      {
+        "suite": "real-jpeg",
+        "test_count": 1,
+        "status": "passed",
+        "log": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_real-jpeg.log"
+      },
+      {
+        "suite": "cache-budgets",
+        "test_count": 1,
+        "status": "passed",
+        "log": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_cache-budgets.log"
+      },
+      {
+        "suite": "error-paths",
+        "test_count": 1,
+        "status": "passed",
+        "log": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_error-paths.log"
+      }
+    ],
+    "packages": [
+      {
+        "path": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+        "bytes": 4439889,
+        "sha256": "7af8b49f511deb08a502b01fc7ece91353fc2841ee72996ad8369999a6ad914f"
+      }
+    ],
+    "package_rehearsals": [
+      {
+        "status": "passed",
+        "package": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+        "package_root": "D:\\hunyuanocr-recovery\\phase4l\\windows-package-rehearsal-packing0\\extract\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64",
+        "packing": 0,
+        "log": "D:\\hunyuanocr-recovery\\phase4l\\logs\\windows_package_rehearsal_packing0.log",
+        "wall_seconds": 34.337,
+        "generated_token_ids": [
+          93892,
+          5112,
+          206,
+          1717,
+          21,
+          185,
+          18009,
+          15613,
+          16678,
+          21836,
+          120007
+        ],
+        "generated_text": "HELLO 2026\nNCNN CPU TEST",
+        "runtime_seconds": 33.203,
+        "peak_rss_kib": 1574016
+      },
+      {
+        "status": "passed",
+        "package": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+        "package_root": "D:\\hunyuanocr-recovery\\phase4l\\windows-package-rehearsal-packing1\\extract\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64",
+        "packing": 1,
+        "log": "D:\\hunyuanocr-recovery\\phase4l\\logs\\windows_package_rehearsal_packing1.log",
+        "wall_seconds": 28.512,
+        "generated_token_ids": [
+          93892,
+          5112,
+          206,
+          1717,
+          21,
+          185,
+          18009,
+          15613,
+          16678,
+          21836,
+          120007
+        ],
+        "generated_text": "HELLO 2026\nNCNN CPU TEST",
+        "runtime_seconds": 27.532,
+        "peak_rss_kib": 1583788
+      }
+    ]
+  },
+  "offline_release_acceptance": {
+    "linux_installed_package_packed": true,
+    "linux_installed_package_unpacked": true,
+    "windows_installed_package_packed": true,
+    "windows_installed_package_unpacked": true,
+    "network_required": false
+  }
+}

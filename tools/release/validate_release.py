@@ -40,6 +40,11 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--skip-ctest", action="store_true")
     parser.add_argument("--skip-cpack", action="store_true")
+    parser.add_argument(
+        "--skip-manifest-refresh",
+        action="store_true",
+        help="Do not refresh the repository artifacts manifest before validation.",
+    )
     return parser.parse_args()
 
 
@@ -188,10 +193,11 @@ def main() -> None:
     if not args.model_dir.is_dir():
         raise RuntimeError(f"Model directory was not found: {args.model_dir}")
 
-    run(
-        [sys.executable, "tools/export/export_runtime_manifest.py"],
-        args.log_dir / "export_runtime_manifest.log",
-    )
+    if not args.skip_manifest_refresh:
+        run(
+            [sys.executable, "tools/export/export_runtime_manifest.py"],
+            args.log_dir / "export_runtime_manifest.log",
+        )
     configure = [
         "cmake",
         "-S",

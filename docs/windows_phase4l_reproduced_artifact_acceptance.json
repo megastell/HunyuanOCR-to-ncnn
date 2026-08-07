@@ -1,0 +1,115 @@
+{
+    "phase":  "4L",
+    "status":  "passed",
+    "repo_root":  "\\\\wsl.localhost\\Ubuntu-24.04\\home\\asus\\work\\hunyuanocr\\HunyuanOCR-ncnn",
+    "source_model_directory":  "\\\\wsl.localhost\\Ubuntu-24.04\\home\\asus\\hunyuanocr-recovery\\phase4k\\direct-staging-artifacts",
+    "ntfs_model_directory":  "D:\\hunyuanocr-recovery\\phase4l\\model-ntfs",
+    "work_root":  "D:\\hunyuanocr-recovery\\phase4l",
+    "model_copy":  {
+                       "format":  "HUNYUANOCR_NCNN_NTFS_COPY_V1",
+                       "source":  "\\\\wsl.localhost\\Ubuntu-24.04\\home\\asus\\hunyuanocr-recovery\\phase4k\\direct-staging-artifacts",
+                       "destination":  "D:\\hunyuanocr-recovery\\phase4l\\model-ntfs",
+                       "file_count":  170,
+                       "total_bytes":  6146592586,
+                       "copy_seconds":  10.504,
+                       "sha256_seconds":  10.793,
+                       "status":  "passed"
+                   },
+    "release_validation_report":  "\\\\wsl.localhost\\Ubuntu-24.04\\home\\asus\\work\\hunyuanocr\\HunyuanOCR-ncnn\\docs\\windows_phase4l_release_validation.json",
+    "ctest":  [
+                  {
+                      "suite":  "smoke",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_smoke.log"
+                  },
+                  {
+                      "suite":  "dynamic",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_dynamic.log"
+                  },
+                  {
+                      "suite":  "real-png",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_real-png.log"
+                  },
+                  {
+                      "suite":  "real-jpeg",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_real-jpeg.log"
+                  },
+                  {
+                      "suite":  "cache-budgets",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_cache-budgets.log"
+                  },
+                  {
+                      "suite":  "error-paths",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\ctest_error-paths.log"
+                  }
+              ],
+    "packages":  {
+                     "path":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+                     "bytes":  4439889,
+                     "sha256":  "7af8b49f511deb08a502b01fc7ece91353fc2841ee72996ad8369999a6ad914f"
+                 },
+    "package_rehearsals":  [
+                               {
+                                   "status":  "passed",
+                                   "package":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+                                   "package_root":  "D:\\hunyuanocr-recovery\\phase4l\\windows-package-rehearsal-packing0\\extract\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64",
+                                   "packing":  0,
+                                   "log":  "D:\\hunyuanocr-recovery\\phase4l\\logs\\windows_package_rehearsal_packing0.log",
+                                   "wall_seconds":  34.337,
+                                   "generated_token_ids":  [
+                                                               93892,
+                                                               5112,
+                                                               206,
+                                                               1717,
+                                                               21,
+                                                               185,
+                                                               18009,
+                                                               15613,
+                                                               16678,
+                                                               21836,
+                                                               120007
+                                                           ],
+                                   "generated_text":  "HELLO 2026\nNCNN CPU TEST",
+                                   "runtime_seconds":  33.203,
+                                   "peak_rss_kib":  1574016
+                               },
+                               {
+                                   "status":  "passed",
+                                   "package":  "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+                                   "package_root":  "D:\\hunyuanocr-recovery\\phase4l\\windows-package-rehearsal-packing1\\extract\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64",
+                                   "packing":  1,
+                                   "log":  "D:\\hunyuanocr-recovery\\phase4l\\logs\\windows_package_rehearsal_packing1.log",
+                                   "wall_seconds":  28.512,
+                                   "generated_token_ids":  [
+                                                               93892,
+                                                               5112,
+                                                               206,
+                                                               1717,
+                                                               21,
+                                                               185,
+                                                               18009,
+                                                               15613,
+                                                               16678,
+                                                               21836,
+                                                               120007
+                                                           ],
+                                   "generated_text":  "HELLO 2026\nNCNN CPU TEST",
+                                   "runtime_seconds":  27.532,
+                                   "peak_rss_kib":  1583788
+                               }
+                           ],
+    "model_manifest_sha256":  "71498acaeafff31e2cbfa4c3ed9de81b73d9078e1f2bc7528e87bc36d7222431",
+    "model_compatibility_sha256":  "cc47674acdbd3770952294b9363952fbea347acbeb355a7d363bd7e6c86c73f6",
+    "persistent_log_root":  "D:\\hunyuanocr-recovery\\phase4l\\logs"
+}

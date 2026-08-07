@@ -1,0 +1,84 @@
+{
+  "phase": "4L",
+  "status": "passed",
+  "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "model_directory": "/home/asus/hunyuanocr-recovery/phase4k/direct-staging-artifacts",
+  "ncnn_dir": "/home/asus/.local/ncnn-cpu-ropefix-rmsnorm/lib/cmake/ncnn",
+  "build_dir": "/home/asus/hunyuanocr-recovery/phase4l/linux/build",
+  "install_dir": "/home/asus/hunyuanocr-recovery/phase4l/linux/install",
+  "package_dir": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages",
+  "ctest": {
+    "smoke": {
+      "passed_percent": 100,
+      "failed_tests": 0
+    },
+    "dynamic": {
+      "passed_percent": 100,
+      "failed_tests": 0
+    },
+    "real-png": {
+      "passed_percent": 100,
+      "failed_tests": 0
+    },
+    "real-jpeg": {
+      "passed_percent": 100,
+      "failed_tests": 0
+    },
+    "cache-budgets": {
+      "passed_percent": 100,
+      "failed_tests": 0
+    },
+    "error-paths": {
+      "passed_percent": 100,
+      "failed_tests": 0
+    }
+  },
+  "packages": [
+    {
+      "path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz",
+      "bytes": 7427742,
+      "sha256": "4315e56640357b44410b449be763d661f8444f9de9476bd907ff3d713c4e9290"
+    },
+    {
+      "path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.zip",
+      "bytes": 7441260,
+      "sha256": "247d67bc6b3200729f58c688aeb1d9da10dc2aa876f0a3e08122eafd211df18f"
+    }
+  ],
+  "dependency_license_audit": {
+    "runtime_language": "C++17",
+    "runtime_third_party_headers": [
+      {
+        "name": "stb_image",
+        "path": "third_party/stb/stb_image.h",
+        "license_detected": "public domain",
+        "status": "passed"
+      }
+    ],
+    "link_dependencies": [
+      {
+        "name": "ncnn",
+        "cmake_package": "/home/asus/.local/ncnn-cpu-ropefix-rmsnorm/lib/cmake/ncnn",
+        "license_files": [
+          "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/third_party/licenses/ncnn-LICENSE.txt"
+        ],
+        "status": "passed"
+      }
+    ],
+    "model_license_archive": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/third_party/licenses/Tencent-HunyuanOCR-LICENSE.txt",
+    "notice_file": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/NOTICE",
+    "project_license_files": [
+      "LICENSE"
+    ],
+    "warnings": [],
+    "status": "passed"
+  },
+  "offline_release_acceptance": {
+    "install_tree_created": true,
+    "find_package_consumer_passed": true,
+    "packages_created": true,
+    "network_required": false
+  },
+  "persistent_log_root": "/home/asus/hunyuanocr-recovery/phase4l/linux/logs"
+}

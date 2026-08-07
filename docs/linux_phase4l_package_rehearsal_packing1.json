@@ -1,0 +1,38 @@
+{
+  "phase": "4G",
+  "status": "passed",
+  "package": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz",
+  "package_root": "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64",
+  "model_directory": "/home/asus/hunyuanocr-recovery/phase4k/direct-staging-artifacts",
+  "input_image": "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/inputs/ocr_smoke_en.png",
+  "packing": 1,
+  "decoder_cache_mib": 512,
+  "wall_seconds": 13.293278775003273,
+  "notice_files_checked": [
+    "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/LICENSE",
+    "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/NOTICE",
+    "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/THIRD_PARTY_NOTICES.md",
+    "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/ncnn-LICENSE.txt",
+    "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/Tencent-HunyuanOCR-LICENSE.txt",
+    "/home/asus/hunyuanocr-recovery/phase4l/linux/package-rehearsal-packing1/extract/HunyuanOCR-ncnn-0.1.0-Linux-x86_64/share/doc/HunyuanOCR_ncnn/third_party/licenses/stb_image-LICENSE.txt"
+  ],
+  "ocr": {
+    "generated_token_ids": [
+      93892,
+      5112,
+      206,
+      1717,
+      21,
+      185,
+      18009,
+      15613,
+      16678,
+      21836,
+      120007
+    ],
+    "generated_text": "HELLO 2026\nNCNN CPU TEST",
+    "runtime_seconds": 12.637,
+    "peak_rss_kib": 1617796
+  },
+  "log": "/home/asus/hunyuanocr-recovery/phase4l/linux/logs/package-rehearsal-packing1/package_rehearsal_packing1.log"
+}
