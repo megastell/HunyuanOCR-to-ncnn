@@ -21,6 +21,9 @@ PNNX_PATH = Path.home() / "work/hunyuanocr/.venv-pnnx/bin/pnnx"
 BASE_EXPORT_PATH = (
     PROJECT_DIR / "tools/export/export_decoder_decode_step3.py"
 )
+ARTIFACTS_DIR = PROJECT_DIR / "artifacts"
+DOCS_DIR = PROJECT_DIR / "docs"
+REFERENCE_ROOT = PROJECT_DIR / "reference/smoke_en_cpu_fp32"
 
 TORCH_THREADS = 9
 KEY_VALUE_GROUPS = 2
@@ -40,6 +43,11 @@ def parse_args() -> argparse.Namespace:
         )
     )
     parser.add_argument("--layer-index", type=int, default=0)
+    parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
+    parser.add_argument("--artifacts-dir", type=Path, default=ARTIFACTS_DIR)
+    parser.add_argument("--docs-dir", type=Path, default=DOCS_DIR)
+    parser.add_argument("--reference-dir", type=Path, default=REFERENCE_ROOT)
+    parser.add_argument("--pnnx", type=Path, default=PNNX_PATH)
     parser.add_argument(
         "--skip-pnnx",
         action="store_true",
@@ -62,7 +70,7 @@ def load_base_module() -> Any:
 
 def load_case(layer_index: int, template: str) -> tuple[torch.Tensor, ...]:
     name = template.format(layer=layer_index)
-    reference_dir = PROJECT_DIR / "reference/smoke_en_cpu_fp32" / name
+    reference_dir = REFERENCE_ROOT / name
     prefix = f"layer{layer_index}"
 
     def load(stem: str) -> torch.Tensor:
@@ -186,6 +194,12 @@ def shape_argument(values: tuple[torch.Tensor, ...]) -> str:
 
 def main() -> None:
     args = parse_args()
+    global MODEL_DIR, ARTIFACTS_DIR, DOCS_DIR, REFERENCE_ROOT, PNNX_PATH
+    MODEL_DIR = args.model_dir.resolve()
+    ARTIFACTS_DIR = args.artifacts_dir.resolve()
+    DOCS_DIR = args.docs_dir.resolve()
+    REFERENCE_ROOT = args.reference_dir.resolve()
+    PNNX_PATH = args.pnnx.resolve()
     layer_index = args.layer_index
     if not 0 <= layer_index < 24:
         raise ValueError(f"layer-index must be in [0, 23], got {layer_index}")
@@ -198,16 +212,11 @@ def main() -> None:
         label: load_case(layer_index, template)
         for label, template, _, _ in CASES
     }
-    output_dir = (
-        PROJECT_DIR / "artifacts" / f"decoder_layer{layer_index}_decode_dynamic"
-    )
+    output_dir = ARTIFACTS_DIR / f"decoder_layer{layer_index}_decode_dynamic"
     output_dir.mkdir(parents=True, exist_ok=True)
-    report_path = (
-        PROJECT_DIR / "docs" / f"decoder_layer{layer_index}_decode_dynamic.json"
-    )
-    pnnx_log_path = (
-        PROJECT_DIR / "docs" / f"decoder_layer{layer_index}_decode_dynamic_pnnx.txt"
-    )
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    report_path = DOCS_DIR / f"decoder_layer{layer_index}_decode_dynamic.json"
+    pnnx_log_path = DOCS_DIR / f"decoder_layer{layer_index}_decode_dynamic_pnnx.txt"
     model_stem = f"decoder_layer{layer_index}_decode_dynamic"
     script_path = output_dir / f"{model_stem}.pt"
 
@@ -300,12 +309,12 @@ def main() -> None:
         "torch_version": torch.__version__,
         "torch_threads": TORCH_THREADS,
         "model_load_and_trace_seconds": time.perf_counter() - load_start,
-        "torchscript_path": script_path.relative_to(PROJECT_DIR).as_posix(),
+        "torchscript_path": str(script_path),
         "torchscript_bytes": script_path.stat().st_size,
         "validation": validation,
         "pnnx_command": pnnx_command,
         "pnnx_log": (
-            pnnx_log_path.relative_to(PROJECT_DIR).as_posix()
+            str(pnnx_log_path)
             if pnnx_command is not None
             else None
         ),

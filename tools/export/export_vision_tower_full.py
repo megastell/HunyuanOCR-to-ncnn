@@ -19,6 +19,9 @@ from transformers.utils import logging
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
 PNNX_PATH = Path.home() / "work/hunyuanocr/.venv-pnnx/bin/pnnx"
+ARTIFACTS_DIR = PROJECT_DIR / "artifacts"
+DOCS_DIR = PROJECT_DIR / "docs"
+REFERENCE_ROOT = PROJECT_DIR / "reference/smoke_en_cpu_fp32"
 
 TORCH_THREADS = 9
 LAYER_COUNT = 27
@@ -54,16 +57,18 @@ def parse_args() -> argparse.Namespace:
         default="all",
     )
     parser.add_argument("--layer-index", type=int)
+    parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
+    parser.add_argument("--artifacts-dir", type=Path, default=ARTIFACTS_DIR)
+    parser.add_argument("--docs-dir", type=Path, default=DOCS_DIR)
+    parser.add_argument("--reference-dir", type=Path, default=REFERENCE_ROOT)
+    parser.add_argument("--pnnx", type=Path, default=PNNX_PATH)
     parser.add_argument("--skip-pnnx", action="store_true")
     return parser.parse_args()
 
 
 def load_f32(reference_name: str, tensor_name: str) -> torch.Tensor:
     path = (
-        PROJECT_DIR
-        / "reference/smoke_en_cpu_fp32"
-        / reference_name
-        / f"{tensor_name}.npy"
+        REFERENCE_ROOT / reference_name / f"{tensor_name}.npy"
     )
     if not path.is_file():
         raise FileNotFoundError(path)
@@ -347,7 +352,7 @@ def export_component(
         )
         traced = torch.jit.freeze(traced.eval())
 
-    output_dir = PROJECT_DIR / "artifacts" / name
+    output_dir = ARTIFACTS_DIR / name
     output_dir.mkdir(parents=True, exist_ok=True)
     script_path = output_dir / f"{name}.pt"
     traced.save(str(script_path))
@@ -360,7 +365,8 @@ def export_component(
         raise RuntimeError(f"{name} TorchScript parity failed: {traced_metrics}")
 
     pnnx_command: list[str] | None = None
-    pnnx_log_path = PROJECT_DIR / "docs" / f"{name}_pnnx.txt"
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    pnnx_log_path = DOCS_DIR / f"{name}_pnnx.txt"
     if not skip_pnnx:
         pnnx_command = [
             str(PNNX_PATH),
@@ -403,18 +409,18 @@ def export_component(
         "output": list(expected.shape),
         "eager_metrics": eager_metrics,
         "torchscript_metrics": traced_metrics,
-        "torchscript_path": script_path.relative_to(PROJECT_DIR).as_posix(),
+        "torchscript_path": str(script_path),
         "torchscript_bytes": script_path.stat().st_size,
         "pnnx_command": pnnx_command,
         "pnnx_log": (
-            pnnx_log_path.relative_to(PROJECT_DIR).as_posix()
+            str(pnnx_log_path)
             if pnnx_command is not None
             else None
         ),
         "elapsed_seconds": time.perf_counter() - component_start,
         **metadata,
     }
-    report_path = PROJECT_DIR / "docs" / f"{name}.json"
+    report_path = DOCS_DIR / f"{name}.json"
     report_path.write_text(
         json.dumps(report, ensure_ascii=True, indent=2) + "\n",
         encoding="utf-8",
@@ -433,6 +439,12 @@ def export_component(
 
 def main() -> None:
     args = parse_args()
+    global MODEL_DIR, ARTIFACTS_DIR, DOCS_DIR, REFERENCE_ROOT, PNNX_PATH
+    MODEL_DIR = args.model_dir.resolve()
+    ARTIFACTS_DIR = args.artifacts_dir.resolve()
+    DOCS_DIR = args.docs_dir.resolve()
+    REFERENCE_ROOT = args.reference_dir.resolve()
+    PNNX_PATH = args.pnnx.resolve()
     if args.layer_index is not None and not 0 <= args.layer_index < LAYER_COUNT:
         raise ValueError("layer-index must be in [0, 26]")
     if args.component != "block" and args.layer_index is not None:
@@ -476,7 +488,7 @@ def main() -> None:
                 f"Unexpected vision position table: {position_weights.shape}"
             )
         position_path = (
-            PROJECT_DIR / "artifacts/vision_patch_embed"
+            ARTIFACTS_DIR / "vision_patch_embed"
             / "vision_position_embedding.f32.bin"
         )
         position_path.parent.mkdir(parents=True, exist_ok=True)
@@ -489,7 +501,7 @@ def main() -> None:
             args.skip_pnnx,
             {
                 "position_encoding": "C++ bilinear interpolation from 128x128 table",
-                "position_table": position_path.relative_to(PROJECT_DIR).as_posix(),
+                "position_table": str(position_path),
                 "position_table_shape": [128, 128, VISION_HIDDEN_SIZE],
             },
             ((1024, PATCH_VECTOR_SIZE),),
@@ -552,7 +564,7 @@ def main() -> None:
             after = merger.after_rms(with_boundaries)
 
         constants_path = (
-            PROJECT_DIR / "artifacts/vision_patch_merger"
+            ARTIFACTS_DIR / "vision_patch_merger"
             / "vision_patch_merger_constants.f32.bin"
         )
         constants_path.parent.mkdir(parents=True, exist_ok=True)
@@ -601,7 +613,7 @@ def main() -> None:
                 args.skip_pnnx,
                 {
                     "spatial_merge_size": MERGE_SIZE,
-                    "constants": constants_path.relative_to(PROJECT_DIR).as_posix(),
+                    "constants": str(constants_path),
                 },
                 alternate_shapes,
             )

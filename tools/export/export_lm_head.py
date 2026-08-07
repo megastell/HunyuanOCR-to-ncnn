@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import platform
+import subprocess
 import time
 from pathlib import Path
 
@@ -22,21 +24,21 @@ MODEL_DIR = (
     Path.home()
     / "work/hunyuanocr/models/HunyuanOCR-1.5"
 )
+PNNX_PATH = Path.home() / "work/hunyuanocr/.venv-pnnx/bin/pnnx"
+ARTIFACTS_DIR = PROJECT_DIR / "artifacts"
+DOCS_DIR = PROJECT_DIR / "docs"
+REFERENCE_ROOT = PROJECT_DIR / "reference/smoke_en_cpu_fp32"
 
 SOURCE_INPUT_PATH = (
-    PROJECT_DIR
-    / "reference/smoke_en_cpu_fp32"
-    / "split_contract/lm_head_input.npy"
+    REFERENCE_ROOT / "split_contract/lm_head_input.npy"
 )
 
 ARTIFACT_DIR = (
-    PROJECT_DIR
-    / "artifacts/lm_head"
+    ARTIFACTS_DIR / "lm_head"
 )
 
 REPORT_PATH = (
-    PROJECT_DIR
-    / "docs/lm_head_reference.json"
+    DOCS_DIR / "lm_head_reference.json"
 )
 
 EXPECTED_TOKEN = 93892
@@ -56,6 +58,17 @@ class LMHeadWrapper(nn.Module):
         return self.lm_head(hidden_state)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Export LM head with pnnx.")
+    parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
+    parser.add_argument("--artifacts-dir", type=Path, default=ARTIFACTS_DIR)
+    parser.add_argument("--docs-dir", type=Path, default=DOCS_DIR)
+    parser.add_argument("--reference-dir", type=Path, default=REFERENCE_ROOT)
+    parser.add_argument("--pnnx", type=Path, default=PNNX_PATH)
+    parser.add_argument("--skip-pnnx", action="store_true")
+    return parser.parse_args()
+
+
 def sha256_file(path: Path) -> str:
     hasher = hashlib.sha256()
 
@@ -70,6 +83,18 @@ def sha256_file(path: Path) -> str:
 
 
 def main() -> None:
+    args = parse_args()
+    global MODEL_DIR, PNNX_PATH, ARTIFACTS_DIR, DOCS_DIR
+    global REFERENCE_ROOT, SOURCE_INPUT_PATH, ARTIFACT_DIR, REPORT_PATH
+    MODEL_DIR = args.model_dir.resolve()
+    PNNX_PATH = args.pnnx.resolve()
+    ARTIFACTS_DIR = args.artifacts_dir.resolve()
+    DOCS_DIR = args.docs_dir.resolve()
+    REFERENCE_ROOT = args.reference_dir.resolve()
+    SOURCE_INPUT_PATH = REFERENCE_ROOT / "split_contract/lm_head_input.npy"
+    ARTIFACT_DIR = ARTIFACTS_DIR / "lm_head"
+    REPORT_PATH = DOCS_DIR / "lm_head_reference.json"
+
     if not SOURCE_INPUT_PATH.is_file():
         raise FileNotFoundError(
             f"找不到 LM Head 输入：{SOURCE_INPUT_PATH}"
@@ -279,6 +304,32 @@ def main() -> None:
             "TorchScript 与 PyTorch 误差过大。"
         )
 
+    pnnx_command: list[str] | None = None
+    pnnx_log_path = DOCS_DIR / "lm_head_pnnx_fp32.txt"
+    if not args.skip_pnnx:
+        pnnx_command = [
+            str(PNNX_PATH),
+            str(torchscript_path),
+            "inputshape=[1,1024]",
+            "fp16=0",
+            "optlevel=2",
+            "device=cpu",
+        ]
+        conversion = subprocess.run(
+            pnnx_command,
+            cwd=ARTIFACT_DIR,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+        pnnx_log_path.write_text(conversion.stdout, encoding="utf-8")
+        if conversion.returncode != 0:
+            raise RuntimeError(
+                f"pnnx failed with status {conversion.returncode}; "
+                f"see {pnnx_log_path}"
+            )
+
     report = {
         "model_revision": (
             PROJECT_DIR
@@ -310,6 +361,8 @@ def main() -> None:
         "torchscript_sha256": sha256_file(
             torchscript_path
         ),
+        "pnnx_command": pnnx_command,
+        "pnnx_log": str(pnnx_log_path) if pnnx_command is not None else None,
         "input_raw_path": str(input_raw_path),
         "input_raw_sha256": sha256_file(
             input_raw_path

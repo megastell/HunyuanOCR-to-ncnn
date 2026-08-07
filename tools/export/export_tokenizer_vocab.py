@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -8,12 +9,31 @@ from transformers import AutoTokenizer
 
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
-OUTPUT_PATH = PROJECT_DIR / "artifacts/tokenizer/bytelevel_vocab.txt"
-MERGES_PATH = PROJECT_DIR / "artifacts/tokenizer/bytelevel_bpe_merges.txt"
-REPORT_PATH = PROJECT_DIR / "docs/tokenizer_vocab_export.json"
+ARTIFACTS_DIR = PROJECT_DIR / "artifacts"
+DOCS_DIR = PROJECT_DIR / "docs"
+OUTPUT_PATH = ARTIFACTS_DIR / "tokenizer/bytelevel_vocab.txt"
+MERGES_PATH = ARTIFACTS_DIR / "tokenizer/bytelevel_bpe_merges.txt"
+REPORT_PATH = DOCS_DIR / "tokenizer_vocab_export.json"
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Export tokenizer byte-level data.")
+    parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
+    parser.add_argument("--artifacts-dir", type=Path, default=ARTIFACTS_DIR)
+    parser.add_argument("--docs-dir", type=Path, default=DOCS_DIR)
+    return parser.parse_args()
 
 
 def main() -> None:
+    args = parse_args()
+    global MODEL_DIR, ARTIFACTS_DIR, DOCS_DIR, OUTPUT_PATH, MERGES_PATH, REPORT_PATH
+    MODEL_DIR = args.model_dir.resolve()
+    ARTIFACTS_DIR = args.artifacts_dir.resolve()
+    DOCS_DIR = args.docs_dir.resolve()
+    OUTPUT_PATH = ARTIFACTS_DIR / "tokenizer/bytelevel_vocab.txt"
+    MERGES_PATH = ARTIFACTS_DIR / "tokenizer/bytelevel_bpe_merges.txt"
+    REPORT_PATH = DOCS_DIR / "tokenizer_vocab_export.json"
+
     tokenizer = AutoTokenizer.from_pretrained(
         str(MODEL_DIR), local_files_only=True
     )
@@ -74,11 +94,11 @@ def main() -> None:
         "eos_token_id": int(tokenizer.eos_token_id),
         "smoke_token_ids": smoke_ids,
         "smoke_text": smoke_text,
-        "output_path": OUTPUT_PATH.relative_to(PROJECT_DIR).as_posix(),
+        "output_path": str(OUTPUT_PATH),
         "output_bytes": OUTPUT_PATH.stat().st_size,
         "merges_format": "HUNYUANOCR_BYTELEVEL_BPE_MERGES_V1",
         "merge_count": len(merges),
-        "merges_path": MERGES_PATH.relative_to(PROJECT_DIR).as_posix(),
+        "merges_path": str(MERGES_PATH),
         "merges_bytes": MERGES_PATH.stat().st_size,
     }
     REPORT_PATH.write_text(

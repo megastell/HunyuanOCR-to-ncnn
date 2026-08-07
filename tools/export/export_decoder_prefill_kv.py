@@ -20,6 +20,9 @@ PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
 PNNX_PATH = Path.home() / "work/hunyuanocr/.venv-pnnx/bin/pnnx"
 BASE_EXPORT_PATH = PROJECT_DIR / "tools/export/export_decoder_decode_step3.py"
+ARTIFACTS_DIR = PROJECT_DIR / "artifacts"
+DOCS_DIR = PROJECT_DIR / "docs"
+REFERENCE_ROOT = PROJECT_DIR / "reference/smoke_en_cpu_fp32"
 
 TORCH_THREADS = 9
 LAYER_COUNT = 24
@@ -41,6 +44,11 @@ def parse_args() -> argparse.Namespace:
         )
     )
     parser.add_argument("--layer-index", type=int)
+    parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
+    parser.add_argument("--artifacts-dir", type=Path, default=ARTIFACTS_DIR)
+    parser.add_argument("--docs-dir", type=Path, default=DOCS_DIR)
+    parser.add_argument("--reference-dir", type=Path, default=REFERENCE_ROOT)
+    parser.add_argument("--pnnx", type=Path, default=PNNX_PATH)
     parser.add_argument("--skip-pnnx", action="store_true")
     return parser.parse_args()
 
@@ -62,16 +70,8 @@ def load_f32(path: Path) -> torch.Tensor:
 
 
 def load_case(layer_index: int) -> tuple[torch.Tensor, ...]:
-    layer_dir = (
-        PROJECT_DIR
-        / "reference/smoke_en_cpu_fp32"
-        / f"decoder_layer{layer_index}_prefill_kv"
-    )
-    shared_dir = (
-        PROJECT_DIR
-        / "reference/smoke_en_cpu_fp32"
-        / "decoder_layer0_prefill_kv"
-    )
+    layer_dir = REFERENCE_ROOT / f"decoder_layer{layer_index}_prefill_kv"
+    shared_dir = REFERENCE_ROOT / "decoder_layer0_prefill_kv"
     prefix = f"layer{layer_index}"
     return (
         load_f32(layer_dir / f"{prefix}_hidden_states.npy"),
@@ -218,9 +218,7 @@ def export_layer(
         )
         traced = torch.jit.freeze(traced.eval())
 
-    output_dir = (
-        PROJECT_DIR / "artifacts" / f"decoder_layer{layer_index}_prefill_kv"
-    )
+    output_dir = ARTIFACTS_DIR / f"decoder_layer{layer_index}_prefill_kv"
     output_dir.mkdir(parents=True, exist_ok=True)
     model_stem = f"decoder_layer{layer_index}_prefill_kv"
     script_path = output_dir / f"{model_stem}.pt"
@@ -240,9 +238,8 @@ def export_layer(
             )
 
     pnnx_command: list[str] | None = None
-    pnnx_log_path = (
-        PROJECT_DIR / "docs" / f"decoder_layer{layer_index}_prefill_kv_pnnx.txt"
-    )
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    pnnx_log_path = DOCS_DIR / f"decoder_layer{layer_index}_prefill_kv_pnnx.txt"
     if not skip_pnnx:
         pnnx_command = [
             str(PNNX_PATH),
@@ -285,21 +282,19 @@ def export_layer(
         "sequence_length": SEQUENCE_LENGTH,
         "alternate_sequence_length": ALTERNATE_SEQUENCE_LENGTH,
         "dynamic_sequence_length": True,
-        "torchscript_path": script_path.relative_to(PROJECT_DIR).as_posix(),
+        "torchscript_path": str(script_path),
         "torchscript_bytes": script_path.stat().st_size,
         "eager_metrics": eager_metrics,
         "torchscript_metrics": traced_metrics,
         "pnnx_command": pnnx_command,
         "pnnx_log": (
-            pnnx_log_path.relative_to(PROJECT_DIR).as_posix()
+            str(pnnx_log_path)
             if pnnx_command is not None
             else None
         ),
         "elapsed_seconds": time.perf_counter() - layer_start,
     }
-    report_path = (
-        PROJECT_DIR / "docs" / f"decoder_layer{layer_index}_prefill_kv.json"
-    )
+    report_path = DOCS_DIR / f"decoder_layer{layer_index}_prefill_kv.json"
     report_path.write_text(
         json.dumps(report, ensure_ascii=True, indent=2) + "\n",
         encoding="utf-8",
@@ -320,6 +315,12 @@ def export_layer(
 
 def main() -> None:
     args = parse_args()
+    global MODEL_DIR, ARTIFACTS_DIR, DOCS_DIR, REFERENCE_ROOT, PNNX_PATH
+    MODEL_DIR = args.model_dir.resolve()
+    ARTIFACTS_DIR = args.artifacts_dir.resolve()
+    DOCS_DIR = args.docs_dir.resolve()
+    REFERENCE_ROOT = args.reference_dir.resolve()
+    PNNX_PATH = args.pnnx.resolve()
     if args.layer_index is not None and not 0 <= args.layer_index < LAYER_COUNT:
         raise ValueError("layer-index must be in [0, 23]")
 

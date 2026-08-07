@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
+import subprocess
 import time
 from pathlib import Path
 
@@ -20,15 +22,17 @@ MODEL_DIR = (
     Path.home()
     / "work/hunyuanocr/models/HunyuanOCR-1.5"
 )
+PNNX_PATH = Path.home() / "work/hunyuanocr/.venv-pnnx/bin/pnnx"
+ARTIFACTS_DIR = PROJECT_DIR / "artifacts"
+DOCS_DIR = PROJECT_DIR / "docs"
 
 REFERENCE_DIR = (
-    PROJECT_DIR
-    / "reference/smoke_en_cpu_fp32"
+    PROJECT_DIR / "reference/smoke_en_cpu_fp32"
 )
 
 SPLIT_DIR = REFERENCE_DIR / "split_contract"
-ARTIFACT_DIR = PROJECT_DIR / "artifacts/final_norm"
-REPORT_PATH = PROJECT_DIR / "docs/final_norm_reference.json"
+ARTIFACT_DIR = ARTIFACTS_DIR / "final_norm"
+REPORT_PATH = DOCS_DIR / "final_norm_reference.json"
 
 SEQUENCE_LENGTH = 313
 HIDDEN_SIZE = 1024
@@ -45,6 +49,17 @@ class FinalNormWrapper(nn.Module):
         return self.norm(hidden_states)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Export final RMSNorm with pnnx.")
+    parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
+    parser.add_argument("--artifacts-dir", type=Path, default=ARTIFACTS_DIR)
+    parser.add_argument("--docs-dir", type=Path, default=DOCS_DIR)
+    parser.add_argument("--reference-dir", type=Path, default=REFERENCE_DIR)
+    parser.add_argument("--pnnx", type=Path, default=PNNX_PATH)
+    parser.add_argument("--skip-pnnx", action="store_true")
+    return parser.parse_args()
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
 
@@ -59,6 +74,18 @@ def sha256_file(path: Path) -> str:
 
 
 def main() -> None:
+    args = parse_args()
+    global MODEL_DIR, PNNX_PATH, ARTIFACTS_DIR, DOCS_DIR
+    global REFERENCE_DIR, SPLIT_DIR, ARTIFACT_DIR, REPORT_PATH
+    MODEL_DIR = args.model_dir.resolve()
+    PNNX_PATH = args.pnnx.resolve()
+    ARTIFACTS_DIR = args.artifacts_dir.resolve()
+    DOCS_DIR = args.docs_dir.resolve()
+    REFERENCE_DIR = args.reference_dir.resolve()
+    SPLIT_DIR = REFERENCE_DIR / "split_contract"
+    ARTIFACT_DIR = ARTIFACTS_DIR / "final_norm"
+    REPORT_PATH = DOCS_DIR / "final_norm_reference.json"
+
     ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
@@ -269,6 +296,32 @@ def main() -> None:
     if script_max_error > 1e-7:
         raise RuntimeError("TorchScript输出不一致。")
 
+    pnnx_command: list[str] | None = None
+    pnnx_log_path = DOCS_DIR / "final_norm_pnnx_fp32.txt"
+    if not args.skip_pnnx:
+        pnnx_command = [
+            str(PNNX_PATH),
+            str(torchscript_path),
+            "inputshape=[313,1024]f32",
+            "fp16=0",
+            "optlevel=2",
+            "device=cpu",
+        ]
+        conversion = subprocess.run(
+            pnnx_command,
+            cwd=ARTIFACT_DIR,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+        pnnx_log_path.write_text(conversion.stdout, encoding="utf-8")
+        if conversion.returncode != 0:
+            raise RuntimeError(
+                f"pnnx failed with status {conversion.returncode}; "
+                f"see {pnnx_log_path}"
+            )
+
     report = {
         "model_revision": (
             PROJECT_DIR
@@ -290,6 +343,8 @@ def main() -> None:
         "full_forward_seconds": forward_seconds,
         "torchscript_path": str(torchscript_path),
         "torchscript_sha256": sha256_file(torchscript_path),
+        "pnnx_command": pnnx_command,
+        "pnnx_log": str(pnnx_log_path) if pnnx_command is not None else None,
         "input_raw_path": str(input_raw_path),
         "input_raw_sha256": sha256_file(input_raw_path),
         "output_raw_path": str(output_raw_path),
