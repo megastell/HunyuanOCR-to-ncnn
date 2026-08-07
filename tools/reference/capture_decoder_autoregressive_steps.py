@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
 import time
 from pathlib import Path
 from typing import Any, Callable
@@ -15,10 +16,20 @@ from transformers.utils import logging
 
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
+MODEL_DIR = Path(os.environ.get("HUNYUANOCR_MODEL_DIR", str(MODEL_DIR)))
+REFERENCE_ROOT = Path(os.environ.get(
+    "HUNYUANOCR_REFERENCE_DIR",
+    str(PROJECT_DIR / "reference/smoke_en_cpu_fp32"),
+))
+ARTIFACTS_DIR = Path(os.environ.get(
+    "HUNYUANOCR_ARTIFACTS_DIR",
+    str(PROJECT_DIR / "artifacts"),
+))
+DOCS_DIR = Path(os.environ.get("HUNYUANOCR_DOCS_DIR", str(PROJECT_DIR / "docs")))
 BASE_CAPTURE_SCRIPT = (
     PROJECT_DIR / "tools/reference/capture_decoder_layer0_decode_reference.py"
 )
-GENERATED_TOKENS_PATH = PROJECT_DIR / "docs/reference_smoke_cpu_fp32.json"
+GENERATED_TOKENS_PATH = REFERENCE_ROOT / "generated_token_ids.json"
 
 TORCH_THREADS = 9
 LAYER_COUNT = 24
@@ -79,9 +90,13 @@ def save_tensor(
     value: torch.Tensor,
 ) -> dict[str, Any]:
     detached = value.detach().cpu().contiguous()
-    decode_name = f"decoder_layer{layer_index}_decode_step{step}"
-    npy_dir = PROJECT_DIR / "reference/smoke_en_cpu_fp32" / decode_name
-    raw_dir = PROJECT_DIR / "artifacts" / decode_name / "reference"
+    decode_name = (
+        f"decoder_layer{layer_index}_decode"
+        if step == 1
+        else f"decoder_layer{layer_index}_decode_step{step}"
+    )
+    npy_dir = REFERENCE_ROOT / decode_name
+    raw_dir = ARTIFACTS_DIR / decode_name / "reference"
     npy_dir.mkdir(parents=True, exist_ok=True)
     raw_dir.mkdir(parents=True, exist_ok=True)
 
@@ -94,8 +109,8 @@ def save_tensor(
     report = tensor_summary(detached)
     report.update(
         {
-            "npy_path": npy_path.relative_to(PROJECT_DIR).as_posix(),
-            "raw_path": raw_path.relative_to(PROJECT_DIR).as_posix(),
+            "npy_path": str(npy_path),
+            "raw_path": str(raw_path),
             "raw_bytes": raw_path.stat().st_size,
         }
     )
@@ -108,7 +123,7 @@ def save_tail(
     norm_output: torch.Tensor,
     logits: torch.Tensor,
 ) -> None:
-    output_dir = PROJECT_DIR / f"artifacts/decode_tail_step{step}/reference"
+    output_dir = ARTIFACTS_DIR / f"decode_tail_step{step}/reference"
     output_dir.mkdir(parents=True, exist_ok=True)
     tensors = {
         "final_norm_input_f32.bin": hidden,
@@ -124,11 +139,15 @@ def save_tail(
 def main() -> None:
     capture_start = time.perf_counter()
     args = parse_args()
-    reference_report = json.loads(
+    reference_document = json.loads(
         GENERATED_TOKENS_PATH.read_text(encoding="utf-8")
     )
     expected_tokens = [
-        int(token) for token in reference_report["generated_token_ids"]
+        int(token) for token in (
+            reference_document["generated_token_ids"]
+            if isinstance(reference_document, dict)
+            else reference_document
+        )
     ]
     if not 1 <= args.start_step <= args.end_step < len(expected_tokens):
         raise ValueError(
@@ -467,8 +486,7 @@ def main() -> None:
             handle.remove()
 
     report_path = (
-        PROJECT_DIR
-        / "docs"
+        DOCS_DIR
         / f"decoder_24_layer_decode_steps{args.start_step}_{args.end_step}_reference.json"
     )
     report = {

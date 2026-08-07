@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import inspect
 import json
+import os
 import time
 from pathlib import Path
 from typing import Any
@@ -18,18 +19,22 @@ PROJECT_DIR = (
 )
 
 MODEL_DIR = (
-    Path.home()
-    / "work/hunyuanocr/models/HunyuanOCR-1.5"
+    Path(os.environ.get(
+        "HUNYUANOCR_MODEL_DIR",
+        str(Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"),
+    ))
 )
 
 REFERENCE_DIR = (
-    PROJECT_DIR
-    / "reference/smoke_en_cpu_fp32"
+    Path(os.environ.get(
+        "HUNYUANOCR_REFERENCE_DIR",
+        str(PROJECT_DIR / "reference/smoke_en_cpu_fp32"),
+    ))
 )
+DOCS_DIR = Path(os.environ.get("HUNYUANOCR_DOCS_DIR", str(PROJECT_DIR / "docs")))
 
 REPORT_PATH = (
-    PROJECT_DIR
-    / "docs/decoder_layer0_decode_contract_probe.json"
+    DOCS_DIR / "decoder_layer0_decode_contract_probe.json"
 )
 
 TORCH_THREADS = 9
@@ -198,14 +203,7 @@ def main() -> None:
 
     global REPORT_PATH
 
-    REPORT_PATH = (
-        PROJECT_DIR
-        / "docs"
-        / (
-            f"decoder_layer{layer_index}_"
-            "decode_contract_probe.json"
-        )
-    )
+    REPORT_PATH = DOCS_DIR / f"decoder_layer{layer_index}_decode_contract_probe.json"
 
     torch.set_grad_enabled(False)
     torch.manual_seed(0)

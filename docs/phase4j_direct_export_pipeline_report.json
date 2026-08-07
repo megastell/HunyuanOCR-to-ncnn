@@ -1,0 +1,251 @@
+{
+  "phase": "4I",
+  "status": "passed",
+  "started_at_unix": 1786095828.9904048,
+  "audit": {
+    "hf_model_dir": "/home/asus/work/hunyuanocr/models/HunyuanOCR-1.5",
+    "reference_dir": "/home/asus/hunyuanocr-recovery/phase4j/reference-smoke-cpu-fp32",
+    "staging_dir": "/home/asus/hunyuanocr-recovery/phase4j/direct-staging-artifacts",
+    "docs_dir": "/home/asus/hunyuanocr-recovery/phase4j/direct-export-docs",
+    "reference_python": "/home/asus/work/hunyuanocr/.venv-reference/bin/python",
+    "pnnx": "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
+    "cli": "/home/asus/hunyuanocr-recovery/phase4g/linux-release-build/hunyuanocr_cli",
+    "torch_version": "2.12.1+cpu",
+    "transformers_version": "5.13.0",
+    "numpy_version": "2.5.1",
+    "source_manifest_sha256_before": "71498acaeafff31e2cbfa4c3ed9de81b73d9078e1f2bc7528e87bc36d7222431"
+  },
+  "exports": [
+    {
+      "label": "text_embedding",
+      "status": "passed",
+      "seconds": 10.10650980900391,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/text_embedding.log"
+    },
+    {
+      "label": "lm_head",
+      "status": "passed",
+      "seconds": 11.949597561993869,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/lm_head.log"
+    },
+    {
+      "label": "final_norm",
+      "status": "passed",
+      "seconds": 7.996967728002346,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/final_norm.log"
+    },
+    {
+      "label": "tokenizer",
+      "status": "passed",
+      "seconds": 3.284949647000758,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/tokenizer.log"
+    },
+    {
+      "label": "vision_tower_full",
+      "status": "passed",
+      "seconds": 144.08560311498877,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/vision_tower_full.log"
+    },
+    {
+      "label": "decoder_prefill_kv_all",
+      "status": "passed",
+      "seconds": 98.13152152301336,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_prefill_kv_all.log"
+    },
+    {
+      "label": "decoder_dynamic_layer00",
+      "status": "passed",
+      "seconds": 13.355653656995855,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer00.log"
+    },
+    {
+      "label": "decoder_dynamic_layer01",
+      "status": "passed",
+      "seconds": 6.8889990359894,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer01.log"
+    },
+    {
+      "label": "decoder_dynamic_layer02",
+      "status": "passed",
+      "seconds": 5.818120762996841,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer02.log"
+    },
+    {
+      "label": "decoder_dynamic_layer03",
+      "status": "passed",
+      "seconds": 5.526095598004758,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer03.log"
+    },
+    {
+      "label": "decoder_dynamic_layer04",
+      "status": "passed",
+      "seconds": 5.894635190008557,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer04.log"
+    },
+    {
+      "label": "decoder_dynamic_layer05",
+      "status": "passed",
+      "seconds": 6.253862899000524,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer05.log"
+    },
+    {
+      "label": "decoder_dynamic_layer06",
+      "status": "passed",
+      "seconds": 5.883394670003327,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer06.log"
+    },
+    {
+      "label": "decoder_dynamic_layer07",
+      "status": "passed",
+      "seconds": 5.834716434008442,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer07.log"
+    },
+    {
+      "label": "decoder_dynamic_layer08",
+      "status": "passed",
+      "seconds": 6.265443309006514,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer08.log"
+    },
+    {
+      "label": "decoder_dynamic_layer09",
+      "status": "passed",
+      "seconds": 5.803621195998858,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer09.log"
+    },
+    {
+      "label": "decoder_dynamic_layer10",
+      "status": "passed",
+      "seconds": 5.808227925997926,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer10.log"
+    },
+    {
+      "label": "decoder_dynamic_layer11",
+      "status": "passed",
+      "seconds": 6.916635903995484,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer11.log"
+    },
+    {
+      "label": "decoder_dynamic_layer12",
+      "status": "passed",
+      "seconds": 6.268960485002026,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer12.log"
+    },
+    {
+      "label": "decoder_dynamic_layer13",
+      "status": "passed",
+      "seconds": 5.71034515700012,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer13.log"
+    },
+    {
+      "label": "decoder_dynamic_layer14",
+      "status": "passed",
+      "seconds": 5.590491487993859,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer14.log"
+    },
+    {
+      "label": "decoder_dynamic_layer15",
+      "status": "passed",
+      "seconds": 5.635286636999808,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer15.log"
+    },
+    {
+      "label": "decoder_dynamic_layer16",
+      "status": "passed",
+      "seconds": 5.542910668998957,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer16.log"
+    },
+    {
+      "label": "decoder_dynamic_layer17",
+      "status": "passed",
+      "seconds": 5.490340593998553,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer17.log"
+    },
+    {
+      "label": "decoder_dynamic_layer18",
+      "status": "passed",
+      "seconds": 5.258671286996105,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer18.log"
+    },
+    {
+      "label": "decoder_dynamic_layer19",
+      "status": "passed",
+      "seconds": 5.710326131011243,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer19.log"
+    },
+    {
+      "label": "decoder_dynamic_layer20",
+      "status": "passed",
+      "seconds": 5.85585996399459,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer20.log"
+    },
+    {
+      "label": "decoder_dynamic_layer21",
+      "status": "passed",
+      "seconds": 5.506324864007183,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer21.log"
+    },
+    {
+      "label": "decoder_dynamic_layer22",
+      "status": "passed",
+      "seconds": 6.199804949996178,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer22.log"
+    },
+    {
+      "label": "decoder_dynamic_layer23",
+      "status": "passed",
+      "seconds": 6.958956322006998,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/exporters/decoder_dynamic_layer23.log"
+    }
+  ],
+  "manifest": {
+    "manifest": "/home/asus/hunyuanocr-recovery/phase4j/direct-staging-artifacts/runtime_manifest.tsv",
+    "compatibility": "/home/asus/hunyuanocr-recovery/phase4j/direct-staging-artifacts/runtime_compatibility.tsv",
+    "report": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/direct_staging_runtime_manifest.json",
+    "file_count": 170,
+    "total_gib": 5.724460432305932,
+    "comparison": {
+      "status": "passed",
+      "source_file_count": 170,
+      "staging_file_count": 170,
+      "missing": [],
+      "extra": [],
+      "changed_digest_or_size_count": 0,
+      "changed_digest_or_size_first_20": []
+    }
+  },
+  "validations": [
+    {
+      "label": "validation_smoke",
+      "status": "passed",
+      "seconds": 28.217477977988892,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/validation/smoke/smoke_driver.log"
+    },
+    {
+      "label": "validation_dynamic",
+      "status": "passed",
+      "seconds": 65.27863626400358,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/validation/dynamic/dynamic_driver.log"
+    },
+    {
+      "label": "validation_real-png",
+      "status": "passed",
+      "seconds": 232.83866870499332,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/validation/real-png/real-png_driver.log"
+    },
+    {
+      "label": "validation_real-jpeg",
+      "status": "passed",
+      "seconds": 259.67163528100355,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/validation/real-jpeg/real-jpeg_driver.log"
+    },
+    {
+      "label": "validation_cache-budgets",
+      "status": "passed",
+      "seconds": 81.99464487099613,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/validation/cache-budgets/cache-budgets_driver.log"
+    }
+  ],
+  "source_manifest_sha256_after": "71498acaeafff31e2cbfa4c3ed9de81b73d9078e1f2bc7528e87bc36d7222431",
+  "source_manifest_unchanged": true,
+  "elapsed_seconds": 1107.4121874630073
+}

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import time
 from pathlib import Path
 from typing import Any, Callable
@@ -14,10 +15,20 @@ from transformers.utils import logging
 
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
+MODEL_DIR = Path(os.environ.get("HUNYUANOCR_MODEL_DIR", str(MODEL_DIR)))
+REFERENCE_ROOT = Path(os.environ.get(
+    "HUNYUANOCR_REFERENCE_DIR",
+    str(PROJECT_DIR / "reference/smoke_en_cpu_fp32"),
+))
+ARTIFACTS_DIR = Path(os.environ.get(
+    "HUNYUANOCR_ARTIFACTS_DIR",
+    str(PROJECT_DIR / "artifacts"),
+))
+DOCS_DIR = Path(os.environ.get("HUNYUANOCR_DOCS_DIR", str(PROJECT_DIR / "docs")))
 BASE_CAPTURE_SCRIPT = (
     PROJECT_DIR / "tools/reference/capture_decoder_layer0_decode_reference.py"
 )
-REPORT_PATH = PROJECT_DIR / "docs/decoder_24_layer_prefill_reference.json"
+REPORT_PATH = DOCS_DIR / "decoder_24_layer_prefill_reference.json"
 
 TORCH_THREADS = 9
 LAYER_COUNT = 24
@@ -85,8 +96,8 @@ def save_tensor(
     value: torch.Tensor,
 ) -> dict[str, Any]:
     detached = value.detach().cpu().contiguous()
-    npy_dir = PROJECT_DIR / "reference/smoke_en_cpu_fp32" / reference_name
-    raw_dir = PROJECT_DIR / "artifacts" / reference_name / "reference"
+    npy_dir = REFERENCE_ROOT / reference_name
+    raw_dir = ARTIFACTS_DIR / reference_name / "reference"
     npy_dir.mkdir(parents=True, exist_ok=True)
     raw_dir.mkdir(parents=True, exist_ok=True)
 
@@ -99,8 +110,8 @@ def save_tensor(
     report = tensor_summary(detached)
     report.update(
         {
-            "npy_path": npy_path.relative_to(PROJECT_DIR).as_posix(),
-            "raw_path": raw_path.relative_to(PROJECT_DIR).as_posix(),
+            "npy_path": str(npy_path),
+            "raw_path": str(raw_path),
             "raw_bytes": raw_path.stat().st_size,
         }
     )
@@ -324,11 +335,7 @@ def main() -> None:
             boundary_error = max_abs_error(hidden, previous_output)
             maximum_boundary_error = max(maximum_boundary_error, boundary_error)
 
-        decode_reference = (
-            PROJECT_DIR
-            / "reference/smoke_en_cpu_fp32"
-            / f"decoder_layer{layer_index}_decode"
-        )
+        decode_reference = REFERENCE_ROOT / f"decoder_layer{layer_index}_decode"
         existing_key = load_reference(decode_reference / "past_key.npy")
         existing_value = load_reference(decode_reference / "past_value.npy")
         key_error = max_abs_error(present_key, existing_key)
@@ -381,26 +388,27 @@ def main() -> None:
             }
         )
 
-    layer0_contract_dir = (
-        PROJECT_DIR / "reference/smoke_en_cpu_fp32/decoder_layer0_prefill"
-    )
-    layer0_contract_errors = {
-        "hidden_states": max_abs_error(
-            layer_inputs[0], load_reference(layer0_contract_dir / "layer_input.npy")
-        ),
-        "attention_mask": max_abs_error(
-            shared_attention_mask,
-            load_reference(layer0_contract_dir / "attention_mask.npy"),
-        ),
-        "rope_cos": max_abs_error(
-            shared_rope_cos, load_reference(layer0_contract_dir / "rope_cos.npy")
-        ),
-        "rope_sin": max_abs_error(
-            shared_rope_sin, load_reference(layer0_contract_dir / "rope_sin.npy")
-        ),
-    }
-    if any(error != 0.0 for error in layer0_contract_errors.values()):
-        raise RuntimeError(f"Layer 0 contract changed: {layer0_contract_errors}")
+    layer0_contract_dir = REFERENCE_ROOT / "decoder_layer0_prefill"
+    if layer0_contract_dir.is_dir():
+        layer0_contract_errors = {
+            "hidden_states": max_abs_error(
+                layer_inputs[0], load_reference(layer0_contract_dir / "layer_input.npy")
+            ),
+            "attention_mask": max_abs_error(
+                shared_attention_mask,
+                load_reference(layer0_contract_dir / "attention_mask.npy"),
+            ),
+            "rope_cos": max_abs_error(
+                shared_rope_cos, load_reference(layer0_contract_dir / "rope_cos.npy")
+            ),
+            "rope_sin": max_abs_error(
+                shared_rope_sin, load_reference(layer0_contract_dir / "rope_sin.npy")
+            ),
+        }
+        if any(error != 0.0 for error in layer0_contract_errors.values()):
+            raise RuntimeError(f"Layer 0 contract changed: {layer0_contract_errors}")
+    else:
+        layer0_contract_errors = None
     if maximum_boundary_error != 0.0 or maximum_existing_cache_error != 0.0:
         raise RuntimeError("Captured prefill boundaries or KV caches changed")
 

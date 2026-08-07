@@ -1,0 +1,107 @@
+{
+  "phase": "4J",
+  "status": "passed",
+  "started_at_unix": 1786095717.593787,
+  "audit": {
+    "hf_model_dir": "/home/asus/work/hunyuanocr/models/HunyuanOCR-1.5",
+    "reference_python": "/home/asus/work/hunyuanocr/.venv-reference/bin/python",
+    "pnnx": "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
+    "cli": "/home/asus/hunyuanocr-recovery/phase4g/linux-release-build/hunyuanocr_cli",
+    "reference_dir": "/home/asus/hunyuanocr-recovery/phase4j/reference-smoke-cpu-fp32",
+    "reference_artifacts_dir": "/home/asus/hunyuanocr-recovery/phase4j/reference-artifacts",
+    "docs_dir": "/home/asus/hunyuanocr-recovery/phase4j/reference-docs",
+    "direct_artifacts_dir": "/home/asus/hunyuanocr-recovery/phase4j/direct-staging-artifacts",
+    "direct_export_docs_dir": "/home/asus/hunyuanocr-recovery/phase4j/direct-export-docs"
+  },
+  "reference_capture": [
+    {
+      "label": "smoke_reference",
+      "status": "passed",
+      "seconds": 24.37749745999463,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/reference-capture/smoke_reference.log"
+    },
+    {
+      "label": "split_contract",
+      "status": "passed",
+      "seconds": 7.713331698992988,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/reference-capture/split_contract.log"
+    },
+    {
+      "label": "dynamic_expected",
+      "status": "passed",
+      "seconds": 21.302853015004075,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/reference-capture/dynamic_expected.log"
+    },
+    {
+      "label": "real_expected",
+      "status": "passed",
+      "seconds": 38.506369235008606,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/reference-capture/real_expected.log"
+    },
+    {
+      "label": "vision_tower_full",
+      "status": "passed",
+      "seconds": 6.017331454000669,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/reference-capture/vision_tower_full.log"
+    },
+    {
+      "label": "decoder_decode_steps_1_3",
+      "status": "passed",
+      "seconds": 7.0852756060048705,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/reference-capture/decoder_decode_steps_1_3.log"
+    },
+    {
+      "label": "decoder_prefill_kv",
+      "status": "passed",
+      "seconds": 6.349754270006088,
+      "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/reference-capture/decoder_prefill_kv.log"
+    }
+  ],
+  "reference_summary": {
+    "path": "/home/asus/hunyuanocr-recovery/phase4j/reference-smoke-cpu-fp32",
+    "npy_file_count": 1255,
+    "first_20": [
+      "attention_mask.npy",
+      "decoder_layer0_decode/decode_logits.npy",
+      "decoder_layer0_decode/layer0_attention_mask.npy",
+      "decoder_layer0_decode/layer0_hidden_states.npy",
+      "decoder_layer0_decode/layer0_output.npy",
+      "decoder_layer0_decode/layer0_position_embeddings_0.npy",
+      "decoder_layer0_decode/layer0_position_embeddings_1.npy",
+      "decoder_layer0_decode/next_token_id.npy",
+      "decoder_layer0_decode/past_key.npy",
+      "decoder_layer0_decode/past_value.npy",
+      "decoder_layer0_decode/prepared_attention_mask.npy",
+      "decoder_layer0_decode/prepared_input_ids.npy",
+      "decoder_layer0_decode/prepared_mm_token_type_ids.npy",
+      "decoder_layer0_decode/present_key.npy",
+      "decoder_layer0_decode/present_value.npy",
+      "decoder_layer0_decode/step1_input_token_id.npy",
+      "decoder_layer0_decode_step2/decode_logits.npy",
+      "decoder_layer0_decode_step2/layer0_attention_mask.npy",
+      "decoder_layer0_decode_step2/layer0_hidden_states.npy",
+      "decoder_layer0_decode_step2/layer0_output.npy"
+    ]
+  },
+  "direct_export": {
+    "label": "phase4i_direct_export_with_phase4j_references",
+    "status": "passed",
+    "seconds": 1107.5329724629992,
+    "log": "/home/asus/hunyuanocr-recovery/phase4j/logs/direct-export/phase4i_driver.log",
+    "report": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/docs/phase4j_direct_export_pipeline_report.json",
+    "direct_status": "passed",
+    "file_count": 170,
+    "total_gib": 5.724460432305932,
+    "manifest_comparison": {
+      "status": "passed",
+      "source_file_count": 170,
+      "staging_file_count": 170,
+      "missing": [],
+      "extra": [],
+      "changed_digest_or_size_count": 0,
+      "changed_digest_or_size_first_20": []
+    },
+    "validation_count": 5
+  },
+  "elapsed_seconds": 1218.915537516994
+}

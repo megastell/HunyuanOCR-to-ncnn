@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import time
 from pathlib import Path
 from typing import Any, Callable
@@ -14,10 +15,20 @@ from transformers.utils import logging
 
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
+MODEL_DIR = Path(os.environ.get("HUNYUANOCR_MODEL_DIR", str(MODEL_DIR)))
+REFERENCE_ROOT = Path(os.environ.get(
+    "HUNYUANOCR_REFERENCE_DIR",
+    str(PROJECT_DIR / "reference/smoke_en_cpu_fp32"),
+))
+ARTIFACTS_DIR = Path(os.environ.get(
+    "HUNYUANOCR_ARTIFACTS_DIR",
+    str(PROJECT_DIR / "artifacts"),
+))
+DOCS_DIR = Path(os.environ.get("HUNYUANOCR_DOCS_DIR", str(PROJECT_DIR / "docs")))
 CONTRACT_SCRIPT = (
     PROJECT_DIR / "tools/inspect/inspect_decoder_layer0_decode_contract.py"
 )
-REPORT_PATH = PROJECT_DIR / "docs/vision_tower_full_reference.json"
+REPORT_PATH = DOCS_DIR / "vision_tower_full_reference.json"
 
 TORCH_THREADS = 9
 LAYER_COUNT = 27
@@ -71,8 +82,8 @@ def save_tensor(
     value: torch.Tensor,
 ) -> dict[str, Any]:
     detached = value.detach().cpu().contiguous()
-    npy_dir = PROJECT_DIR / "reference/smoke_en_cpu_fp32" / reference_name
-    raw_dir = PROJECT_DIR / "artifacts" / reference_name / "reference"
+    npy_dir = REFERENCE_ROOT / reference_name
+    raw_dir = ARTIFACTS_DIR / reference_name / "reference"
     npy_dir.mkdir(parents=True, exist_ok=True)
     raw_dir.mkdir(parents=True, exist_ok=True)
 
@@ -85,8 +96,8 @@ def save_tensor(
     report = tensor_summary(detached)
     report.update(
         {
-            "npy_path": npy_path.relative_to(PROJECT_DIR).as_posix(),
-            "raw_path": raw_path.relative_to(PROJECT_DIR).as_posix(),
+            "npy_path": str(npy_path),
+            "raw_path": str(raw_path),
             "raw_bytes": raw_path.stat().st_size,
         }
     )
@@ -274,7 +285,7 @@ def main() -> None:
     if tuple(merger_output.shape) != (1, MERGED_TOKEN_COUNT, TEXT_HIDDEN_SIZE):
         raise RuntimeError(f"Unexpected merger output: {merger_output.shape}")
 
-    split_dir = PROJECT_DIR / "reference/smoke_en_cpu_fp32/split_contract"
+    split_dir = REFERENCE_ROOT / "split_contract"
     expected_last_hidden = load_f32(split_dir / "vision_last_hidden_state.npy")
     expected_pooler = load_f32(split_dir / "vision_pooler_output.npy")
     last_hidden_error = max_abs_error(output.last_hidden_state, expected_last_hidden)

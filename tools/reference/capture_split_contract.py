@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import platform
 import resource
 import time
@@ -23,28 +24,34 @@ PROJECT_DIR = (
 )
 
 MODEL_DIR = (
-    Path.home()
-    / "work/hunyuanocr/models/HunyuanOCR-1.5"
+    Path(os.environ.get(
+        "HUNYUANOCR_MODEL_DIR",
+        str(Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"),
+    ))
 )
 
 IMAGE_PATH = (
-    PROJECT_DIR
-    / "tests/assets/ocr_smoke_en.png"
+    Path(os.environ.get(
+        "HUNYUANOCR_SMOKE_IMAGE",
+        str(PROJECT_DIR / "tests/assets/ocr_smoke_en.png"),
+    ))
 )
 
 REFERENCE_ROOT = (
-    PROJECT_DIR
-    / "reference/smoke_en_cpu_fp32"
+    Path(os.environ.get(
+        "HUNYUANOCR_REFERENCE_DIR",
+        str(PROJECT_DIR / "reference/smoke_en_cpu_fp32"),
+    ))
 )
 
 OUTPUT_DIR = (
     REFERENCE_ROOT
     / "split_contract"
 )
+DOCS_DIR = Path(os.environ.get("HUNYUANOCR_DOCS_DIR", str(PROJECT_DIR / "docs")))
 
 REPORT_PATH = (
-    PROJECT_DIR
-    / "docs/split_contract_cpu_fp32.json"
+    DOCS_DIR / "split_contract_cpu_fp32.json"
 )
 
 PROMPT = (

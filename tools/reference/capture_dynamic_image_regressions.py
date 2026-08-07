@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import time
 from pathlib import Path
 from typing import Any
@@ -14,11 +15,19 @@ from transformers.utils import logging
 
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
+MODEL_DIR = Path(os.environ.get("HUNYUANOCR_MODEL_DIR", str(MODEL_DIR)))
 CASE_PATH = PROJECT_DIR / "tests/assets/dynamic_ocr_cases.json"
 EXPECTED_PATH = PROJECT_DIR / "tests/assets/dynamic_ocr_expected.json"
-REPORT_PATH = PROJECT_DIR / "docs/dynamic_image_reference.json"
-REFERENCE_DIR = PROJECT_DIR / "reference/dynamic_image_cpu_fp32"
-RECOVERY_DIR = Path.home() / "hunyuanocr-recovery/phase4c"
+DOCS_DIR = Path(os.environ.get("HUNYUANOCR_DOCS_DIR", str(PROJECT_DIR / "docs")))
+REPORT_PATH = DOCS_DIR / "dynamic_image_reference.json"
+REFERENCE_DIR = Path(os.environ.get(
+    "HUNYUANOCR_DYNAMIC_REFERENCE_DIR",
+    str(PROJECT_DIR / "reference/dynamic_image_cpu_fp32"),
+))
+RECOVERY_DIR = Path(os.environ.get(
+    "HUNYUANOCR_RECOVERY_DIR",
+    str(Path.home() / "hunyuanocr-recovery/phase4c"),
+))
 
 PROMPT = (
     "请逐行识别图片中的所有文字。只输出图片中的文字本身，"
@@ -50,7 +59,7 @@ def save_tensor(directory: Path, name: str, tensor: torch.Tensor) -> dict[str, A
     return {
         "shape": list(value.shape),
         "dtype": str(value.dtype),
-        "path": path.relative_to(PROJECT_DIR).as_posix(),
+        "path": str(path),
         "sha256": sha256(path),
     }
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import time
 from pathlib import Path
 from typing import Any
@@ -14,13 +15,21 @@ from transformers.utils import logging
 
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = Path.home() / "work/hunyuanocr/models/HunyuanOCR-1.5"
+MODEL_DIR = Path(os.environ.get("HUNYUANOCR_MODEL_DIR", str(MODEL_DIR)))
 PNG_IMAGE_PATH = PROJECT_DIR / "tests/assets/ocr_receipt_real.png"
 JPEG_IMAGE_PATH = PROJECT_DIR / "tests/assets/ocr_receipt_real.jpg"
 JPEG_RGB_PATH = PROJECT_DIR / "tests/assets/ocr_receipt_real_stb.ppm"
 EXPECTED_PATH = PROJECT_DIR / "tests/assets/real_ocr_expected.json"
-REPORT_PATH = PROJECT_DIR / "docs/real_ocr_reference.json"
-REFERENCE_DIR = PROJECT_DIR / "reference/real_ocr_cpu_fp32/ocr_receipt_real"
-RECOVERY_DIR = Path.home() / "hunyuanocr-recovery/phase4e/reference"
+DOCS_DIR = Path(os.environ.get("HUNYUANOCR_DOCS_DIR", str(PROJECT_DIR / "docs")))
+REPORT_PATH = DOCS_DIR / "real_ocr_reference.json"
+REFERENCE_DIR = Path(os.environ.get(
+    "HUNYUANOCR_REAL_REFERENCE_DIR",
+    str(PROJECT_DIR / "reference/real_ocr_cpu_fp32/ocr_receipt_real"),
+))
+RECOVERY_DIR = Path(os.environ.get(
+    "HUNYUANOCR_RECOVERY_DIR",
+    str(Path.home() / "hunyuanocr-recovery/phase4e/reference"),
+))
 
 PROMPT = (
     "\u8bf7\u9010\u884c\u8bc6\u522b\u56fe\u7247\u4e2d\u7684\u6240\u6709\u6587\u5b57\u3002\u53ea\u8f93\u51fa\u56fe\u7247"
@@ -48,7 +57,7 @@ def save_tensor(case_name: str, name: str, tensor: torch.Tensor) -> dict[str, An
     return {
         "shape": list(value.shape),
         "dtype": str(value.dtype),
-        "path": path.relative_to(PROJECT_DIR).as_posix(),
+        "path": str(path),
         "sha256": sha256(path),
     }
 
