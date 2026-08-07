@@ -1,0 +1,788 @@
+{
+  "phase": "4H",
+  "status": "passed",
+  "started_at_unix": 1786092343.942291,
+  "audit": {
+    "hf_model_dir": "/home/asus/work/hunyuanocr/models/HunyuanOCR-1.5",
+    "hf_required_files": {
+      "config.json": 4771,
+      "generation_config.json": 139,
+      "preprocessor_config.json": 579,
+      "tokenizer.json": 9527297,
+      "tokenizer_config.json": 166592
+    },
+    "source_artifacts": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn/artifacts",
+    "staging_dir": "/home/asus/hunyuanocr-recovery/phase4h/staging-artifacts",
+    "cli": "/home/asus/hunyuanocr-recovery/phase4g/linux-release-build/hunyuanocr_cli",
+    "export_scripts": {
+      "tools/export/export_decoder_dynamic.py": 11386,
+      "tools/export/export_decoder_prefill_kv.py": 12271,
+      "tools/export/export_final_norm.py": 8314,
+      "tools/export/export_lm_head.py": 8208,
+      "tools/export/export_runtime_manifest.py": 5742,
+      "tools/export/export_text_embedding.py": 9097,
+      "tools/export/export_tokenizer_vocab.py": 3334,
+      "tools/export/export_vision_tower_full.py": 21095,
+      "tools/reference/capture_dynamic_image_regressions.py": 8336,
+      "tools/reference/capture_real_ocr_reference.py": 7644,
+      "tools/reference/generate_dynamic_ocr_cases.py": 2953,
+      "tools/reference/prepare_real_ocr_assets.py": 4182,
+      "tools/reference/run_reference_smoke.py": 10134
+    },
+    "toolchain": {
+      "pnnx": {
+        "path": "/home/asus/work/hunyuanocr/.venv-pnnx/bin/pnnx",
+        "exists": true
+      },
+      "ncnn_cmake_dir": {
+        "path": "/home/asus/.local/ncnn-cpu-ropefix-rmsnorm/lib/cmake/ncnn",
+        "exists": true
+      }
+    },
+    "ncnn_precision_marker_hits": {
+      "ncnn_fp32_rope": null,
+      "RMSNorm": null,
+      "MatMul": null
+    }
+  },
+  "copy": {
+    "file_count": 170,
+    "total_bytes": 6146592586,
+    "total_gib": 5.724460432305932,
+    "files": [
+      {
+        "path": "final_norm/final_norm.ncnn.param",
+        "bytes": 158
+      },
+      {
+        "path": "final_norm/final_norm.ncnn.bin",
+        "bytes": 4096
+      },
+      {
+        "path": "lm_head/lm_head.ncnn.param",
+        "bytes": 158
+      },
+      {
+        "path": "lm_head/lm_head.ncnn.bin",
+        "bytes": 494870532
+      },
+      {
+        "path": "text_embedding/text_embedding.ncnn.param",
+        "bytes": 165
+      },
+      {
+        "path": "text_embedding/text_embedding.ncnn.bin",
+        "bytes": 494870532
+      },
+      {
+        "path": "vision_patch_embed/vision_patch_embed.ncnn.param",
+        "bytes": 175
+      },
+      {
+        "path": "vision_patch_embed/vision_patch_embed.ncnn.bin",
+        "bytes": 3543560
+      },
+      {
+        "path": "vision_patch_merger_pre_rms/vision_patch_merger_pre_rms.ncnn.param",
+        "bytes": 158
+      },
+      {
+        "path": "vision_patch_merger_pre_rms/vision_patch_merger_pre_rms.ncnn.bin",
+        "bytes": 4608
+      },
+      {
+        "path": "vision_patch_merger_conv/vision_patch_merger_conv.ncnn.param",
+        "bytes": 365
+      },
+      {
+        "path": "vision_patch_merger_conv/vision_patch_merger_conv.ncnn.bin",
+        "bytes": 84962312
+      },
+      {
+        "path": "vision_patch_merger_projection/vision_patch_merger_projection.ncnn.param",
+        "bytes": 176
+      },
+      {
+        "path": "vision_patch_merger_projection/vision_patch_merger_projection.ncnn.bin",
+        "bytes": 18878472
+      },
+      {
+        "path": "vision_patch_merger_post_rms/vision_patch_merger_post_rms.ncnn.param",
+        "bytes": 158
+      },
+      {
+        "path": "vision_patch_merger_post_rms/vision_patch_merger_post_rms.ncnn.bin",
+        "bytes": 4096
+      },
+      {
+        "path": "vision_patch_embed/vision_position_embedding.f32.bin",
+        "bytes": 75497472
+      },
+      {
+        "path": "vision_patch_merger/vision_patch_merger_constants.f32.bin",
+        "bytes": 26624
+      },
+      {
+        "path": "vision_block0/vision_block0.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block0/vision_block0.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block1/vision_block1.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block1/vision_block1.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block2/vision_block2.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block2/vision_block2.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block3/vision_block3.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block3/vision_block3.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block4/vision_block4.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block4/vision_block4.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block5/vision_block5.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block5/vision_block5.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block6/vision_block6.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block6/vision_block6.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block7/vision_block7.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block7/vision_block7.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block8/vision_block8.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block8/vision_block8.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block9/vision_block9.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block9/vision_block9.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block10/vision_block10.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block10/vision_block10.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block11/vision_block11.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block11/vision_block11.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block12/vision_block12.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block12/vision_block12.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block13/vision_block13.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block13/vision_block13.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block14/vision_block14.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block14/vision_block14.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block15/vision_block15.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block15/vision_block15.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block16/vision_block16.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block16/vision_block16.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block17/vision_block17.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block17/vision_block17.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block18/vision_block18.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block18/vision_block18.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block19/vision_block19.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block19/vision_block19.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block20/vision_block20.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block20/vision_block20.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block21/vision_block21.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block21/vision_block21.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block22/vision_block22.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block22/vision_block22.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block23/vision_block23.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block23/vision_block23.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block24/vision_block24.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block24/vision_block24.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block25/vision_block25.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block25/vision_block25.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "vision_block26/vision_block26.ncnn.param",
+        "bytes": 1076
+      },
+      {
+        "path": "vision_block26/vision_block26.ncnn.bin",
+        "bytes": 60958040
+      },
+      {
+        "path": "decoder_layer0_prefill_kv/decoder_layer0_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer0_prefill_kv/decoder_layer0_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer0_decode_dynamic/decoder_layer0_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer0_decode_dynamic/decoder_layer0_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer1_prefill_kv/decoder_layer1_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer1_prefill_kv/decoder_layer1_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer1_decode_dynamic/decoder_layer1_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer1_decode_dynamic/decoder_layer1_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer2_prefill_kv/decoder_layer2_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer2_prefill_kv/decoder_layer2_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer2_decode_dynamic/decoder_layer2_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer2_decode_dynamic/decoder_layer2_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer3_prefill_kv/decoder_layer3_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer3_prefill_kv/decoder_layer3_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer3_decode_dynamic/decoder_layer3_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer3_decode_dynamic/decoder_layer3_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer4_prefill_kv/decoder_layer4_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer4_prefill_kv/decoder_layer4_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer4_decode_dynamic/decoder_layer4_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer4_decode_dynamic/decoder_layer4_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer5_prefill_kv/decoder_layer5_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer5_prefill_kv/decoder_layer5_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer5_decode_dynamic/decoder_layer5_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer5_decode_dynamic/decoder_layer5_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer6_prefill_kv/decoder_layer6_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer6_prefill_kv/decoder_layer6_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer6_decode_dynamic/decoder_layer6_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer6_decode_dynamic/decoder_layer6_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer7_prefill_kv/decoder_layer7_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer7_prefill_kv/decoder_layer7_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer7_decode_dynamic/decoder_layer7_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer7_decode_dynamic/decoder_layer7_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer8_prefill_kv/decoder_layer8_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer8_prefill_kv/decoder_layer8_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer8_decode_dynamic/decoder_layer8_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer8_decode_dynamic/decoder_layer8_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer9_prefill_kv/decoder_layer9_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer9_prefill_kv/decoder_layer9_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer9_decode_dynamic/decoder_layer9_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer9_decode_dynamic/decoder_layer9_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer10_prefill_kv/decoder_layer10_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer10_prefill_kv/decoder_layer10_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer10_decode_dynamic/decoder_layer10_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer10_decode_dynamic/decoder_layer10_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer11_prefill_kv/decoder_layer11_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer11_prefill_kv/decoder_layer11_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer11_decode_dynamic/decoder_layer11_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer11_decode_dynamic/decoder_layer11_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer12_prefill_kv/decoder_layer12_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer12_prefill_kv/decoder_layer12_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer12_decode_dynamic/decoder_layer12_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer12_decode_dynamic/decoder_layer12_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer13_prefill_kv/decoder_layer13_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer13_prefill_kv/decoder_layer13_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer13_decode_dynamic/decoder_layer13_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer13_decode_dynamic/decoder_layer13_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer14_prefill_kv/decoder_layer14_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer14_prefill_kv/decoder_layer14_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer14_decode_dynamic/decoder_layer14_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer14_decode_dynamic/decoder_layer14_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer15_prefill_kv/decoder_layer15_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer15_prefill_kv/decoder_layer15_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer15_decode_dynamic/decoder_layer15_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer15_decode_dynamic/decoder_layer15_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer16_prefill_kv/decoder_layer16_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer16_prefill_kv/decoder_layer16_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer16_decode_dynamic/decoder_layer16_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer16_decode_dynamic/decoder_layer16_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer17_prefill_kv/decoder_layer17_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer17_prefill_kv/decoder_layer17_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer17_decode_dynamic/decoder_layer17_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer17_decode_dynamic/decoder_layer17_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer18_prefill_kv/decoder_layer18_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer18_prefill_kv/decoder_layer18_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer18_decode_dynamic/decoder_layer18_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer18_decode_dynamic/decoder_layer18_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer19_prefill_kv/decoder_layer19_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer19_prefill_kv/decoder_layer19_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer19_decode_dynamic/decoder_layer19_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer19_decode_dynamic/decoder_layer19_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer20_prefill_kv/decoder_layer20_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer20_prefill_kv/decoder_layer20_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer20_decode_dynamic/decoder_layer20_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer20_decode_dynamic/decoder_layer20_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer21_prefill_kv/decoder_layer21_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer21_prefill_kv/decoder_layer21_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer21_decode_dynamic/decoder_layer21_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer22_prefill_kv/decoder_layer22_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer22_prefill_kv/decoder_layer22_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer22_decode_dynamic/decoder_layer22_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer22_decode_dynamic/decoder_layer22_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer23_prefill_kv/decoder_layer23_prefill_kv.ncnn.param",
+        "bytes": 5308
+      },
+      {
+        "path": "decoder_layer23_prefill_kv/decoder_layer23_prefill_kv.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "decoder_layer23_decode_dynamic/decoder_layer23_decode_dynamic.ncnn.param",
+        "bytes": 5560
+      },
+      {
+        "path": "decoder_layer23_decode_dynamic/decoder_layer23_decode_dynamic.ncnn.bin",
+        "bytes": 69215260
+      },
+      {
+        "path": "tokenizer/bytelevel_vocab.txt",
+        "bytes": 2689569
+      },
+      {
+        "path": "tokenizer/bytelevel_bpe_merges.txt",
+        "bytes": 2749756
+      }
+    ]
+  },
+  "staging_manifest": {
+    "manifest": "/home/asus/hunyuanocr-recovery/phase4h/staging-artifacts/runtime_manifest.tsv",
+    "compatibility": "/home/asus/hunyuanocr-recovery/phase4h/staging-artifacts/runtime_compatibility.tsv",
+    "report": "/home/asus/hunyuanocr-recovery/phase4h/logs/staging_runtime_manifest.json",
+    "file_count": 170,
+    "total_gib": 5.724460432305932
+  },
+  "manifest_comparison": {
+    "status": "passed",
+    "source_file_count": 170,
+    "staging_file_count": 170,
+    "missing": [],
+    "extra": [],
+    "changed": []
+  },
+  "validations": [
+    {
+      "suite": "smoke",
+      "status": "passed",
+      "seconds": 25.858446062004077,
+      "driver_log": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/smoke/smoke_driver.log",
+      "summary": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/smoke/smoke_summary.json"
+    },
+    {
+      "suite": "dynamic",
+      "status": "passed",
+      "seconds": 65.53727577500104,
+      "driver_log": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/dynamic/dynamic_driver.log",
+      "summary": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/dynamic/dynamic_summary.json"
+    },
+    {
+      "suite": "real-png",
+      "status": "passed",
+      "seconds": 256.7652176929987,
+      "driver_log": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/real-png/real-png_driver.log",
+      "summary": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/real-png/real-png_summary.json"
+    },
+    {
+      "suite": "real-jpeg",
+      "status": "passed",
+      "seconds": 254.30343220299983,
+      "driver_log": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/real-jpeg/real-jpeg_driver.log",
+      "summary": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/real-jpeg/real-jpeg_summary.json"
+    },
+    {
+      "suite": "cache-budgets",
+      "status": "passed",
+      "seconds": 78.7064976170077,
+      "driver_log": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/cache-budgets/cache-budgets_driver.log",
+      "summary": "/home/asus/hunyuanocr-recovery/phase4h/logs/validation/cache-budgets/cache-budgets_summary.json"
+    }
+  ],
+  "elapsed_seconds": 693.909436670001
+}
