@@ -14,6 +14,7 @@ find_package(ncnn CONFIG REQUIRED)
 
 add_library(
     hunyuanocr_runtime
+    src/image_decode.cpp
     src/model_manifest.cpp
     src/multimodal_input.cpp
     src/prompt_inputs.cpp
@@ -48,14 +49,30 @@ if(HUNYUANOCR_BUILD_BENCHMARKS)
     target_link_libraries(
         hunyuanocr_repeat_benchmark PRIVATE HunyuanOCR::runtime
     )
+    add_executable(
+        hunyuanocr_decode_image_rgb
+        tools/reference/decode_image_rgb.cpp
+    )
+    target_include_directories(
+        hunyuanocr_decode_image_rgb PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
+    )
+    target_link_libraries(
+        hunyuanocr_decode_image_rgb PRIVATE HunyuanOCR::runtime
+    )
     if(MSVC)
         target_link_libraries(hunyuanocr_repeat_benchmark PRIVATE Psapi)
         target_compile_options(
             hunyuanocr_repeat_benchmark PRIVATE /W4 /permissive-
         )
+        target_compile_options(
+            hunyuanocr_decode_image_rgb PRIVATE /W4 /permissive-
+        )
     else()
         target_compile_options(
             hunyuanocr_repeat_benchmark PRIVATE -Wall -Wextra -Wpedantic
+        )
+        target_compile_options(
+            hunyuanocr_decode_image_rgb PRIVATE -Wall -Wextra -Wpedantic
         )
     endif()
 endif()

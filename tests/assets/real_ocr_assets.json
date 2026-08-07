@@ -1,5 +1,5 @@
 {
-  "format": "HUNYUANOCR_REAL_OCR_ASSETS_V1",
+  "format": "HUNYUANOCR_REAL_OCR_ASSETS_V2",
   "source": {
     "repository": "https://github.com/Tencent-Hunyuan/HunyuanOCR.git",
     "revision": "c55965d3da1e6f41987abec8068f2e70851318bc",
@@ -20,6 +20,23 @@
       "path": "tests/assets/ocr_receipt_real.png",
       "encoding": "Pillow-decoded RGB saved losslessly as PNG",
       "sha256": "c217e9aa93c365c14db744436f4cc4d778438402e43dbb35ae14e888d6b2d1ea"
+    },
+    {
+      "path": "tests/assets/ocr_receipt_real_stb.ppm",
+      "encoding": "production stb_image-decoded RGB PPM contract",
+      "sha256": "df563d0103382032ce9f4d00f313b3e5a848664fba8dfdfe1f611b8aa84e2de9"
     }
-  ]
+  ],
+  "jpeg_decode_comparison": {
+    "pillow_rgb_path": "tests/assets/ocr_receipt_real.png",
+    "stb_rgb_path": "tests/assets/ocr_receipt_real_stb.ppm",
+    "differing_pixels": 15662,
+    "total_pixels": 331232,
+    "channel_max_abs_difference": [
+      3,
+      2,
+      3
+    ],
+    "decoder_output": "width=352 height=941 rgb_bytes=993696"
+  }
 }

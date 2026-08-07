@@ -8,6 +8,7 @@
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -27,6 +28,8 @@ constexpr int kKvHeads = 8;
 constexpr int kHeadDim = 128;
 constexpr int kMropeAxes = 4;
 constexpr int kEosToken = 120007;
+constexpr std::uint64_t kMebibyte = 1024u * 1024u;
+constexpr std::uint64_t kDecoderCacheResidentMultiplier = 4u;
 
 using Clock = std::chrono::steady_clock;
 
@@ -130,16 +133,23 @@ bool configure_and_load(
     ncnn::Net& network,
     const std::string& model_directory,
     const std::string& name,
-    const RuntimeOptions& options)
+    const RuntimeOptions& options,
+    const std::vector<unsigned char>* model_bytes = nullptr)
 {
     network.opt.use_vulkan_compute = false;
     network.opt.use_packing_layout = options.use_packing_layout;
     network.opt.num_threads = options.num_threads;
     const std::string directory = model_directory + "/" + name;
-    return network.load_param(
-            (directory + "/" + name + ".ncnn.param").c_str()) == 0
-        && network.load_model(
+    if (network.load_param(
+            (directory + "/" + name + ".ncnn.param").c_str()) != 0) {
+        return false;
+    }
+    if (model_bytes == nullptr) {
+        return network.load_model(
             (directory + "/" + name + ".ncnn.bin").c_str()) == 0;
+    }
+    return !model_bytes->empty()
+        && network.load_model(model_bytes->data()) != 0;
 }
 
 bool run_single_output(
@@ -396,9 +406,16 @@ public:
     {
         loaded = false;
         if (options.num_threads <= 0 || options.max_new_tokens <= 0
-            || options.max_vision_patches <= 0) {
+            || options.max_vision_patches <= 0
+            || options.decoder_cache_budget_mib < 0) {
             error = "num_threads, max_new_tokens, and max_vision_patches "
-                "must be positive";
+                "must be positive; decoder_cache_budget_mib cannot be negative";
+            return false;
+        }
+        if (options.cache_decode_weights
+            && options.decoder_cache_budget_mib != 0) {
+            error = "cache_decode_weights and decoder_cache_budget_mib are "
+                "mutually exclusive";
             return false;
         }
         if (!detail::verify_model_manifest(
@@ -410,7 +427,14 @@ public:
         lm_head.clear();
         embedding.clear();
         decoder_networks.clear();
+        decoder_model_cache.clear();
+        resident_decoder_layer_count = 0;
+        memory_cached_decoder_layer_count = 0;
+        decoder_cache_estimated_bytes = 0;
         multimodal_resources = MultimodalResources{};
+        if (!plan_decoder_cache(error)) {
+            return false;
+        }
         if (!configure_and_load(
                 final_norm, directory, "final_norm", options)) {
             error = "Unable to load final_norm model";
@@ -439,11 +463,13 @@ public:
 
     bool ensure_decoder_networks(std::string& error)
     {
-        if (!options.cache_decode_weights || !decoder_networks.empty()) {
+        if (resident_decoder_layer_count == 0
+            || static_cast<int>(decoder_networks.size())
+                == resident_decoder_layer_count) {
             return true;
         }
-        decoder_networks.reserve(kLayerCount);
-        for (int layer = 0; layer < kLayerCount; ++layer) {
+        decoder_networks.reserve(resident_decoder_layer_count);
+        for (int layer = 0; layer < resident_decoder_layer_count; ++layer) {
             const std::string name = "decoder_layer" + std::to_string(layer)
                 + "_decode_dynamic";
             auto network = std::make_unique<ncnn::Net>();
@@ -459,6 +485,57 @@ public:
         return true;
     }
 
+    bool plan_decoder_cache(std::string& error)
+    {
+        const std::uint64_t budget_bytes =
+            static_cast<std::uint64_t>(options.decoder_cache_budget_mib)
+            * kMebibyte;
+        if (!options.cache_decode_weights && budget_bytes == 0) return true;
+        for (int layer = 0; layer < kLayerCount; ++layer) {
+            const std::string name = "decoder_layer" + std::to_string(layer)
+                + "_decode_dynamic";
+            const std::filesystem::path directory =
+                std::filesystem::path(model_directory) / name;
+            std::error_code status;
+            const std::uint64_t bin_bytes = std::filesystem::file_size(
+                directory / (name + ".ncnn.bin"), status);
+            if (status) {
+                error = "Unable to inspect decoder cache weight file for layer "
+                    + std::to_string(layer) + ": " + status.message();
+                return false;
+            }
+            if (options.cache_decode_weights) {
+                decoder_cache_estimated_bytes +=
+                    bin_bytes * kDecoderCacheResidentMultiplier;
+                ++resident_decoder_layer_count;
+                continue;
+            }
+            if (bin_bytes > budget_bytes - decoder_cache_estimated_bytes) break;
+            std::ifstream input(
+                directory / (name + ".ncnn.bin"),
+                std::ios::binary);
+            if (!input) {
+                error = "Unable to open decoder model bytes for layer "
+                    + std::to_string(layer);
+                return false;
+            }
+            std::vector<unsigned char> bytes(
+                static_cast<std::size_t>(bin_bytes));
+            input.read(
+                reinterpret_cast<char*>(bytes.data()),
+                static_cast<std::streamsize>(bytes.size()));
+            if (!input) {
+                error = "Unable to cache decoder model bytes for layer "
+                    + std::to_string(layer);
+                return false;
+            }
+            decoder_model_cache.push_back(std::move(bytes));
+            decoder_cache_estimated_bytes += bin_bytes;
+            ++memory_cached_decoder_layer_count;
+        }
+        return true;
+    }
+
     bool recognize(
         const std::string& image_path,
         OcrResult& result,
@@ -469,6 +546,14 @@ public:
             return false;
         }
         result = OcrResult{};
+        result.resident_decoder_layers = resident_decoder_layer_count;
+        result.memory_cached_decoder_layers =
+            memory_cached_decoder_layer_count;
+        result.file_streamed_decoder_layers = kLayerCount
+            - resident_decoder_layer_count
+            - memory_cached_decoder_layer_count;
+        result.decoder_cache_estimated_mib = static_cast<int>(
+            (decoder_cache_estimated_bytes + kMebibyte - 1u) / kMebibyte);
         const Clock::time_point total_start = Clock::now();
         const Clock::time_point input_start = total_start;
         MultimodalPrefillInput multimodal;
@@ -605,17 +690,22 @@ public:
             for (int layer = 0; layer < kLayerCount; ++layer) {
                 std::unique_ptr<ncnn::Net> streamed_network;
                 ncnn::Net* decoder = nullptr;
-                if (options.cache_decode_weights) {
+                if (layer < resident_decoder_layer_count) {
                     decoder = decoder_networks[layer].get();
                 } else {
                     const std::string name = "decoder_layer"
                         + std::to_string(layer) + "_decode_dynamic";
                     streamed_network = std::make_unique<ncnn::Net>();
+                    const std::vector<unsigned char>* cached_bytes =
+                        layer < memory_cached_decoder_layer_count
+                        ? &decoder_model_cache[layer]
+                        : nullptr;
                     if (!configure_and_load(
                             *streamed_network,
                             model_directory,
                             name,
-                            options)) {
+                            options,
+                            cached_bytes)) {
                         error = "Unable to stream dynamic decoder layer "
                             + std::to_string(layer);
                         return false;
@@ -688,6 +778,10 @@ public:
     MultimodalResources multimodal_resources;
     ByteLevelDecoder tokenizer;
     std::vector<std::unique_ptr<ncnn::Net>> decoder_networks;
+    std::vector<std::vector<unsigned char>> decoder_model_cache;
+    int resident_decoder_layer_count = 0;
+    int memory_cached_decoder_layer_count = 0;
+    std::uint64_t decoder_cache_estimated_bytes = 0;
 };
 
 Runtime::Runtime(RuntimeOptions options)

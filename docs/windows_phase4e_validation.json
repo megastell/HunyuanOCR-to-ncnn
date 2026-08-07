@@ -1,0 +1,91 @@
+{
+    "phase":  "4E",
+    "status":  "passed",
+    "platform":  "Microsoft Windows 11 Pro",
+    "model_directory":  "D:\\hunyuanocr-recovery\\phase4c\\model-ntfs",
+    "stb_rgb_contract":  {
+                             "status":  "passed",
+                             "sha256":  "df563d0103382032ce9f4d00f313b3e5a848664fba8dfdfe1f611b8aa84e2de9",
+                             "linux_windows_byte_identical":  true
+                         },
+    "results":  [
+                    {
+                        "case":  "ocr_smoke_en",
+                        "packing":  0,
+                        "decoder_cache_budget_mib":  512,
+                        "generated_token_count":  11,
+                        "runtime_seconds":  19.932,
+                        "decode_seconds":  8.095,
+                        "peak_rss_kib":  1576400,
+                        "memory_cached_layers":  7,
+                        "cache_estimated_mib":  463,
+                        "wall_seconds":  21.527,
+                        "status":  "passed"
+                    },
+                    {
+                        "case":  "ocr_smoke_en",
+                        "packing":  1,
+                        "decoder_cache_budget_mib":  512,
+                        "generated_token_count":  11,
+                        "runtime_seconds":  20.291,
+                        "decode_seconds":  12.782,
+                        "peak_rss_kib":  1581260,
+                        "memory_cached_layers":  7,
+                        "cache_estimated_mib":  463,
+                        "wall_seconds":  21.748,
+                        "status":  "passed"
+                    },
+                    {
+                        "case":  "ocr_receipt_real_jpeg",
+                        "packing":  0,
+                        "decoder_cache_budget_mib":  0,
+                        "generated_token_count":  179,
+                        "runtime_seconds":  185.925,
+                        "decode_seconds":  173.123,
+                        "peak_rss_kib":  1146172,
+                        "memory_cached_layers":  0,
+                        "cache_estimated_mib":  0,
+                        "wall_seconds":  186.886,
+                        "status":  "passed"
+                    },
+                    {
+                        "case":  "ocr_receipt_real_jpeg",
+                        "packing":  1,
+                        "decoder_cache_budget_mib":  0,
+                        "generated_token_count":  179,
+                        "runtime_seconds":  347.517,
+                        "decode_seconds":  339.195,
+                        "peak_rss_kib":  1159752,
+                        "memory_cached_layers":  0,
+                        "cache_estimated_mib":  0,
+                        "wall_seconds":  348.414,
+                        "status":  "passed"
+                    },
+                    {
+                        "case":  "ocr_receipt_real_jpeg",
+                        "packing":  0,
+                        "decoder_cache_budget_mib":  2048,
+                        "generated_token_count":  179,
+                        "runtime_seconds":  69.795,
+                        "decode_seconds":  58.121,
+                        "peak_rss_kib":  2770956,
+                        "memory_cached_layers":  24,
+                        "cache_estimated_mib":  1585,
+                        "wall_seconds":  71.817,
+                        "status":  "passed"
+                    },
+                    {
+                        "case":  "ocr_receipt_real_jpeg",
+                        "packing":  1,
+                        "decoder_cache_budget_mib":  2048,
+                        "generated_token_count":  179,
+                        "runtime_seconds":  174.192,
+                        "decode_seconds":  166.965,
+                        "peak_rss_kib":  2782172,
+                        "memory_cached_layers":  24,
+                        "cache_estimated_mib":  1585,
+                        "wall_seconds":  175.998,
+                        "status":  "passed"
+                    }
+                ]
+}

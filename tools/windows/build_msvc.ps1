@@ -2,7 +2,7 @@
 param(
     [string]$RepoRoot = "",
     [string]$NcnnSource = "",
-    [string]$WorkRoot = "D:\hunyuanocr-recovery\phase4d",
+    [string]$WorkRoot = "D:\hunyuanocr-recovery\phase4e",
     [ValidateRange(1, 64)]
     [int]$Jobs = 12
 )

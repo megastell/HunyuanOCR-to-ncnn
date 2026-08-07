@@ -27,6 +27,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--verify", choices=("none", "size", "sha256"), default="size")
     parser.add_argument("--threads", type=int, default=9)
     parser.add_argument("--max-new-tokens", type=int, default=32)
+    parser.add_argument("--decoder-cache-mib", type=int, default=0)
+    parser.add_argument(
+        "--case",
+        action="append",
+        default=[],
+        help="Validate only this case name; may be repeated.",
+    )
     return parser.parse_args()
 
 
@@ -58,7 +65,20 @@ def parse_output(output: str) -> dict[str, object]:
         "eos_reached": match(r"^EOS reached\s+: (true|false)$").group(1) == "true",
         "peak_rss_kib": int(match(r"^Peak RSS KiB\s+: ([0-9]+)$").group(1)),
         "runtime_seconds": float(match(r"^Runtime seconds\s+: ([0-9.]+)$").group(1)),
+        "decode_seconds": float(match(r"^Decode seconds\s+: ([0-9.]+)$").group(1)),
         "load_seconds": float(match(r"^Load seconds\s+: ([0-9.]+)$").group(1)),
+        "resident_decoder_layers": int(
+            match(r"^Resident layers\s+: ([0-9]+)$").group(1)
+        ),
+        "memory_cached_decoder_layers": int(
+            match(r"^Memory layers\s+: ([0-9]+)$").group(1)
+        ),
+        "file_streamed_decoder_layers": int(
+            match(r"^File layers\s+: ([0-9]+)$").group(1)
+        ),
+        "decoder_cache_estimated_mib": int(
+            match(r"^Cache estimate\s+: ([0-9]+) MiB$").group(1)
+        ),
     }
 
 
@@ -68,7 +88,13 @@ def main() -> None:
     modes = [0, 1] if args.packing == "both" else [int(args.packing)]
     args.log_dir.mkdir(parents=True, exist_ok=True)
     results: list[dict[str, object]] = []
-    for case in expected["cases"]:
+    cases = [
+        case for case in expected["cases"]
+        if not args.case or case["name"] in args.case
+    ]
+    if not cases:
+        raise RuntimeError(f"No expected case matched --case {args.case}")
+    for case in cases:
         for packing in modes:
             command = [
                 str(args.cli),
@@ -77,6 +103,7 @@ def main() -> None:
                 "--packing", str(packing),
                 "--threads", str(args.threads),
                 "--max-new-tokens", str(args.max_new_tokens),
+                "--decoder-cache-mib", str(args.decoder_cache_mib),
                 "--verify", args.verify,
             ]
             start = time.perf_counter()

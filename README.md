@@ -117,3 +117,31 @@ explicit rejection of excessive vision grids. JPEG pixels can differ between
 stb_image and Pillow/libjpeg, so exact cross-decoder token parity is asserted on
 the lossless PNG fixture. Full evidence and remaining risks are documented in
 `docs/phase4d_runtime_memory_milestone.md`.
+
+## Phase 4E Budgeted Decode Cache And JPEG Parity
+
+`--decoder-cache-mib N` retains up to `N` MiB of raw ncnn decoder model bytes.
+Layers covered by the budget load from memory on every generation step; the
+remaining layers load from files. This avoids the several-fold expansion of
+the legacy `--cache-decode 1` mode while reducing long-output latency.
+
+```bash
+build-phase4e/hunyuanocr_cli \
+  --model-dir "$PWD/artifacts" \
+  --image "$PWD/tests/assets/ocr_receipt_real.jpg" \
+  --packing 0 \
+  --max-new-tokens 256 \
+  --decoder-cache-mib 512
+```
+
+On the current 24-layer model, 512 MiB covers 7 layers (463 MiB actual model
+bytes), while 2048 MiB covers all 24 layers (1585 MiB). The budget limits
+retained decoder bytes, not total process RSS; vision tensors, KV cache, the
+active decoder layer, and other runtime resources remain additional.
+
+JPEG parity uses a shared pixel contract. `hunyuanocr_decode_image_rgb` exports
+the exact stb_image RGB pixels consumed by production, and the PyTorch reference
+loads those pixels losslessly. Linux and Windows exports are byte-identical, and
+the original JPEG then reproduces all 179 reference tokens through EOS in both
+packed and unpacked modes. See
+`docs/phase4e_decoder_cache_jpeg_milestone.md` for measurements and semantics.

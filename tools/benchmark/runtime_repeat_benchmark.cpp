@@ -76,6 +76,15 @@ bool parse_positive(const char* text, int& value)
     }
 }
 
+bool parse_non_negative(const char* text, int& value)
+{
+    if (std::string(text) == "0") {
+        value = 0;
+        return true;
+    }
+    return parse_positive(text, value);
+}
+
 std::string token_csv(const std::vector<int>& tokens)
 {
     std::ostringstream output;
@@ -93,7 +102,7 @@ int main(int argc, char** argv)
     if (argc < 6) {
         std::cerr << "Usage: " << argv[0]
                   << " <model-dir> <packing:0|1> <threads> <iterations>"
-                  << " <image> [image...]\n";
+                  << " [--decoder-cache-mib N] <image> [image...]\n";
         return EXIT_FAILURE;
     }
     const std::string model_directory = argv[1];
@@ -105,11 +114,24 @@ int main(int argc, char** argv)
         || !parse_positive(argv[4], iterations)) {
         return EXIT_FAILURE;
     }
-    std::vector<std::string> images(argv + 5, argv + argc);
     hunyuanocr::RuntimeOptions options;
     options.use_packing_layout = packing == "1";
     options.num_threads = threads;
     options.manifest_verification = hunyuanocr::ManifestVerification::size;
+    std::vector<std::string> images;
+    for (int index = 5; index < argc; ++index) {
+        const std::string argument = argv[index];
+        if (argument == "--decoder-cache-mib") {
+            if (index + 1 >= argc
+                || !parse_non_negative(
+                    argv[++index], options.decoder_cache_budget_mib)) {
+                return EXIT_FAILURE;
+            }
+        } else {
+            images.push_back(argument);
+        }
+    }
+    if (images.empty()) return EXIT_FAILURE;
     hunyuanocr::Runtime runtime(options);
     std::string error;
     if (!runtime.load(model_directory, error)) {
@@ -134,6 +156,12 @@ int main(int argc, char** argv)
                   << " image=" << image
                   << " grid=1," << result.image_grid_h << ','
                   << result.image_grid_w
+                  << " resident_layers=" << result.resident_decoder_layers
+                  << " memory_layers="
+                  << result.memory_cached_decoder_layers
+                  << " file_layers=" << result.file_streamed_decoder_layers
+                  << " cache_estimated_mib="
+                  << result.decoder_cache_estimated_mib
                   << " tokens=" << token_csv(result.token_ids)
                   << " runtime_seconds=" << result.stats.total_seconds
                   << " wall_seconds=" << wall_seconds

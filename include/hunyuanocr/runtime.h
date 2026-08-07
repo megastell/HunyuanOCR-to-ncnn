@@ -18,6 +18,9 @@ struct RuntimeOptions {
     int num_threads = 9;
     int max_new_tokens = 32;
     int max_vision_patches = 2048;
+    // Retained raw decoder model bytes. Zero keeps file streaming enabled.
+    int decoder_cache_budget_mib = 0;
+    // Legacy mode that retains all expanded decoder networks.
     bool cache_decode_weights = false;
     ManifestVerification manifest_verification = ManifestVerification::size;
 };
@@ -43,6 +46,10 @@ struct OcrResult {
     int image_token_start = 0;
     int image_token_end = 0;
     int prefill_length = 0;
+    int resident_decoder_layers = 0;
+    int memory_cached_decoder_layers = 0;
+    int file_streamed_decoder_layers = 0;
+    int decoder_cache_estimated_mib = 0;
     RuntimeStats stats;
 };
 

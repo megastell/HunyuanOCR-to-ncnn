@@ -1,0 +1,131 @@
+{
+  "phase": "4E",
+  "status": "passed",
+  "platform": "WSL2 Ubuntu 24.04",
+  "decoder_cache_contract": {
+    "budget_unit": "MiB of raw ncnn decoder model bytes",
+    "layer_ncnn_bin_bytes": 69215260,
+    "total_layers": 24
+  },
+  "real_jpeg_results": {
+    "cache_0_mib": [
+      {
+        "packing": 0,
+        "runtime_seconds": 89.697,
+        "decode_seconds": 79.916,
+        "peak_rss_kib": 1188272,
+        "memory_cached_decoder_layers": 0,
+        "decoder_cache_estimated_mib": 0,
+        "generated_token_count": 179,
+        "eos_reached": true
+      },
+      {
+        "packing": 1,
+        "runtime_seconds": 189.308,
+        "decode_seconds": 183.743,
+        "peak_rss_kib": 1198848,
+        "memory_cached_decoder_layers": 0,
+        "decoder_cache_estimated_mib": 0,
+        "generated_token_count": 179,
+        "eos_reached": true
+      }
+    ],
+    "cache_512_mib": [
+      {
+        "packing": 0,
+        "runtime_seconds": 65.322,
+        "decode_seconds": 55.11,
+        "peak_rss_kib": 1660832,
+        "memory_cached_decoder_layers": 7,
+        "decoder_cache_estimated_mib": 463,
+        "generated_token_count": 179,
+        "eos_reached": true
+      },
+      {
+        "packing": 1,
+        "runtime_seconds": 169.212,
+        "decode_seconds": 163.685,
+        "peak_rss_kib": 1667848,
+        "memory_cached_decoder_layers": 7,
+        "decoder_cache_estimated_mib": 463,
+        "generated_token_count": 179,
+        "eos_reached": true
+      }
+    ],
+    "cache_2048_mib": [
+      {
+        "packing": 0,
+        "runtime_seconds": 45.175,
+        "decode_seconds": 34.967,
+        "peak_rss_kib": 2904028,
+        "memory_cached_decoder_layers": 24,
+        "decoder_cache_estimated_mib": 1585,
+        "generated_token_count": 179,
+        "eos_reached": true
+      },
+      {
+        "packing": 1,
+        "runtime_seconds": 151.57,
+        "decode_seconds": 145.546,
+        "peak_rss_kib": 2917772,
+        "memory_cached_decoder_layers": 24,
+        "decoder_cache_estimated_mib": 1585,
+        "generated_token_count": 179,
+        "eos_reached": true
+      }
+    ],
+    "runtime_improvements": [
+      {
+        "packing": 0,
+        "cache_512_runtime_reduction_percent": 27.174821900398005,
+        "cache_2048_runtime_reduction_percent": 49.6359967445957
+      },
+      {
+        "packing": 1,
+        "cache_512_runtime_reduction_percent": 10.615504891499569,
+        "cache_2048_runtime_reduction_percent": 19.934709573816217
+      }
+    ]
+  },
+  "jpeg_pixel_contract": {
+    "pillow_rgb_path": "tests/assets/ocr_receipt_real.png",
+    "stb_rgb_path": "tests/assets/ocr_receipt_real_stb.ppm",
+    "differing_pixels": 15662,
+    "total_pixels": 331232,
+    "channel_max_abs_difference": [
+      3,
+      2,
+      3
+    ],
+    "decoder_output": "width=352 height=941 rgb_bytes=993696",
+    "stb_rgb_sha256": "df563d0103382032ce9f4d00f313b3e5a848664fba8dfdfe1f611b8aa84e2de9",
+    "png_jpeg_first_token_difference_index": 48,
+    "png_token_at_difference": 29977,
+    "jpeg_token_at_difference": 50814,
+    "jpeg_generated_token_count": 179
+  },
+  "regressions": {
+    "dynamic_packed_unpacked_cases": 6,
+    "real_png_packed_unpacked_cases": 2,
+    "status": "passed"
+  },
+  "repeat_10_cache_512_mib": {
+    "unpacked": {
+      "iterations": 10,
+      "initial_rss_kib": 1299380,
+      "final_rss_kib": 1418016,
+      "peak_rss_kib": 1716984,
+      "warmup_to_final_growth_kib": -48492,
+      "status": "passed"
+    },
+    "packed": {
+      "iterations": 10,
+      "initial_rss_kib": 1299464,
+      "final_rss_kib": 1586116,
+      "peak_rss_kib": 1657324,
+      "warmup_to_final_growth_kib": 2780,
+      "status": "passed"
+    }
+  },
+  "persistent_log_root": "/home/asus/hunyuanocr-recovery/phase4e"
+}

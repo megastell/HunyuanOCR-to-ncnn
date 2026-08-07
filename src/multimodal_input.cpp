@@ -1,4 +1,5 @@
 #include "detail/multimodal_input.h"
+#include "detail/image_decode.h"
 
 #include <algorithm>
 #include <cmath>
@@ -9,20 +10,6 @@
 #include <limits>
 #include <string>
 #include <vector>
-
-#if defined(__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wconversion"
-#pragma GCC diagnostic ignored "-Wsign-conversion"
-#pragma GCC diagnostic ignored "-Wunused-function"
-#endif
-#define STB_IMAGE_IMPLEMENTATION
-#define STBI_ONLY_PNG
-#define STBI_ONLY_JPEG
-#include "stb_image.h"
-#if defined(__GNUC__)
-#pragma GCC diagnostic pop
-#endif
 
 namespace {
 
@@ -332,16 +319,13 @@ bool preprocess_image(
     int& resized_width,
     int& resized_height)
 {
-    int channels = 0;
-    stbi_uc* decoded = stbi_load(
-        image_path.c_str(),
-        &original_width,
-        &original_height,
-        &channels,
-        3);
-    if (decoded == nullptr) {
-        error = "Unable to decode PNG/JPEG image: ";
-        error += stbi_failure_reason();
+    std::vector<std::uint8_t> decoded;
+    if (!hunyuanocr::detail::decode_image_rgb(
+            image_path,
+            decoded,
+            original_width,
+            original_height,
+            error)) {
         return false;
     }
     if (!smart_resize(
@@ -349,20 +333,20 @@ bool preprocess_image(
             original_width,
             resized_height,
             resized_width)) {
-        stbi_image_free(decoded);
         error = "Image dimensions are invalid or exceed the 200:1 ratio limit";
         return false;
     }
 
     std::vector<std::uint8_t> quantized;
     const bool resize_succeeded = resize_rgb_pillow_bicubic(
-        decoded,
+        decoded.data(),
         original_width,
         original_height,
         resized_width,
         resized_height,
         quantized);
-    stbi_image_free(decoded);
+    decoded.clear();
+    decoded.shrink_to_fit();
     if (!resize_succeeded) {
         error = "Pillow-compatible bicubic image resize failed";
         return false;
