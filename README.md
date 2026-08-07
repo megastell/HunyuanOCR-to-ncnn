@@ -40,6 +40,54 @@ Windows/Linux 双平台部署项目。
 - Build: CMake
 - Platforms: Ubuntu 24.04 / Windows x64
 
+## Quick Start
+
+The source code, runtime library, CLI, CMake packaging, tests, and project
+documentation are licensed under Apache-2.0. HunyuanOCR model files are not
+covered by Apache-2.0; review the Tencent Hunyuan Community License Agreement
+before downloading, converting, distributing, or using the model.
+
+Binary packages contain only the runtime, CLI, headers, CMake package, README,
+NOTICE, and license files. The converted model directory remains external and
+is verified at runtime by `runtime_manifest.tsv` and, when present,
+`runtime_compatibility.tsv`.
+
+```bash
+# Linux package install
+mkdir -p "$HOME/opt/hunyuanocr-ncnn"
+tar -xzf HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz \
+  -C "$HOME/opt/hunyuanocr-ncnn" \
+  --strip-components=1
+
+"$HOME/opt/hunyuanocr-ncnn/bin/hunyuanocr_cli" \
+  --model-dir /path/to/artifacts \
+  --image /path/to/receipt.jpg \
+  --packing 0 \
+  --threads 9 \
+  --decoder-cache-mib 512 \
+  --max-new-tokens 256 \
+  --verify size
+```
+
+```powershell
+# Windows package install
+Expand-Archive `
+  -LiteralPath HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip `
+  -DestinationPath D:\opt\hunyuanocr-ncnn
+
+& D:\opt\hunyuanocr-ncnn\HunyuanOCR-ncnn-0.1.0-Windows-AMD64\bin\hunyuanocr_cli.exe `
+  --model-dir D:\path\to\model-ntfs `
+  --image D:\path\to\receipt.jpg `
+  --packing 0 `
+  --threads 9 `
+  --decoder-cache-mib 512 `
+  --max-new-tokens 256 `
+  --verify size
+```
+
+Detailed user installation guides are in `docs/install_linux.md` and
+`docs/install_windows.md`.
+
 ## Phase 4A Runtime
 
 The repository now has a reusable C++17 runtime library and OCR CLI. The
@@ -180,3 +228,18 @@ for backward compatibility.
 
 See `docs/phase4f_release_testing_milestone.md` for package hashes, CTest
 results, and remaining release risks.
+
+## Phase 4G Open Source Release Preparation
+
+The repository now has a top-level Apache-2.0 `LICENSE`, a release `NOTICE`,
+`THIRD_PARTY_NOTICES.md`, archived local license copies for ncnn, stb_image,
+and Tencent HunyuanOCR, plus Linux and Windows installation guides. CPack
+installs these release documents into the binary packages.
+
+Phase 4G also performs clean package rehearsals: extract the Linux TGZ and
+Windows ZIP into fresh directories, verify that release notices are present,
+and run OCR from the extracted CLI against the external model directory. Both
+platforms reproduce `HELLO 2026\nNCNN CPU TEST` from the package-installed CLI.
+
+See `docs/phase4g_open_source_release_milestone.md` for final package hashes,
+license status, dry-run measurements, and remaining release risks.

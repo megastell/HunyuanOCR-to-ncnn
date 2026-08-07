@@ -1,0 +1,37 @@
+{
+    "phase":  "4G",
+    "status":  "passed",
+    "package":  "D:\\hunyuanocr-recovery\\phase4g\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+    "package_root":  "D:\\hunyuanocr-recovery\\phase4g\\windows-package-rehearsal\\extract\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64",
+    "model_directory":  "D:\\hunyuanocr-recovery\\phase4c\\model-ntfs",
+    "input_image":  "D:\\hunyuanocr-recovery\\phase4g\\windows-package-rehearsal\\inputs\\ocr_smoke_en.png",
+    "packing":  0,
+    "decoder_cache_mib":  512,
+    "notice_files_checked":  [
+                                 "share\\doc\\HunyuanOCR_ncnn\\LICENSE",
+                                 "share\\doc\\HunyuanOCR_ncnn\\NOTICE",
+                                 "share\\doc\\HunyuanOCR_ncnn\\THIRD_PARTY_NOTICES.md",
+                                 "share\\doc\\HunyuanOCR_ncnn\\third_party\\licenses\\ncnn-LICENSE.txt",
+                                 "share\\doc\\HunyuanOCR_ncnn\\third_party\\licenses\\Tencent-HunyuanOCR-LICENSE.txt",
+                                 "share\\doc\\HunyuanOCR_ncnn\\third_party\\licenses\\stb_image-LICENSE.txt"
+                             ],
+    "ocr":  {
+                "generated_token_ids":  [
+                                            93892,
+                                            5112,
+                                            206,
+                                            1717,
+                                            21,
+                                            185,
+                                            18009,
+                                            15613,
+                                            16678,
+                                            21836,
+                                            120007
+                                        ],
+                "generated_text":  "HELLO 2026\nNCNN CPU TEST",
+                "runtime_seconds":  20.717,
+                "peak_rss_kib":  1570712
+            },
+    "log":  "D:\\hunyuanocr-recovery\\phase4g\\windows-package-rehearsal\\logs\\package_rehearsal_packing0.log"
+}

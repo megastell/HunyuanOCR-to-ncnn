@@ -1,0 +1,62 @@
+{
+    "phase":  "4G",
+    "status":  "passed",
+    "platform":  "Microsoft Windows 11 Pro",
+    "model_directory":  "D:\\hunyuanocr-recovery\\phase4c\\model-ntfs",
+    "work_root":  "D:\\hunyuanocr-recovery\\phase4g",
+    "ctest":  [
+                  {
+                      "suite":  "smoke",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4g\\ctest_smoke.log"
+                  },
+                  {
+                      "suite":  "error-paths",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4g\\ctest_error-paths.log"
+                  }
+              ],
+    "packages":  {
+                     "path":  "D:\\hunyuanocr-recovery\\phase4g\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+                     "bytes":  4437986,
+                     "sha256":  "31c5a36bbab680bbb8270621d4d1e1e735207018f599f6e817f8ef83cd70ec09"
+                 },
+    "dependency_license_audit":  {
+                                     "project_license_files":  [
+                                                                   "LICENSE"
+                                                               ],
+                                     "runtime_third_party_headers":  [
+                                                                         {
+                                                                             "name":  "stb_image",
+                                                                             "path":  "third_party/stb/stb_image.h",
+                                                                             "license_detected":  "public domain",
+                                                                             "status":  "passed"
+                                                                         }
+                                                                     ],
+                                     "link_dependencies":  [
+                                                               {
+                                                                   "name":  "ncnn",
+                                                                   "cmake_package":  "D:\\hunyuanocr-recovery\\phase4g\\ncnn-install\\lib\\cmake\\ncnn",
+                                                                   "license_files":  [
+                                                                                         "\\\\wsl$\\Ubuntu-24.04\\home\\asus\\work\\hunyuanocr\\HunyuanOCR-ncnn\\third_party\\licenses\\ncnn-LICENSE.txt"
+                                                                                     ],
+                                                                   "status":  "passed"
+                                                               }
+                                                           ],
+                                     "model_license_archive":  "\\\\wsl$\\Ubuntu-24.04\\home\\asus\\work\\hunyuanocr\\HunyuanOCR-ncnn\\third_party\\licenses\\Tencent-HunyuanOCR-LICENSE.txt",
+                                     "notice_file":  "\\\\wsl$\\Ubuntu-24.04\\home\\asus\\work\\hunyuanocr\\HunyuanOCR-ncnn\\NOTICE",
+                                     "warnings":  [
+
+                                                  ],
+                                     "status":  "passed"
+                                 },
+    "offline_release_acceptance":  {
+                                       "install_tree_created":  true,
+                                       "find_package_consumer_passed":  true,
+                                       "packages_created":  true,
+                                       "network_required":  false
+                                   },
+    "persistent_log_root":  "D:\\hunyuanocr-recovery\\phase4g"
+}

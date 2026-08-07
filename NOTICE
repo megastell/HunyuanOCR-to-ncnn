@@ -1,0 +1,23 @@
+HunyuanOCR-ncnn
+Copyright 2026 HunyuanOCR-ncnn contributors
+
+This product includes software developed by HunyuanOCR-ncnn contributors.
+The HunyuanOCR-ncnn runtime and command-line application are licensed under
+the Apache License, Version 2.0. See LICENSE.
+
+This distribution may be used with converted Tencent HunyuanOCR model files.
+The model files are not licensed under the Apache License. Tencent HunyuanOCR
+is licensed under the Tencent Hunyuan Community License Agreement, and users
+must review and comply with that license before downloading, converting,
+distributing, or using the model files.
+
+Required Tencent Hunyuan notice for distributions of Tencent Hunyuan Works:
+Tencent Hunyuan is licensed under the Tencent Hunyuan Community License
+Agreement, Copyright (C) 2025 Tencent. All Rights Reserved. The trademark
+rights of "Tencent Hunyuan" are owned by Tencent or its affiliate.
+
+This project is not affiliated with, sponsored by, or endorsed by Tencent.
+Tencent, Hunyuan, and related marks belong to Tencent or its affiliates.
+
+Third-party notices and license copies are collected under
+third_party/licenses/ and THIRD_PARTY_NOTICES.md.

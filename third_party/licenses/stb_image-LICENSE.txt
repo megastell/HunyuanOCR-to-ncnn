@@ -1,0 +1,8 @@
+stb_image - public domain image loader
+
+The project uses `third_party/stb/stb_image.h`.
+
+The upstream header identifies stb_image v2.28 as a public-domain image
+loader and also permits MIT licensing for users who prefer a conventional
+license. See the header itself for the complete upstream notice and warranty
+disclaimer.

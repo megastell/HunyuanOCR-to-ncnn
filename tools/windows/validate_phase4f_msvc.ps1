@@ -5,6 +5,16 @@ param(
     [string]$PythonExe = "",
     [string]$WorkRoot = "D:\hunyuanocr-recovery\phase4f",
     [string]$ModelDirectory = "D:\hunyuanocr-recovery\phase4c\model-ntfs",
+    [string]$Phase = "4F",
+    [string]$ReportPath = "",
+    [string[]]$CtestSuites = @(
+        "smoke",
+        "dynamic",
+        "real-png",
+        "real-jpeg",
+        "cache-budgets",
+        "error-paths"
+    ),
     [ValidateRange(1, 64)]
     [int]$Jobs = 12,
     [ValidateRange(1, 64)]
@@ -21,6 +31,9 @@ $OutputEncoding = [Console]::OutputEncoding
 
 if (-not $RepoRoot) { $RepoRoot = Join-Path $PSScriptRoot "..\.." }
 $RepoRoot = (Get-Item -LiteralPath ([IO.Path]::GetFullPath($RepoRoot))).FullName
+if (-not $ReportPath) {
+    $ReportPath = Join-Path $RepoRoot "docs\windows_phase4f_release_validation.json"
+}
 if (-not $NcnnSource) {
     $NcnnSource = Join-Path (Split-Path $RepoRoot -Parent) "ncnn"
 }
@@ -38,6 +51,10 @@ if (-not $PythonExe -or -not (Test-Path -LiteralPath $PythonExe)) {
     throw "Python executable was not found; pass -PythonExe explicitly"
 }
 $PythonExe = (Get-Item -LiteralPath $PythonExe).FullName
+$CtestSuites = @(
+    $CtestSuites | ForEach-Object { $_ -split "," } |
+        Where-Object { $_ -ne "" }
+)
 New-Item -ItemType Directory -Force -Path $WorkRoot | Out-Null
 
 $vswhere = Join-Path ${env:ProgramFiles(x86)} `
@@ -100,7 +117,7 @@ function Invoke-CtestSuite {
     )
     $log = Join-Path $WorkRoot "ctest_$Suite.log"
     if (-not $ResumeCtest -or -not (Test-Path -LiteralPath $log)) {
-        Invoke-VsCommand -Log $log -Command (
+        $null = Invoke-VsCommand -Log $log -Command (
             "ctest --test-dir `"$BuildDir`" -L $Suite --output-on-failure"
         )
     }
@@ -184,14 +201,7 @@ Invoke-VsCommand -Log (Join-Path $WorkRoot "runtime_build_install.log") -Command
 
 $ctestResults = @()
 if (-not $SkipCtest) {
-    foreach ($suite in @(
-        "smoke",
-        "dynamic",
-        "real-png",
-        "real-jpeg",
-        "cache-budgets",
-        "error-paths"
-    )) {
+    foreach ($suite in $CtestSuites) {
         $ctestResults += Invoke-CtestSuite $runtimeBuild $suite
     }
 }
@@ -228,20 +238,30 @@ Invoke-VsCommand -Log (Join-Path $WorkRoot "windows_binary_dependencies.log") `
 $rootLicense = @(Get-ChildItem -LiteralPath $RepoRoot -File |
     Where-Object { $_.Name -match "^(LICENSE|COPYING)" } |
     ForEach-Object { $_.Name })
-$ncnnLicense = @(Get-ChildItem -LiteralPath $ncnnInstall -Recurse -File |
-    Where-Object { $_.Name -match "^(LICENSE|COPYING)" } |
-    Select-Object -First 5 |
-    ForEach-Object { $_.FullName })
+$ncnnLicense = @()
+$archivedNcnnLicense = Join-Path $RepoRoot "third_party\licenses\ncnn-LICENSE.txt"
+if (Test-Path -LiteralPath $archivedNcnnLicense) {
+    $ncnnLicense += $archivedNcnnLicense
+}
+$modelLicense = Join-Path $RepoRoot `
+    "third_party\licenses\Tencent-HunyuanOCR-LICENSE.txt"
+$notice = Join-Path $RepoRoot "NOTICE"
 $warnings = @()
 if ($rootLicense.Count -eq 0) {
     $warnings += "Repository has no top-level LICENSE/COPYING file."
 }
 if ($ncnnLicense.Count -eq 0) {
-    $warnings += "ncnn installed package license file was not found."
+    $warnings += "ncnn license file was not found in the repository archive."
+}
+if (-not (Test-Path -LiteralPath $modelLicense)) {
+    $warnings += "Tencent HunyuanOCR model license archive is missing."
+}
+if (-not (Test-Path -LiteralPath $notice)) {
+    $warnings += "Binary/source NOTICE file is missing."
 }
 
 $report = [ordered]@{
-    phase = "4F"
+    phase = $Phase
     status = "passed"
     platform = (Get-CimInstance Win32_OperatingSystem).Caption
     model_directory = $ModelDirectory
@@ -266,6 +286,8 @@ $report = [ordered]@{
                 status = if ($ncnnLicense.Count -gt 0) { "passed" } else { "warning" }
             }
         )
+        model_license_archive = $modelLicense
+        notice_file = $notice
         warnings = $warnings
         status = if ($warnings.Count -eq 0) { "passed" } else { "passed_with_warnings" }
     }
@@ -277,9 +299,8 @@ $report = [ordered]@{
     }
     persistent_log_root = $WorkRoot
 }
-$reportPath = Join-Path $RepoRoot "docs\windows_phase4f_release_validation.json"
 $json = ($report | ConvertTo-Json -Depth 12).Replace("`r`n", "`n")
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
-[IO.File]::WriteAllText($reportPath, $json + "`n", $utf8NoBom)
-Write-Host "Native Windows Phase 4F release validation passed."
-Write-Host "Report: $reportPath"
+[IO.File]::WriteAllText($ReportPath, $json + "`n", $utf8NoBom)
+Write-Host "Native Windows Phase $Phase release validation passed."
+Write-Host "Report: $ReportPath"

@@ -23,6 +23,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--install-dir", type=Path, required=True)
     parser.add_argument("--package-dir", type=Path, required=True)
     parser.add_argument("--log-dir", type=Path, required=True)
+    parser.add_argument("--phase", default="4F")
+    parser.add_argument(
+        "--report",
+        type=Path,
+        default=PROJECT_DIR / "docs/linux_phase4f_release_validation.json",
+    )
     parser.add_argument("--model-dir", type=Path, default=PROJECT_DIR / "artifacts")
     parser.add_argument("--ncnn-dir", type=Path, default=DEFAULT_NCNN_DIR)
     parser.add_argument("--jobs", type=int, default=os.cpu_count() or 8)
@@ -87,6 +93,9 @@ def audit_dependencies_and_licenses(ncnn_dir: Path) -> dict[str, object]:
     stb = PROJECT_DIR / "third_party/stb/stb_image.h"
     stb_text = stb.read_text(encoding="utf-8", errors="replace")
     ncnn_license_candidates = []
+    archived_ncnn_license = PROJECT_DIR / "third_party/licenses/ncnn-LICENSE.txt"
+    if archived_ncnn_license.is_file():
+        ncnn_license_candidates.append(str(archived_ncnn_license))
     ncnn_prefix = ncnn_dir.parents[2] if len(ncnn_dir.parents) >= 3 else ncnn_dir
     for candidate in (
         ncnn_prefix / "LICENSE.txt",
@@ -99,7 +108,15 @@ def audit_dependencies_and_licenses(ncnn_dir: Path) -> dict[str, object]:
     if not root_license:
         warnings.append("Repository has no top-level LICENSE/COPYING file.")
     if not ncnn_license_candidates:
-        warnings.append("ncnn license file was not found beside the configured ncnn package.")
+        warnings.append("ncnn license file was not found in the repository archive.")
+    archived_model_license = (
+        PROJECT_DIR / "third_party/licenses/Tencent-HunyuanOCR-LICENSE.txt"
+    )
+    if not archived_model_license.is_file():
+        warnings.append("Tencent HunyuanOCR model license archive is missing.")
+    notice = PROJECT_DIR / "NOTICE"
+    if not notice.is_file():
+        warnings.append("Binary/source NOTICE file is missing.")
     return {
         "runtime_language": "C++17",
         "runtime_third_party_headers": [
@@ -122,6 +139,8 @@ def audit_dependencies_and_licenses(ncnn_dir: Path) -> dict[str, object]:
                 "status": "passed" if ncnn_license_candidates else "warning",
             }
         ],
+        "model_license_archive": str(archived_model_license),
+        "notice_file": str(notice),
         "project_license_files": root_license,
         "warnings": warnings,
         "status": "passed" if not warnings else "passed_with_warnings",
@@ -259,7 +278,7 @@ def main() -> None:
             raise RuntimeError("CPack did not produce any release packages")
 
     report = {
-        "phase": "4F",
+        "phase": args.phase,
         "status": "passed",
         "platform": platform.platform(),
         "python": sys.version.split()[0],
@@ -279,12 +298,11 @@ def main() -> None:
         },
         "persistent_log_root": str(args.log_dir),
     }
-    report_path = PROJECT_DIR / "docs/linux_phase4f_release_validation.json"
-    report_path.write_text(
+    args.report.write_text(
         json.dumps(report, indent=2, ensure_ascii=True) + "\n",
         encoding="utf-8",
     )
-    print(report_path)
+    print(args.report)
 
 
 if __name__ == "__main__":

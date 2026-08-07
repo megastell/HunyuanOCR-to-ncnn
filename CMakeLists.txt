@@ -165,7 +165,20 @@ if(HUNYUANOCR_BUILD_CLI)
     install(TARGETS hunyuanocr_cli RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+install(
+    FILES
+        LICENSE
+        NOTICE
+        README.md
+        THIRD_PARTY_NOTICES.md
+        docs/install_linux.md
+        docs/install_windows.md
+    DESTINATION ${CMAKE_INSTALL_DOCDIR}
+)
+install(
+    DIRECTORY third_party/licenses/
+    DESTINATION ${CMAKE_INSTALL_DOCDIR}/third_party/licenses
+)
 install(
     EXPORT HunyuanOCRTargets
     NAMESPACE HunyuanOCR::
