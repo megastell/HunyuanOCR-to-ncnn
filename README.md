@@ -145,3 +145,38 @@ loads those pixels losslessly. Linux and Windows exports are byte-identical, and
 the original JPEG then reproduces all 179 reference tokens through EOS in both
 packed and unpacked modes. See
 `docs/phase4e_decoder_cache_jpeg_milestone.md` for measurements and semantics.
+
+## Phase 4F Release Tests And Packaging
+
+Release-grade OCR validation is now registered with CTest behind the explicit
+`-DHUNYUANOCR_ENABLE_RELEASE_TESTS=ON` option. The registered suites cover the
+smoke image, dynamic wide/square/tall images, real PNG, real JPEG, decoder cache
+budgets, and negative/error paths. Logs are written to the configured persistent
+`HUNYUANOCR_RELEASE_LOG_DIR`.
+
+```bash
+cmake -S . -B build-phase4f \
+  -DCMAKE_BUILD_TYPE=Release \
+  -Dncnn_DIR="$HOME/.local/ncnn-cpu-ropefix-rmsnorm/lib/cmake/ncnn" \
+  -DHUNYUANOCR_ENABLE_RELEASE_TESTS=ON \
+  -DHUNYUANOCR_RELEASE_MODEL_DIR="$PWD/artifacts" \
+  -DHUNYUANOCR_RELEASE_LOG_DIR="$HOME/hunyuanocr-recovery/phase4f/ctest"
+cmake --build build-phase4f --parallel
+ctest --test-dir build-phase4f --output-on-failure
+```
+
+`tools/release/validate_release.py` performs the Linux offline release
+acceptance: manifest and compatibility metadata refresh, build, install,
+CTest, `find_package(HunyuanOCR)` consumer validation, CPack TGZ/ZIP creation,
+and dependency/license audit. Native Windows/MSVC uses
+`tools/windows/validate_phase4f_msvc.ps1` and writes the same evidence under
+`D:\hunyuanocr-recovery\phase4f`.
+
+The model directory may now include `runtime_compatibility.tsv`. When present,
+the runtime verifies the model id, manifest format, file count, runtime version
+range, ABI major, precision metadata, and JPEG pixel contract before model
+loading. Older model directories without the compatibility file remain accepted
+for backward compatibility.
+
+See `docs/phase4f_release_testing_milestone.md` for package hashes, CTest
+results, and remaining release risks.

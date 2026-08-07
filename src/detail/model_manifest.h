@@ -11,4 +11,8 @@ bool verify_model_manifest(
     ManifestVerification verification,
     std::string& error);
 
+bool verify_model_compatibility(
+    const std::string& model_directory,
+    std::string& error);
+
 } // namespace hunyuanocr::detail

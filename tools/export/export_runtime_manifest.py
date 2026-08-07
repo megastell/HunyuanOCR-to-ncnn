@@ -8,7 +8,9 @@ from pathlib import Path
 PROJECT_DIR = Path.home() / "work/hunyuanocr/HunyuanOCR-ncnn"
 MODEL_DIR = PROJECT_DIR / "artifacts"
 MANIFEST_PATH = MODEL_DIR / "runtime_manifest.tsv"
+COMPATIBILITY_PATH = MODEL_DIR / "runtime_compatibility.tsv"
 REPORT_PATH = PROJECT_DIR / "docs/runtime_manifest.json"
+RUNTIME_VERSION = "0.1.0"
 
 
 def component_files(name: str) -> list[Path]:
@@ -85,8 +87,33 @@ def main() -> None:
             output.write(
                 f"{entry['path']}\t{entry['bytes']}\t{entry['sha256']}\n"
             )
+    compatibility = {
+        "format": "HUNYUANOCR_NCNN_RUNTIME_COMPATIBILITY_V1",
+        "model_id": "tencent/HunyuanOCR",
+        "runtime_abi_major": "0",
+        "runtime_min_version": RUNTIME_VERSION,
+        "runtime_max_exclusive_version": "1.0.0",
+        "manifest_format": "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1",
+        "file_count": str(len(entries)),
+        "precision": "fp32",
+        "jpeg_pixel_contract": "stb_rgb_v1",
+    }
+    with COMPATIBILITY_PATH.open("w", encoding="ascii", newline="\n") as output:
+        output.write(f"{compatibility['format']}\n")
+        for key in (
+            "model_id",
+            "runtime_abi_major",
+            "runtime_min_version",
+            "runtime_max_exclusive_version",
+            "manifest_format",
+            "file_count",
+            "precision",
+            "jpeg_pixel_contract",
+        ):
+            output.write(f"{key}\t{compatibility[key]}\n")
     report = {
         "format": "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1",
+        "runtime_compatibility": compatibility,
         "model_directory": "artifacts",
         "file_count": len(entries),
         "total_bytes": sum(entry["bytes"] for entry in entries),
@@ -100,6 +127,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"Manifest: {MANIFEST_PATH}")
+    print(f"Compatibility: {COMPATIBILITY_PATH}")
     print(f"Files: {len(entries)}")
     print(f"Total GiB: {report['total_gib']:.3f}")
 

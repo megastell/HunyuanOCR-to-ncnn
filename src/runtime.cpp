@@ -422,6 +422,9 @@ public:
                 directory, options.manifest_verification, error)) {
             return false;
         }
+        if (!detail::verify_model_compatibility(directory, error)) {
+            return false;
+        }
         model_directory = directory;
         final_norm.clear();
         lm_head.clear();

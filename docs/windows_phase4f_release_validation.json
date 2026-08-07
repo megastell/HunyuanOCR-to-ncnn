@@ -1,0 +1,85 @@
+{
+    "phase":  "4F",
+    "status":  "passed",
+    "platform":  "Microsoft Windows 11 Pro",
+    "model_directory":  "D:\\hunyuanocr-recovery\\phase4c\\model-ntfs",
+    "work_root":  "D:\\hunyuanocr-recovery\\phase4f",
+    "ctest":  [
+                  {
+                      "suite":  "smoke",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4f\\ctest_smoke.log"
+                  },
+                  {
+                      "suite":  "dynamic",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4f\\ctest_dynamic.log"
+                  },
+                  {
+                      "suite":  "real-png",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4f\\ctest_real-png.log"
+                  },
+                  {
+                      "suite":  "real-jpeg",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4f\\ctest_real-jpeg.log"
+                  },
+                  {
+                      "suite":  "cache-budgets",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4f\\ctest_cache-budgets.log"
+                  },
+                  {
+                      "suite":  "error-paths",
+                      "test_count":  1,
+                      "status":  "passed",
+                      "log":  "D:\\hunyuanocr-recovery\\phase4f\\ctest_error-paths.log"
+                  }
+              ],
+    "packages":  {
+                     "path":  "D:\\hunyuanocr-recovery\\phase4f\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+                     "bytes":  4417846,
+                     "sha256":  "4f57a0a7cc98713d05f519bf59257f93927fb564e332454ee4f73f9b1c99a40f"
+                 },
+    "dependency_license_audit":  {
+                                     "project_license_files":  [
+
+                                                               ],
+                                     "runtime_third_party_headers":  [
+                                                                         {
+                                                                             "name":  "stb_image",
+                                                                             "path":  "third_party/stb/stb_image.h",
+                                                                             "license_detected":  "public domain",
+                                                                             "status":  "passed"
+                                                                         }
+                                                                     ],
+                                     "link_dependencies":  [
+                                                               {
+                                                                   "name":  "ncnn",
+                                                                   "cmake_package":  "D:\\hunyuanocr-recovery\\phase4f\\ncnn-install\\lib\\cmake\\ncnn",
+                                                                   "license_files":  [
+
+                                                                                     ],
+                                                                   "status":  "warning"
+                                                               }
+                                                           ],
+                                     "warnings":  [
+                                                      "Repository has no top-level LICENSE/COPYING file.",
+                                                      "ncnn installed package license file was not found."
+                                                  ],
+                                     "status":  "passed_with_warnings"
+                                 },
+    "offline_release_acceptance":  {
+                                       "install_tree_created":  true,
+                                       "find_package_consumer_passed":  true,
+                                       "packages_created":  true,
+                                       "network_required":  false
+                                   },
+    "persistent_log_root":  "D:\\hunyuanocr-recovery\\phase4f"
+}

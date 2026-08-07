@@ -1,5 +1,16 @@
 {
   "format": "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1",
+  "runtime_compatibility": {
+    "format": "HUNYUANOCR_NCNN_RUNTIME_COMPATIBILITY_V1",
+    "model_id": "tencent/HunyuanOCR",
+    "runtime_abi_major": "0",
+    "runtime_min_version": "0.1.0",
+    "runtime_max_exclusive_version": "1.0.0",
+    "manifest_format": "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1",
+    "file_count": "170",
+    "precision": "fp32",
+    "jpeg_pixel_contract": "stb_rgb_v1"
+  },
   "model_directory": "artifacts",
   "file_count": 170,
   "total_bytes": 6146592586,

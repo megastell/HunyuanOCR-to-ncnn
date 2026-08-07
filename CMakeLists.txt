@@ -5,6 +5,15 @@ project(HunyuanOCR_ncnn VERSION 0.1.0 LANGUAGES CXX)
 option(HUNYUANOCR_BUILD_CLI "Build the HunyuanOCR command-line application" ON)
 option(HUNYUANOCR_BUILD_PARITY_TESTS "Build reference-backed parity tests" OFF)
 option(HUNYUANOCR_BUILD_BENCHMARKS "Build runtime benchmark utilities" OFF)
+option(HUNYUANOCR_ENABLE_RELEASE_TESTS "Register full OCR release tests with CTest" OFF)
+set(HUNYUANOCR_RELEASE_MODEL_DIR
+    "${CMAKE_CURRENT_SOURCE_DIR}/artifacts"
+    CACHE PATH "Model directory used by HunyuanOCR release CTest entries"
+)
+set(HUNYUANOCR_RELEASE_LOG_DIR
+    "$ENV{HOME}/hunyuanocr-recovery/phase4f/ctest"
+    CACHE PATH "Persistent log directory used by HunyuanOCR release CTest entries"
+)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -32,6 +41,10 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/stb
 )
 target_link_libraries(hunyuanocr_runtime PUBLIC ncnn)
+target_compile_definitions(
+    hunyuanocr_runtime
+    PRIVATE HUNYUANOCR_RUNTIME_VERSION="${PROJECT_VERSION}"
+)
 
 if(MSVC)
     target_compile_options(hunyuanocr_runtime PRIVATE /W4 /permissive-)
@@ -97,6 +110,38 @@ if(HUNYUANOCR_BUILD_PARITY_TESTS)
     )
 endif()
 
+include(CTest)
+if(HUNYUANOCR_ENABLE_RELEASE_TESTS AND HUNYUANOCR_BUILD_CLI)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+    file(MAKE_DIRECTORY "${HUNYUANOCR_RELEASE_LOG_DIR}")
+    set(HUNYUANOCR_CTEST_COMMON
+        "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tools/validate/validate_runtime_suite.py"
+        --cli "$<TARGET_FILE:hunyuanocr_cli>"
+        --model-dir "${HUNYUANOCR_RELEASE_MODEL_DIR}"
+        --log-dir "${HUNYUANOCR_RELEASE_LOG_DIR}"
+        --verify size
+    )
+    function(hunyuanocr_add_release_test test_name suite_name)
+        add_test(
+            NAME "${test_name}"
+            COMMAND ${HUNYUANOCR_CTEST_COMMON} --suite "${suite_name}"
+        )
+        set_tests_properties(
+            "${test_name}"
+            PROPERTIES
+                LABELS "hunyuanocr;release;${suite_name}"
+                TIMEOUT 3600
+        )
+    endfunction()
+    hunyuanocr_add_release_test(hunyuanocr_smoke_exact smoke)
+    hunyuanocr_add_release_test(hunyuanocr_dynamic_sizes_exact dynamic)
+    hunyuanocr_add_release_test(hunyuanocr_real_png_exact real-png)
+    hunyuanocr_add_release_test(hunyuanocr_real_jpeg_exact real-jpeg)
+    hunyuanocr_add_release_test(hunyuanocr_decoder_cache_budgets cache-budgets)
+    hunyuanocr_add_release_test(hunyuanocr_error_paths error-paths)
+endif()
+
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
@@ -120,6 +165,7 @@ if(HUNYUANOCR_BUILD_CLI)
     install(TARGETS hunyuanocr_cli RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
 install(
     EXPORT HunyuanOCRTargets
     NAMESPACE HunyuanOCR::
@@ -131,3 +177,16 @@ install(
         ${CMAKE_CURRENT_BINARY_DIR}/HunyuanOCRConfigVersion.cmake
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/HunyuanOCR
 )
+
+set(CPACK_PACKAGE_NAME "HunyuanOCR-ncnn")
+set(CPACK_PACKAGE_VENDOR "HunyuanOCR-ncnn contributors")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+set(CPACK_PACKAGE_CONTACT "https://github.com")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
+    "HunyuanOCR ncnn runtime library and OCR CLI"
+)
+set(CPACK_PACKAGE_FILE_NAME
+    "HunyuanOCR-ncnn-${PROJECT_VERSION}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}"
+)
+set(CPACK_GENERATOR "TGZ;ZIP")
+include(CPack)

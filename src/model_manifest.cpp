@@ -7,13 +7,23 @@
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
+#include <map>
 #include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
 
+#ifndef HUNYUANOCR_RUNTIME_VERSION
+#define HUNYUANOCR_RUNTIME_VERSION "0.0.0"
+#endif
+
 namespace hunyuanocr::detail {
 namespace {
+
+constexpr const char* kManifestHeader =
+    "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1";
+constexpr const char* kCompatibilityHeader =
+    "HUNYUANOCR_NCNN_RUNTIME_COMPATIBILITY_V1";
 
 constexpr std::array<std::uint32_t, 64> kSha256Constants = {
     0x428a2f98u, 0x71374491u, 0xb5c0fbcfu, 0xe9b5dba5u,
@@ -165,8 +175,7 @@ bool parse_manifest(
 {
     std::ifstream file(path);
     std::string line;
-    if (!std::getline(file, line)
-        || line != "HUNYUANOCR_NCNN_RUNTIME_MANIFEST_V1") {
+    if (!std::getline(file, line) || line != kManifestHeader) {
         error = "Invalid runtime manifest header: " + path.string();
         return false;
     }
@@ -223,6 +232,81 @@ bool parse_manifest(
     return true;
 }
 
+std::vector<int> parse_version(const std::string& text)
+{
+    std::vector<int> values;
+    std::size_t offset = 0;
+    while (offset < text.size()) {
+        const std::size_t dot = text.find('.', offset);
+        const std::string part = text.substr(
+            offset,
+            dot == std::string::npos ? std::string::npos : dot - offset);
+        if (part.empty()
+            || part.find_first_not_of("0123456789") != std::string::npos) {
+            return {};
+        }
+        values.push_back(std::stoi(part));
+        if (dot == std::string::npos) break;
+        offset = dot + 1;
+    }
+    while (values.size() < 3) values.push_back(0);
+    return values;
+}
+
+int compare_versions(const std::string& left, const std::string& right)
+{
+    const std::vector<int> lhs = parse_version(left);
+    const std::vector<int> rhs = parse_version(right);
+    if (lhs.empty() || rhs.empty()) return 0;
+    const std::size_t count = std::max(lhs.size(), rhs.size());
+    for (std::size_t index = 0; index < count; ++index) {
+        const int a = index < lhs.size() ? lhs[index] : 0;
+        const int b = index < rhs.size() ? rhs[index] : 0;
+        if (a < b) return -1;
+        if (a > b) return 1;
+    }
+    return 0;
+}
+
+bool parse_compatibility(
+    const std::filesystem::path& path,
+    std::map<std::string, std::string>& values,
+    std::string& error)
+{
+    std::ifstream file(path);
+    std::string line;
+    if (!std::getline(file, line) || line != kCompatibilityHeader) {
+        error = "Invalid runtime compatibility header: " + path.string();
+        return false;
+    }
+    values.clear();
+    while (std::getline(file, line)) {
+        const std::size_t separator = line.find('\t');
+        if (separator == std::string::npos || separator == 0
+            || separator + 1 == line.size()) {
+            error = "Invalid runtime compatibility entry";
+            return false;
+        }
+        values[line.substr(0, separator)] = line.substr(separator + 1);
+    }
+    return true;
+}
+
+bool require_value(
+    const std::map<std::string, std::string>& values,
+    const std::string& key,
+    std::string& value,
+    std::string& error)
+{
+    const auto iterator = values.find(key);
+    if (iterator == values.end()) {
+        error = "Runtime compatibility is missing key: " + key;
+        return false;
+    }
+    value = iterator->second;
+    return true;
+}
+
 } // namespace
 
 bool verify_model_manifest(
@@ -262,6 +346,78 @@ bool verify_model_manifest(
                 return false;
             }
         }
+    }
+    return true;
+}
+
+bool verify_model_compatibility(
+    const std::string& model_directory,
+    std::string& error)
+{
+    const std::filesystem::path root =
+        std::filesystem::weakly_canonical(model_directory);
+    const std::filesystem::path path = root / "runtime_compatibility.tsv";
+    std::error_code status;
+    if (!std::filesystem::is_regular_file(path, status)) {
+        return true;
+    }
+    std::map<std::string, std::string> values;
+    if (!parse_compatibility(path, values, error)) {
+        return false;
+    }
+    std::string value;
+    if (!require_value(values, "model_id", value, error)) return false;
+    if (value != "tencent/HunyuanOCR") {
+        error = "Unsupported model_id in runtime compatibility: " + value;
+        return false;
+    }
+    if (!require_value(values, "manifest_format", value, error)) return false;
+    if (value != kManifestHeader) {
+        error = "Unsupported manifest format in runtime compatibility: "
+            + value;
+        return false;
+    }
+    if (!require_value(values, "runtime_min_version", value, error)) {
+        return false;
+    }
+    const std::string runtime_version = HUNYUANOCR_RUNTIME_VERSION;
+    if (compare_versions(runtime_version, value) < 0) {
+        error = "Runtime " + runtime_version
+            + " is older than model minimum runtime " + value;
+        return false;
+    }
+    if (!require_value(values, "runtime_max_exclusive_version", value, error)) {
+        return false;
+    }
+    if (compare_versions(runtime_version, value) >= 0) {
+        error = "Runtime " + runtime_version
+            + " is newer than model maximum exclusive runtime " + value;
+        return false;
+    }
+    if (!require_value(values, "runtime_abi_major", value, error)) {
+        return false;
+    }
+    const std::vector<int> version = parse_version(runtime_version);
+    if (version.empty() || std::to_string(version[0]) != value) {
+        error = "Runtime ABI major mismatch: runtime " + runtime_version
+            + ", model ABI " + value;
+        return false;
+    }
+    if (!require_value(values, "file_count", value, error)) return false;
+    std::vector<ManifestEntry> entries;
+    if (!parse_manifest(root / "runtime_manifest.tsv", entries, error)) {
+        return false;
+    }
+    if (value != std::to_string(entries.size())) {
+        error = "Runtime compatibility file_count does not match manifest";
+        return false;
+    }
+    if (!require_value(values, "jpeg_pixel_contract", value, error)) {
+        return false;
+    }
+    if (value != "stb_rgb_v1") {
+        error = "Unsupported JPEG pixel contract: " + value;
+        return false;
     }
     return true;
 }
