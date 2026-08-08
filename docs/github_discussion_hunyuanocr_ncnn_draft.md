@@ -1,6 +1,6 @@
 # Draft GitHub Discussion: HunyuanOCR-ncnn CPU Runtime
 
-Repository URL: TODO replace with the public HunyuanOCR-ncnn repository URL.
+Repository URL: https://github.com/megastell/HunyuanOCR-to-ncnn
 
 ## Title
 
