@@ -1,0 +1,241 @@
+{
+  "phase": "4M",
+  "status": "passed",
+  "started_at_unix": 1786150376.3315768,
+  "elapsed_seconds": 0.060514211654663086,
+  "project_dir": "/home/asus/work/hunyuanocr/HunyuanOCR-ncnn",
+  "docs": [
+    {
+      "path": "README.md",
+      "exists": true,
+      "bytes": 12428,
+      "sha256": "ee10178ae4e118cb0680389d7381900e6bf699876907059e00fb256ce750eb0d"
+    },
+    {
+      "path": "LICENSE",
+      "exists": true,
+      "bytes": 10212,
+      "sha256": "16616c4dcb4bd9cd9d16151ac754a9d018e4010eb6881ff491b1af949cf2a2fa"
+    },
+    {
+      "path": "NOTICE",
+      "exists": true,
+      "bytes": 1152,
+      "sha256": "b52304f46d6a03f542bf8096a886239cd7356bc279e43f1e7033c15667aa7c39"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "exists": true,
+      "bytes": 1970,
+      "sha256": "99d2cf5ec0ff20e14945e9d9c4e291d356c7e83b1c723d53818940fa31b7d561"
+    },
+    {
+      "path": "docs/install_linux.md",
+      "exists": true,
+      "bytes": 4336,
+      "sha256": "b413ce1a666ab5ce8a78186bebad33986bdab7e1630e021f43c86c5254f5b2c0"
+    },
+    {
+      "path": "docs/install_windows.md",
+      "exists": true,
+      "bytes": 3866,
+      "sha256": "1c06913856989ff06d90651e4281dac59f567c4309c991b9a9c82148a3b076f0"
+    },
+    {
+      "path": "docs/phase4l_dual_platform_release_acceptance.json",
+      "exists": true,
+      "bytes": 10983,
+      "sha256": "7c0843749aae102741a5de356b3c60c96f5d73cd099fc9371398855bc2a6c193"
+    },
+    {
+      "path": "docs/phase4l_dual_platform_release_acceptance_milestone.md",
+      "exists": true,
+      "bytes": 2339,
+      "sha256": "3733bd3cf592e0e4808f53c5c35c403ee350c9de249e7e7666cd2a4107da7349"
+    },
+    {
+      "path": "docs/phase4m_release_notes.md",
+      "exists": true,
+      "bytes": 3142,
+      "sha256": "bb8e69a7060e50d064c638fa88212c71d2c02d3e4fdfa2405d3e6d05b3dbc86e"
+    },
+    {
+      "path": "docs/github_discussion_hunyuanocr_ncnn_draft.md",
+      "exists": true,
+      "bytes": 4960,
+      "sha256": "7f15db470b2c22b587f7683167fbdd9d08c71e0d585fddd9a70f71e4a5f3cb91"
+    }
+  ],
+  "licenses": [
+    {
+      "path": "third_party/licenses/ncnn-LICENSE.txt",
+      "exists": true,
+      "bytes": 6427,
+      "sha256": "7c974bac98848df46be1af5bdaa3c3c9c01f6082a90f55caeb7f60c6208aa255"
+    },
+    {
+      "path": "third_party/licenses/stb_image-LICENSE.txt",
+      "exists": true,
+      "bytes": 324,
+      "sha256": "c2af1c3f46be561491a587d4009a023b7e1945d4c65bc2b85a8eba8374c043ff"
+    },
+    {
+      "path": "third_party/licenses/Tencent-HunyuanOCR-LICENSE.txt",
+      "exists": true,
+      "bytes": 16275,
+      "sha256": "5ec297eb396586474e7794bd2038ff53c5aa59c88fe7453d6d15ba791739ed5d"
+    }
+  ],
+  "reports": {
+    "phase4k": {
+      "status": "passed",
+      "manifest_file_count": 170,
+      "manifest_total_gib": 5.724460432305932,
+      "artifacts_reference_unchanged": true
+    },
+    "phase4l": {
+      "status": "passed",
+      "linux_suites": [
+        "cache-budgets",
+        "dynamic",
+        "error-paths",
+        "real-jpeg",
+        "real-png",
+        "smoke"
+      ],
+      "windows_suites": [
+        "smoke",
+        "dynamic",
+        "real-png",
+        "real-jpeg",
+        "cache-budgets",
+        "error-paths"
+      ],
+      "offline_release_acceptance": {
+        "linux_installed_package_packed": true,
+        "linux_installed_package_unpacked": true,
+        "windows_installed_package_packed": true,
+        "windows_installed_package_unpacked": true,
+        "network_required": false
+      }
+    },
+    "linux": {
+      "status": "passed",
+      "packages": [
+        {
+          "path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz",
+          "bytes": 7427742,
+          "sha256": "4315e56640357b44410b449be763d661f8444f9de9476bd907ff3d713c4e9290"
+        },
+        {
+          "path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.zip",
+          "bytes": 7441260,
+          "sha256": "247d67bc6b3200729f58c688aeb1d9da10dc2aa876f0a3e08122eafd211df18f"
+        }
+      ]
+    },
+    "windows": {
+      "status": "passed",
+      "packages": [
+        {
+          "path": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+          "bytes": 4439889,
+          "sha256": "7af8b49f511deb08a502b01fc7ece91353fc2841ee72996ad8369999a6ad914f"
+        }
+      ],
+      "model_copy_file_count": 170
+    }
+  },
+  "artifacts": {
+    "release_packages": [
+      {
+        "path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz",
+        "checked_path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz",
+        "exists": true,
+        "bytes": 7427742,
+        "sha256": "4315e56640357b44410b449be763d661f8444f9de9476bd907ff3d713c4e9290"
+      },
+      {
+        "path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.zip",
+        "checked_path": "/home/asus/hunyuanocr-recovery/phase4l/linux/packages/HunyuanOCR-ncnn-0.1.0-Linux-x86_64.zip",
+        "exists": true,
+        "bytes": 7441260,
+        "sha256": "247d67bc6b3200729f58c688aeb1d9da10dc2aa876f0a3e08122eafd211df18f"
+      },
+      {
+        "path": "D:\\hunyuanocr-recovery\\phase4l\\windows-release-validation\\packages\\HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+        "checked_path": "/mnt/d/hunyuanocr-recovery/phase4l/windows-release-validation/packages/HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip",
+        "exists": true,
+        "bytes": 4439889,
+        "sha256": "7af8b49f511deb08a502b01fc7ece91353fc2841ee72996ad8369999a6ad914f"
+      }
+    ],
+    "package_count": 3
+  },
+  "git": {
+    "branch": "feat/phase4m-final-open-source-release-audit",
+    "head": "664c8f6 (HEAD -> feat/phase4m-final-open-source-release-audit, tag: milestone-dual-platform-reproduced-release-acceptance-fp32, feat/phase4l-dual-platform-reproduced-release-acceptance) phase4l-dual-platform-release-acceptance",
+    "status_short": "M README.md\n?? docs/github_discussion_hunyuanocr_ncnn_draft.md\n?? docs/phase4m_open_source_release_audit.json\n?? docs/phase4m_open_source_release_audit_milestone.md\n?? docs/phase4m_release_notes.md\n?? tools/release/audit_phase4m_release_readiness.py",
+    "status_paths": [
+      "README.md",
+      "docs/github_discussion_hunyuanocr_ncnn_draft.md",
+      "docs/phase4m_open_source_release_audit.json",
+      "docs/phase4m_open_source_release_audit_milestone.md",
+      "docs/phase4m_release_notes.md",
+      "tools/release/audit_phase4m_release_readiness.py"
+    ],
+    "only_phase4m_changes_present": true,
+    "remote_configured": false,
+    "remotes": [],
+    "milestone_tag_count": 38,
+    "required_tags_present": true,
+    "branch_verbose": [
+      "feat/autoregressive-three-token-chain                    0a3eded test: validate three-token autoregressive chain",
+      "  feat/autoregressive-token-feedback                       97f1e2c test: validate autoregressive token feedback",
+      "  feat/budgeted-decoder-cache-jpeg-parity                  89f6a03 test: validate budgeted decoder cache and jpeg parity",
+      "  feat/cpp-prompt-mrope                                    336c7eb test: validate C++ prompt and multimodal positions",
+      "  feat/decoder-24-layer-prefill                            d1f76b3 test: validate 24-layer ncnn prefill",
+      "  feat/decoder-24-layer-step2-export                       a159231 test: validate 24-layer decode step2 ncnn",
+      "  feat/decoder-24-layer-step2-reference                    8509140 test: capture 24-layer decode step2 reference",
+      "  feat/decoder-24-layer-step3-export                       2dcbdae test: validate 24-layer decode step3 ncnn",
+      "  feat/decoder-24-layer-step3-reference                    803df6c test: capture 24-layer decode step3 reference",
+      "  feat/decoder-24-layer-two-step-chain                     632bce4 test: validate 24-layer two-step decoder chain",
+      "  feat/decoder-dynamic-kv                                  4054a70 test: validate dynamic decoder kv cache",
+      "  feat/decoder-full-generation                             f2178f9 test: validate full autoregressive text generation",
+      "  feat/decoder-n-layer-chain                               ee56121 test: validate full decoder layer chain",
+      "  feat/decoder-two-layer-chain                             34c94bf test: validate two-layer decoder decode chain",
+      "  feat/decoder-two-step-logits-tail                        3063b02 test: validate two-step decode logits chain",
+      "  feat/dynamic-image-grid-regression                       c96753c test: validate dynamic image grids across platforms",
+      "  feat/full-decode-logits-chain                            a83f16e test: validate full decode logits chain",
+      "  feat/generalize-decoder-layer                            fd796c5 docs: record decoder layer23 decode milestone",
+      "  feat/multimodal-prefill-input                            6de5870 test: validate multimodal ncnn full generation",
+      "  feat/phase4f-automated-test-release                      feed645 test: automate release validation and packaging",
+      "  feat/phase4g-open-source-release-prep                    3c85d5c docs: prepare open source release packaging",
+      "  feat/phase4h-reproducible-artifacts-pipeline             35e3033 phase4h reproducible runtime artifact pipeline",
+      "  feat/phase4i-staging-aware-exporters                     a221107 phase4i direct pnnx runtime artifact export",
+      "  feat/phase4j-reference-capture-pipeline                  2874f9a phase4j automate reference capture pipeline",
+      "  feat/phase4k-reproducible-release-acceptance             4dc112f phase4k-reproducible-release-acceptance",
+      "  feat/phase4l-dual-platform-reproduced-release-acceptance 664c8f6 phase4l-dual-platform-release-acceptance",
+      "* feat/phase4m-final-open-source-release-audit             664c8f6 phase4l-dual-platform-release-acceptance",
+      "  feat/product-runtime-cli                                 2cd9365 test: validate product runtime and OCR CLI",
+      "  feat/runtime-memory-production-inputs                    3e2f679 test: validate runtime memory and production inputs",
+      "  feat/token-embedding-feedback                            d1a6874 test: validate token embedding feedback contract",
+      "  feat/token-embedding-ncnn                                a13f9ef test: validate ncnn token embedding feedback",
+      "  feat/two-step-decode-kv-cache                            2582f30 test: validate layer0 two-step kv handoff",
+      "  feat/vision-tower-full                                   007fb98 test: validate full ncnn vision tower",
+      "  feat/windows-msvc-runtime                                5996319 test: validate native Windows MSVC runtime",
+      "  main                                                     a83f16e test: validate full decode logits chain"
+    ],
+    "release_policy": {
+      "remote_push_performed": false,
+      "github_discussion_published": false,
+      "upstream_pr_created": false
+    }
+  },
+  "remaining_risks": [
+    "No Git remote is configured in the local repository yet.",
+    "Converted model files are external and governed by the Tencent Hunyuan Community License Agreement, not Apache-2.0.",
+    "Final public release should rerun Phase 4L from the final clean commit and archive packages externally.",
+    "GitHub Discussion and any ncnn_llm pull request remain manual follow-up actions."
+  ]
+}

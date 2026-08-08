@@ -40,6 +40,34 @@ Windows/Linux 双平台部署项目。
 - Build: CMake
 - Platforms: Ubuntu 24.04 / Windows x64
 
+## Release Readiness
+
+The current release candidate has passed the Phase 4L dual-platform offline
+acceptance gate using runtime artifacts reproduced from a local
+`tencent/HunyuanOCR` HuggingFace model directory.
+
+- Runtime artifacts were regenerated through the Phase 4K reference capture
+  and direct pnnx export pipeline.
+- Linux installed packages were built, extracted into clean directories, and
+  verified in both packed and unpacked modes.
+- Native Windows/MSVC packages were built from the same reproduced artifacts
+  after a manifest-selected NTFS copy, then extracted and verified in both
+  packed and unpacked modes.
+- Source, binary-package, third-party, and model-license notices are present in
+  the repository and installed packages.
+- Converted model files remain external to the binary packages and are
+  validated by `runtime_manifest.tsv` plus `runtime_compatibility.tsv`.
+
+Final release evidence is recorded in:
+
+- `docs/phase4l_dual_platform_release_acceptance.json`
+- `docs/phase4l_dual_platform_release_acceptance_milestone.md`
+- `docs/phase4m_open_source_release_audit.json`
+- `docs/phase4m_open_source_release_audit_milestone.md`
+
+No remote push, GitHub Discussion publication, or upstream PR is performed by
+the release audit scripts.
+
 ## Quick Start
 
 The source code, runtime library, CLI, CMake packaging, tests, and project
