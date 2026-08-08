@@ -12,24 +12,18 @@ Windows/Linux 双平台部署项目。
 - 支持 Ubuntu 24.04 与 Windows x64
 - 提供低内存分模块转换和自动对拍工具
 
-## 当前进度
+## 当前状态
 
-- [x] Ubuntu 24.04 WSL2 环境
-- [x] ncnn CPU 构建
-- [x] PyTorch CPU 环境
-- [x] pnnx 安装
-- [x] 最小模型完整转换链路
-- [ ] HunyuanOCR 模型下载与版本固定
-- [ ] PyTorch CPU 确定性基准
-- [ ] Vision 模块转换
-- [ ] Text embedding 转换
-- [ ] Decoder 与 KV-cache 转换
-- [ ] LM head 转换
-- [ ] C++ 图像预处理
-- [ ] C++ tokenizer
-- [ ] C++ 自回归生成
-- [ ] Linux 真实模型验证
-- [ ] Windows 真实模型验证
+- [x] HunyuanOCR-1.5 本地 HF 模型目录到 runtime ncnn artifacts 的可复现转换
+- [x] PyTorch CPU FP32 参考捕获与逐阶段 parity 验证
+- [x] Vision tower、patch merger、text embedding、24 层 decoder、final norm、LM head 转换
+- [x] C++ 图像预处理、prompt/tokenizer/mRoPE 构造和多模态 embedding 放置
+- [x] C++ 自回归生成、KV cache、预算驱动 decoder 层缓存
+- [x] PNG/JPEG、动态图片尺寸、真实 OCR 图片回归
+- [x] Linux CMake 构建、CTest、安装包、离线解包运行验收
+- [x] Windows/MSVC CMake 构建、CTest、安装包、离线解包运行验收
+- [x] Apache-2.0 源码许可证、NOTICE、第三方许可证归档和模型许可证说明
+- [x] GitHub 首次公开发布 preflight 和 milestone tags 推送
 
 ## 基线配置
 
