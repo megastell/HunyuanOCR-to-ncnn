@@ -21,3 +21,15 @@ Verified in the published page:
 - The post states that model weights, HuggingFace files, PyTorch reference tensors, and converted ncnn runtime artifacts are not bundled in the runtime packages.
 
 GitHub Discussions was enabled for the repository in order to publish the first Discussion.
+
+## Bilingual Update
+
+The published Discussion was updated to append a Chinese version after the English technical summary.
+
+Verified in the updated published page:
+
+- The `中文版本` heading is present.
+- The Chinese text includes the repository URL and v0.1.0 Release URL.
+- The Chinese text explains that model weights and converted ncnn runtime artifacts are not bundled.
+- The Chinese text keeps the Tencent Hunyuan model-license boundary.
+- The Chinese text keeps the local-HF-model reproduction command and release validation hashes.
