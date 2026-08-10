@@ -1,6 +1,7 @@
 # Draft GitHub Discussion: HunyuanOCR-ncnn CPU Runtime
 
 Repository URL: https://github.com/megastell/HunyuanOCR-to-ncnn
+Release URL: https://github.com/megastell/HunyuanOCR-to-ncnn/releases/tag/v0.1.0
 
 ## Title
 
@@ -8,93 +9,56 @@ Porting HunyuanOCR-1.5 to ncnn with a reproducible CPU-only C++ runtime
 
 ## Post
 
-This is a technical summary of a HunyuanOCR-1.5 to ncnn port. The goal was to
-run OCR end to end in C++ with a small runtime dependency surface, while keeping
-the final generated text aligned with the original PyTorch model on the same
-inputs.
+I have been working on a CPU-only ncnn port of HunyuanOCR-1.5, and the first public repository and binary runtime packages are now available:
 
-The repository contains:
+https://github.com/megastell/HunyuanOCR-to-ncnn
 
-- C++17 runtime library and OCR CLI
-- CMake install/export package as `HunyuanOCR::runtime`
-- pnnx/ncnn exporters for text embedding, vision tower, patch merger, decoder
-  prefill/decode, final norm, LM head, tokenizer vocabulary, manifest, and
-  compatibility metadata
-- Reference capture scripts for PyTorch CPU FP32 parity
-- Linux and native Windows/MSVC release validation scripts
-- Reproducible artifact generation from a local `tencent/HunyuanOCR`
-  HuggingFace model directory
+The v0.1.0 release is here:
 
-The converted model files are intentionally not bundled in the runtime binary
-packages. They are external artifacts governed by the Tencent Hunyuan Community
-License Agreement. Runtime startup validates the model directory through
-`runtime_manifest.tsv` and, when present, `runtime_compatibility.tsv`.
+https://github.com/megastell/HunyuanOCR-to-ncnn/releases/tag/v0.1.0
 
-## Runtime Path
+The short version: the repository contains a C++17 OCR runtime, a CLI, CMake install/export support, pnnx/ncnn export scripts, PyTorch reference capture scripts, and Linux plus native Windows validation. The runtime packages do not include HunyuanOCR model weights or converted ncnn artifacts. Users need to obtain the original `tencent/HunyuanOCR` model themselves, follow the model license, and generate or provide a local runtime artifact directory.
 
-The production path no longer loads captured prompt or prefill tensors. It
-constructs the fixed OCR prompt, tokenizer inputs, multimodal positions, image
-grid, image token span, mRoPE data, and pixel preprocessing in C++. The runtime
-then executes:
+The main goal was not just to make the model run. I wanted an end-to-end path where the ncnn runtime produces the same final OCR text as the PyTorch reference on the same inputs, with every large generated artifact reproducible from a local HuggingFace model directory.
 
-1. Image preprocessing for PNG/JPEG.
-2. ncnn vision tower and patch merger.
-3. Multimodal embedding placement.
-4. 24-layer decoder prefill.
-5. Autoregressive decoder loop with KV cache.
-6. Final norm, LM head, greedy token selection, and tokenizer decode.
+## What the runtime does
 
-Decoder model files can be streamed layer by layer, or partially retained in
-memory through `--decoder-cache-mib`. This keeps the default memory footprint
-lower while still allowing users to trade memory for long-output latency.
+The production path no longer loads captured prompt tensors or captured prefill hidden states. It builds the fixed OCR prompt in C++, constructs tokenizer inputs, image token placement, dynamic image grids, multimodal position ids, mRoPE data, and image pixels, then runs the model through ncnn.
 
-## Parity Strategy
+The actual inference path is:
 
-The project was developed by progressively tightening boundaries:
+1. Decode PNG/JPEG input with the C++ image path.
+2. Build `pixel_values` and `image_grid_thw`.
+3. Run the ncnn vision tower and patch merger.
+4. Place the vision embedding into the image-token span.
+5. Run the full 24-layer decoder prefill.
+6. Continue with an autoregressive decode loop and KV cache.
+7. Run final RMSNorm, LM head, greedy token selection, and tokenizer decode.
+
+Decoder layers can be streamed from disk, or cached under a memory budget with `--decoder-cache-mib`. That was important because loading every decoder network permanently is simple, but expensive. The budgeted cache gives a practical tradeoff between memory and long-output latency.
+
+## How parity was built
+
+The project was developed as a chain of small parity gates. I started from pieces that were easy to isolate, then moved the boundary outward:
 
 - token embedding and LM head
 - decoder Layer 0 prefill/decode
-- 24-layer prefill
-- dynamic decoder KV generation
+- all 24 decoder layers
+- dynamic decode and KV cache
 - vision tower and patch merger
-- C++ image preprocessing and multimodal prompt construction
-- full OCR generation for smoke, dynamic-size, real PNG, and real JPEG cases
+- C++ image preprocessing
+- prompt/tokenizer/mRoPE construction
+- full OCR generation on smoke, dynamic-size, real PNG, and real JPEG inputs
 
-JPEG parity uses an explicit pixel contract: the same stb_image RGB pixels used
-by production are exported and fed to the PyTorch reference path. This avoids
-cross-decoder drift between Pillow/libjpeg and stb_image.
+The most useful rule was to stop treating "close enough" as a final answer. When a boundary failed, I captured the exact PyTorch tensor at that boundary, compared it with the ncnn output, and only moved on once the difference was explained.
 
-## Release Validation
+JPEG needed one extra bit of care. Pillow/libjpeg and stb_image can produce slightly different pixels from the same JPEG, which is enough to break exact token parity. The current validation uses an explicit pixel contract: the production C++ path exports the exact stb_image RGB pixels, and the PyTorch reference consumes those same pixels losslessly. With that, Linux and Windows both reproduce the reference tokens for the real JPEG cases.
 
-The latest local release gate used runtime artifacts reproduced from a local
-HuggingFace model directory, not pre-existing repository artifacts.
+## Reproducible artifacts
 
-Phase 4K regenerated references and directly exported runtime artifacts:
+The release validation uses runtime artifacts regenerated from a local `tencent/HunyuanOCR` HuggingFace directory, not checked-in converted artifacts.
 
-- Manifest file count: 170
-- Runtime artifact size: 5.724 GiB
-- Manifest SHA-256:
-  `71498acaeafff31e2cbfa4c3ed9de81b73d9078e1f2bc7528e87bc36d7222431`
-- Compatibility SHA-256:
-  `cc47674acdbd3770952294b9363952fbea347acbeb355a7d363bd7e6c86c73f6`
-
-Phase 4L validated the reproduced artifacts on both platforms:
-
-- Linux CTest suites: smoke, dynamic, real-png, real-jpeg, cache-budgets,
-  error-paths
-- Windows/MSVC CTest suites: smoke, dynamic, real-png, real-jpeg,
-  cache-budgets, error-paths
-- Linux TGZ/ZIP package extraction and OCR passed in packed and unpacked modes
-- Windows ZIP package extraction and OCR passed in packed and unpacked modes
-- Windows model directory was copied to NTFS using only manifest-selected files
-  and verified by SHA-256
-
-## Reproduce From A Local HF Model
-
-After downloading the HunyuanOCR model separately, the Linux reproduction gate
-can regenerate PyTorch references, export ncnn runtime artifacts into a clean
-staging directory, generate manifest/compatibility metadata, and run Linux
-validation:
+The Linux reproduction gate regenerates PyTorch references, exports the ncnn runtime artifacts into a clean staging directory, writes manifest/compatibility metadata, and runs validation:
 
 ```bash
 $HOME/work/hunyuanocr/.venv-reference/bin/python \
@@ -104,26 +68,52 @@ $HOME/work/hunyuanocr/.venv-reference/bin/python \
   --work-dir "$HOME/hunyuanocr-recovery/phase4k"
 ```
 
-The release package gate then uses the reproduced staging artifacts:
+The same path is also registered through CTest:
 
 ```bash
-bash tools/release/run_phase4l_linux_release_acceptance.sh
+cmake -S . -B build-phase4k \
+  -DCMAKE_BUILD_TYPE=Release \
+  -Dncnn_DIR="$HOME/.local/ncnn-cpu-ropefix-rmsnorm/lib/cmake/ncnn" \
+  -DHUNYUANOCR_ENABLE_REPRODUCTION_TESTS=ON \
+  -DHUNYUANOCR_REPRO_HF_MODEL_DIR="$HOME/work/hunyuanocr/models/HunyuanOCR-1.5" \
+  -DHUNYUANOCR_REPRO_WORK_DIR="$HOME/hunyuanocr-recovery/phase4k" \
+  -DHUNYUANOCR_REPRO_REFERENCE_PYTHON="$HOME/work/hunyuanocr/.venv-reference/bin/python" \
+  -DHUNYUANOCR_REPRO_PNNX="$HOME/work/hunyuanocr/.venv-pnnx/bin/pnnx"
+cmake --build build-phase4k --parallel
+ctest --test-dir build-phase4k -L reproducible-artifacts --output-on-failure
 ```
 
-Native Windows/MSVC validation copies those reproduced artifacts to NTFS and
-runs the Windows release gate:
+For the current release gate, the regenerated runtime artifact directory had 170 files and was about 5.724 GiB. The important metadata hashes were:
 
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass `
-  -File .\tools\windows\validate_phase4l_msvc.ps1
+```text
+runtime_manifest.tsv       71498acaeafff31e2cbfa4c3ed9de81b73d9078e1f2bc7528e87bc36d7222431
+runtime_compatibility.tsv  cc47674acdbd3770952294b9363952fbea347acbeb355a7d363bd7e6c86c73f6
 ```
 
-## Notes
+## Release validation
 
-The project is CPU-focused and intentionally conservative about runtime
-dependencies. The source/runtime code is Apache-2.0, while the HunyuanOCR model
-files remain under Tencent's model license. Please review the model license
-before distributing converted artifacts.
+Before publishing v0.1.0, I ran the Linux and native Windows/MSVC release gates against the reproduced artifacts. The test set covers smoke OCR, dynamic image sizes, real PNG, real JPEG, cache-budget behavior, and error paths.
 
-The optional next step is to extract generally useful pieces into an upstream
-ncnn_llm pull request after the public repository is available.
+The Linux TGZ/ZIP packages and the Windows ZIP package were extracted into clean directories and run in both packed and unpacked modes. The Windows validation copies only manifest-selected model files to NTFS and verifies them by SHA-256 before running the installed CLI.
+
+Release package hashes:
+
+```text
+4315e56640357b44410b449be763d661f8444f9de9476bd907ff3d713c4e9290  HunyuanOCR-ncnn-0.1.0-Linux-x86_64.tar.gz
+247d67bc6b3200729f58c688aeb1d9da10dc2aa876f0a3e08122eafd211df18f  HunyuanOCR-ncnn-0.1.0-Linux-x86_64.zip
+7af8b49f511deb08a502b01fc7ece91353fc2841ee72996ad8369999a6ad914f  HunyuanOCR-ncnn-0.1.0-Windows-AMD64.zip
+```
+
+## License and model files
+
+The source code, runtime library, CLI, CMake package, tests, and project documentation are Apache-2.0.
+
+The HunyuanOCR model files are separate. They are governed by the Tencent Hunyuan Community License Agreement, not by this repository's Apache-2.0 license. The release packages intentionally do not include model weights, HuggingFace files, PyTorch reference tensors, or converted ncnn runtime artifacts.
+
+Please review the Tencent model license before downloading, converting, distributing, or using the model files. This project is not affiliated with, sponsored by, or endorsed by Tencent.
+
+## What is next
+
+The runtime is usable now, but there are still useful directions left: more hardware and OS coverage, lower memory use for large images and long generations, better documentation around artifact generation failures, and possibly extracting the reusable LLM/runtime pieces into an upstream ncnn_llm pull request.
+
+For now, I am publishing the repo and the first release so other people can inspect the approach, reproduce the artifacts locally, and try the CPU runtime on their own OCR images.
